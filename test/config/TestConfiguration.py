@@ -6,9 +6,6 @@
 # Imports
 # ---------------------------------------------------------------------------
 
-import sys
-print ' '.join(sys.argv)
-
 from grizzled.config import (Configuration, NoVariableError)
 from cStringIO import StringIO
 import os
