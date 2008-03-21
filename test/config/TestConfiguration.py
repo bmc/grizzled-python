@@ -110,6 +110,7 @@ class TestParser(object):
         os.environ['SOME_ENV_VAR'] = 'test_test_test'
         config = Configuration()
         config.readfp(StringIO(s))
+        unlinkTemp(tempPath)
         assert config.hasSection('section1')
         assert config.hasSection('section2')
         assert config.hasSection('section3')

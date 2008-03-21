@@ -53,7 +53,7 @@ class TestFilePackage(object):
 
     def testTouch(self):
         path = tempfile.mkdtemp()
-        atexit.register(unlinkQuietly, path)
+        atexit.register(recursivelyRemove, path)
         f = os.path.join(path, 'foo')
         assert not os.path.exists(f)
         touch(f)
