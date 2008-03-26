@@ -17,16 +17,6 @@ from grizzled.exception import ExceptionWithMessage
 __all__ = ['deprecated', 'abstract', 'UnimplementedMethodError']
 
 # ---------------------------------------------------------------------------
-# Exceptions
-# ---------------------------------------------------------------------------
-
-class UnimplementedMethodError(ExceptionWithMessage):
-    """
-    Thrown to indicate an unimplemented abstract method.
-    """
-    pass
-
-# ---------------------------------------------------------------------------
 # Decorators
 # ---------------------------------------------------------------------------
 
@@ -109,8 +99,8 @@ def abstract(func):
         obj.abstractMethod()
     """
     def wrapper(*__args, **__kw):
-        raise UnimplementedMethodError('Missing required %s() method' %\
-                                       func.__name__)
+        raise NotImplementedError('Missing required %s() method' %\
+                                  func.__name__)
     wrapper.__name__ = func.__name__
     wrapper.__dict__ = func.__dict__
     wrapper.__doc__ = func.__doc__
