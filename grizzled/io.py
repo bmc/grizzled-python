@@ -49,6 +49,64 @@ class AutoFlush(object):
         """
         self.__file.flush()
 
+    def truncate(self, size=-1):
+        """
+        Truncate the underlying file. Might fail.
+
+        @type size:  int
+        @param size: Where to truncate. If less than 0, then file's current
+                     position is used
+        """
+        if size < 0:
+            size = self.__file.tell()
+        self.__file.truncate(size)
+
+    def tell(self):
+        """
+        Return the file's current position, if applicable.
+
+        @rtype:  int
+        @return: Current file position
+        """
+        return self.__file.tell()
+
+    def seek(self, offset, whence=os.SEEK_SET):
+        """
+        Set the file's current position. The C{whence} argument is optional;
+        legal values are:
+
+         - C{os.SEEK_SET} or 0: absolute file positioning (default)
+         - C{os.SEEK_CUR} or 1: seek relative to the current position
+         - C{os.SEEK_END} or 2: seek relative to the file's end
+
+        There is no return value. Note that if the file is opened for
+        appending (mode 'a' or 'a+'), any C{seek()} operations will be
+        undone at the next write. If the file is only opened for writing in
+        append mode (mode 'a'), this method is essentially a no-op, but it
+        remains useful for files opened in append mode with reading enabled
+        (mode 'a+'). If the file is opened in text mode (without 'b'), only
+        offsets returned by C{tell()} are legal. Use of other offsets
+        causes undefined behavior.
+
+        Note that not all file objects are seekable.
+
+        @type offset:  int
+        @param offset: where to seek
+
+        @type whence:  int
+        @param whence: see above
+        """
+        self.__file.seek(offset, whence)
+
+    def fileno(self):
+        """
+        Return the integer file descriptor used by the underlying file.
+
+        @rtype:  int
+        @return: the file descriptor
+        """
+        return self.__file.fileno()
+
 class MultiWriter(object):
     """
     Wraps multiple file-like objects so that they all may be written at once.

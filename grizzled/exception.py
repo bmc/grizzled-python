@@ -4,6 +4,10 @@
 Provides some base exception classes.
 """
 
+# ---------------------------------------------------------------------------
+# Classes
+# ---------------------------------------------------------------------------
+
 class ExceptionWithMessage(Exception):
     """
     Useful base class for exceptions that have a single exception message
