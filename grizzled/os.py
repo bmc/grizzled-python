@@ -72,29 +72,28 @@ def daemonize(noClose=False):
         from grizzled.os import daemon
         daemon.daemonize()
 
-        If C{daemonize()} fails for any reason, it throws a
-        L{C{DaemonError}<DaemonError>} exception, which is a subclass of
-        the standard C{OSError} exception. also logs debug messages, using
-        the standard Python 'logging' package, to channel
-        'grizzled.os.daemon'.
+    If C{daemonize()} fails for any reason, it throws a
+    L{C{DaemonError}<DaemonError>} exception, which is a subclass of the
+    standard C{OSError} exception. also logs debug messages, using the
+    standard Python C{logging} package, to channel 'grizzled.os.daemon'.
 
-    Adapted from:
+    B{Adapted from:}
 
      - U{http://www.clapper.org/software/daemonize/}
 
-    See Also:
+    B{See Also:}
 
-    Stevens, W. Richard. I{Unix Network Programming} (Addison-Wesley, 1990).
+     - Stevens, W. Richard. I{Unix Network Programming} (Addison-Wesley, 1990).
 
     @type noClose:  boolean
-    @param noClose: If True, don't close the file descriptors. Useful
+    @param noClose: If C{True}, don't close the file descriptors. Useful
                     if the calling process has already redirected file
-                    descriptors to an output file. WARNING: Only set this
-                    parameter to True if you're SURE there are no open file
-                    descriptors to the calling terminal. Otherwise, you'll
-                    risk having the daemon re-acquire a control terminal,
-                    which can cause it to be killed if someone logs off that
-                    terminal.
+                    descriptors to an output file. B{Warning}: Only set this
+                    parameter to C{True} if you're I{sure} there are no
+                    open file descriptors to the calling terminal.
+                    Otherwise, you'll risk having the daemon re-acquire a
+                    control terminal, which can cause it to be killed if
+                    someone logs off that terminal.
 
     @raise DaemonError: Error during daemonizing
     """

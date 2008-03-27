@@ -4,7 +4,7 @@
 # ---------------------------------------------------------------------------
 
 """
-Provides a front-end to the Python standard 'optparse' module. The
+Provides a front-end to the Python standard C{optparse} module. The
 C{CommandLineParser} class makes two changes to the standard behavior.
 
   - The output for the '-h' option is slightly different.
