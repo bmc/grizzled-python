@@ -22,6 +22,6 @@ setup (name             = 'grizzled',
        license          = 'BSD license',
        author           = 'Brian M. Clapper',
        author_email     = 'bmc@clapper.org',
-       install_requires = ['includer>=1.0.5'],
+       #install_requires = ['includer>=1.0.5'],
        test_suite       = 'nose.collector',
 )
