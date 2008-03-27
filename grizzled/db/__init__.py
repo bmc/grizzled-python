@@ -38,6 +38,8 @@ Currently, this module provides the following bundled drivers::
     postgresql                  PostgreSQL           psycopg2
     ----------------------------------------------------------------------
     sqlserver                   Microsoft SQL Server pymssql
+    ----------------------------------------------------------------------
+    sqlite                      SQLite 3             pysqlite
     ======================================================================
 
 To use a given driver, you must have the corresponding Python DB API module
@@ -82,8 +84,8 @@ import dummydb
 # ---------------------------------------------------------------------------
 
 __all__ = ['get_driver', 'add_driver', 'get_driver_names', 'DBDriver',
-           'DB', 'Cursor', 'DBError', 'Error', 'Warning']
-
+           'DB', 'Cursor', 'DBError', 'Error', 'Warning', 'apilevel',
+           'threadsafety', 'paramstyle']
 
 # ---------------------------------------------------------------------------
 # Globals
@@ -93,7 +95,12 @@ drivers = { 'dummy'      : 'DummyDriver',
             'mysql'      : 'MySQLDriver',
             'postgresql' : 'PostgreSQLDriver',
             'sqlserver'  : 'SQLServerDriver',
+            'sqlite'     : 'SQLite3Driver',
             'oracle'     : 'OracleDriver' }
+
+apilevel = '2.0'
+threadsafety = '1'
+paramstyle = None
 
 # ---------------------------------------------------------------------------
 # Functions
@@ -449,14 +456,11 @@ class DB(object):
         self.__db = db
         self.__driver = driver
         dbi = driver.getImport()
-        self.BINARY = dbi.BINARY
-        self.NUMBER = dbi.NUMBER
-        self.STRING = dbi.STRING
-        self.DATETIME = dbi.DATETIME
-        try:
-            self.ROWID = dbi.ROWID
-        except AttributeError:
-            self.ROWID = self.NUMBER
+        for attr in ['BINARY', 'NUMBER', 'STRING', 'DATETIME', 'ROWID']:
+            try:
+                exec 'self.%s = dbi.%s' % (attr, attr)
+            except AttributeError:
+                pass
 
     def paramstyle(self):
         """
@@ -1163,6 +1167,25 @@ class OracleDriver(DBDriver):
         dbi = self.getImport()
         return dbi.connect('%s/%s@%s' % (user, password, database))
 
+class SQLite3Driver(DBDriver):
+    """DB Driver for Oracle, using the cx_Oracle DB API module."""
+
+    def getImport(self):
+        import sqlite3
+        return sqlite3
+
+    def getDisplayName(self):
+        return "SQLite3"
+
+    def doConnect(self,
+                  host=None,
+                  port=None,
+                  user='',
+                  password='',
+                  database='default'):
+        dbi = self.getImport()
+        return dbi.connect(database=database)
+
 class DummyDriver(DBDriver):
     """Dummy database driver, for testing."""
 
@@ -1176,7 +1199,7 @@ class DummyDriver(DBDriver):
     def doConnect(self,
                   host="localhost",
                   port=None,
-                  user="sa",
-                  password="",
-                  database="default"):
+                  user='',
+                  password='',
+                  database='default'):
         return dummydb.DummyDB()
