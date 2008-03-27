@@ -31,7 +31,7 @@ h3                          { font-size: +110%; font-style: italic;
                               font-family: Arial, Helvetica, sans-serif; }
 code                        { font-size: 100%; }
 /* N.B.: class, not pseudoclass */
-a.link                      { font-family: monospace; }
+/*a.link                      { font-family: monospace; }*/
  
 /* Page Header & Footer
  *   - The standard page header consists of a navigation bar (with
