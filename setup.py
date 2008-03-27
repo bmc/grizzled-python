@@ -15,7 +15,7 @@ import os
 # Now the setup stuff.
 
 setup (name             = 'grizzled',
-       version          = '1.0',
+       version          = '0.1',
        description      = 'The Grizzled Utility Library',
        packages         = find_packages(),
        url              = 'http://www.clapper.org/software/python/grizzled/',
