@@ -48,10 +48,10 @@ This module provides an L{C{Includer}<Includer>} class, which processes
 include directives in a file and behaves like a file-like object. See the
 class documentation for more details.
 
-The module also provides a L{C{preprocess()}<preprocess()>} convenience
+The module also provides a L{C{preprocess()}<preprocess>} convenience
 function that can be used to preprocess a file; it returns the path to
 the resulting preprocessed file. See the
-L{C{preprocess()}<function documentation()>} for details.
+L{function documentation<preprocess>} for details.
 
 Examples
 ========
