@@ -460,7 +460,7 @@ class DB(object):
             try:
                 exec 'self.%s = dbi.%s' % (attr, attr)
             except AttributeError:
-                pass
+                exec 'self.%s = 0' % attr
 
     def paramstyle(self):
         """
@@ -889,27 +889,32 @@ class DBDriver(object):
             scale = col[5]
             nullable = col[6]
 
-            if type == dbi.BINARY:
-                stype = 'blob'
-            elif type == dbi.DATETIME:
-                stype = 'datetime'
-            elif type == dbi.NUMBER:
-                stype = 'numeric'
-            elif type == dbi.STRING:
-                sz = internalSize
-                if sz == None:
-                    sz = size
-                elif sz <= 0:
-                    sz = size
+            sType = None
+            try:
+                if type == dbi.BINARY:
+                    stype = 'blob'
+                elif type == dbi.DATETIME:
+                    stype = 'datetime'
+                elif type == dbi.NUMBER:
+                    stype = 'numeric'
+                elif type == dbi.STRING:
+                    sz = internalSize
+                    if sz == None:
+                        sz = size
+                    elif sz <= 0:
+                        sz = size
+    
+                    if sz == 1:
+                        stype = 'char'
+                    else:
+                        stype = 'varchar'
+                    size = sz
+                elif type == dbi.ROWID:
+                    stype = 'id'
+            except AttributeError:
+                stype = None
 
-                if sz == 1:
-                    stype = 'char'
-                else:
-                    stype = 'varchar'
-                size = sz
-            elif type == dbi.ROWID:
-                stype = 'id'
-            else:
+            if not sType:
                 stype = 'unknown (type code=%s)' % str(type)
 
             result += [(name, stype, size, precision, scale, nullable)]
