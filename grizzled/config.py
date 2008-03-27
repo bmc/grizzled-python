@@ -751,7 +751,7 @@ class Configuration(ConfigParser.SafeConfigParser):
 
         if self.__permitIncludes:
             # Preprocess includes.
-            import includer
+            from grizzled.file import includer
             tempFile = includer.preprocess(fp)
             fp = tempFile
 
