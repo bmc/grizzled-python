@@ -14,7 +14,7 @@ from grizzled.exception import ExceptionWithMessage
 # Exports
 # ---------------------------------------------------------------------------
 
-__all__ = ['deprecated', 'abstract', 'UnimplementedMethodError']
+__all__ = ['deprecated', 'abstract']
 
 # ---------------------------------------------------------------------------
 # Decorators
@@ -76,8 +76,8 @@ def deprecated(since=None):
 
 def abstract(func):
     """
-    Decorator for marking a function abstract. Throws an
-    L{UnimplementedMethodError} if an abstract method is called.
+    Decorator for marking a function abstract. Throws a
+    C{NotImplementedError} if an abstract method is called.
 
     Usage::
 
@@ -93,7 +93,7 @@ def abstract(func):
             # Class doesn't define abstractMethod().
 
     Given the above declaration, the following code will cause an
-    L{UnimplementedMethodError}::
+    C{NotImplementedError}::
 
         obj = NotReallyConcrete()
         obj.abstractMethod()
@@ -135,6 +135,6 @@ if __name__ == '__main__':
     try:
         b.foo()
         assert False
-    except UnimplementedMethodError, ex:
+    except NotImplementedError, ex:
         import sys
         print ex.message
