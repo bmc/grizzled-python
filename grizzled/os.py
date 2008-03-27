@@ -56,9 +56,7 @@ log = logging.getLogger('grizzled.os')
 class DaemonError(OSError):
     """
     Thrown by L{C{daemonize()}<daemonize>} when an error occurs while
-    attempting to create a daemon. A C{DaemonException} object always
-    contains a single string value that contains an error message
-    describing the problem.
+    attempting to create a daemon.
     """
     pass
 
@@ -98,7 +96,7 @@ def daemonize(noClose=False):
                     which can cause it to be killed if someone logs off that
                     terminal.
 
-    @raise DaemonException: Error during daemonizing
+    @raise DaemonError: Error during daemonizing
     """
     log = logging.getLogger('grizzled.os.daemon')
 
@@ -106,7 +104,7 @@ def daemonize(noClose=False):
         try:
             return os.fork()
         except OSError, e:
-            raise DaemonException, ('Cannot fork', e.errno)
+            raise DaemonError, ('Cannot fork', e.errno, e.strerror)
 
     def __redirectFileDescriptors():
         import resource  # POSIX resource information
@@ -140,8 +138,10 @@ def daemonize(noClose=False):
 
 
     if os.name != 'posix':
-        raise NotImplementedException, \
-              'daemonize() is only supported on Posix-compliant systems.'
+        import errno
+        raise DaemonError, \
+              ('daemonize() is only supported on Posix-compliant systems.',
+               errno.ENOSYS, os.strerror(errno.ENOSYS))
 
     try:
         # Fork once to go into the background.
@@ -186,7 +186,7 @@ def daemonize(noClose=False):
         raise
 
     except OSError, e:
-        raise DaemonError, ('Unable to daemonize()', e.errno)
+        raise DaemonError, ('Unable to daemonize()', e.errno, e.strerror)
             
 
 # ---------------------------------------------------------------------------
