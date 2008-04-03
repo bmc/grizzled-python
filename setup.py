@@ -24,4 +24,11 @@ setup (name             = 'grizzled',
        author_email     = 'bmc@clapper.org',
        #install_requires = ['includer>=1.0.5'],
        test_suite       = 'nose.collector',
+       classifiers = [
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: BSD License',
+        'Programming Language :: Python',
+        'Topic :: Software Development :: Libraries',
+        'Topic :: Software Development :: Libraries :: Python Modules'
+        ]
 )
