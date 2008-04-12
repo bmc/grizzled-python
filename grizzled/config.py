@@ -539,6 +539,9 @@ class Configuration(ConfigParser.SafeConfigParser):
         else:
             return doGet(section, option)
 
+    getInt=getint
+    getInt.__doc__ = 'Alias for C{getint()}'
+
     def getfloat(self, section, option, optional=False):
         """
         Convenience method that coerces the result of a call to
@@ -568,6 +571,9 @@ class Configuration(ConfigParser.SafeConfigParser):
             return self.__getOptional(doGet, section, option)
         else:
             return doGet(section, option)
+
+    getFloat=getfloat
+    getFloat.__doc__ = 'Alias for C{getfloat()}'
 
     def getboolean(self, section, option, optional=False):
         '''
@@ -606,6 +612,9 @@ class Configuration(ConfigParser.SafeConfigParser):
         else:
             return doGet(section, option)
 
+    getBoolean=getboolean
+    getBoolean.__doc__ = 'Alias for C{getboolean()}'
+
     def getlist(self, section, option, sep=None, optional=False):
         '''
         Convenience method that coerces the result of a call to
@@ -639,6 +648,9 @@ class Configuration(ConfigParser.SafeConfigParser):
             return self.__getOptional(doGet, section, option)
         else:
             return doGet(section, option)
+
+    getList=getlist
+    getList.__doc__ = 'Alias for C{getlist()}'
 
     def items(self, section):
         """
