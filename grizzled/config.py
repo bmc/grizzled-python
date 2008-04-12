@@ -161,6 +161,8 @@ L{C{preprocess()}<preprocess>} method::
 # Imports
 # ---------------------------------------------------------------------------
 
+from __future__ import absolute_import
+
 import ConfigParser
 import logging
 import string

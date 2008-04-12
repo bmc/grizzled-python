@@ -7,6 +7,8 @@ Input/Output utility methods and classes.
 # Imports
 # ---------------------------------------------------------------------------
 
+from __future__ import absolute_import
+
 import os
 
 # ---------------------------------------------------------------------------
