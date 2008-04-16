@@ -44,7 +44,7 @@ Currently, this module provides the following bundled drivers::
 
 To use a given driver, you must have the corresponding Python DB API module
 installed on your system.
-    
+
 
 Adding a Driver
 ===============
@@ -173,7 +173,7 @@ def getDriver(driverName):
         return d
     except KeyError:
         raise ValueError, 'Unknown driver name: "%s"' % driverName
-    
+
 # ---------------------------------------------------------------------------
 # Classes
 # ---------------------------------------------------------------------------
@@ -725,7 +725,7 @@ class DBDriver(object):
         pass
 
     displayName = property(__displayName,
-                            doc='get a displayable name for the driver')
+                           doc='get a displayable name for the driver')
     def connect(self,
                 host='localhost',
                 port=None,
@@ -873,7 +873,7 @@ class DBDriver(object):
 
         @type cursor:  L{C{Cursor}<Cursor>}
         @param cursor: a C{Cursor} object from a recent query
- 
+
         @raise Warning: Non-fatal warning
         @raise Error:   Error
         """
@@ -903,7 +903,7 @@ class DBDriver(object):
                         sz = size
                     elif sz <= 0:
                         sz = size
-    
+
                     if sz == 1:
                         stype = 'char'
                     else:
@@ -925,18 +925,18 @@ class MySQLDriver(DBDriver):
     """DB Driver for MySQL, using the MySQLdb DB API module."""
 
     def getImport(self):
-	import MySQLdb
+        import MySQLdb
         return MySQLdb
 
     def getDisplayName(self):
         return "MySQL"
 
     def doConnect(self,
-                   host="localhost",
-                   port=None,
-                   user="sa",
-                   password="",
-                   database="default"):
+                  host="localhost",
+                  port=None,
+                  user="sa",
+                  password="",
+                  database="default"):
         dbi = self.getImport()
         return dbi.connect(host=host, user=user, passwd=password, db=database)
 
@@ -975,18 +975,18 @@ class SQLServerDriver(DBDriver):
     """DB Driver for Microsoft SQL Server, using the pymssql DB API module."""
 
     def getImport(self):
-	import pymssql
+        import pymssql
         return pymssql
 
     def getDisplayName(self):
         return 'SQL Server'
 
     def doConnect(self,
-                   host='localhost',
-                   port=None,
-                   user='',
-                   password='',
-                   database='default'):
+                  host='localhost',
+                  port=None,
+                  user='',
+                  password='',
+                  database='default'):
         dbi = self.getImport()
         if port == None:
             port = '1433'
@@ -1044,14 +1044,14 @@ class PostgreSQLDriver(DBDriver):
         return "PostgreSQL"
 
     def doConnect(self,
-                   host='localhost',
-                   port=None,
-                   user='',
-                   password='',
-                   database='default'):
+                  host='localhost',
+                  port=None,
+                  user='',
+                  password='',
+                  database='default'):
         dbi = self.getImport()
         dsn = 'host=%s dbname=%s user=%s password=%s' %\
-              (host, database, user, password)
+            (host, database, user, password)
         return dbi.connect(dsn=dsn)
 
     def getIndexMetadata(self, table, cursor):
@@ -1074,15 +1074,15 @@ class PostgreSQLDriver(DBDriver):
         # (Invoking the pgsql command from -E shows the issued SQL.)
 
         sel = "SELECT n.nspname, c.relname as \"IndexName\", c2.relname " \
-              "FROM pg_catalog.pg_class c " \
-              "JOIN pg_catalog.pg_index i ON i.indexrelid = c.oid " \
-              "JOIN pg_catalog.pg_class c2 ON i.indrelid = c2.oid " \
-              "LEFT JOIN pg_catalog.pg_user u ON u.usesysid = c.relowner " \
-              "LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace " \
-              "WHERE c.relkind IN ('i','') " \
-              "AND n.nspname NOT IN ('pg_catalog', 'pg_toast') " \
-              "AND pg_catalog.pg_table_is_visible(c.oid) " \
-              "AND c2.relname = '%s'" % table.lower()
+            "FROM pg_catalog.pg_class c " \
+            "JOIN pg_catalog.pg_index i ON i.indexrelid = c.oid " \
+            "JOIN pg_catalog.pg_class c2 ON i.indrelid = c2.oid " \
+            "LEFT JOIN pg_catalog.pg_user u ON u.usesysid = c.relowner " \
+            "LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace " \
+            "WHERE c.relkind IN ('i','') " \
+            "AND n.nspname NOT IN ('pg_catalog', 'pg_toast') " \
+            "AND pg_catalog.pg_table_is_visible(c.oid) " \
+            "AND c2.relname = '%s'" % table.lower()
 
         cursor.execute(sel)
         index_names = []
@@ -1098,17 +1098,17 @@ class PostgreSQLDriver(DBDriver):
         # (Invoking the pgsql command from -E shows the issued SQL.)
 
         sel = "SELECT a.attname, " \
-              "pg_catalog.format_type(a.atttypid, a.atttypmod), " \
-              "a.attnotnull " \
-              "FROM pg_catalog.pg_attribute a, pg_catalog.pg_index i " \
-              "WHERE a.attrelid in " \
-              " (SELECT c.oid FROM pg_catalog.pg_class c " \
-              "LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace " \
-              " WHERE pg_catalog.pg_table_is_visible(c.oid) " \
-              "AND c.relname ~ '^(%s)$') " \
-              "AND a.attnum > 0 AND NOT a.attisdropped " \
-              "AND a.attrelid = i.indexrelid " \
-              "ORDER BY a.attnum" % index_name
+            "pg_catalog.format_type(a.atttypid, a.atttypmod), " \
+            "a.attnotnull " \
+            "FROM pg_catalog.pg_attribute a, pg_catalog.pg_index i " \
+            "WHERE a.attrelid in " \
+            " (SELECT c.oid FROM pg_catalog.pg_class c " \
+            "LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace " \
+            " WHERE pg_catalog.pg_table_is_visible(c.oid) " \
+            "AND c.relname ~ '^(%s)$') " \
+            "AND a.attnum > 0 AND NOT a.attisdropped " \
+            "AND a.attrelid = i.indexrelid " \
+            "ORDER BY a.attnum" % index_name
         cursor.execute(sel)
         columns = []
         rs = cursor.fetchone()
@@ -1120,12 +1120,12 @@ class PostgreSQLDriver(DBDriver):
 
     def __getIndexDescription(self, index_name, cursor):
         sel = "SELECT i.indisunique, i.indisprimary, i.indisclustered, " \
-              "a.amname, c2.relname, " \
-              "pg_catalog.pg_get_expr(i.indpred, i.indrelid, true) " \
-              "FROM pg_catalog.pg_index i, pg_catalog.pg_class c, " \
-              "pg_catalog.pg_class c2, pg_catalog.pg_am a " \
-              "WHERE i.indexrelid = c.oid AND c.relname ~ '^(%s)$' " \
-              "AND c.relam = a.oid AND i.indrelid = c2.oid" % index_name
+            "a.amname, c2.relname, " \
+            "pg_catalog.pg_get_expr(i.indpred, i.indrelid, true) " \
+            "FROM pg_catalog.pg_index i, pg_catalog.pg_class c, " \
+            "pg_catalog.pg_class c2, pg_catalog.pg_am a " \
+            "WHERE i.indexrelid = c.oid AND c.relname ~ '^(%s)$' " \
+            "AND c.relam = a.oid AND i.indrelid = c2.oid" % index_name
         cursor.execute(sel)
         desc = ''
         rs = cursor.fetchone()
