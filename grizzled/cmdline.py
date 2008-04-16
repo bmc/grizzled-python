@@ -47,7 +47,7 @@ class CommandLineParser(OptionParser):
         
         self.epilogue = None
 
-    def print_help(self, out):
+    def print_help(self, out=sys.stderr):
         """
         Print the help message, followed by the epilogue (if set), to the
         specified output file. You can define an epilogue by setting the
