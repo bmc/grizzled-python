@@ -44,6 +44,23 @@ class CommandLineParser(OptionParser):
         self.remove_option('-h')
         self.add_option('-h', '--help', action='help',
                         help='Show this message and exit.')
+        
+        self.epilogue = None
+
+    def print_help(self, out):
+        """
+        Print the help message, followed by the epilogue (if set), to the
+        specified output file. You can define an epilogue by setting the
+        C{epilogue} field.
+        
+        @type out:  file
+        @param out: where to write the usage
+        """
+        OptionParser.print_help(self, out)
+        if self.epilogue:
+            import textwrap
+            print >> out, '\n%s' % textwrap.fill(self.epilogue, 80)
+            out.flush()
 
     def addOption(self, *args, **kw):
         """

@@ -1,0 +1,14 @@
+$Id$
+
+Version 0.2 (...)
+
+- Added grizzled.file.copyRecursively() function
+- Moved CommandLineParser from grizzled.optparse to grizzled.cmdline
+- Augmented CommandLineParser to permit specifying an epilogue to be printed
+  at the end of the usage message.
+
+---------------------------------------------------------------------------
+
+Version 0.1 (2 April, 2008)
+
+- Initial version posted to the web.
