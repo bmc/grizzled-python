@@ -151,7 +151,7 @@ class Includer(object):
         @param maxNestLevel: Maximum include nesting level. Exceeding this level
                              causing the C{Includer} to throw an C{IncludeError}
 
-        @param output:       string or file-like object
+        @type output:        string or file-like object
         @param output:       Save the expanded output to C{output}, which
                              can specify a path name (string) or a file-like
                              object.
