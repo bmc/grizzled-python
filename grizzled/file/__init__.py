@@ -16,20 +16,21 @@ import shutil
 # Functions
 # ---------------------------------------------------------------------------
 
-def unlinkQuietly(path):
+def unlinkQuietly(*paths):
     """
     Like the standard C{os.unlink()} function, this function attempts to
     delete a file. However, it swallows any exceptions that occur during the
     unlink operation, making it more suitable for certain uses (e.g.,
     in C{atexit} handlers).
 
-    @type path:  string
-    @param path: path to unlink
+    @type path:  strings
+    @param path: path(s) to unlink
     """
-    try:
-        os.unlink(path)
-    except:
-        pass
+    for path in paths:
+        try:
+            os.unlink(path)
+        except:
+            pass
 
 def recursivelyRemove(dir):
     """
