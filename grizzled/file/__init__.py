@@ -8,6 +8,8 @@ This module contains file- and path-related methods, classes, and modules.
 # Imports
 # ---------------------------------------------------------------------------
 
+from __future__ import with_statement, absolute_import
+
 import os
 import sys
 import shutil
@@ -131,3 +133,51 @@ def touch(files, times=None):
             # Doesn't exist. Create it.
 
             open(f, 'wb').close()
+
+
+def eglob(pattern, directory='.', recursive=False):
+    """
+    Extended glob function that supports both a recursive and a non-recursive
+    mode. In non-recursive mode (C{recursive=False}), this function behaves
+    exactly like the standard C{glob} function. In recursive mode
+    (C{recursive=True}), this function finds all matches for a file name
+    pattern in every directory below the specified directory (including the
+    specified directory).
+    
+    @type pattern:    str
+    @param pattern:   The wildcard pattern. Must be a simple pattern with
+                      no directories.
+                    
+    @type directory:  str
+    @param directory: The directory in which to do the globbing.
+    
+    @type recursive:  boolean
+    @param recursive: C{True} to do a recursive search, C{False} to do a local
+                      search
+                      
+    @rtype:  list
+    @return: A list of matched files, or an empty list for no match
+    """
+    import fnmatch
+    import glob
+    from grizzled.os import workingDirectory
+
+    with workingDirectory(directory):
+        if not recursive:
+            result = []
+            for f in glob.glob(pattern):
+                result += [os.path.join(directory, f)]
+
+        else:
+            result = []
+            for root, dirs, files in os.walk(directory):
+                for f in files:
+                    if fnmatch.fnmatch(f, pattern):
+                        result += [os.path.join(root, f)]
+
+                for d in dirs:
+                    result += eglob(pattern,
+                                    os.path.join(root, d),
+                                    recursive=recursive)
+
+    return result

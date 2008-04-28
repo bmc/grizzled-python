@@ -2,6 +2,7 @@ $Id$
 
 Version 0.2 (...)
 
+- Added grizzled.file.eglob() function.
 - Added grizzled.os.withDirectory(), a context manager for the "with"
   statement.
 - Added grizzled.io.PushbackFile class
