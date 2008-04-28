@@ -2,6 +2,8 @@ $Id$
 
 Version 0.2 (...)
 
+- Added grizzled.os.withDirectory(), a context manager for the "with"
+  statement.
 - Added grizzled.io.PushbackFile class
 - Added grizzled.file.copyRecursively() function
 - Moved CommandLineParser from grizzled.optparse to grizzled.cmdline

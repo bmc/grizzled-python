@@ -11,16 +11,18 @@ Overview
 The C{grizzled.os} module contains some operating system-related methods and
 classes. It is a conceptual extension of the standard Python C{os} module.
 """
+from __future__ import absolute_import
 
-__all__ = ['daemonize', 'DaemonError']
+__all__ = ['daemonize', 'DaemonError', 'workingDirectory']
 
 # ---------------------------------------------------------------------------
 # Imports
 # ---------------------------------------------------------------------------
 
 import logging
-import os
+import os as _os
 import sys
+from contextlib import contextmanager
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -37,8 +39,8 @@ WORKDIR = "/"
 MAXFD = 1024
 
 # The standard I/O file descriptors are redirected to /dev/null by default.
-if (hasattr(os, "devnull")):
-    NULL_DEVICE = os.devnull
+if (hasattr(_os, "devnull")):
+    NULL_DEVICE = _os.devnull
 else:
     NULL_DEVICE = "/dev/null"
 
@@ -63,6 +65,42 @@ class DaemonError(OSError):
 # ---------------------------------------------------------------------------
 # Public functions
 # ---------------------------------------------------------------------------
+
+@contextmanager
+def workingDirectory(directory):
+    """
+    This function is intended to be used as a C{with} statement context
+    manager. It allows you to replace code like this::
+
+        import os
+
+        originalDirectory = os.getcwd()
+        try:
+            os.chdir(someNewDirectory)
+            bunch of code
+        finally:
+            os.chdir(originalDirectory)
+
+    with something simpler::
+
+        from __future__ import with_statement
+        from grizzled.os import workingDirectory
+
+        with workingDirectory(someNewDirectory):
+            bunch of code
+
+    @type directory:  path
+    @param directory: directory in which to execute
+
+    @return: yields the C{directory} parameter
+    """
+    originalDirectory = _os.getcwd()
+    try:
+        _os.chdir(directory)
+        yield directory
+
+    finally:
+        _os.chdir(originalDirectory)
 
 def daemonize(noClose=False):
     """
@@ -116,12 +154,12 @@ def daemonize(noClose=False):
         for fd in range(0, maxfd):
             # Only close TTYs.
             try:
-                os.ttyname(fd)
+                _os.ttyname(fd)
             except:
                 continue
 
             try:
-                os.close(fd)
+                _os.close(fd)
             except OSError:
                 # File descriptor wasn't open. Ignore.
                 pass
@@ -131,16 +169,16 @@ def daemonize(noClose=False):
             # descriptor (0, or standard input). Then, we can dup that
             # descriptor for standard output and standard error.
 
-            os.open(NULL_DEVICE, os.O_RDWR)
-            os.dup2(0, 1)
-            os.dup2(0, 2)
+            _os.open(NULL_DEVICE, os.O_RDWR)
+            _os.dup2(0, 1)
+            _os.dup2(0, 2)
 
 
-    if os.name != 'posix':
+    if _os.name != 'posix':
         import errno
         raise DaemonError, \
               ('daemonize() is only supported on Posix-compliant systems.',
-               errno.ENOSYS, os.strerror(errno.ENOSYS))
+               errno.ENOSYS, _os.strerror(errno.ENOSYS))
 
     try:
         # Fork once to go into the background.
@@ -150,32 +188,32 @@ def daemonize(noClose=False):
         if pid != 0:
             # Parent. Exit using os._exit(), which doesn't fire any atexit
             # functions.
-            os._exit(0)
-    
+            _os._exit(0)
+
         # First child. Create a new session. os.setsid() creates the session
         # and makes this (child) process the process group leader. The process
         # is guaranteed not to have a control terminal.
         log.debug('Creating new session')
-        os.setsid()
-    
+        _os.setsid()
+
         # Fork a second child to ensure that the daemon never reacquires
         # a control terminal.
         log.debug('Forking second child.')
         pid = __fork()
         if pid != 0:
             # Original child. Exit.
-            os._exit(0)
-            
+            _os._exit(0)
+
         # This is the second child. Set the umask.
         log.debug('Setting umask')
         os.umask(UMASK)
-    
+
         # Go to a neutral corner (i.e., the primary file system, so
         # the daemon doesn't prevent some other file system from being
         # unmounted).
         log.debug('Changing working directory to "%s"' % WORKDIR)
-        os.chdir(WORKDIR)
-    
+        _os.chdir(WORKDIR)
+
         # Unless noClose was specified, close all file descriptors.
         if not noClose:
             log.debug('Redirecting file descriptors')
@@ -186,7 +224,7 @@ def daemonize(noClose=False):
 
     except OSError, e:
         raise DaemonError, ('Unable to daemonize()', e.errno, e.strerror)
-            
+
 # ---------------------------------------------------------------------------
 # Main program (for testing)
 # ---------------------------------------------------------------------------
@@ -197,7 +235,7 @@ if __name__ == '__main__':
     hdlr = logging.StreamHandler(sys.stdout)
     formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s', '%T')
     hdlr.setFormatter(formatter)
-    log.addHandler(hdlr) 
+    log.addHandler(hdlr)
     log.setLevel(logging.DEBUG)
 
     log.debug('Before daemonizing, PID=%d' % os.getpid())

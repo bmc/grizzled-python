@@ -23,8 +23,8 @@ def unlinkQuietly(*paths):
     unlink operation, making it more suitable for certain uses (e.g.,
     in C{atexit} handlers).
 
-    @type path:  strings
-    @param path: path(s) to unlink
+    @type paths:  strings
+    @param paths: path(s) to unlink
     """
     for path in paths:
         try:
