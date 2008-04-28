@@ -2,6 +2,7 @@ $Id$
 
 Version 0.2 (...)
 
+- Added grizzled.io.PushbackFile class
 - Added grizzled.file.copyRecursively() function
 - Moved CommandLineParser from grizzled.optparse to grizzled.cmdline
 - Augmented CommandLineParser to permit specifying an epilogue to be printed
