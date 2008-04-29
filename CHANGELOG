@@ -1,6 +1,6 @@
 $Id$
 
-Version 0.2 (...)
+Version 0.3 (...)
 
 - Added grizzled.file.eglob() function.
 - Added grizzled.os.withDirectory(), a context manager for the "with"
@@ -10,9 +10,11 @@ Version 0.2 (...)
 - Moved CommandLineParser from grizzled.optparse to grizzled.cmdline
 - Augmented CommandLineParser to permit specifying an epilogue to be printed
   at the end of the usage message.
+- Added grizzled.net.download() function
+- Added grizzled.io.Zip class
 
 ---------------------------------------------------------------------------
 
-Version 0.1 (2 April, 2008)
+Version 0.2 (2 April, 2008)
 
 - Initial version posted to the web.

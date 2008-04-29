@@ -10,6 +10,7 @@ Input/Output utility methods and classes.
 from __future__ import absolute_import
 
 import os
+import zipfile
 
 # ---------------------------------------------------------------------------
 # Exports
@@ -326,3 +327,61 @@ class PushbackFile(object):
         @return: the file descriptor
         """
         return -1
+
+class Zip(zipfile.ZipFile):
+    """
+    C{Zip} extends the standard C{zipfile.ZipFile} class and provides a method
+    to extract the contents of a zip file into a directory. Adapted from
+    U{http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/252508}.
+    """
+    def __init__(self, file, mode="r",
+                 compression=zipfile.ZIP_STORED,
+                 allowZip64=False):
+        """
+        Constructor. Initialize a new zip file.
+
+        @type file:  str
+        @param file: path to zip file
+
+        @type mode:  str
+        @param mode: Open mode. Valid values are 'r' (read), 'w' (write), and
+                     'a' (append)
+
+        @type compression:  int
+        @param compression: Compression type. Valid values:
+                            C{zipfile.ZIP_STORED}, C{zipfile.ZIP_DEFLATED}
+
+        @type allowZip64:  bool
+        @param allowZip64: Whether or not Zip64 extensions are to be used
+        """
+        zipfile.ZipFile.__init__(self, file, mode, compression, allowZip64)
+        self.zipFile = file
+
+    def extract(self, outputDir):
+        """
+        Unpack the zip file into the specified output directory.
+
+        @type outputDir:  str
+        @param outputDir: path to output directory. The directory is
+                          created if it doesn't already exist.
+        """
+        if not outputDir.endswith(':') and not os.path.exists(outputDir):
+            os.mkdir(outputDir)
+
+        num_files = len(self.namelist())
+
+        # extract files to directory structure
+        for i, name in enumerate(self.namelist()):
+            if not name.endswith('/'):
+                directory = os.path.dirname(name)                        
+                if directory == '':
+                    directory = None
+                if directory:
+                    directory = os.path.join(outputDir, directory)
+                    if not os.path.exists(directory):
+                        os.makedirs(directory)
+
+                outfile = open(os.path.join(outputDir, name), 'wb')
+                outfile.write(self.read(name))
+                outfile.flush()
+                outfile.close()
