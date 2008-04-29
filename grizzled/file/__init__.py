@@ -101,8 +101,6 @@ def copy(files, targetDir, createTarget=False):
     if os.path.exists(targetDir) and (not os.path.isdir(targetDir)):
         raise OSError, 'Cannot copy files to non-directory "%s"' % targetDir
 
-    import shutil
-
     for f in files:
         targetFile = os.path.join(targetDir, os.path.basename(f))
         o = open(targetFile, 'wb')
