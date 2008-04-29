@@ -25,10 +25,18 @@ def unlinkQuietly(*paths):
     unlink operation, making it more suitable for certain uses (e.g.,
     in C{atexit} handlers).
 
-    @type paths:  strings
+    @type paths:  strings or lists of strings
     @param paths: path(s) to unlink
     """
-    for path in paths:
+    def looper(*paths):
+        for i in paths:
+            if type(i) == list:
+                for path in i:
+                    yield path
+            else:
+                yield i
+
+    for path in looper(*paths):
         try:
             os.unlink(path)
         except:
