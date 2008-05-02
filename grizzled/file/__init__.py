@@ -168,14 +168,16 @@ def eglob(pattern, directory='.', recursive=False):
     import glob
     from grizzled.os import workingDirectory
 
+    result = []
     with workingDirectory(directory):
         if not recursive:
-            result = []
             for f in glob.glob(pattern):
-                result += [os.path.join(directory, f)]
+                if os.path.isabs(f):
+                    result += [f]
+                else:
+                    result += [os.path.join(directory, f)]
 
         else:
-            result = []
             for root, dirs, files in os.walk(directory):
                 for f in files:
                     if fnmatch.fnmatch(f, pattern):

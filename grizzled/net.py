@@ -96,7 +96,7 @@ def download(url, directory=None, bufsize=8192):
         opener.open(url)
         urllib2.install_opener(opener)
 
-    log.debug('Downloading "%s" to "%s"' % (url, directory))
+    log.debug('Downloading "%s" to "%s"' % (url, outputPath))
     shutil.copyfileobj(urllib2.urlopen(url), open(outputPath, 'wb'), bufsize)
 
-    return (directory, outputPath)
+    return (outputPath, directory)
