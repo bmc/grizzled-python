@@ -209,8 +209,7 @@ def __findMatches(patternPieces, directory):
             else:
                 remainingPieces = patternPieces[1:]
                 for match in matches:
-                    subResult = __findMatches(remainingPieces, 
-                                            os.path.join(directory, match))
+                    subResult = __findMatches(remainingPieces, match)
                     for partialPath in subResult:
                         result += [partialPath]
 
