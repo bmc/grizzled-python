@@ -141,15 +141,95 @@ def touch(files, times=None):
             open(f, 'wb').close()
 
 
-def eglob(pattern, directory='.', recursive=False):
+def pathsplit(path):
     """
-    Extended glob function that supports both a recursive and a non-recursive
-    mode. In non-recursive mode (C{recursive=False}), this function behaves
-    exactly like the standard C{glob} function. In recursive mode
-    (C{recursive=True}), this function finds all matches for a file name
-    pattern in every directory below the specified directory (including the
-    specified directory).
+    Split a path into an array of path components, using the file separator
+    ('/' on POSIX systems, '\' on Windows) that's appropriate for the
+    underlying operating system. Does not take drive letters into account.
+    If there's a Windows drive letter in the path, it'll end up with the
+    first component.
     
+    @type path:  str
+    @param path: path to split. Can be relative or absolute.
+    
+    @rtype:  list
+    @return: a list of path components
+    """
+    result = []
+    (head, tail) = os.path.split(path)
+
+    if (not head) or (head == path):
+        # No file separator. Done.
+        pass
+
+    else:
+        result = pathsplit(head)
+        
+    if tail:
+        result += [tail]
+
+    return result
+
+def __findMatches(patternPieces, directory):
+    """
+    Used by eglob.
+    """
+    import glob
+
+    result = []
+    if not os.path.isdir(directory):
+        return []
+
+    last = len(patternPieces) == 1
+    piece = patternPieces[0]
+    if piece == '**':
+        if not last:
+            remainingPieces = patternPieces[1:]
+
+        for root, dirs, files in os.walk(directory):
+            if last:
+                # At the end of a pattern, "**" just recursively matches
+                # directories.
+                result += [root]
+            else:
+                # Recurse downward, trying to match the rest of the
+                # pattern.
+                subResult = __findMatches(remainingPieces, root)
+                for partialPath in subResult:
+                    result += [partialPath]
+
+    else:
+        # Regular glob pattern.
+
+        matches = glob.glob(os.path.join(directory, piece))
+        if len(matches) > 0:
+            if last:
+                for match in matches:
+                    result += [match]
+            else:
+                remainingPieces = patternPieces[1:]
+                for match in matches:
+                    subResult = __findMatches(remainingPieces, 
+                                            os.path.join(directory, match))
+                    for partialPath in subResult:
+                        result += [partialPath]
+
+    # Normalize the paths.
+
+    for i in range(len(result)):
+        result[i] = os.path.normpath(result[i])
+
+    return result
+
+def eglob(pattern, directory='.'):
+    """
+    Extended glob function that supports the all the wildcards supported
+    by the Python standard C{glob} routine, as well as a special "**"
+    wildcard that recursively matches any directory. Examples::
+    
+        **/*.py    all files ending in '.py' under the current directory
+        foo/**/bar all files name 'bar' anywhere under subdirectory 'foo'
+
     @type pattern:    str
     @param pattern:   The wildcard pattern. Must be a simple pattern with
                       no directories.
@@ -157,35 +237,8 @@ def eglob(pattern, directory='.', recursive=False):
     @type directory:  str
     @param directory: The directory in which to do the globbing.
     
-    @type recursive:  boolean
-    @param recursive: C{True} to do a recursive search, C{False} to do a local
-                      search
-                      
     @rtype:  list
     @return: A list of matched files, or an empty list for no match
     """
-    import fnmatch
-    import glob
-    from grizzled.os import workingDirectory
-
-    result = []
-    with workingDirectory(directory):
-        if not recursive:
-            for f in glob.glob(pattern):
-                if os.path.isabs(f):
-                    result += [f]
-                else:
-                    result += [os.path.join(directory, f)]
-
-        else:
-            for root, dirs, files in os.walk(directory):
-                for f in files:
-                    if fnmatch.fnmatch(f, pattern):
-                        result += [os.path.join(root, f)]
-
-                for d in dirs:
-                    result += eglob(pattern,
-                                    os.path.join(root, d),
-                                    recursive=recursive)
-
-    return result
+    pieces = pathsplit(pattern)
+    return __findMatches(pieces, directory)
