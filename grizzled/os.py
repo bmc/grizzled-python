@@ -13,7 +13,7 @@ classes. It is a conceptual extension of the standard Python C{os} module.
 """
 from __future__ import absolute_import
 
-__all__ = ['daemonize', 'DaemonError', 'workingDirectory']
+__all__ = ['daemonize', 'DaemonError', 'workingDirectory', 'getPathSeparator']
 
 # ---------------------------------------------------------------------------
 # Imports
@@ -44,6 +44,12 @@ if (hasattr(_os, "devnull")):
 else:
     NULL_DEVICE = "/dev/null"
 
+# The path separator for the operating system.
+
+if os.name == 'nt':
+    PATH_SEPARATOR = ';'
+else:
+    PATH_SEPARATOR = ':'
 
 # ---------------------------------------------------------------------------
 # Logging
@@ -65,6 +71,18 @@ class DaemonError(OSError):
 # ---------------------------------------------------------------------------
 # Public functions
 # ---------------------------------------------------------------------------
+
+def getPathSeparator():
+    """
+    Get the path separator for the current operating system. The path 
+    separator is used to separate elements of a path string, such as
+    "PATH" or "CLASSPATH". (It's a "/" on Unix-like systems and a "\\"
+    on Windows.)
+    
+    @rtype: str
+    @return: the path separator
+    """
+    return PATH_SEPARATOR
 
 @contextmanager
 def workingDirectory(directory):
