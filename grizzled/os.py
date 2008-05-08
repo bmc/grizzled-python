@@ -46,10 +46,7 @@ else:
 
 # The path separator for the operating system.
 
-if os.name == 'nt':
-    PATH_SEPARATOR = ';'
-else:
-    PATH_SEPARATOR = ':'
+PATH_SEPARATOR = {'nt' : ';', 'posix' : ':'}
 
 # ---------------------------------------------------------------------------
 # Logging
@@ -82,7 +79,7 @@ def getPathSeparator():
     @rtype: str
     @return: the path separator
     """
-    return PATH_SEPARATOR
+    return PATH_SEPARATOR[_os.name]
 
 @contextmanager
 def workingDirectory(directory):
