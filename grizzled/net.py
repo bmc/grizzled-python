@@ -58,7 +58,7 @@ def download(url, directory=None, bufsize=8192):
     @param bufsize: buffer size to use when reading URL.
 
     @rtype:  tuple
-    @return: A C{(downloadedFile, downloadDirectory)} tuple
+    @return: A C{(downloadDirectory, downloadedFile)} tuple
     """
     pieces = urlparse.urlparse(url)
     path = pieces.path

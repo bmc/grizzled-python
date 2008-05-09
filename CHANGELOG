@@ -1,6 +1,6 @@
 $Id$
 
-Version 0.3 (...)
+Version 0.3 (8 May, 2008)
 
 - Created grizzled.io.filelock module, with a FileLock class that provides
   a portable file locking interface.
