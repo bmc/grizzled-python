@@ -2,6 +2,8 @@ $Id$
 
 Version 0.3 (...)
 
+- Created grizzled.io.filelock module, with a FileLock class that provides
+  a portable file locking interface.
 - Added grizzled.file.eglob() function.
 - Added grizzled.os.withDirectory(), a context manager for the "with"
   statement.
