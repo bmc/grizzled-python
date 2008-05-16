@@ -13,12 +13,17 @@ from __future__ import with_statement, absolute_import
 import os
 import sys
 import shutil
+from grizzled.decorators import deprecated
 
 # ---------------------------------------------------------------------------
 # Functions
 # ---------------------------------------------------------------------------
 
+@deprecated(since='0.4', message='Use unlink_quietly')
 def unlinkQuietly(*paths):
+    return unlink_quietly(*paths)
+
+def unlink_quietly(*paths):
     """
     Like the standard C{os.unlink()} function, this function attempts to
     delete a file. However, it swallows any exceptions that occur during the
@@ -42,7 +47,11 @@ def unlinkQuietly(*paths):
         except:
             pass
 
+@deprecated(since='0.4', message='Use recursively_remove')
 def recursivelyRemove(dir):
+    recursively_remove(dir)
+
+def recursively_remove(dir):
     """
     Recursively remove all files and directories below and including a specified
     directory.
@@ -55,35 +64,39 @@ def recursivelyRemove(dir):
 
     shutil.rmtree(dir)
 
-def copyRecursively(sourceDir, targetDir):
+@deprecated(since='0.4', message='Use copy_recursively')
+def copyRecursively(dir):
+    copy_recursively(dir)
+
+def copy_recursively(source_dir, target_dir):
     """
     Recursively copy a source directory (and all its contents) to a target
     directory.
 
-    @type sourceDir:  str
-    @param sourceDir: Source directory to copy recursively. This path must
-                      exist and must specify a directory; otherwise, this
-                      function throws a C{ValueError}
+    @type source_dir:  str
+    @param source_dir: Source directory to copy recursively. This path must
+                       exist and must specify a directory; otherwise, this
+                       function throws a C{ValueError}
 
-    @type targetDir:  str
-    @param targetDir: Directory to which to copy the contents of C{sourceDir}.
-                      This directory must not already exist.
+    @type target_dir:  str
+    @param target_dir: Directory to which to copy the contents of C{source_dir}.
+                       This directory must not already exist.
 
-    @raise ValueError: If: C{sourceDir} does not exist; C{sourceDir} exists
-                       but is not a directory; or C{targetDir} exists but is
+    @raise ValueError: If: C{source_dir} does not exist; C{source_dir} exists
+                       but is not a directory; or C{target_dir} exists but is
                        not a directory.
     """
-    shutil.copytree(sourceDir, targetDir)
+    shutil.copytree(source_dir, target_dir)
 
-def copy(files, targetDir, createTarget=False):
+def copy(files, target_dir, createTarget=False):
     """
     Copy one or more files to a target directory.
 
     @type files:  string or list
     @param files: a single file path or a list of file paths to be copied
 
-    @type targetDir:  string
-    @param targetDir: path to target directory
+    @type target_dir:  string
+    @param target_dir: path to target directory
 
     @type createTarget:  boolean
     @param createTarget: If C{True}, C{copy()} will attempt to create the
@@ -94,15 +107,15 @@ def copy(files, targetDir, createTarget=False):
     if type(files) == str:
         files = [files]
 
-    if not os.path.exists(targetDir):
+    if not os.path.exists(target_dir):
         if createTarget:
-            os.mkdir(targetDir)
+            os.mkdir(target_dir)
 
-    if os.path.exists(targetDir) and (not os.path.isdir(targetDir)):
-        raise OSError, 'Cannot copy files to non-directory "%s"' % targetDir
+    if os.path.exists(target_dir) and (not os.path.isdir(target_dir)):
+        raise OSError, 'Cannot copy files to non-directory "%s"' % target_dir
 
     for f in files:
-        targetFile = os.path.join(targetDir, os.path.basename(f))
+        targetFile = os.path.join(target_dir, os.path.basename(f))
         o = open(targetFile, 'wb')
         i = open(f, 'rb')
 
@@ -170,7 +183,7 @@ def pathsplit(path):
 
     return result
 
-def __findMatches(patternPieces, directory):
+def __find_matches(pattern_pieces, directory):
     """
     Used by eglob.
     """
@@ -180,11 +193,11 @@ def __findMatches(patternPieces, directory):
     if not os.path.isdir(directory):
         return []
 
-    last = len(patternPieces) == 1
-    piece = patternPieces[0]
+    last = len(pattern_pieces) == 1
+    piece = pattern_pieces[0]
     if piece == '**':
         if not last:
-            remainingPieces = patternPieces[1:]
+            remaining_pieces = pattern_pieces[1:]
 
         for root, dirs, files in os.walk(directory):
             if last:
@@ -194,9 +207,9 @@ def __findMatches(patternPieces, directory):
             else:
                 # Recurse downward, trying to match the rest of the
                 # pattern.
-                subResult = __findMatches(remainingPieces, root)
-                for partialPath in subResult:
-                    result += [partialPath]
+                sub_result = __find_matches(remaining_pieces, root)
+                for partial_path in sub_result:
+                    result += [partial_path]
 
     else:
         # Regular glob pattern.
@@ -207,10 +220,10 @@ def __findMatches(patternPieces, directory):
                 for match in matches:
                     result += [match]
             else:
-                remainingPieces = patternPieces[1:]
+                remainingPieces = pattern_pieces[1:]
                 for match in matches:
-                    subResult = __findMatches(remainingPieces, match)
-                    for partialPath in subResult:
+                    sub_result = __find_matches(remaining_pieces, match)
+                    for partial_path in sub_result:
                         result += [partialPath]
 
     # Normalize the paths.
@@ -240,4 +253,4 @@ def eglob(pattern, directory='.'):
     @return: A list of matched files, or an empty list for no match
     """
     pieces = pathsplit(pattern)
-    return __findMatches(pieces, directory)
+    return __find_matches(pieces, directory)

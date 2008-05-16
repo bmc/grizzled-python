@@ -172,6 +172,7 @@ import sys
 import re
 
 from grizzled.exception import ExceptionWithMessage
+from grizzled.decorators import deprecated
 
 __all__ = ['Configuration', 'preprocess',
            'NoOptionError', 'NoSectionError', 'NoVariableError']
@@ -246,7 +247,7 @@ class NoVariableError(ExceptionWithMessage):
     """
     Thrown when a configuration file attempts to substitute a nonexistent
     variable, and the C{Configuration} object was instantiated with
-    C{strictSubstitution} set to C{True}.
+    C{strict_substitution} set to C{True}.
     """
     pass
 
@@ -257,39 +258,39 @@ class Configuration(ConfigParser.SafeConfigParser):
 
     def __init__(self,
                  defaults=None,
-                 permitIncludes=True,
-                 useOrderedSections=False,
-                 strictSubstitution=False):
+                 permit_includes=True,
+                 use_ordered_sections=False,
+                 strict_substitution=False):
         """
         Construct a new C{Configuration} object.
 
         @type defaults:  dict
         @param defaults: dictionary of default values
 
-        @type permitIncludes:  boolean
-        @param permitIncludes: whether or not to permit includes
+        @type permit_includes:  boolean
+        @param permit_includes: whether or not to permit includes
 
-        @type useOrderedSections:  boolean
-        @param useOrderedSections: whether or not to use an ordered dictionary
-                                   for the section names. If C{True}, then
-                                   a call to L{C{sections()}<sections>} will
-                                   return the sections in the order they were
-                                   encountered in the file. If C{False}, the
-                                   order is based on the hash keys for the
-                                   sections' names.
+        @type use_ordered_sections:  boolean
+        @param use_ordered_sections: whether or not to use an ordered dictionary
+                                     for the section names. If C{True}, then a
+                                     call to L{C{sections()}<sections>} will
+                                     return the sections in the order they
+                                     were encountered in the file. If
+                                     C{False}, the order is based on the hash
+                                     keys for the sections' names.
 
-        @type strictSubstitution:  boolean
-        @param strictSubstitution: If C{true}, then throw an exception if
-                                   attempting to substitute a non-existent
-                                   variable. Otherwise, simple substitute an
-                                   empty value.
+        @type strict_substitution:  boolean
+        @param strict_substitution: If C{true}, then throw an exception if
+                                    attempting to substitute a non-existent
+                                    variable. Otherwise, simple substitute an
+                                    empty value.
         """
         ConfigParser.SafeConfigParser.__init__(self, defaults)
-        self.__permitIncludes = permitIncludes
-        self.__useOrderedSections = useOrderedSections
-        self.__strictSubstitution = strictSubstitution
+        self.__permit_includes = permit_includes
+        self.__use_ordered_sections = use_ordered_sections
+        self.__strict_substitution = strict_substitution
 
-        if useOrderedSections:
+        if use_ordered_sections:
             self._sections = _SectionDict()
 
     def defaults(self):
@@ -315,7 +316,7 @@ class Configuration(ConfigParser.SafeConfigParser):
     def add_section(self, section):
         """
         Add a section named I{section} to the instance. If a section by the
-        given name already exists, C{DuplicateSectionError} is raised. 
+        given name already exists, C{DuplicateSectionError} is raised.
 
         Also callable as L{C{addSection()}<addSection>}. This version of
         the function exists for compatibility with C{ConfigParser}; it
@@ -328,6 +329,7 @@ class Configuration(ConfigParser.SafeConfigParser):
         """
         ConfigParser.SafeConfigParser.add_section(self, section)
 
+    @deprecated(since='0.4', message='Use add_section')
     def addSection(self, section):
         """
         Add a section named I{section} to the instance. If a section by the
@@ -356,8 +358,9 @@ class Configuration(ConfigParser.SafeConfigParser):
         @return: C{True} if the section exists in the configuration, C{False}
                  if not.
         """
-        return self.hasSection(section)
+        return ConfigParser.SafeConfigParser.has_section(self, section)
 
+    @deprecated(since='0.4', message='Use has_section')
     def hasSection(self, section):
         """
         Determine whether a section exists in the configuration. Ignores
@@ -370,7 +373,7 @@ class Configuration(ConfigParser.SafeConfigParser):
         @return: C{True} if the section exists in the configuration, C{False}
                  if not.
         """
-        return ConfigParser.SafeConfigParser.has_section(self, section)
+        return self.has_section(section)
 
     def options(self, section):
         """
@@ -404,8 +407,9 @@ class Configuration(ConfigParser.SafeConfigParser):
         @return: C{True} if the section exists in the configuration and
                  has the specified option, C{False} if not.
         """
-        return hasOption(section, option)
+        return ConfigParser.SafeConfigParser.has_option(self, section, option)
 
+    @deprecated(since='0.4', message='Use has_option')
     def hasOption(self, section, option):
         """
         Determine whether a section exists in the configuration. Ignores
@@ -418,7 +422,7 @@ class Configuration(ConfigParser.SafeConfigParser):
         @return: C{True} if the section exists in the configuration, C{False}
                  if not.
         """
-        return ConfigParser.SafeConfigParser.has_option(self, section, option)
+        return self.has_option(section, option)
 
     def read(self, filenames):
         """
@@ -507,7 +511,7 @@ class Configuration(ConfigParser.SafeConfigParser):
             return val
 
         if optional:
-            return self.__getOptional(doGet, section, option)
+            return self.__get_optional(doGet, section, option)
         else:
             return doGet(section, option)
 
@@ -537,12 +541,9 @@ class Configuration(ConfigParser.SafeConfigParser):
             return ConfigParser.SafeConfigParser.getint(self, section, option)
 
         if optional:
-            return self.__getOptional(doGet, section, option)
+            return self.__get_optional(doGet, section, option)
         else:
             return doGet(section, option)
-
-    getInt=getint
-    getInt.__doc__ = 'Alias for C{getint()}'
 
     def getfloat(self, section, option, optional=False):
         """
@@ -570,12 +571,9 @@ class Configuration(ConfigParser.SafeConfigParser):
             return ConfigParser.SafeConfigParser.getfloat(self, section, option)
 
         if optional:
-            return self.__getOptional(doGet, section, option)
+            return self.__get_optional(doGet, section, option)
         else:
             return doGet(section, option)
-
-    getFloat=getfloat
-    getFloat.__doc__ = 'Alias for C{getfloat()}'
 
     def getboolean(self, section, option, optional=False):
         '''
@@ -610,12 +608,9 @@ class Configuration(ConfigParser.SafeConfigParser):
                                                             option)
 
         if optional:
-            return self.__getOptional(doGet, section, option)
+            return self.__get_optional(doGet, section, option)
         else:
             return doGet(section, option)
-
-    getBoolean=getboolean
-    getBoolean.__doc__ = 'Alias for C{getboolean()}'
 
     def getlist(self, section, option, sep=None, optional=False):
         '''
@@ -647,12 +642,9 @@ class Configuration(ConfigParser.SafeConfigParser):
             return value.split(sep)
 
         if optional:
-            return self.__getOptional(doGet, section, option)
+            return self.__get_optional(doGet, section, option)
         else:
             return doGet(section, option)
-
-    getList=getlist
-    getList.__doc__ = 'Alias for C{getlist()}'
 
     def items(self, section):
         """
@@ -704,19 +696,16 @@ class Configuration(ConfigParser.SafeConfigParser):
     def remove_section(self, section):
         """
         Remove a section named I{section} from the instance. If a section by the
-        given name does not exist, C{NoSectionError} is raised. 
-
-        Also callable as L{C{removeSection()}<removeSection>}. This version of
-        the function exists for compatibility with C{ConfigParser}; it
-        simply calls L{C{removeSection()}<removeSection>}.
+        given name does not exist, C{NoSectionError} is raised.
 
         @type section:  string
         @param section: name of section to remove
 
         @raise NoSectionError: no such section
         """
-        self.removeSection(section)
+        ConfigParser.SafeConfigParser.remove_section(self, section)
 
+    @deprecated(since='0.4', message='Use remove_section')
     def removeSection(self, section):
         """
         Remove a section named I{section} from the instance. If a section
@@ -727,7 +716,7 @@ class Configuration(ConfigParser.SafeConfigParser):
 
         @raise NoSectionError: no such section
         """
-        ConfigParser.SafeConfigParser.remove_section(self, section)
+        self.remove_section(section)
 
     def optionxform(self, optionName):
         """
@@ -741,7 +730,7 @@ class Configuration(ConfigParser.SafeConfigParser):
         """
         return str(optionName)
 
-    def __getOptional(self, func, section, option):
+    def __get_optional(self, func, section, option):
         try:
             return func(section, option)
         except ConfigParser.NoOptionError:
@@ -750,7 +739,7 @@ class Configuration(ConfigParser.SafeConfigParser):
             return None
 
     def __preprocess(self, fp, name):
-        
+
         try:
             fp.name
         except AttributeError:
@@ -763,7 +752,7 @@ class Configuration(ConfigParser.SafeConfigParser):
                 # Read-only. Oh, well.
                 pass
 
-        if self.__permitIncludes:
+        if self.__permit_includes:
             # Preprocess includes.
             from grizzled.file import includer
             tempFile = includer.preprocess(fp)
@@ -773,7 +762,7 @@ class Configuration(ConfigParser.SafeConfigParser):
 
         parsedConfig = ConfigParser.SafeConfigParser()
 
-        if self.__useOrderedSections:
+        if self.__use_ordered_sections:
             parsedConfig._sections = _SectionDict()
 
         parsedConfig.optionxform = str
@@ -806,10 +795,10 @@ class Configuration(ConfigParser.SafeConfigParser):
                 sourceConfig.set(section, option, value)
 
     def __substituteVariables(self, sourceConfig):
-        mapping = _ConfigDict(sourceConfig, self.__strictSubstitution)
+        mapping = _ConfigDict(sourceConfig, self.__strict_substitution)
         for section in sourceConfig.sections():
             mapping.section = section
-            self.addSection(section)
+            self.add_section(section)
             for option in sourceConfig.options(section):
                 value = sourceConfig.get(section, option, raw=True)
 
@@ -836,9 +825,9 @@ class _ConfigDict(dict):
     Only used internally.
     """
     idPattern = re.compile(VARIABLE_REF_PATTERN)
-    def __init__(self, parsedConfig, strictSubstitution):
+    def __init__(self, parsedConfig, strict_substitution):
         self.__config = parsedConfig
-        self.__strictSubstitution = strictSubstitution
+        self.__strict_substitution = strict_substitution
         self.section = None
 
     def __getitem__(self, key):
@@ -854,7 +843,7 @@ class _ConfigDict(dict):
             default = None
             if SECTION_OPTION_DELIM in key:
                 if match.group(3):
-                    default = self.__extractDefault(match.group(3))
+                    default = self.__extract_default(match.group(3))
 
                 section = match.group(1)
                 option = match.group(2)
@@ -863,9 +852,9 @@ class _ConfigDict(dict):
                 default = None
                 option = match.group(3)
                 if match.group(4):
-                    default = self.__extractDefault(match.group(3))
+                    default = self.__extract_default(match.group(3))
 
-            result = self.__valueFromSection(section, option)
+            result = self.__value_from_section(section, option)
 
         except KeyError:
             result = default
@@ -877,14 +866,14 @@ class _ConfigDict(dict):
             result = default
 
         if not result:
-            if self.__strictSubstitution:
+            if self.__strict_substitution:
                 raise NoVariableError, 'No such variable: "%s"' % key
             else:
                 result = ''
 
         return result
 
-    def __extractDefault(self, s):
+    def __extract_default(self, s):
         default = s
         if default:
             default = default[1:]  # strip leading '?'
@@ -893,7 +882,7 @@ class _ConfigDict(dict):
 
         return default
 
-    def __valueFromSection(self, section, option):
+    def __value_from_section(self, section, option):
         result = None
         if section == 'env':
             result = os.environ[option]
@@ -957,13 +946,13 @@ def preprocess(fileOrURL, defaults=None):
         except:
             pass
 
-    parser = Configuration(useOrderedSections=True)
+    parser = Configuration(use_ordered_sections=True)
     parser.read(fileOrURL)
     fd, path = tempfile.mkstemp(suffix='.cfg')
     atexit.register(unlink, path)
     parser.write(os.fdopen(fd, "w"))
     return path
-    
+
 
 # ---------------------------------------------------------------------------
 # Main program (for testing)

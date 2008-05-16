@@ -336,7 +336,7 @@ class Zip(zipfile.ZipFile):
     """
     def __init__(self, file, mode="r",
                  compression=zipfile.ZIP_STORED,
-                 allowZip64=False):
+                 allow_zip64=False):
         """
         Constructor. Initialize a new zip file.
 
@@ -351,22 +351,22 @@ class Zip(zipfile.ZipFile):
         @param compression: Compression type. Valid values:
                             C{zipfile.ZIP_STORED}, C{zipfile.ZIP_DEFLATED}
 
-        @type allowZip64:  bool
-        @param allowZip64: Whether or not Zip64 extensions are to be used
+        @type allow_zip64:  bool
+        @param allow_zip64: Whether or not Zip64 extensions are to be used
         """
-        zipfile.ZipFile.__init__(self, file, mode, compression, allowZip64)
+        zipfile.ZipFile.__init__(self, file, mode, compression, allow_zip64)
         self.zipFile = file
 
-    def extract(self, outputDir):
+    def extract(self, output_dir):
         """
         Unpack the zip file into the specified output directory.
 
-        @type outputDir:  str
-        @param outputDir: path to output directory. The directory is
-                          created if it doesn't already exist.
+        @type output_dir:  str
+        @param output_dir: path to output directory. The directory is
+                           created if it doesn't already exist.
         """
-        if not outputDir.endswith(':') and not os.path.exists(outputDir):
-            os.mkdir(outputDir)
+        if not output_dir.endswith(':') and not os.path.exists(output_dir):
+            os.mkdir(output_dir)
 
         num_files = len(self.namelist())
 
@@ -377,11 +377,11 @@ class Zip(zipfile.ZipFile):
                 if directory == '':
                     directory = None
                 if directory:
-                    directory = os.path.join(outputDir, directory)
+                    directory = os.path.join(output_dir, directory)
                     if not os.path.exists(directory):
                         os.makedirs(directory)
 
-                outfile = open(os.path.join(outputDir, name), 'wb')
+                outfile = open(os.path.join(output_dir, name), 'wb')
                 outfile.write(self.read(name))
                 outfile.flush()
                 outfile.close()

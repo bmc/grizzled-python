@@ -20,7 +20,7 @@ __all__ = ['deprecated', 'abstract']
 # Decorators
 # ---------------------------------------------------------------------------
 
-def deprecated(since=None):
+def deprecated(since=None, message=None):
     """
     Decorator for marking a function deprecated. Generates a warning on
     standard output if the function is called.
@@ -52,19 +52,25 @@ def deprecated(since=None):
             def oldMethod(self):
                 pass
 
-    @type since:  string
+    @type since:  str
     @param since: version stamp, or C{None} for none
+
+    @type message: str
+    @param message: optional additional message to print
     """
     def decorator(func):
-        if since == None:
-            message = 'Method %s is deprecated.' % func.__name__
+        if since is None:
+            buf = 'Method %s is deprecated.' % func.__name__
         else:
-            message = 'Method %s has been deprecated since version %s.' %\
-                      (func.__name__, since)
+            buf = 'Method %s has been deprecated since version %s.' %\
+                  (func.__name__, since)
+
+        if message:
+            buf += ' ' + message
 
         def wrapper(*__args, **__kw):
             import warnings
-            warnings.warn(message, category=DeprecationWarning, stacklevel=2)
+            warnings.warn(buf, category=DeprecationWarning, stacklevel=2)
             return func(*__args,**__kw)
 
         wrapper.__name__ = func.__name__

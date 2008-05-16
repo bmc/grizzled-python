@@ -132,8 +132,8 @@ class Includer(object):
     '''
     def __init__(self,
                  source,
-                 includeRegex='^%include\s"([^"]+)"',
-                 maxNestLevel=100,
+                 include_regex='^%include\s"([^"]+)"',
+                 max_nest_level=100,
                  output=None):
         """
         Create a new C{Includer} object.
@@ -141,30 +141,30 @@ class Includer(object):
         @type source:  open file-like object, path name, or URL
         @param source: the source to read and expand.
 
-        @type includeRegex:  string
-        @param includeRegex: Regular expression defining the include syntax.
-                             Must contain a single parenthetical group
-                             that can be used to extract the included file
-                             or URL.
+        @type include_regex:  string
+        @param include_regex: Regular expression defining the include syntax.
+                              Must contain a single parenthetical group
+                              that can be used to extract the included file
+                              or URL.
 
-        @type maxNestLevel:  int
-        @param maxNestLevel: Maximum include nesting level. Exceeding this level
-                             causing the C{Includer} to throw an C{IncludeError}
+        @type max_nest_level:  int
+        @param max_nest_level: Maximum include nesting level. Exceeding this
+                               level causing the C{Includer} to throw an
+                               C{IncludeError}
 
-        @type output:        string or file-like object
-        @param output:       Save the expanded output to C{output}, which
-                             can specify a path name (string) or a file-like
-                             object.
+        @type output:  string or file-like object
+        @param output: Save the expanded output to C{output}, which can specify
+                       a path name (string) or a file-like object.
 
         @raise IncludeError: On error
         """
 
         if isinstance(source, str):
-            f, isURL, name = self.__open(source, None, False)
+            f, is_url, name = self.__open(source, None, False)
         else:
             # Assume file-like object.
             f = source
-            isURL = False
+            is_url = False
             try:
                 name = source.name
             except AttributeError:
@@ -172,16 +172,16 @@ class Includer(object):
 
         self.closed = False
         self.mode = None
-        self.__includePattern = re.compile(includeRegex)
+        self.__include_pattern = re.compile(include_regex)
         self.__name = name
 
         if output == None:
             from cStringIO import StringIO
             output = StringIO()
 
-        self.__maxnest = maxNestLevel
+        self.__maxnest = max_nest_level
         self.__nested = 0
-        self.__processIncludes(f, name, isURL, output)
+        self.__process_includes(f, name, is_url, output)
         self.__f = output
         self.__f.seek(0)
 
@@ -224,7 +224,7 @@ class Includer(object):
         @rtype:  int
         @return: the file descriptor of the file being read
         """
-        _complainIfClosed(self.closed)
+        _complain_if_closed(self.closed)
         return self.__f.fileno()
 
     def isatty(self):
@@ -233,7 +233,7 @@ class Includer(object):
 
         @return: True/False
         """
-        _complainIfClosed(self.closed)
+        _complain_if_closed(self.closed)
         return self.__f.isatty()
 
     def seek(self, pos, mode=0):
@@ -258,7 +258,7 @@ class Includer(object):
         @rtype:  int
         @return: current file offset
         """
-        _complainIfClosed(self.closed)
+        _complain_if_closed(self.closed)
         return self.__f.tell()
 
     def read(self, n=-1):
@@ -271,7 +271,7 @@ class Includer(object):
 
         @return: the bytes read
         """
-        _complainIfClosed(self.closed)
+        _complain_if_closed(self.closed)
         return self.__f.read(n)
 
     def readline(self, length=-1):
@@ -281,7 +281,7 @@ class Includer(object):
         @type length:  int
         @param length: a length hint, or negative if you don't care
         """
-        _complainIfClosed(self.closed)
+        _complain_if_closed(self.closed)
         return self.__f.readline(length)
 
     def readlines(self, sizehint=0):
@@ -291,7 +291,7 @@ class Includer(object):
         @rtype:  array
         @return: array of lines
         """
-        _complainIfClosed(self.closed)
+        _complain_if_closed(self.closed)
         return self.__f.readlines(sizehint)
 
     def truncate(self, size=None):
@@ -320,106 +320,106 @@ class Includer(object):
         """
         return ''.join(self.readlines())
 
-    def __processIncludes(self, fileIn, filename, isURL, fileOut):
-        log.debug('Processing includes in "%s", isURL=%s' % (filename, isURL))
+    def __process_includes(self, file_in, filename, is_url, file_out):
+        log.debug('Processing includes in "%s", is_url=%s' % (filename, is_url))
 
-        for line in fileIn:
-            match = self.__includePattern.search(line)
+        for line in file_in:
+            match = self.__include_pattern.search(line)
             if match:
                 if self.__nested >= self.__maxnest:
                     raise IncludeError, 'Exceeded maximum include recursion ' \
                                         'depth of %d' % self.__maxnest
 
-                incName = match.group(1)
+                inc_name = match.group(1)
                 logging.debug('Found include directive: %s' % line[:-1])
-                f, includedIsURL, includedName = self.__open(incName,
-                                                            filename,
-                                                            isURL)
+                f, included_is_url, included_name = self.__open(inc_name,
+                                                                filename,
+                                                                is_url)
                 self.__nested += 1
-                self.__processIncludes(f, filename, isURL, fileOut)
+                self.__process_includes(f, filename, is_url, file_out)
                 self.__nested -= 1
             else:
-                fileOut.write(line)
+                file_out.write(line)
 
-    def __open(self, nameToOpen, enclosingFile, enclosingFileIsURL):
-        isURL = False
+    def __open(self, name_to_open, enclosing_file, enclosing_file_is_url):
+        is_url = False
         openFunc = None
 
-        parsedURL = urlparse.urlparse(nameToOpen)
+        parsed_url = urlparse.urlparse(name_to_open)
 
         # Account for Windows drive letters.
 
-        if (parsedURL.scheme != '') and (len(parsedURL.scheme) > 1):
+        if (parsed_url.scheme != '') and (len(parsed_url.scheme) > 1):
             openFunc = urllib2.urlopen
-            isURL = True
+            is_url = True
 
         else:
             # It's not a URL. What we do now depends on the including file.
 
-            if enclosingFileIsURL:
+            if enclosing_file_is_url:
                 # Use the parent URL as the base URL.
                 
-                nameToOpen = urlparse.urljoin(enclosingFile, nameToOpen)
-                openFunc = urllib2.urlopen
-                isURL = True
+                name_to_open = urlparse.urljoin(enclosing_file, name_to_open)
+                open_func = urllib2.urlopen
+                is_url = True
 
-            elif not os.path.isabs(nameToOpen):
+            elif not os.path.isabs(name_to_open):
                 # Not an absolute file. Base it on the parent.
 
-                enclosingDir = None
-                if enclosingFile == None:
-                    enclosingDir = os.getcwd()
+                enclosing_dir = None
+                if enclosing_file == None:
+                    enclosing_dir = os.getcwd()
                 else:
-                    enclosingDir = os.path.dirname(enclosingFile)
+                    enclosing_dir = os.path.dirname(enclosing_file)
 
-                nameToOpen = os.path.join(enclosingDir, nameToOpen)
-                openFunc = open
+                name_to_open = os.path.join(enclosing_dir, name_to_open)
+                open_func = open
 
             else:
-                openFunc = open
+                open_func = open
 
-        assert(nameToOpen != None)
-        assert(openFunc != None)
+        assert(name_to_open != None)
+        assert(open_func != None)
 
         try:
-            log.debug('Opening "%s"' % nameToOpen)
-            f = openFunc(nameToOpen)
+            log.debug('Opening "%s"' % name_to_open)
+            f = open_func(name_to_open)
         except:
             raise IncludeError, 'Unable to open "%s" as a file or a URL' %\
-                  nameToOpen
-        return (f, isURL, nameToOpen)
+                  name_to_open
+        return (f, is_url, name_to_open)
     
 # ---------------------------------------------------------------------------
 # Public functions
 # ---------------------------------------------------------------------------
 
-def preprocess(fileOrURL, output=None, tempSuffix='.txt', tempPrefix='inc'):
+def preprocess(file_or_url, output=None, temp_suffix='.txt', temp_prefix='inc'):
     """
     Process all include directives in the specified file, returning a path
     to a temporary file that contains the results of the expansion. The
     temporary file is automatically removed when the program exits, though
     the caller is free to remove it whenever it is no longer needed.
 
-    @type fileOrURL:   string or file-like object
-    @param fileOrURL:  URL or path to file to be expanded; or, a file-like
-                       object
+    @type file_or_url:   string or file-like object
+    @param file_or_url:  URL or path to file to be expanded; or, a file-like
+                         object
+ 
+    @type output:  file-like object
+    @param output: A file or file-like object to receive the output.
 
-    @type output:      file-like object
-    @param output:     A file or file-like object to receive the output.
+    @type temp_suffix:  string
+    @param temp_suffix: suffix to use with temporary file
 
-    @type tempSuffix:  string
-    @param tempSuffix: suffix to use with temporary file
-
-    @type tempPrefix:  string
-    @param tempPrefix: prefix to use with temporary file.
+    @type temp_prefix:  string
+    @param temp_prefix: prefix to use with temporary file.
 
     @rtype:  string
-    @return: C{out}, if C{out} is not C{None}; otherwise, the path to
+    @return: C{output}, if C{output} is not C{None}; otherwise, the path to
              temporary file containing expanded content
     """
     result = None
     if not output:
-        fd, path = tempfile.mkstemp(suffix=tempSuffix, prefix=tempPrefix)
+        fd, path = tempfile.mkstemp(suffix=temp_suffix, prefix=temp_prefix)
         output = open(path, 'w')
         atexit.register(os.unlink, path)
         os.close(fd)
@@ -427,7 +427,7 @@ def preprocess(fileOrURL, output=None, tempSuffix='.txt', tempPrefix='inc'):
     else:
         result = output
 
-    Includer(fileOrURL, output=output)
+    Includer(file_or_url, output=output)
     return result
 
     
@@ -435,7 +435,7 @@ def preprocess(fileOrURL, output=None, tempSuffix='.txt', tempPrefix='inc'):
 # Private functions
 # ---------------------------------------------------------------------------
 
-def _complainIfClosed(closed):
+def _complain_if_closed(closed):
     if closed:
         raise IncludeError, "I/O operation on closed file"
 

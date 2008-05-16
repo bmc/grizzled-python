@@ -76,7 +76,7 @@ with this API, you use::
 # ---------------------------------------------------------------------------
 
 from grizzled.exception import ExceptionWithMessage
-from grizzled.decorators import abstract
+from grizzled.decorators import abstract, deprecated
 import dummydb
 
 # ---------------------------------------------------------------------------
@@ -106,15 +106,19 @@ paramstyle = None
 # Functions
 # ---------------------------------------------------------------------------
 
-def addDriver(key, driverClass, force=False):
+@deprecated(since='0.4', message='Use add_driver()')
+def addDriver(key, driver_class, force=False):
+    add_driver(key, driver_class, force)
+
+def add_Driver(key, driver_class, force=False):
     """
     Add a driver class to the list of drivers.
 
     @type key:   string
     @param key:  the key, also used as the driver's name
 
-    @type driverClass:  C{DBDriver} subclass
-    @param driverClass: The driver class
+    @type driver_class:  C{DBDriver} subclass
+    @param driver_class: The driver class
 
     @type force:  boolean
     @param force: C{True} to force registration of the driver, even if
@@ -129,16 +133,20 @@ def addDriver(key, driverClass, force=False):
             raise ValueError, 'A DB driver named "%d" is already installed' %\
                   key
 
-    drivers[key] = driverClass.__name__
+    drivers[key] = driver_class.__name__
 
+@deprecated(since='0.4', message='Use get_drivers()')
 def getDrivers():
+    return get_drivers()
+
+def get_drivers():
     """
     Get the list of drivers currently registered with this API.
     The result is a list of DBDriver subclasses. Note that these are
     classes, not instances. Once way to use the resulting list is as
     follows::
 
-        for driver in db.getDrivers():
+        for driver in db.get_drivers():
             print driver.__doc__
 
     @rtype:  list
@@ -146,33 +154,41 @@ def getDrivers():
     """
     return drivers.values()
 
+@deprecated(since='0.4', message='Use get_driver_names()')
 def getDriverNames():
+    return get_driver_names()
+
+def get_driver_names():
     """
     Get the list of driver names currently registered with this API.
     Each of the returned names may be used as the first parameter to
-    the L{C{getDriver()}<getDriver>} function.
+    the L{C{get_driver()}<get_driver>} function.
     """
     return drivers.keys()
 
-def getDriver(driverName):
+@deprecated(since='0.4', message='Use get_driver()')
+def getDriver(driver_name):
+    return get_driver(driver_name)
+
+def getDriver(driver_name):
     """
     Get the DB API object for the specific database type. The list of
     legal database types are available by calling
-    L{C{getDriverNames()}<getDriverNames>}.
+    L{C{get_driver_names()}<get_driver_names>}.
 
-    @type driverName:  str
-    @param driverName: name of driver
+    @type driver_name:  str
+    @param driver_name: name of driver
 
     @return: the instantiated driver
 
     @raise ValueError: Unknown driver name
     """
     try:
-        className = drivers[driverName]
-        exec 'd = %s()' % className
+        class_name = drivers[driver_name]
+        exec 'd = %s()' % class_name
         return d
     except KeyError:
-        raise ValueError, 'Unknown driver name: "%s"' % driverName
+        raise ValueError, 'Unknown driver name: "%s"' % driver_name
 
 # ---------------------------------------------------------------------------
 # Classes
@@ -224,16 +240,16 @@ class Cursor(object):
         self.__description = None
         self.__rowcount = -1
 
-    def __getDescription(self):
+    def __get_description(self):
         return self.__description
 
-    description = property(__getDescription,
+    description = property(__get_description,
                            doc='The description field. See class docs.')
 
-    def __getRowcount(self):
+    def __get_rowcount(self):
         return self.__rowcount
 
-    rowcount = property(__getRowcount,
+    rowcount = property(__get_rowcount,
                         doc='Number of rows from last query, or -1')
 
     def close(self):
@@ -243,7 +259,7 @@ class Cursor(object):
         @raise Warning: Non-fatal warning
         @raise Error:   Error; unable to close
         """
-        dbi = self.__driver.getImport()
+        dbi = self.__driver.get_import()
         try:
             return self.__cursor.close()
         except dbi.Warning, val:
@@ -268,7 +284,7 @@ class Cursor(object):
         @raise Warning: Non-fatal warning
         @raise Error:   Error
         """
-        dbi = self.__driver.getImport()
+        dbi = self.__driver.get_import()
         try:
             result = self.__cursor.execute(statement, parameters)
             self.__rowcount = self.__cursor.rowcount
@@ -295,7 +311,7 @@ class Cursor(object):
         @raise Warning: Non-fatal warning
         @raise Error:   Error
         """
-        dbi = self.__driver.getImport()
+        dbi = self.__driver.get_import()
         try:
             result = self.__cursor.executemany(statement, *parameters)
             self.__rowcount = self.__cursor.rowcount
@@ -319,7 +335,7 @@ class Cursor(object):
         @raise Warning: Non-fatal warning
         @raise Error:   Error
         """
-        dbi = self.__driver.getImport()
+        dbi = self.__driver.get_import()
         try:
             return self.__cursor.fetchone()
         except dbi.Warning, val:
@@ -338,7 +354,7 @@ class Cursor(object):
         @raise Warning: Non-fatal warning
         @raise Error:   Error
         """
-        dbi = self.__driver.getImport()
+        dbi = self.__driver.get_import()
         try:
             return self.__cursor.fetchall()
         except dbi.Warning, val:
@@ -363,7 +379,7 @@ class Cursor(object):
         @raise Warning: Non-fatal warning
         @raise Error:   Error
         """
-        dbi = self.__driver.getImport()
+        dbi = self.__driver.get_import()
         try:
             self.__cursor.fetchmany(n)
         except dbi.Warning, val:
@@ -373,18 +389,22 @@ class Cursor(object):
 
     fetchMany = fetchmany
 
-    def getTableMetadata(self, table):
+    @deprecated(since='0.4', message='Use get_table_metadata')
+    def get_table_metadata(self, table):
+        return self.get_table_metadata(table)
+
+    def get_table_metadata(self, table):
         """
         Get the metadata for a table. Returns a list of tuples, one for
         each column. Each tuple consists of the following::
 
-           (columnName, TypeString, maxCharSize, precision, scale, nullable)
+           (column_name, type_string, max_char_size, precision, scale, nullable)
 
         The tuple elements have the following meanings.
 
-         - B{C{columnName}}: the name of the column
-         - B{C{typeAsString}}: the column type, as a string
-         - B{C{maxCharSize}}: maximum size for a character field, or C{None}
+         - B{C{column_name}}: the name of the column
+         - B{C{type_string}}: the column type, as a string
+         - B{C{max_char_size}}: maximum size for a character field, or C{None}
          - B{C{precision}}: precision, for a numeric field, or C{None}
          - B{C{scale}}: scale, for a numeric field, or C{None}
          - B{C{nullable}}: C{True} or C{False}
@@ -401,25 +421,29 @@ class Cursor(object):
         @raise Error:   Error
         """
         # Default implementation
-        dbi = self.__driver.getImport()
+        dbi = self.__driver.get_import()
         try:
-            return self.__driver.getTableMetadata(table, self.__cursor)
+            return self.__driver.get_table_metadata(table, self.__cursor)
         except dbi.Warning, val:
             raise Warning(val)
         except dbi.Error, val:
             raise Error(val)
 
-    def getIndexMetadata(self, table):
+    @deprecated(since='0.4', message='Use get_index_metadata')
+    def get_index_metadata(self, table):
+        return self.get_index_metadata(table)
+
+    def get_index_metadata(self, table):
         """
         Get the metadata for the indexes for a table. Returns a list of
         tuples, one for each index. Each tuple consists of the following::
 
-            (indexName, [indexColumns], description)
+            (index_name, [index_columns], description)
 
         The tuple elements have the following meanings.
 
-         - B{C{indexName}}: the index name
-         - B{C{indexKeys}}: a list of column names
+         - B{C{index_name}}: the index name
+         - B{C{index_columns}}: a list of column names
          - B{C{description}}: index description, or C{None}
 
         @rtype:  list of tuples
@@ -429,9 +453,9 @@ class Cursor(object):
         @raise Warning: Non-fatal warning
         @raise Error:   Error
         """
-        dbi = self.__driver.getImport()
+        dbi = self.__driver.get_import()
         try:
-            return self.__driver.getIndexMetadata(table, self.__cursor)
+            return self.__driver.get_index_metadata(table, self.__cursor)
         except dbi.Warning, val:
             raise Warning(val)
         except dbi.Error, val:
@@ -455,7 +479,7 @@ class DB(object):
         """
         self.__db = db
         self.__driver = driver
-        dbi = driver.getImport()
+        dbi = driver.get_import()
         for attr in ['BINARY', 'NUMBER', 'STRING', 'DATETIME', 'ROWID']:
             try:
                 exec 'self.%s = dbi.%s' % (attr, attr)
@@ -517,7 +541,7 @@ class DB(object):
         @rtype:  object
         @return: the corresponding BLOB
         """
-        return self.__driver.getImport().Binary(string)
+        return self.__driver.get_import().Binary(string)
 
     def Date(self, year, month, day):
         """
@@ -532,7 +556,7 @@ class DB(object):
 
         @return: an object containing the date
         """
-        return self.__driver.getImport().Date(year, month, day)
+        return self.__driver.get_import().Date(year, month, day)
 
     def DateFromTicks(self, secs):
         """
@@ -551,7 +575,7 @@ class DB(object):
 
         @return: an object containing the date
         """
-        return self.__driver.getImport().Date(year, month, day)
+        return self.__driver.get_import().Date(year, month, day)
 
     def Time(self, hour, minute, second):
         """
@@ -566,7 +590,7 @@ class DB(object):
 
         @return: an object containing the time
         """
-        return self.__driver.getImport().Time(hour, minute, second)
+        return self.__driver.get_import().Time(hour, minute, second)
 
     def TimeFromTicks(self, secs):
         """
@@ -585,7 +609,7 @@ class DB(object):
 
         @return: an object containing the time
         """
-        return self.__driver.getImport().Date(year, month, day)
+        return self.__driver.get_import().Date(year, month, day)
 
     def Timestamp(self, year, month, day, hour, minute, second):
         """
@@ -603,7 +627,7 @@ class DB(object):
 
         @return: an object containing the timestamp
         """
-        return self.__driver.getImport().Timestamp(year, month, day,
+        return self.__driver.get_import().Timestamp(year, month, day,
                                                    hour, minute, second)
 
     def TimestampFromTicks(self, secs):
@@ -623,7 +647,7 @@ class DB(object):
 
         @return: an object containing the timestamp
         """
-        return self.__driver.getImport().Date(year, month, day)
+        return self.__driver.get_import().Date(year, month, day)
 
     def cursor(self):
         """
@@ -635,7 +659,7 @@ class DB(object):
         @raise Warning: Non-fatal warning
         @raise Error:   Error
         """
-        dbi = self.__driver.getImport()
+        dbi = self.__driver.get_import()
         try:
             return Cursor(self.__db.cursor(), self.__driver)
         except dbi.Warning, val:
@@ -650,7 +674,7 @@ class DB(object):
         @raise Warning: Non-fatal warning
         @raise Error:   Error
         """
-        dbi = self.__driver.getImport()
+        dbi = self.__driver.get_import()
         try:
             self.__db.commit()
         except dbi.Warning, val:
@@ -665,7 +689,7 @@ class DB(object):
         @raise Warning: Non-fatal warning
         @raise Error:   Error
         """
-        dbi = self.__driver.getImport()
+        dbi = self.__driver.get_import()
         try:
             self.__db.rollback()
         except dbi.Warning, val:
@@ -680,7 +704,7 @@ class DB(object):
         @raise Warning: Non-fatal warning
         @raise Error:   Error
         """
-        dbi = self.__driver.getImport()
+        dbi = self.__driver.get_import()
         try:
             self.__db.close()
         except dbi.Warning, val:
@@ -694,13 +718,13 @@ class DBDriver(object):
     """
 
     @abstract
-    def getImport(self):
+    def get_import(self):
         """
         Get a bound import for the underlying DB API module. All subclasses
         must provide an implementation of this method. Here's an example,
         assuming the real underlying Python DB API module is 'foosql'::
 
-            def getImport(self):
+            def get_import(self):
                 import foosql
                 return foosql
 
@@ -708,11 +732,11 @@ class DBDriver(object):
         """
         pass
 
-    def __displayName(self):
-        return self.getDisplayName()
+    def __display_name(self):
+        return self.get_display_name()
 
     @abstract
-    def getDisplayName(self):
+    def get_display_name(self):
         """
         Get the driver's name, for display. The returned name ought to be
         a reasonable identifier for the database (e.g., 'SQL Server',
@@ -724,8 +748,8 @@ class DBDriver(object):
         """
         pass
 
-    displayName = property(__displayName,
-                           doc='get a displayable name for the driver')
+    display_name = property(__display_name,
+                            doc='get a displayable name for the driver')
     def connect(self,
                 host='localhost',
                 port=None,
@@ -735,7 +759,7 @@ class DBDriver(object):
         """
         Connect to the underlying database. Subclasses should I{not}
         override this method. Instead, a subclass should override the
-        L{C{doConnect()}<doConnect>} method.
+        L{C{do_connect()}<do_connect>} method.
 
         @type host:      str
         @param host:     the host where the database lives
@@ -758,9 +782,9 @@ class DBDriver(object):
         @raise Warning: Non-fatal warning
         @raise Error:   Error
         """
-        dbi = self.getImport()
+        dbi = self.get_import()
         try:
-            self.__db = self.doConnect(host=host,
+            self.__db = self.do_connect(host=host,
                                        port=port,
                                        user=user,
                                        password=password,
@@ -772,20 +796,20 @@ class DBDriver(object):
             raise Error(val)
 
     @abstract
-    def doConnect(self,
-                  host='localhost',
-                  port=None,
-                  user='',
-                  password='',
-                  database='default'):
+    def do_connect(self,
+                   host='localhost',
+                   port=None,
+                   user='',
+                   password='',
+                   database='default'):
         """
         Connect to the actual underlying database, using the driver.
         Subclasses must provide an implementation of this method. The
         method must return the result of the real DB API implementation's
         C{connect()} method. For instance::
 
-            def doConnect():
-                dbi = self.getImport()
+            def do_connect():
+                dbi = self.get_import()
                 return dbi.connect(host=host, user=user, passwd=password,
                                    database=database)
 
@@ -815,7 +839,7 @@ class DBDriver(object):
         """
         pass
 
-    def getIndexMetadata(self, table, cursor):
+    def get_index_metadata(self, table, cursor):
         """
         Get the metadata for the indexes for a table. Returns a list of
         tuples, one for each index. Each tuple consists of the following::
@@ -844,7 +868,7 @@ class DBDriver(object):
         """
         return None
 
-    def getTableMetadata(self, table, cursor):
+    def get_table_metadata(self, table, cursor):
         """
         Get the metadata for a table. Returns a list of tuples, one for
         each column. Each tuple consists of the following::
@@ -877,7 +901,7 @@ class DBDriver(object):
         @raise Warning: Non-fatal warning
         @raise Error:   Error
         """
-        dbi = self.getImport()
+        dbi = self.get_import()
         cursor.execute('SELECT * FROM %s WHERE 1=0' % table)
         result = []
         for col in cursor.description:
@@ -924,24 +948,24 @@ class DBDriver(object):
 class MySQLDriver(DBDriver):
     """DB Driver for MySQL, using the MySQLdb DB API module."""
 
-    def getImport(self):
+    def get_import(self):
         import MySQLdb
         return MySQLdb
 
-    def getDisplayName(self):
+    def get_display_name(self):
         return "MySQL"
 
-    def doConnect(self,
-                  host="localhost",
-                  port=None,
-                  user="sa",
-                  password="",
-                  database="default"):
-        dbi = self.getImport()
+    def do_connect(self,
+                   host="localhost",
+                   port=None,
+                   user="sa",
+                   password="",
+                   database="default"):
+        dbi = self.get_import()
         return dbi.connect(host=host, user=user, passwd=password, db=database)
 
-    def getIndexMetadata(self, table, cursor):
-        dbi = self.getImport()
+    def get_index_metadata(self, table, cursor):
+        dbi = self.get_import()
         cursor.execute('SHOW INDEX FROM %s' % table)
         rs = cursor.fetchone()
         result = []
@@ -974,20 +998,20 @@ class MySQLDriver(DBDriver):
 class SQLServerDriver(DBDriver):
     """DB Driver for Microsoft SQL Server, using the pymssql DB API module."""
 
-    def getImport(self):
+    def get_import(self):
         import pymssql
         return pymssql
 
-    def getDisplayName(self):
+    def get_display_name(self):
         return 'SQL Server'
 
-    def doConnect(self,
-                  host='localhost',
-                  port=None,
-                  user='',
-                  password='',
-                  database='default'):
-        dbi = self.getImport()
+    def do_connect(self,
+                   host='localhost',
+                   port=None,
+                   user='',
+                   password='',
+                   database='default'):
+        dbi = self.get_import()
         if port == None:
             port = '1433'
         return dbi.connect(host='%s:%s' % (host, port),
@@ -995,9 +1019,9 @@ class SQLServerDriver(DBDriver):
                            password=password,
                            database=database)
 
-    def getTableMetadata(self, table, cursor):
+    def get_table_metadata(self, table, cursor):
         """Default implementation"""
-        dbi = self.getImport()
+        dbi = self.get_import()
         cursor.execute("SELECT column_name, data_type, " \
                        "character_maximum_length, numeric_precision, " \
                        "numeric_scale, is_nullable "\
@@ -1013,8 +1037,8 @@ class SQLServerDriver(DBDriver):
             rs = cursor.fetchone()
         return results
 
-    def getIndexMetadata(self, table, cursor):
-        dbi = self.getImport()
+    def get_index_metadata(self, table, cursor):
+        dbi = self.get_import()
         cursor.execute("EXEC sp_helpindex '%s'" % table)
         rs = cursor.fetchone()
         results_by_name = {}
@@ -1036,26 +1060,26 @@ class SQLServerDriver(DBDriver):
 class PostgreSQLDriver(DBDriver):
     """DB Driver for PostgreSQL, using the psycopg2 DB API module."""
 
-    def getImport(self):
+    def get_import(self):
         import psycopg2
         return psycopg2
 
-    def getDisplayName(self):
+    def get_display_name(self):
         return "PostgreSQL"
 
-    def doConnect(self,
-                  host='localhost',
-                  port=None,
-                  user='',
-                  password='',
-                  database='default'):
-        dbi = self.getImport()
+    def do_connect(self,
+                   host='localhost',
+                   port=None,
+                   user='',
+                   password='',
+                   database='default'):
+        dbi = self.get_import()
         dsn = 'host=%s dbname=%s user=%s password=%s' %\
             (host, database, user, password)
         return dbi.connect(dsn=dsn)
 
-    def getIndexMetadata(self, table, cursor):
-        dbi = self.getImport()
+    def get_index_metadata(self, table, cursor):
+        dbi = self.get_import()
         # First, issue one query to get the list of indexes for the table.
         index_names = self.__getIndexNames(table, cursor)
 
@@ -1063,8 +1087,8 @@ class PostgreSQLDriver(DBDriver):
         # index and another to get descriptive information.
         results = []
         for name in index_names:
-            columns = self.__getIndexColumns(name, cursor)
-            desc = self.__getIndexDescription(name, cursor)
+            columns = self.__get_index_columns(name, cursor)
+            desc = self.__get_index_description(name, cursor)
             results += [(name, columns, desc)]
 
         return results
@@ -1093,7 +1117,7 @@ class PostgreSQLDriver(DBDriver):
 
         return index_names
 
-    def __getIndexColumns(self, index_name, cursor):
+    def __get_index_columns(self, index_name, cursor):
         # Adapted from the pgsql command "\d indexname", PostgreSQL 8.
         # (Invoking the pgsql command from -E shows the issued SQL.)
 
@@ -1118,7 +1142,7 @@ class PostgreSQLDriver(DBDriver):
 
         return columns
 
-    def __getIndexDescription(self, index_name, cursor):
+    def __get_index_description(self, index_name, cursor):
         sel = "SELECT i.indisunique, i.indisprimary, i.indisclustered, " \
             "a.amname, c2.relname, " \
             "pg_catalog.pg_get_expr(i.indpred, i.indrelid, true) " \
@@ -1156,55 +1180,55 @@ class PostgreSQLDriver(DBDriver):
 class OracleDriver(DBDriver):
     """DB Driver for Oracle, using the cx_Oracle DB API module."""
 
-    def getImport(self):
+    def get_import(self):
         import cx_Oracle
         return cx_Oracle
 
-    def getDisplayName(self):
+    def get_display_name(self):
         return "Oracle"
 
-    def doConnect(self,
-                  host='localhost',
-                  port=None,
-                  user='',
-                  password='',
-                  database='default'):
-        dbi = self.getImport()
+    def do_connect(self,
+                   host='localhost',
+                   port=None,
+                   user='',
+                   password='',
+                   database='default'):
+        dbi = self.get_import()
         return dbi.connect('%s/%s@%s' % (user, password, database))
 
 class SQLite3Driver(DBDriver):
     """DB Driver for Oracle, using the cx_Oracle DB API module."""
 
-    def getImport(self):
+    def get_import(self):
         import sqlite3
         return sqlite3
 
-    def getDisplayName(self):
+    def get_display_name(self):
         return "SQLite3"
 
-    def doConnect(self,
-                  host=None,
-                  port=None,
-                  user='',
-                  password='',
-                  database='default'):
-        dbi = self.getImport()
+    def do_connect(self,
+                   host=None,
+                   port=None,
+                   user='',
+                   password='',
+                   database='default'):
+        dbi = self.get_import()
         return dbi.connect(database=database)
 
 class DummyDriver(DBDriver):
     """Dummy database driver, for testing."""
 
-    def getImport(self):
+    def get_import(self):
         import dummydb
         return dummydb
 
-    def getDisplayName(self):
+    def get_display_name(self):
         return "Dummy"
 
-    def doConnect(self,
-                  host="localhost",
-                  port=None,
-                  user='',
-                  password='',
-                  database='default'):
+    def do_connect(self,
+                   host="localhost",
+                   port=None,
+                   user='',
+                   password='',
+                   database='default'):
         return dummydb.DummyDB()

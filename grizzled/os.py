@@ -24,6 +24,8 @@ import os as _os
 import sys
 from contextlib import contextmanager
 
+from grizzled.decorators import deprecated
+
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
@@ -69,7 +71,11 @@ class DaemonError(OSError):
 # Public functions
 # ---------------------------------------------------------------------------
 
+@deprecated(since='0.4', message='use get_path_separator')
 def getPathSeparator():
+    return get_path_separator
+
+def get_path_separator():
     """
     Get the path separator for the current operating system. The path 
     separator is used to separate elements of a path string, such as
@@ -81,43 +87,47 @@ def getPathSeparator():
     """
     return PATH_SEPARATOR[_os.name]
 
-@contextmanager
+@deprecated(since='0.4', message='use working_directory')
 def workingDirectory(directory):
+    return working_directory(directory)
+
+@contextmanager
+def working_directory(directory):
     """
     This function is intended to be used as a C{with} statement context
     manager. It allows you to replace code like this::
 
         import os
 
-        originalDirectory = os.getcwd()
+        original_directory = os.getcwd()
         try:
-            os.chdir(someNewDirectory)
-            bunch of code
+            os.chdir(some_dir)
+            ... bunch of code ...
         finally:
-            os.chdir(originalDirectory)
+            os.chdir(original_directory)
 
     with something simpler::
 
         from __future__ import with_statement
-        from grizzled.os import workingDirectory
+        from grizzled.os import working_directory
 
-        with workingDirectory(someNewDirectory):
-            bunch of code
+        with working_directory(some_dir):
+            ... bunch of code ...
 
     @type directory:  path
     @param directory: directory in which to execute
 
     @return: yields the C{directory} parameter
     """
-    originalDirectory = _os.getcwd()
+    original_directory = _os.getcwd()
     try:
         _os.chdir(directory)
         yield directory
 
     finally:
-        _os.chdir(originalDirectory)
+        _os.chdir(original_directory)
 
-def daemonize(noClose=False):
+def daemonize(no_close=False):
     """
     Convert the calling process into a daemon. To make the current Python
     process into a daemon process, you need two lines of code::
@@ -138,15 +148,15 @@ def daemonize(noClose=False):
 
      - Stevens, W. Richard. I{Unix Network Programming} (Addison-Wesley, 1990).
 
-    @type noClose:  boolean
-    @param noClose: If C{True}, don't close the file descriptors. Useful
-                    if the calling process has already redirected file
-                    descriptors to an output file. B{Warning}: Only set this
-                    parameter to C{True} if you're I{sure} there are no
-                    open file descriptors to the calling terminal.
-                    Otherwise, you'll risk having the daemon re-acquire a
-                    control terminal, which can cause it to be killed if
-                    someone logs off that terminal.
+    @type no_close:  boolean
+    @param no_close: If C{True}, don't close the file descriptors. Useful
+                     if the calling process has already redirected file
+                     descriptors to an output file. B{Warning}: Only set this
+                     parameter to C{True} if you're I{sure} there are no open
+                     file descriptors to the calling terminal. Otherwise,
+                     you'll risk having the daemon re-acquire a control
+                     terminal, which can cause it to be killed if someone logs
+                     off that terminal.
 
     @raise DaemonError: Error during daemonizing
     """
@@ -158,7 +168,7 @@ def daemonize(noClose=False):
         except OSError, e:
             raise DaemonError, ('Cannot fork', e.errno, e.strerror)
 
-    def __redirectFileDescriptors():
+    def __redirect_file_descriptors():
         import resource  # POSIX resource information
         maxfd = resource.getrlimit(resource.RLIMIT_NOFILE)[1]
         if maxfd == resource.RLIM_INFINITY:
@@ -229,10 +239,10 @@ def daemonize(noClose=False):
         log.debug('Changing working directory to "%s"' % WORKDIR)
         _os.chdir(WORKDIR)
 
-        # Unless noClose was specified, close all file descriptors.
-        if not noClose:
+        # Unless no_close was specified, close all file descriptors.
+        if not no_close:
             log.debug('Redirecting file descriptors')
-            __redirectFileDescriptors()
+            __redirect_file_descriptors()
 
     except DaemonError:
         raise
@@ -254,7 +264,7 @@ if __name__ == '__main__':
     log.setLevel(logging.DEBUG)
 
     log.debug('Before daemonizing, PID=%d' % os.getpid())
-    daemonize(noClose=True)
+    daemonize(no_close=True)
     log.debug('After daemonizing, PID=%d' % os.getpid())
     log.debug('Daemon is sleeping for 10 seconds')
 

@@ -32,7 +32,7 @@ class TestFilePackage(object):
         except OSError:
             pass
 
-        unlinkQuietly(path)
+        unlink_quietly(path)
 
     def testRecursivelyRemove(self):
         path = tempfile.mkdtemp()
@@ -49,13 +49,13 @@ class TestFilePackage(object):
         except OSError:
             pass
 
-        recursivelyRemove(path)
+        recursively_remove(path)
 
     def testTouch(self):
         path = tempfile.mkdtemp()
-        atexit.register(recursivelyRemove, path)
+        atexit.register(recursively_remove, path)
         f = os.path.join(path, 'foo')
         assert not os.path.exists(f)
         touch(f)
         assert os.path.exists(f)
-        
+

@@ -68,29 +68,29 @@ class FileLock(object):
                    or updating, not reading.
         """
         try:
-            className = LOCK_CLASSES[os.name]
-            cls = eval(className)
+            class_name = LOCK_CLASSES[os.name]
+            cls = eval(class_name)
             self.lock = cls(fd)
 
         except KeyError:
             raise NotImplementedError, \
                   'Don\t know how to lock files on "%s" systems.' % os.name
         
-    def acquire(self, noWait=False):
+    def acquire(self, no_wait=False):
         """
         Lock the associated file. If someone already has the file locked,
-        this method will suspend the calling process, unless C{noWait} is
+        this method will suspend the calling process, unless C{no_wait} is
         C{True}.
 
-        @type noWait:  bool
-        @param noWait: If C{False}, then C{lock()} will suspend the calling
+        @type no_wait:  bool
+        @param no_wait: If C{False}, then C{lock()} will suspend the calling
                        process if someone else has the file locked. If C{True},
                        then C{lock()} will raise an C{IOError} if the file
                        is locked by someone else.
 
         @raise IOError: If the file cannot be locked for any reason.
         """
-        self.lock.acquire(noWait)
+        self.lock.acquire(no_wait)
 
     def release(self):
         """
@@ -104,10 +104,10 @@ class _PosixFileLock(object):
     def __init__(self, fd):
         self.fd = fd
 
-    def acquire(self, noWait=False):
+    def acquire(self, no_wait=False):
         import fcntl
         flags = fcntl.LOCK_EX
-        if noWait:
+        if no_wait:
             flags |= fcntl.LOCK_NB
 
         fcntl.lockf(self.fd, flags)
@@ -122,9 +122,9 @@ class _WindowsFileLock(object):
     def __init__(self, fd):
         self.fd = fd
 
-    def lock(self, noWait=False):
+    def lock(self, no_wait=False):
         import msvcrt
-        if noWait:
+        if no_wait:
             op = msvcrt.LK_NBLCK
         else:
             op = msvcrt.LK_LOCK

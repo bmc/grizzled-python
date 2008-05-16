@@ -21,6 +21,8 @@ It also provides a couple extra utility modules.
 from optparse import OptionParser
 import sys
 
+from grizzled.decorators import deprecated
+
 # ---------------------------------------------------------------------------
 # Exports
 # ---------------------------------------------------------------------------
@@ -62,6 +64,7 @@ class CommandLineParser(OptionParser):
             print >> out, '\n%s' % textwrap.fill(self.epilogue, 80)
             out.flush()
 
+    @deprecated(since='0.4', message='use add_option')
     def addOption(self, *args, **kw):
         """
         Front-end to C{add_option()}. Exists solely for Camel-case
@@ -69,6 +72,7 @@ class CommandLineParser(OptionParser):
         """
         return self.add_option(*args, **kw)
 
+    @deprecated(since='0.4', message='use add_options')
     def addOptions(self, optionList):
         """
         Front-end to C{add_option()}. Exists solely for Camel-case
@@ -76,6 +80,7 @@ class CommandLineParser(OptionParser):
         """
         return self.add_options(optionList)
 
+    @deprecated(since='0.4', message='use parse_args')
     def parseArgs(self, args):
         """
         Front-end to C{parse_args()}. Exists solely for Camel-case
@@ -83,7 +88,11 @@ class CommandLineParser(OptionParser):
         """
         return self.parse_args(args)
 
+    @deprecated(since='0.4', message='use show_usage')
     def showUsage(self, msg=None):
+        show_usage(self, msg)
+
+    def show_usage(self, msg=None):
         """
         Force the display of the usage message.
 
@@ -102,5 +111,5 @@ class CommandLineParser(OptionParser):
         forces the full usage message on error.
         """
         sys.stderr.write("%s: error: %s\n" % (self.get_prog_name(), msg))
-        self.showUsage()
+        self.show_usage()
 

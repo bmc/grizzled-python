@@ -60,14 +60,14 @@ class TestParser(object):
     def testSubstitute1(self):
         config = Configuration()
         config.readfp(StringIO(CONFIG1))
-        assert config.hasSection('section1')
-        assert not config.hasSection('section2')
-        assert not config.hasSection('foo')
-        assert not config.hasSection('bar')
-        assert not config.hasSection('bar2')
-        assert config.hasOption('section1', 'foo')
-        assert config.hasOption('section1', 'bar')
-        assert config.hasOption('section1', 'bar2')
+        assert config.has_section('section1')
+        assert not config.has_section('section2')
+        assert not config.has_section('foo')
+        assert not config.has_section('bar')
+        assert not config.has_section('bar2')
+        assert config.has_option('section1', 'foo')
+        assert config.has_option('section1', 'bar')
+        assert config.has_option('section1', 'bar2')
         assert config.get('section1', 'foo') == 'bar'
         assert config.get('section1', 'bar') == 'bar'
         assert config.get('section1', 'bar2') == 'bar'
@@ -76,16 +76,16 @@ class TestParser(object):
         os.environ['SOME_ENV_VAR'] = 'test_test_test'
         config = Configuration()
         config.readfp(StringIO(CONFIG2))
-        assert config.hasSection('section1')
-        assert config.hasSection('section2')
-        assert not config.hasSection('foo')
-        assert not config.hasSection('bar')
-        assert not config.hasSection('bar2')
-        assert config.hasOption('section1', 'foo')
-        assert config.hasOption('section1', 'bar')
-        assert not config.hasOption('section1', 'bar2')
-        assert config.hasOption('section2', 'foo')
-        assert config.hasOption('section2', 'bar')
+        assert config.has_section('section1')
+        assert config.has_section('section2')
+        assert not config.has_section('foo')
+        assert not config.has_section('bar')
+        assert not config.has_section('bar2')
+        assert config.has_option('section1', 'foo')
+        assert config.has_option('section1', 'bar')
+        assert not config.has_option('section1', 'bar2')
+        assert config.has_option('section2', 'foo')
+        assert config.has_option('section2', 'bar')
         assert config.get('section1', 'foo') == 'bar'
         assert config.get('section1', 'bar') == 'bar'
         assert config.get('section2', 'foo') == 'bar'
@@ -111,18 +111,18 @@ class TestParser(object):
         config = Configuration()
         config.readfp(StringIO(s))
         unlinkTemp(tempPath)
-        assert config.hasSection('section1')
-        assert config.hasSection('section2')
-        assert config.hasSection('section3')
-        assert not config.hasSection('foo')
-        assert not config.hasSection('bar')
-        assert not config.hasSection('bar2')
-        assert config.hasOption('section1', 'foo')
-        assert config.hasOption('section1', 'bar')
-        assert not config.hasOption('section1', 'bar2')
-        assert config.hasOption('section2', 'foo')
-        assert config.hasOption('section2', 'bar')
-        assert config.hasOption('section3', 'baz')
+        assert config.has_section('section1')
+        assert config.has_section('section2')
+        assert config.has_section('section3')
+        assert not config.has_section('foo')
+        assert not config.has_section('bar')
+        assert not config.has_section('bar2')
+        assert config.has_option('section1', 'foo')
+        assert config.has_option('section1', 'bar')
+        assert not config.has_option('section1', 'bar2')
+        assert config.has_option('section2', 'foo')
+        assert config.has_option('section2', 'bar')
+        assert config.has_option('section3', 'baz')
         assert config.get('section1', 'foo') == 'bar'
         assert config.get('section1', 'bar') == 'bar'
         assert config.get('section2', 'foo') == 'bar'
@@ -130,11 +130,11 @@ class TestParser(object):
         assert config.get('section3', 'baz') == 'somevalue'
 
     def testOrdering(self):
-        config = Configuration(useOrderedSections=True)
+        config = Configuration(use_ordered_sections=True)
         config.readfp(StringIO(CONFIG_ORDER_TEST))
-        assert config.hasSection('a')
-        assert config.hasSection('y')
-        assert config.hasSection('z')
+        assert config.has_section('a')
+        assert config.has_section('y')
+        assert config.has_section('z')
         sections = config.sections()
         assert len(sections) == 4
         assert sections[0] == 'z'
@@ -150,7 +150,7 @@ var1 = ${bar}
         import sys
         from grizzled.io import AutoFlush
         sys.stdout = AutoFlush(sys.stdout)
-        config = Configuration(strictSubstitution=False)
+        config = Configuration(strict_substitution=False)
         config.readfp(StringIO(cfgString))
         config.write(sys.stdout)
 
@@ -160,7 +160,7 @@ var1 = ${bar}
         except:
             raise
 
-        config = Configuration(strictSubstitution=True)
+        config = Configuration(strict_substitution=True)
         try:
             config.readfp(StringIO(cfgString))
             assert False, 'Expected an exception'
