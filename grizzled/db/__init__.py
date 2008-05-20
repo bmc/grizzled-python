@@ -110,7 +110,7 @@ paramstyle = None
 def addDriver(key, driver_class, force=False):
     add_driver(key, driver_class, force)
 
-def add_Driver(key, driver_class, force=False):
+def add_driver(key, driver_class, force=False):
     """
     Add a driver class to the list of drivers.
 
@@ -170,7 +170,7 @@ def get_driver_names():
 def getDriver(driver_name):
     return get_driver(driver_name)
 
-def getDriver(driver_name):
+def get_driver(driver_name):
     """
     Get the DB API object for the specific database type. The list of
     legal database types are available by calling
