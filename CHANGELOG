@@ -1,5 +1,14 @@
 $Id$
 
+Version 0.4 (20 May, 2008)
+
+- Converted public functions, methods, parameters and variables that use
+  camel case names to names that are more consistent with standard Python
+  naming conventions. Existing camel case functions are still in the API,
+  but are deprecated. Calling them will result in a runtime warning.
+
+---------------------------------------------------------------------------
+
 Version 0.3 (8 May, 2008)
 
 - Created grizzled.io.filelock module, with a FileLock class that provides
