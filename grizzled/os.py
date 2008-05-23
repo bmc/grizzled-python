@@ -49,6 +49,7 @@ else:
 # The path separator for the operating system.
 
 PATH_SEPARATOR = {'nt' : ';', 'posix' : ':'}
+FILE_SEPARATOR = {'nt' : '\\', 'posix' : '/'}
 
 # ---------------------------------------------------------------------------
 # Logging
@@ -71,21 +72,32 @@ class DaemonError(OSError):
 # Public functions
 # ---------------------------------------------------------------------------
 
-@deprecated(since='0.4', message='use get_path_separator')
+@deprecated(since='0.4', message='use path_separator')
 def getPathSeparator():
     return get_path_separator
 
-def get_path_separator():
+def path_separator():
     """
-    Get the path separator for the current operating system. The path 
+    Get the path separator for the current operating system. The path
     separator is used to separate elements of a path string, such as
-    "PATH" or "CLASSPATH". (It's a "/" on Unix-like systems and a "\\"
+    "PATH" or "CLASSPATH". (It's a ":" on Unix-like systems and a ";"
     on Windows.)
-    
+
     @rtype: str
     @return: the path separator
     """
     return PATH_SEPARATOR[_os.name]
+
+def file_separator():
+    """
+    Get the file separator for the current operating system. The file
+    separator is used to separate file elements in a pathname. (It's
+    "/" on Unix-like systems and a "\\" on Windows.)
+
+    @rtype: str
+    @return: the file separator
+    """
+    return FILE_SEPARATOR[_os.name]
 
 @deprecated(since='0.4', message='use working_directory')
 def workingDirectory(directory):
