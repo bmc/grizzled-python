@@ -1,5 +1,11 @@
 $Id$
 
+Version 0.5 (...)
+
+- Fixed boundary condition error in grizzled.file.eglob()
+
+---------------------------------------------------------------------------
+
 Version 0.4 (20 May, 2008)
 
 - Converted public functions, methods, parameters and variables that use
