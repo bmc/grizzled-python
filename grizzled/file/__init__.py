@@ -193,8 +193,12 @@ def __find_matches(pattern_pieces, directory):
     if not os.path.isdir(directory):
         return []
 
+    if len(pattern_pieces) == 0:
+        return []
+
     last = len(pattern_pieces) == 1
     piece = pattern_pieces[0]
+    remaining_pieces = []
     if piece == '**':
         if not last:
             remaining_pieces = pattern_pieces[1:]
