@@ -508,16 +508,16 @@ class Configuration(ConfigParser.SafeConfigParser):
         @raise ConfigParser.NoSectionError: no such section
         @raise ConfigParser.NoOptionError:  no such option in the section
         """
-        def doGet(section, option):
+        def do_get(section, option):
             val = ConfigParser.SafeConfigParser.get(self, section, option)
             if len(val.strip()) == 0:
                 raise ConfigParser.NoOptionError(option, section)
             return val
 
         if optional:
-            return self.__get_optional(doGet, section, option)
+            return self.__get_optional(do_get, section, option)
         else:
-            return doGet(section, option)
+            return do_get(section, option)
 
     def getint(self, section, option, optional=False):
         """
@@ -541,13 +541,13 @@ class Configuration(ConfigParser.SafeConfigParser):
         @raise ConfigParser.NoSectionError: no such section
         @raise ConfigParser.NoOptionError:  no such option in the section
         """
-        def doGet(section, option):
+        def do_get(section, option):
             return ConfigParser.SafeConfigParser.getint(self, section, option)
 
         if optional:
-            return self.__get_optional(doGet, section, option)
+            return self.__get_optional(do_xget, section, option)
         else:
-            return doGet(section, option)
+            return do_get(section, option)
 
     def getfloat(self, section, option, optional=False):
         """
@@ -571,13 +571,13 @@ class Configuration(ConfigParser.SafeConfigParser):
         @raise ConfigParser.NoSectionError: no such section
         @raise ConfigParser.NoOptionError:  no such option in the section
         """
-        def doGet(section, option):
+        def do_get(section, option):
             return ConfigParser.SafeConfigParser.getfloat(self, section, option)
 
         if optional:
-            return self.__get_optional(doGet, section, option)
+            return self.__get_optional(do_get, section, option)
         else:
-            return doGet(section, option)
+            return do_get(section, option)
 
     def getboolean(self, section, option, optional=False):
         '''
@@ -606,15 +606,15 @@ class Configuration(ConfigParser.SafeConfigParser):
         @raise ConfigParser.NoOptionError: no such option in the section
         @raise ValueError: non-boolean value encountered
         '''
-        def doGet(section, option):
+        def do_get(section, option):
             return ConfigParser.SafeConfigParser.getboolean(self,
                                                             section,
                                                             option)
 
         if optional:
-            return self.__get_optional(doGet, section, option)
+            return self.__get_optional(do_get, section, option)
         else:
-            return doGet(section, option)
+            return do_get(section, option)
 
     def getlist(self, section, option, sep=None, optional=False):
         '''
@@ -641,14 +641,14 @@ class Configuration(ConfigParser.SafeConfigParser):
         @raise ConfigParser.NoOptionError: no such option in the section
         @raise ValueError: non-boolean value encountered
         '''
-        def doGet(section, option):
+        def do_get(section, option):
             value = ConfigParser.SafeConfigParser.get(self, section, option)
             return value.split(sep)
 
         if optional:
-            return self.__get_optional(doGet, section, option)
+            return self.__get_optional(do_get, section, option)
         else:
-            return doGet(section, option)
+            return do_get(section, option)
 
     def items(self, section):
         """
@@ -821,7 +821,6 @@ class _ConfigTemplate(string.Template):
     reference syntax.
     """
     idpattern = VARIABLE_REF_PATTERN
-
 
 class _ConfigDict(dict):
     """

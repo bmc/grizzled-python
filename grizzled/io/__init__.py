@@ -16,7 +16,7 @@ import zipfile
 # Exports
 # ---------------------------------------------------------------------------
 
-__all__ = ['AutoFlush', 'MultiWriter', 'PushbackFile']
+__all__ = ['AutoFlush', 'MultiWriter', 'PushbackFile', 'Zip']
 
 # ---------------------------------------------------------------------------
 # Classes

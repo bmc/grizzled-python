@@ -68,13 +68,12 @@ class FileLock(object):
                    or updating, not reading.
         """
         try:
-            class_name = LOCK_CLASSES[os.name]
-            cls = eval(class_name)
+            cls = eval(LOCK_CLASSES[os.name])
             self.lock = cls(fd)
 
         except KeyError:
             raise NotImplementedError, \
-                  'Don\t know how to lock files on "%s" systems.' % os.name
+                  '''Don't know how to lock files on "%s" systems.''' % os.name
         
     def acquire(self, no_wait=False):
         """
