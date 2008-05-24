@@ -126,8 +126,7 @@ def copy(files, target_dir, createTarget=False):
 
     for f in files:
         targetFile = _os.path.join(target_dir, _os.path.basename(f))
-        o = open(targetFile, 'wb')
-        i = open(f, 'rb')
+        open(targetFile, 'wb').write(open(f, 'rb').read())
 
 def touch(files, times=None):
     """
@@ -160,7 +159,6 @@ def touch(files, times=None):
 
         else:
             # Doesn't exist. Create it.
-
             open(f, 'wb').close()
 
 
