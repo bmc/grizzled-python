@@ -10,10 +10,20 @@ This module contains file- and path-related methods, classes, and modules.
 
 from __future__ import with_statement, absolute_import
 
-import os
+import os as _os
 import sys
 import shutil
+
 from grizzled.decorators import deprecated
+from grizzled.os import file_separator
+
+# ---------------------------------------------------------------------------
+# Exports
+# ---------------------------------------------------------------------------
+
+__all__ = ['unlink_quietly', 'recursively_remove', 'copy_recursively',
+           'copy', 'touch', 'pathsplit', 'eglob', 'universal_path',
+           'native_path']
 
 # ---------------------------------------------------------------------------
 # Functions
@@ -43,7 +53,7 @@ def unlink_quietly(*paths):
 
     for path in looper(*paths):
         try:
-            os.unlink(path)
+            _os.unlink(path)
         except:
             pass
 
@@ -59,7 +69,7 @@ def recursively_remove(dir):
     @type dir:  string
     @param dir: path to directory to remove
     """
-    if not os.path.exists(dir):
+    if not _os.path.exists(dir):
         return
 
     shutil.rmtree(dir)
@@ -107,15 +117,15 @@ def copy(files, target_dir, createTarget=False):
     if type(files) == str:
         files = [files]
 
-    if not os.path.exists(target_dir):
+    if not _os.path.exists(target_dir):
         if createTarget:
-            os.mkdir(target_dir)
+            _os.mkdir(target_dir)
 
-    if os.path.exists(target_dir) and (not os.path.isdir(target_dir)):
+    if _os.path.exists(target_dir) and (not _os.path.isdir(target_dir)):
         raise OSError, 'Cannot copy files to non-directory "%s"' % target_dir
 
     for f in files:
-        targetFile = os.path.join(target_dir, os.path.basename(f))
+        targetFile = _os.path.join(target_dir, _os.path.basename(f))
         o = open(targetFile, 'wb')
         i = open(f, 'rb')
 
@@ -143,10 +153,10 @@ def touch(files, times=None):
         files = [files]
 
     for f in files:
-        if os.path.exists(f):
-            if not os.path.isfile(f):
+        if _os.path.exists(f):
+            if not _os.path.isfile(f):
                 raise OSError, "Can't touch non-file \"%s\"" % f
-            os.utime(f, times)
+            _os.utime(f, times)
 
         else:
             # Doesn't exist. Create it.
@@ -161,15 +171,15 @@ def pathsplit(path):
     underlying operating system. Does not take drive letters into account.
     If there's a Windows drive letter in the path, it'll end up with the
     first component.
-    
+
     @type path:  str
     @param path: path to split. Can be relative or absolute.
-    
+
     @rtype:  list
     @return: a list of path components
     """
     result = []
-    (head, tail) = os.path.split(path)
+    (head, tail) = _os.path.split(path)
 
     if (not head) or (head == path):
         # No file separator. Done.
@@ -177,7 +187,7 @@ def pathsplit(path):
 
     else:
         result = pathsplit(head)
-        
+
     if tail:
         result += [tail]
 
@@ -190,7 +200,7 @@ def __find_matches(pattern_pieces, directory):
     import glob
 
     result = []
-    if not os.path.isdir(directory):
+    if not _os.path.isdir(directory):
         return []
 
     piece = pattern_pieces[0]
@@ -199,7 +209,7 @@ def __find_matches(pattern_pieces, directory):
         if not last:
             remaining_pieces = pattern_pieces[1:]
 
-        for root, dirs, files in os.walk(directory):
+        for root, dirs, files in _os.walk(directory):
             if last:
                 # At the end of a pattern, "**" just recursively matches
                 # directories.
@@ -214,7 +224,7 @@ def __find_matches(pattern_pieces, directory):
     else:
         # Regular glob pattern.
 
-        matches = glob.glob(os.path.join(directory, piece))
+        matches = glob.glob(_os.path.join(directory, piece))
         if len(matches) > 0:
             if last:
                 for match in matches:
@@ -229,7 +239,7 @@ def __find_matches(pattern_pieces, directory):
     # Normalize the paths.
 
     for i in range(len(result)):
-        result[i] = os.path.normpath(result[i])
+        result[i] = _os.path.normpath(result[i])
 
     return result
 
@@ -238,19 +248,59 @@ def eglob(pattern, directory='.'):
     Extended glob function that supports the all the wildcards supported
     by the Python standard C{glob} routine, as well as a special "**"
     wildcard that recursively matches any directory. Examples::
-    
+
         **/*.py    all files ending in '.py' under the current directory
         foo/**/bar all files name 'bar' anywhere under subdirectory 'foo'
 
     @type pattern:    str
     @param pattern:   The wildcard pattern. Must be a simple pattern with
                       no directories.
-                    
+
     @type directory:  str
     @param directory: The directory in which to do the globbing.
-    
+
     @rtype:  list
     @return: A list of matched files, or an empty list for no match
     """
     pieces = pathsplit(pattern)
     return __find_matches(pieces, directory)
+
+def universal_path(path):
+    """
+    Converts a path name from its operating system-specific format to a
+    universal path notation. Universal path notation always uses a Unix-style
+    "/" to separate path elements. A universal path can be converted to a
+    native (operating system-specific) path via the
+    L{C{native_path()}<native_path>} function. Note that on POSIX-compliant
+    systems, this function simply returns C{path} argument unmodified.
+
+    @type path:  str
+    @param path: the path to convert to universal path notation
+
+    @rtype:  str
+    @return: the universal path.
+    """
+    if _os.name != 'posix':
+        path = path.replace(file_separator(), '/')
+
+    return path
+
+def native_path(path):
+    """
+    Converts a path name from universal path notation to the operating
+    system-specific format. Universal path notation always uses a Unix-style
+    "/" to separate path elements. A native path can be converted to a
+    universal path via the L{C{universal_path()}<universal_path>} function.
+    Note that on POSIX-compliant systems, this function simply returns C{path}
+    argument unmodified.
+
+    @type path:  str
+    @param path: the path to convert to native path notation
+
+    @rtype:  str
+    @return: the native path.
+    """
+    if _os.name != 'posix':
+        path = path.replace('/', file_separator())
+
+    return path

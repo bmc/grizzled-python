@@ -174,6 +174,10 @@ import re
 from grizzled.exception import ExceptionWithMessage
 from grizzled.decorators import deprecated
 
+# ---------------------------------------------------------------------------
+# Exports
+# ---------------------------------------------------------------------------
+
 __all__ = ['Configuration', 'preprocess',
            'NoOptionError', 'NoSectionError', 'NoVariableError']
 

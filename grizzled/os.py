@@ -11,13 +11,11 @@ Overview
 The C{grizzled.os} module contains some operating system-related methods and
 classes. It is a conceptual extension of the standard Python C{os} module.
 """
-from __future__ import absolute_import
-
-__all__ = ['daemonize', 'DaemonError', 'workingDirectory', 'getPathSeparator']
-
 # ---------------------------------------------------------------------------
 # Imports
 # ---------------------------------------------------------------------------
+
+from __future__ import absolute_import
 
 import logging
 import os as _os
@@ -25,6 +23,13 @@ import sys
 from contextlib import contextmanager
 
 from grizzled.decorators import deprecated
+
+# ---------------------------------------------------------------------------
+# Exports
+# ---------------------------------------------------------------------------
+
+__all__ = ['daemonize', 'DaemonError', 'working_directory', 
+           'file_separator', 'path_separator']
 
 # ---------------------------------------------------------------------------
 # Constants
