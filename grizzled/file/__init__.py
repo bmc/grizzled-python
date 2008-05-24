@@ -193,9 +193,8 @@ def __find_matches(pattern_pieces, directory):
     if not os.path.isdir(directory):
         return []
 
-    last = len(pattern_pieces) == 1
     piece = pattern_pieces[0]
-    remaining_pieces = []
+    last = len(pattern_pieces) == 1
     if piece == '**':
         if not last:
             remaining_pieces = pattern_pieces[1:]
@@ -221,11 +220,11 @@ def __find_matches(pattern_pieces, directory):
                 for match in matches:
                     result += [match]
             else:
-                remainingPieces = pattern_pieces[1:]
+                remaining_pieces = pattern_pieces[1:]
                 for match in matches:
                     sub_result = __find_matches(remaining_pieces, match)
                     for partial_path in sub_result:
-                        result += [partialPath]
+                        result += [partial_path]
 
     # Normalize the paths.
 
