@@ -2,7 +2,7 @@ $Id$
 
 Version 0.5 (...)
 
-- Fixed boundary condition error in grizzled.file.eglob()
+- Fixed bug in grizzled.file.eglob() stemming from camel case conversion.
 - Added grizzled.os.file_separator() function.
 - Changed grizzled.os.get_path_separator() to grizzled.os.path_separator().
 
