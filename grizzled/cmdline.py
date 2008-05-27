@@ -90,7 +90,7 @@ class CommandLineParser(OptionParser):
 
     @deprecated(since='0.4', message='use show_usage')
     def showUsage(self, msg=None):
-        show_usage(self, msg)
+        self.show_usage(self, msg)
 
     def show_usage(self, msg=None):
         """
