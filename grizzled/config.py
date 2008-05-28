@@ -885,22 +885,22 @@ class _ConfigDict(dict):
 
         return default
 
+    def __value_from_program_section(self, option):
+        return {
+            'cwd'  : os.getcwd(),
+            'now'  : time.strftime('%Y-%m-%d %H:%M:%S'),
+            'name' : os.path.basename(sys.argv[0])
+               }[option]
+
     def __value_from_section(self, section, option):
         result = None
         if section == 'env':
             result = os.environ[option]
             if len(result) == 0:
-                raise KeyError
+                raise KeyError, option
 
         elif section == 'program':
-            if option == 'cwd':
-                result = os.getcwd()
-            elif option == 'now':
-                result = time.strftime('%Y-%m-%d %H:%M:%S')
-            elif option == 'name':
-                result = os.path.basename(sys.argv[0])
-            else:
-                raise KeyError, option
+            result = self.__value_from_program_section(option)
 
         else:
             result = self.__config.get(section, option)
