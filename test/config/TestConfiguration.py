@@ -11,6 +11,7 @@ from cStringIO import StringIO
 import os
 import tempfile
 import atexit
+import sys
 
 # ---------------------------------------------------------------------------
 # Globals
@@ -21,6 +22,9 @@ CONFIG1 = """
 foo = bar
 bar = ${foo}
 bar2 = ${section1:foo}
+name = ${program:name}
+time = ${program:now}
+cwd = ${program:cwd}
 """
 
 CONFIG2 = """
@@ -66,6 +70,9 @@ class TestParser(object):
         assert not config.has_section('bar')
         assert not config.has_section('bar2')
         assert config.has_option('section1', 'foo')
+        assert config.has_option('section1', 'name')
+        assert config.get('section1', 'name') == os.path.basename(sys.argv[0])
+        assert config.get('section1', 'cwd') == os.getcwd()
         assert config.has_option('section1', 'bar')
         assert config.has_option('section1', 'bar2')
         assert config.get('section1', 'foo') == 'bar'
