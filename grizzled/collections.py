@@ -58,7 +58,7 @@ class OrderedDict(dict):
     def __str__(self):
         s = '{'
         sep = ''
-        for k, v in self.items():
+        for k, v in self.iteritems():
             s += sep
             if type(k) == str:
                 s += "'%s'" % k
@@ -92,7 +92,7 @@ class OrderedDict(dict):
             yield key
 
     def update(self, d):
-        for key, value in d.items():
+        for key, value in d.iteritems():
             self[key] = value
 
     def pop(self, key, default=None):
