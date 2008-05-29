@@ -2,6 +2,8 @@ $Id$
 
 Version 0.5 (...)
 
+- Added grizzled.sys module, with python_version(), python_version_string(),
+  split_python_version() and ensure_version() functions.
 - Added grizzled.file.universal_path() and grizzled.file.native_path().
   A universal path always uses a '/' as the file separator, no matter what
   the underlying operating system uses. A native path uses the underlying

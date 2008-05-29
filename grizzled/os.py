@@ -8,7 +8,7 @@
 """
 Overview
 ========
-The C{grizzled.os} module contains some operating system-related methods and
+The C{grizzled.os} module contains some operating system-related functions and
 classes. It is a conceptual extension of the standard Python C{os} module.
 """
 # ---------------------------------------------------------------------------
