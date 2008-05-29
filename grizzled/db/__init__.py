@@ -75,9 +75,11 @@ with this API, you use::
 # Imports
 # ---------------------------------------------------------------------------
 
+import re
+
 from grizzled.exception import ExceptionWithMessage
 from grizzled.decorators import abstract, deprecated
-import dummydb
+from grizzled.db import dummydb
 
 # ---------------------------------------------------------------------------
 # Exports
@@ -948,6 +950,8 @@ class DBDriver(object):
 class MySQLDriver(DBDriver):
     """DB Driver for MySQL, using the MySQLdb DB API module."""
 
+    TYPE_RE = re.compile('([a-z]+)(\([0-9]+\))?')
+
     def get_import(self):
         import MySQLdb
         return MySQLdb
@@ -963,6 +967,35 @@ class MySQLDriver(DBDriver):
                    database="default"):
         dbi = self.get_import()
         return dbi.connect(host=host, user=user, passwd=password, db=database)
+
+    def get_table_metadata(self, table, cursor):
+        """Default implementation"""
+        dbi = self.get_import()
+        cursor.execute('DESC %s' % table)
+        rs = cursor.fetchone()
+        results = []
+        while rs != None:
+            column = rs[0]
+            coltype = rs[1]
+            null = False if rs[2] == 'NO' else True
+
+            match = self.TYPE_RE.match(coltype)
+            if match:
+                coltype = match.group(1)
+                size = match.group(2)
+                if size:
+                    size = size[1:-1]
+                if coltype in ['varchar', 'char']:
+                    max_char_size = size
+                    precision = None
+                else:
+                    max_char_size = None
+                    precision = size
+
+            results += [(column, coltype, max_char_size, precision, 0, null])
+            rs = cursor.fetchone()
+
+        return results
 
     def get_index_metadata(self, table, cursor):
         dbi = self.get_import()
