@@ -992,7 +992,7 @@ class MySQLDriver(DBDriver):
                     max_char_size = None
                     precision = size
 
-            results += [(column, coltype, max_char_size, precision, 0, null])
+            results += [(column, coltype, max_char_size, precision, 0, null)]
             rs = cursor.fetchone()
 
         return results
