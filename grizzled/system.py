@@ -9,7 +9,7 @@
 Overview
 ========
 
-The C{grizzled.sys} module contains some functions and classes that provide
+The C{grizzled.system} module contains some functions and classes that provide
 information about the Python system (the Python runtime, the language, etc.).
 Tt is a conceptual extension of the standard Python C{sys} module.
 """
