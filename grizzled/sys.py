@@ -117,8 +117,9 @@ def python_version(version):
             rl2 = match.group(2)
             if rl and rl2:
                 raise ValueError, err
-            release_level = rl2[0]
-            serial = int(rl2[1:])
+            if rl2:
+                release_level = rl2[0]
+                serial = int(rl2[1:])
 
     try:
         release_level = RELEASE_LEVELS[release_level]
