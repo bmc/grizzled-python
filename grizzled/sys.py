@@ -134,9 +134,9 @@ def python_version(version):
 
 def split_python_version(version=None):
     """
-    Convert a binary Python version string (e.g., "0x020501f0") into the
+    Convert a binary Python version string (e.g., C{0x020501f0}) into the
     same (I{major, minor, micro, releaselevel, serial}) tuple that is found
-    in C{sys.version_info}. Thus, for an input value of 0x020501f0, this
+    in C{sys.version_info}. Thus, for an input value of C{0x020501f0}, this
     function returns the tuple C{(2, 5, 1, 'final', 0)}.
 
     @type version:  int
@@ -163,8 +163,8 @@ def split_python_version(version=None):
 
 def python_version_string(version=None):
     """
-    Convert a numeric Python version (such as C{sys.hexversion}) to a printable
-    string.
+    Convert a numeric Python version (such as C{sys.hexversion}) to a
+    printable string.
 
     @type version:  int
     @param version: Numeric Python version. Defaults to C{sys.hexversion}
@@ -186,8 +186,8 @@ def python_version_string(version=None):
 def ensure_version(min_version):
     """
     Raise a C{RuntimeError} if the current Python version isn't at least
-    C{min_version}. C{min_version} may be an C{int} (e.g., 0x020500f0) or
-    a string (e.g., "2.5.0").
+    C{min_version}. C{min_version} may be an C{int} (e.g., C{0x020500f0}) or a
+    string (e.g., "2.5.0").
 
     @type min_version:  str or int
     @param min_version: minimum version, as a number or string
