@@ -1,6 +1,6 @@
 $Id$
 
-Version 0.5 (...)
+Version 0.5 (28 May, 2008)
 
 - Added grizzled.sys module, with python_version(), python_version_string(),
   split_python_version() and ensure_version() functions.
