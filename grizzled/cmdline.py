@@ -21,8 +21,6 @@ It also provides a couple extra utility modules.
 from optparse import OptionParser
 import sys
 
-from grizzled.decorators import deprecated
-
 # ---------------------------------------------------------------------------
 # Exports
 # ---------------------------------------------------------------------------
