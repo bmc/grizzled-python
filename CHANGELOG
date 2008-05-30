@@ -2,6 +2,8 @@ $Id$
 
 Version 0.7 (...)
 
+- Fixed bug in grizzled.db.add_driver() function that prevented a driver
+  from being added programmatically.
 - Added class_for_name() function to grizzled.system module.
 - grizzled.config now uses grizzled.collections.OrderedDict
 - In grizzled.config, Configuration.sections() is now a property.
