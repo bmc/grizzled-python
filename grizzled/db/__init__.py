@@ -462,6 +462,27 @@ class Cursor(object):
             raise Warning(val)
         except dbi.Error, val:
             raise Error(val)
+        
+    def get_tables(self):
+        """
+        Get the list of tables in the database to which this cursor is
+        connected.
+        
+        @rtype:  list
+        @return: List of table names. The list will be empty if the database
+                 contains no tables.
+                 
+        @raise NotImplementedError: Capability not supported by database driver
+        @raise Warning:             Non-fatal warning
+        @raise Error:               Error
+        """
+        dbi = self.__driver.get_import()
+        try:
+            return self.__driver.get_tables(self.__cursor)
+        except dbi.Warning, val:
+            raise Warning(val)
+        except dbi.Error, val:
+            raise Error(val)
 
 class DB(object):
     """
@@ -947,6 +968,23 @@ class DBDriver(object):
 
         return result
 
+    def get_tables(self, cursor):
+        """
+        Get the list of tables in the database.
+        
+        @type cursor:  L{C{Cursor}<Cursor>}
+        @param cursor: a C{Cursor} object from a recent query
+
+        @rtype:  list
+        @return: List of table names. The list will be empty if the database
+                 contains no tables.
+                 
+        @raise NotImplementedError: Capability not supported by database driver
+        @raise Warning:             Non-fatal warning
+        @raise Error:               Error
+        """
+        raise NotImplementedError
+
 class MySQLDriver(DBDriver):
     """DB Driver for MySQL, using the MySQLdb DB API module."""
 
@@ -1028,6 +1066,16 @@ class MySQLDriver(DBDriver):
 
         return result
 
+    def get_tables(self, cursor):
+        cursor.execute('SHOW TABLES')
+        table_names = []
+        rs = cursor.fetchone()
+        while rs != None:
+            table_names += [rs[0]]
+            rs = cursor.fetchone()
+            
+        return table_names
+
 class SQLServerDriver(DBDriver):
     """DB Driver for Microsoft SQL Server, using the pymssql DB API module."""
 
@@ -1045,12 +1093,24 @@ class SQLServerDriver(DBDriver):
                    password='',
                    database='default'):
         dbi = self.get_import()
+        self.db_name = database
         if port == None:
             port = '1433'
         return dbi.connect(host='%s:%s' % (host, port),
                            user=user,
                            password=password,
                            database=database)
+
+    def get_tables(self, cursor):
+        cursor.execute("select name from %s..sysobjects where xtype = 'U'" %
+                       self.db_name)
+        table_names = []
+        rs = cursor.fetchone()
+        while rs != None:
+            table_names += [rs[0]]
+            rs = cursor.fetchone()
+            
+        return table_names
 
     def get_table_metadata(self, table, cursor):
         """Default implementation"""
@@ -1114,7 +1174,7 @@ class PostgreSQLDriver(DBDriver):
     def get_index_metadata(self, table, cursor):
         dbi = self.get_import()
         # First, issue one query to get the list of indexes for the table.
-        index_names = self.__getIndexNames(table, cursor)
+        index_names = self.__get_index_names(table, cursor)
 
         # Now we need two more queries: One to get the columns in the
         # index and another to get descriptive information.
@@ -1126,20 +1186,32 @@ class PostgreSQLDriver(DBDriver):
 
         return results
 
-    def __getIndexNames(self, table, cursor):
+    def get_tables(self, cursor):
+        sel = "SELECT tablename FROM pg_tables " \
+              "WHERE tablename NOT LIKE 'pg_%' AND tablename NOT LIKE 'sql\_%'"
+        cursor.execute(sel)
+        table_names = []
+        rs = cursor.fetchone()
+        while rs != None:
+            table_names += [rs[0]]
+            rs = cursor.fetchone()
+            
+        return table_names
+
+    def __get_index_names(self, table, cursor):
         # Adapted from the pgsql command "\d indexname", PostgreSQL 8.
         # (Invoking the pgsql command from -E shows the issued SQL.)
 
         sel = "SELECT n.nspname, c.relname as \"IndexName\", c2.relname " \
-            "FROM pg_catalog.pg_class c " \
-            "JOIN pg_catalog.pg_index i ON i.indexrelid = c.oid " \
-            "JOIN pg_catalog.pg_class c2 ON i.indrelid = c2.oid " \
-            "LEFT JOIN pg_catalog.pg_user u ON u.usesysid = c.relowner " \
-            "LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace " \
-            "WHERE c.relkind IN ('i','') " \
-            "AND n.nspname NOT IN ('pg_catalog', 'pg_toast') " \
-            "AND pg_catalog.pg_table_is_visible(c.oid) " \
-            "AND c2.relname = '%s'" % table.lower()
+              "FROM pg_catalog.pg_class c " \
+              "JOIN pg_catalog.pg_index i ON i.indexrelid = c.oid " \
+              "JOIN pg_catalog.pg_class c2 ON i.indrelid = c2.oid " \
+              "LEFT JOIN pg_catalog.pg_user u ON u.usesysid = c.relowner " \
+              "LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace " \
+              "WHERE c.relkind IN ('i','') " \
+              "AND n.nspname NOT IN ('pg_catalog', 'pg_toast') " \
+              "AND pg_catalog.pg_table_is_visible(c.oid) " \
+              "AND c2.relname = '%s'" % table.lower()
 
         cursor.execute(sel)
         index_names = []
@@ -1229,6 +1301,16 @@ class OracleDriver(DBDriver):
         dbi = self.get_import()
         return dbi.connect('%s/%s@%s' % (user, password, database))
 
+    def get_tables(self, cursor):
+        cursor.execute("select table_name from user_tables")
+        table_names = []
+        rs = cursor.fetchone()
+        while rs != None:
+            table_names += [rs[0]]
+            rs = cursor.fetchone()
+            
+        return table_names
+
 class SQLite3Driver(DBDriver):
     """DB Driver for Oracle, using the cx_Oracle DB API module."""
 
@@ -1248,6 +1330,16 @@ class SQLite3Driver(DBDriver):
         dbi = self.get_import()
         return dbi.connect(database=database)
 
+    def get_tables(self, cursor):
+        cursor.execute("select name from sqlite_master where type = 'table'")
+        table_names = []
+        rs = cursor.fetchone()
+        while rs != None:
+            table_names += [rs[0]]
+            rs = cursor.fetchone()
+            
+        return table_names
+ 
 class DummyDriver(DBDriver):
     """Dummy database driver, for testing."""
 
