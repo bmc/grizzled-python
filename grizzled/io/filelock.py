@@ -24,6 +24,15 @@ with an open file descriptor. It handles the rest::
     ...
 
     lock.release()
+    
+You can also use the L{C{locked_file()}<locked_file>} function to simplify
+your code::
+
+    from grizzled.io.filelock import locked_file
+
+    fd = open('/tmp/lockfile', 'r+')
+    with locked_file(fd):
+        ...
 """
 
 # ---------------------------------------------------------------------------
