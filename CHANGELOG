@@ -1,6 +1,6 @@
 $Id$
 
-Version 0.6 (...)
+Version 0.6 (30 May, 2008)
 
 - Removed deprecated methods.
 - Removed deprecated optparse module.
