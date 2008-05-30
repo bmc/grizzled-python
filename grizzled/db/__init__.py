@@ -55,7 +55,7 @@ module. To do so:
  1. The driver class must extend L{C{DBDriver}<DBDriver>} and provide the 
     appropriate methods. See examples in this module.
  2. The driver's module (or the calling program) must register the driver
-    with this module by calling the L{C{add_driver()><add_driver>} function.
+    with this module by calling the L{C{add_driver()}<add_driver>} function.
 
 
 DB API Factory Functions
