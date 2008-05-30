@@ -132,7 +132,7 @@ def add_driver(key, driver_class, force=False):
     except KeyError:
         pass
 
-    drivers[key] = str(driver_class)
+    drivers[key] = driver_class
 
 def get_drivers():
     """
@@ -171,8 +171,11 @@ def get_driver(driver_name):
     @raise ValueError: Unknown driver name
     """
     try:
-        class_name = drivers[driver_name]
-        exec 'd = %s()' % class_name
+        o = drivers[driver_name]
+        if type(o) == str:
+            exec 'd = %s()' % o
+        else:
+            d = o()
         return d
     except KeyError:
         raise ValueError, 'Unknown driver name: "%s"' % driver_name
