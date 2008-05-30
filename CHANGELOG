@@ -3,6 +3,8 @@ $Id$
 Version 0.6 (...)
 
 - Added MySQL-specific logic for table metadata to grizzled.db
+- Added grizzled.io.filelock.locked_file() function, for use with the
+  "with" statement.
 
 ---------------------------------------------------------------------------
 

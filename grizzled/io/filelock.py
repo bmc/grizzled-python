@@ -16,13 +16,13 @@ To create a file lock, simply instantiate the L{C{FileLock}<FileLock>} class
 with an open file descriptor. It handles the rest::
 
     from grizzled.io.filelock import FileLock
-    
+
     fd = open('/tmp/lockfile', 'r+')
     lock = FileLock(fd)
     lock.acquire()
-    
+
     ...
-    
+
     lock.release()
 """
 
@@ -31,12 +31,13 @@ with an open file descriptor. It handles the rest::
 # ---------------------------------------------------------------------------
 
 import os
+from contextlib import contextmanager
 
 # ---------------------------------------------------------------------------
 # Exports
 # ---------------------------------------------------------------------------
 
-__all__ = ['FileLock']
+__all__ = ['FileLock', 'locked_file']
 
 LOCK_CLASSES = {'posix' : '_PosixFileLock',
                 'nt'    : '_WindowsFileLock'}
@@ -57,13 +58,13 @@ class FileLock(object):
     Currently, there are underlying implementations for both POSIX systems
     and Windows.
     """
-    
+
     def __init__(self, fd):
         """
         Allocate a new file lock that operates on the specified file
         descriptor.
-        
-        @type fd: int
+
+        @type fd:  int
         @param fd: open file descriptor. The file must be opened for writing
                    or updating, not reading.
         """
@@ -74,7 +75,7 @@ class FileLock(object):
         except KeyError:
             raise NotImplementedError, \
                   '''Don't know how to lock files on "%s" systems.''' % os.name
-        
+
     def acquire(self, no_wait=False):
         """
         Lock the associated file. If someone already has the file locked,
@@ -83,9 +84,9 @@ class FileLock(object):
 
         @type no_wait:  bool
         @param no_wait: If C{False}, then C{lock()} will suspend the calling
-                       process if someone else has the file locked. If C{True},
-                       then C{lock()} will raise an C{IOError} if the file
-                       is locked by someone else.
+                        process if someone else has the file locked. If
+                        C{True}, then C{lock()} will raise an C{IOError} if
+                        the file is locked by someone else.
 
         @raise IOError: If the file cannot be locked for any reason.
         """
@@ -135,3 +136,47 @@ class _WindowsFileLock(object):
         import msvcrt
         self.fd.seek(0)
         msvcrt.locking(self.fd, LK_UNLCK, 1)
+
+# ---------------------------------------------------------------------------
+# Functions
+# ---------------------------------------------------------------------------
+
+@contextmanager
+def locked_file(fd, no_wait=False):
+    """
+    This function is intended to be used as a C{with} statement context
+    manager. It wraps a L{C{FileLock}<FileLock>} object so that the
+    locking and unlocking of the file descriptor are automatic. With the
+    C{locked_file()} function, this code::
+
+        lock = FileLock(fd)
+        lock.acquire()
+        try:
+            do_something()
+        finally:
+            lock.release()
+
+    can be replaced with::
+
+        with locked_file(fd):
+            do_something()
+
+    @type fd: int
+    @param fd: open file descriptor. The file must be opened for writing
+               or updating, not reading.
+
+    @type no_wait:  bool
+    @param no_wait: If C{False}, then C{lock()} will suspend the calling
+                    process if someone else has the file locked. If C{True},
+                    then C{lock()} will raise an C{IOError} if the file is
+                    locked by someone else.
+    """
+    locked = False
+    try:
+        lock = FileLock(fd)
+        lock.acquire(no_wait)
+        locked = True
+        yield lock
+    finally:
+        if locked:
+            lock.release()
