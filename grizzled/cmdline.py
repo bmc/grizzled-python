@@ -64,34 +64,6 @@ class CommandLineParser(OptionParser):
             print >> out, '\n%s' % textwrap.fill(self.epilogue, 80)
             out.flush()
 
-    @deprecated(since='0.4', message='use add_option')
-    def addOption(self, *args, **kw):
-        """
-        Front-end to C{add_option()}. Exists solely for Camel-case
-        consistency.
-        """
-        return self.add_option(*args, **kw)
-
-    @deprecated(since='0.4', message='use add_options')
-    def addOptions(self, optionList):
-        """
-        Front-end to C{add_option()}. Exists solely for Camel-case
-        consistency.
-        """
-        return self.add_options(optionList)
-
-    @deprecated(since='0.4', message='use parse_args')
-    def parseArgs(self, args):
-        """
-        Front-end to C{parse_args()}. Exists solely for Camel-case
-        consistency.
-        """
-        return self.parse_args(args)
-
-    @deprecated(since='0.4', message='use show_usage')
-    def showUsage(self, msg=None):
-        self.show_usage(msg)
-
     def show_usage(self, msg=None):
         """
         Force the display of the usage message.

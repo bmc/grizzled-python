@@ -2,7 +2,7 @@ $Id$
 
 Version 0.6 (...)
 
-- Removed deprecated methods from grizzled.db.
+- Removed deprecated methods.
 - Added MySQL-specific logic for table metadata to grizzled.db
 - Added PostgreSQL-specific logic for table metadata to grizzled.db
 - Added ability to retrieve list of database tables to grizzled.db.

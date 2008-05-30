@@ -14,7 +14,6 @@ import os as _os
 import sys
 import shutil
 
-from grizzled.decorators import deprecated
 from grizzled.os import file_separator
 
 # ---------------------------------------------------------------------------
@@ -28,10 +27,6 @@ __all__ = ['unlink_quietly', 'recursively_remove', 'copy_recursively',
 # ---------------------------------------------------------------------------
 # Functions
 # ---------------------------------------------------------------------------
-
-@deprecated(since='0.4', message='Use unlink_quietly')
-def unlinkQuietly(*paths):
-    return unlink_quietly(*paths)
 
 def unlink_quietly(*paths):
     """
@@ -57,10 +52,6 @@ def unlink_quietly(*paths):
         except:
             pass
 
-@deprecated(since='0.4', message='Use recursively_remove')
-def recursivelyRemove(dir):
-    recursively_remove(dir)
-
 def recursively_remove(dir):
     """
     Recursively remove all files and directories below and including a specified
@@ -73,10 +64,6 @@ def recursively_remove(dir):
         return
 
     shutil.rmtree(dir)
-
-@deprecated(since='0.4', message='Use copy_recursively')
-def copyRecursively(dir):
-    copy_recursively(dir)
 
 def copy_recursively(source_dir, target_dir):
     """

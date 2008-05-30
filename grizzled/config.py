@@ -172,7 +172,6 @@ import sys
 import re
 
 from grizzled.exception import ExceptionWithMessage
-from grizzled.decorators import deprecated
 
 # ---------------------------------------------------------------------------
 # Exports
@@ -333,19 +332,6 @@ class Configuration(ConfigParser.SafeConfigParser):
         """
         ConfigParser.SafeConfigParser.add_section(self, section)
 
-    @deprecated(since='0.4', message='Use add_section')
-    def addSection(self, section):
-        """
-        Add a section named I{section} to the instance. If a section by the
-        given name already exists, C{DuplicateSectionError} is raised.
-
-        @type section:  string
-        @param section: name of section to add
-
-        @raise DuplicateSectionError: section already exists
-        """
-        self.add_section(section)
-
     def has_section(self, section):
         """
         Determine whether a section exists in the configuration. Ignores
@@ -363,21 +349,6 @@ class Configuration(ConfigParser.SafeConfigParser):
                  if not.
         """
         return ConfigParser.SafeConfigParser.has_section(self, section)
-
-    @deprecated(since='0.4', message='Use has_section')
-    def hasSection(self, section):
-        """
-        Determine whether a section exists in the configuration. Ignores
-        the C{DEFAULT} section.
-
-        @type section:  string
-        @param section: name of section
-
-        @rtype:  boolean
-        @return: C{True} if the section exists in the configuration, C{False}
-                 if not.
-        """
-        return self.has_section(section)
 
     def options(self, section):
         """
@@ -412,21 +383,6 @@ class Configuration(ConfigParser.SafeConfigParser):
                  has the specified option, C{False} if not.
         """
         return ConfigParser.SafeConfigParser.has_option(self, section, option)
-
-    @deprecated(since='0.4', message='Use has_option')
-    def hasOption(self, section, option):
-        """
-        Determine whether a section exists in the configuration. Ignores
-        the C{DEFAULT} section.
-
-        @type section:  string
-        @param section: name of section
-
-        @rtype:  boolean
-        @return: C{True} if the section exists in the configuration, C{False}
-                 if not.
-        """
-        return self.has_option(section, option)
 
     def read(self, filenames):
         """
@@ -708,19 +664,6 @@ class Configuration(ConfigParser.SafeConfigParser):
         @raise NoSectionError: no such section
         """
         ConfigParser.SafeConfigParser.remove_section(self, section)
-
-    @deprecated(since='0.4', message='Use remove_section')
-    def removeSection(self, section):
-        """
-        Remove a section named I{section} from the instance. If a section
-        by the given name does not exist, C{NoSectionError} is raised.
-
-        @type section:  string
-        @param section: name of section to remove
-
-        @raise NoSectionError: no such section
-        """
-        self.remove_section(section)
 
     def optionxform(self, optionName):
         """

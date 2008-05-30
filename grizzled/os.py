@@ -22,8 +22,6 @@ import os as _os
 import sys
 from contextlib import contextmanager
 
-from grizzled.decorators import deprecated
-
 # ---------------------------------------------------------------------------
 # Exports
 # ---------------------------------------------------------------------------
@@ -77,10 +75,6 @@ class DaemonError(OSError):
 # Public functions
 # ---------------------------------------------------------------------------
 
-@deprecated(since='0.4', message='use path_separator')
-def getPathSeparator():
-    return get_path_separator
-
 def path_separator():
     """
     Get the path separator for the current operating system. The path
@@ -103,10 +97,6 @@ def file_separator():
     @return: the file separator
     """
     return FILE_SEPARATOR[_os.name]
-
-@deprecated(since='0.4', message='use working_directory')
-def workingDirectory(directory):
-    return working_directory(directory)
 
 @contextmanager
 def working_directory(directory):
