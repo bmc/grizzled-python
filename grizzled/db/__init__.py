@@ -130,6 +130,7 @@ def add_driver(key, driver_class, force=False):
             raise ValueError, 'A DB driver named "%s" is already installed' %\
                   key
     except KeyError:
+        pass
 
     drivers[key] = driver_class.__name__
 
