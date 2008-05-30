@@ -321,10 +321,6 @@ class Configuration(ConfigParser.SafeConfigParser):
         Add a section named I{section} to the instance. If a section by the
         given name already exists, C{DuplicateSectionError} is raised.
 
-        Also callable as L{C{addSection()}<addSection>}. This version of
-        the function exists for compatibility with C{ConfigParser}; it
-        simply calls L{C{addSection()}<addSection>}.
-
         @type section:  string
         @param section: name of section to add
 
@@ -336,10 +332,6 @@ class Configuration(ConfigParser.SafeConfigParser):
         """
         Determine whether a section exists in the configuration. Ignores
         the C{DEFAULT} section.
-
-        Also callable as L{C{hasSection()}<hasSection>}. This version of
-        the function exists for compatibility with C{ConfigParser}; it
-        simply calls L{C{hasSection()}<hasSection>}.
 
         @type section:  string
         @param section: name of section
@@ -367,10 +359,6 @@ class Configuration(ConfigParser.SafeConfigParser):
     def has_option(self, section, option):
         """
         Determine whether a section has a specific option.
-
-        Also callable as L{C{hasOption()}<hasOption>}. This version of
-        the function exists for compatibility with C{ConfigParser}; it
-        simply calls L{C{hasOption()}<hasOption>}.
 
         @type section:  string
         @param section: name of section
