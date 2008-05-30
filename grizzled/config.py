@@ -287,6 +287,7 @@ class Configuration(ConfigParser.SafeConfigParser):
         """
         return ConfigParser.SafeConfigParser.defaults(self)
 
+    @property
     def sections(self):
         """
         Get the list of available sections, not include C{DEFAULT}.
