@@ -3,6 +3,7 @@ $Id$
 Version 0.7 (...)
 
 - grizzled.config now uses grizzled.collections.OrderedDict
+- In grizzled.config, Configuration.sections() is now a property.
 
 ---------------------------------------------------------------------------
 Version 0.6 (30 May, 2008)
