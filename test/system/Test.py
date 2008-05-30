@@ -26,23 +26,31 @@ VERSIONS = [('2.5.1', 0x020501f0),
 
 class TestSys(object):
 
-    def testVersionConversions(self):
+    def test_version_conversions(self):
         for s, i in VERSIONS:
-            yield self.doOneVersionConversionTest, s, i
+            yield self.do_one_version_conversion, s, i
             
-    def doOneVersionConversionTest(self, string_version, binary_version):
+    def do_one_version_conversion(self, string_version, binary_version):
         h = python_version(string_version)
         s = python_version_string(binary_version)
         assert h == binary_version
         assert s == string_version
         
-    def testCurrentVersion(self):
+    def test_current_version(self):
         ensure_version(sys.hexversion)
         ensure_version(python_version_string(sys.hexversion))
         major, minor, patch, final, rem = sys.version_info
         binary_version = python_version('%d.%d.%d' % (major, minor, patch))
-        
-        
-            
 
- 
+    def test_class_for_name(self):
+        cls = class_for_name('grizzled.config.Configuration')
+        got_name = '%s.%s' % (cls.__module__, cls.__name__)
+        assert got_name == 'grizzled.config.Configuration'
+
+        try:
+            class_for_name('grizzled.foo.bar.baz')
+            assert False
+        except NameError:
+            pass
+        except ImportError:
+            pass

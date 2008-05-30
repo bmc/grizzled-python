@@ -2,6 +2,7 @@ $Id$
 
 Version 0.7 (...)
 
+- Added class_for_name() function to grizzled.system module.
 - grizzled.config now uses grizzled.collections.OrderedDict
 - In grizzled.config, Configuration.sections() is now a property.
 

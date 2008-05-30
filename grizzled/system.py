@@ -28,7 +28,7 @@ import re
 # ---------------------------------------------------------------------------
 
 __all__ = ['python_version', 'python_version_string', 'ensure_version',
-           'split_python_version']
+           'split_python_version', 'class_for_name']
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -210,3 +210,27 @@ def ensure_version(min_version):
               'the current Python version is "%s".' %\
               (python_version_string(min_version),
                python_version_string(sys.hexversion))
+
+
+def class_for_name(class_name):
+    """
+    Given fully-qualified class name, load and return the class object. A
+    fully-qualified class name contains the module and package, in addition to
+    the simple class name (e.g., C{grizzled.config.Configuration}).
+
+    @type class_name:  string
+    @param class_name: fully-qualified class name
+
+    @rtype:  class
+    @return: the class object
+
+    @raise NameError: Class not found
+    """
+    tokens = class_name.split('.')
+    if len(tokens) > 1:
+        package = '.'.join(tokens[:-1])
+        class_name = tokens[-1]
+        exec 'from %s import %s' % (package, class_name)
+
+    return eval(class_name)
+    
