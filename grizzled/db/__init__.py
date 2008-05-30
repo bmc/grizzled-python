@@ -52,10 +52,10 @@ Adding a Driver
 It's possible to add a new driver to the list of drivers supplied by this
 module. To do so:
 
- 1. The driver class must extend db.DBDriver and provide the appropriate
-    methods. See examples in this module.
+ 1. The driver class must extend L{C{DBDriver}<DBDriver>} and provide the 
+    appropriate methods. See examples in this module.
  2. The driver's module (or the calling program) must register the driver
-    with this module by calling db.add_driver()
+    with this module by calling the L{C{add_driver()><add_driver>} function.
 
 
 DB API Factory Functions
@@ -78,7 +78,7 @@ with this API, you use::
 import re
 
 from grizzled.exception import ExceptionWithMessage
-from grizzled.decorators import abstract, deprecated
+from grizzled.decorators import abstract
 from grizzled.db import dummydb
 
 # ---------------------------------------------------------------------------
@@ -108,10 +108,6 @@ paramstyle = None
 # Functions
 # ---------------------------------------------------------------------------
 
-@deprecated(since='0.4', message='Use add_driver()')
-def addDriver(key, driver_class, force=False):
-    add_driver(key, driver_class, force)
-
 def add_driver(key, driver_class, force=False):
     """
     Add a driver class to the list of drivers.
@@ -137,10 +133,6 @@ def add_driver(key, driver_class, force=False):
 
     drivers[key] = driver_class.__name__
 
-@deprecated(since='0.4', message='Use get_drivers()')
-def getDrivers():
-    return get_drivers()
-
 def get_drivers():
     """
     Get the list of drivers currently registered with this API.
@@ -156,10 +148,6 @@ def get_drivers():
     """
     return drivers.values()
 
-@deprecated(since='0.4', message='Use get_driver_names()')
-def getDriverNames():
-    return get_driver_names()
-
 def get_driver_names():
     """
     Get the list of driver names currently registered with this API.
@@ -167,10 +155,6 @@ def get_driver_names():
     the L{C{get_driver()}<get_driver>} function.
     """
     return drivers.keys()
-
-@deprecated(since='0.4', message='Use get_driver()')
-def getDriver(driver_name):
-    return get_driver(driver_name)
 
 def get_driver(driver_name):
     """
@@ -391,10 +375,6 @@ class Cursor(object):
 
     fetchMany = fetchmany
 
-    @deprecated(since='0.4', message='Use get_table_metadata')
-    def get_table_metadata(self, table):
-        return self.get_table_metadata(table)
-
     def get_table_metadata(self, table):
         """
         Get the metadata for a table. Returns a list of tuples, one for
@@ -430,10 +410,6 @@ class Cursor(object):
             raise Warning(val)
         except dbi.Error, val:
             raise Error(val)
-
-    @deprecated(since='0.4', message='Use get_index_metadata')
-    def get_index_metadata(self, table):
-        return self.get_index_metadata(table)
 
     def get_index_metadata(self, table):
         """
