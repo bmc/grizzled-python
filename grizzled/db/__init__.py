@@ -1089,7 +1089,6 @@ class SQLServerDriver(DBDriver):
         return table_names
 
     def get_table_metadata(self, table, cursor):
-        """Default implementation"""
         dbi = self.get_import()
         cursor.execute("SELECT column_name, data_type, " \
                        "character_maximum_length, numeric_precision, " \
@@ -1129,6 +1128,8 @@ class SQLServerDriver(DBDriver):
 class PostgreSQLDriver(DBDriver):
     """DB Driver for PostgreSQL, using the psycopg2 DB API module."""
 
+    TYPE_RE = re.compile('([a-z ]+)(\([0-9]+\))?')
+
     def get_import(self):
         import psycopg2
         return psycopg2
@@ -1147,6 +1148,53 @@ class PostgreSQLDriver(DBDriver):
             (host, database, user, password)
         return dbi.connect(dsn=dsn)
 
+    def get_table_metadata(self, table, cursor):
+        dbi = self.get_import()
+        sel = """\
+        SELECT a.attname, pg_catalog.format_type(a.atttypid, a.atttypmod), 
+                    (SELECT substring(d.adsrc for 128) 
+                     FROM pg_catalog.pg_attrdef d 
+                     WHERE d.adrelid = a.attrelid AND 
+                     d.adnum = a.attnum AND a.atthasdef) AS DEFAULT,
+                    a.attnotnull, 
+                    a.attnum, 
+                    a.attrelid as table_oid
+             FROM pg_catalog.pg_attribute a
+             WHERE a.attrelid = 
+             (SELECT c.oid FROM pg_catalog.pg_class c 
+             LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace 
+             WHERE (pg_table_is_visible(c.oid)) AND c.relname = '%s' 
+             AND c.relkind in ('r','v')) 
+             AND a.attnum > 0 
+             AND NOT a.attisdropped
+             ORDER BY a.attnum"""
+
+        cursor.execute(sel % table)
+        rs = cursor.fetchone()
+        results = []
+        while rs != None:
+            column = rs[0]
+            coltype = rs[1]
+            null = rs[3]
+
+            match = self.TYPE_RE.match(coltype)
+            if match:
+                coltype = match.group(1)
+                size = match.group(2)
+                if size:
+                    size = size[1:-1]
+                if 'char' in coltype:
+                    max_char_size = size
+                    precision = None
+                else:
+                    max_char_size = None
+                    precision = size
+
+            results += [(column, coltype, max_char_size, precision, 0, null)]
+            rs = cursor.fetchone()
+
+        return results
+
     def get_index_metadata(self, table, cursor):
         dbi = self.get_import()
         # First, issue one query to get the list of indexes for the table.
@@ -1163,6 +1211,7 @@ class PostgreSQLDriver(DBDriver):
         return results
 
     def get_tables(self, cursor):
+
         sel = "SELECT tablename FROM pg_tables " \
               "WHERE tablename NOT LIKE 'pg_%' AND tablename NOT LIKE 'sql\_%'"
         cursor.execute(sel)
@@ -1176,7 +1225,7 @@ class PostgreSQLDriver(DBDriver):
 
     def __get_index_names(self, table, cursor):
         # Adapted from the pgsql command "\d indexname", PostgreSQL 8.
-        # (Invoking the pgsql command from -E shows the issued SQL.)
+        # (Invoking the pgsql command with -E shows the issued SQL.)
 
         sel = "SELECT n.nspname, c.relname as \"IndexName\", c2.relname " \
               "FROM pg_catalog.pg_class c " \
@@ -1200,20 +1249,20 @@ class PostgreSQLDriver(DBDriver):
 
     def __get_index_columns(self, index_name, cursor):
         # Adapted from the pgsql command "\d indexname", PostgreSQL 8.
-        # (Invoking the pgsql command from -E shows the issued SQL.)
+        # (Invoking the pgsql command with -E shows the issued SQL.)
 
         sel = "SELECT a.attname, " \
-            "pg_catalog.format_type(a.atttypid, a.atttypmod), " \
-            "a.attnotnull " \
-            "FROM pg_catalog.pg_attribute a, pg_catalog.pg_index i " \
-            "WHERE a.attrelid in " \
-            " (SELECT c.oid FROM pg_catalog.pg_class c " \
-            "LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace " \
-            " WHERE pg_catalog.pg_table_is_visible(c.oid) " \
-            "AND c.relname ~ '^(%s)$') " \
-            "AND a.attnum > 0 AND NOT a.attisdropped " \
-            "AND a.attrelid = i.indexrelid " \
-            "ORDER BY a.attnum" % index_name
+              "pg_catalog.format_type(a.atttypid, a.atttypmod), " \
+              "a.attnotnull " \
+              "FROM pg_catalog.pg_attribute a, pg_catalog.pg_index i " \
+              "WHERE a.attrelid in " \
+              " (SELECT c.oid FROM pg_catalog.pg_class c " \
+              "LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace " \
+              " WHERE pg_catalog.pg_table_is_visible(c.oid) " \
+              "AND c.relname ~ '^(%s)$') " \
+              "AND a.attnum > 0 AND NOT a.attisdropped " \
+              "AND a.attrelid = i.indexrelid " \
+              "ORDER BY a.attnum" % index_name
         cursor.execute(sel)
         columns = []
         rs = cursor.fetchone()
@@ -1225,12 +1274,12 @@ class PostgreSQLDriver(DBDriver):
 
     def __get_index_description(self, index_name, cursor):
         sel = "SELECT i.indisunique, i.indisprimary, i.indisclustered, " \
-            "a.amname, c2.relname, " \
-            "pg_catalog.pg_get_expr(i.indpred, i.indrelid, true) " \
-            "FROM pg_catalog.pg_index i, pg_catalog.pg_class c, " \
-            "pg_catalog.pg_class c2, pg_catalog.pg_am a " \
-            "WHERE i.indexrelid = c.oid AND c.relname ~ '^(%s)$' " \
-            "AND c.relam = a.oid AND i.indrelid = c2.oid" % index_name
+              "a.amname, c2.relname, " \
+              "pg_catalog.pg_get_expr(i.indpred, i.indrelid, true) " \
+              "FROM pg_catalog.pg_index i, pg_catalog.pg_class c, " \
+              "pg_catalog.pg_class c2, pg_catalog.pg_am a " \
+              "WHERE i.indexrelid = c.oid AND c.relname ~ '^(%s)$' " \
+              "AND c.relam = a.oid AND i.indrelid = c2.oid" % index_name
         cursor.execute(sel)
         desc = ''
         rs = cursor.fetchone()
