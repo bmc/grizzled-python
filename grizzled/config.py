@@ -172,6 +172,7 @@ import sys
 import re
 
 from grizzled.exception import ExceptionWithMessage
+from grizzled.collections import OrderedDict
 
 # ---------------------------------------------------------------------------
 # Exports
@@ -227,25 +228,6 @@ PROGRAM_SECTION = 'program'
 # Classes
 # ---------------------------------------------------------------------------
 
-# Use odict if it's available. Otherwise, use a simpler mock-up.
-try:
-    from odict import OrderedDict as _SectionDict
-
-except ImportError:
-    class _SectionDict(dict):
-        def __init__(self):
-            self.__orderedKeys = []
-            dict.__init__(self)
-
-        def __setitem__(self, key, value):
-            if not (key in self.__orderedKeys):
-                self.__orderedKeys += [key]
-            return dict.__setitem__(self, key, value)
-
-        def keys(self):
-            return self.__orderedKeys
-
-
 class NoVariableError(ExceptionWithMessage):
     """
     Thrown when a configuration file attempts to substitute a nonexistent
@@ -294,7 +276,7 @@ class Configuration(ConfigParser.SafeConfigParser):
         self.__strict_substitution = strict_substitution
 
         if use_ordered_sections:
-            self._sections = _SectionDict()
+            self._sections = OrderedDict()
 
     def defaults(self):
         """
@@ -698,7 +680,7 @@ class Configuration(ConfigParser.SafeConfigParser):
         parsedConfig = ConfigParser.SafeConfigParser()
 
         if self.__use_ordered_sections:
-            parsedConfig._sections = _SectionDict()
+            parsedConfig._sections = OrderedDict()
 
         parsedConfig.optionxform = str
         parsedConfig.read(fp)
