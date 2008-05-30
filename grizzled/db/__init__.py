@@ -132,7 +132,7 @@ def add_driver(key, driver_class, force=False):
     except KeyError:
         pass
 
-    drivers[key] = driver_class.__name__
+    drivers[key] = str(driver_class)
 
 def get_drivers():
     """
@@ -147,7 +147,7 @@ def get_drivers():
     @rtype:  list
     @return: list of C{DBDriver} class names
     """
-    return drivers.values()
+    return [str(d) for d in drivers.values()]
 
 def get_driver_names():
     """
