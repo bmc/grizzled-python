@@ -91,7 +91,7 @@ def file_separator():
     """
     Get the file separator for the current operating system. The file
     separator is used to separate file elements in a pathname. (It's
-    "/" on Unix-like systems and a "\\" on Windows.)
+    "/" on Unix-like systems and a "\\\\" on Windows.)
 
     :rtype: str
     :return: the file separator
