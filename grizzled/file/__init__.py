@@ -77,6 +77,7 @@ def copy_recursively(source_dir, target_dir):
             Source directory to copy recursively. This path must
             exist and must specify a directory; otherwise, this
             function throws a ``ValueError``
+
         target_dir : str
             Directory to which to copy the contents of ``source_dir``.
             This directory must not already exist.
@@ -94,8 +95,10 @@ def copy(files, target_dir, create_target=False):
     :Parameters:
         files : str or list
             single file path or a list of file paths to be copied
+
         target_dir : str
             path to target directory
+
         create_target : bool
             If ``True``, ``copy()`` will attempt to create the target directory
             if it does not exist. If ``False``, ``copy()`` will throw an
@@ -132,6 +135,7 @@ def touch(files, times=None):
     :Parameters:
         files : list or str
             pathname or list of pathnames of files to be created or updated
+
         times : tuple
             tuple of the form (*atime*, *mtime*), identical to
             what is passed to the standard ``os.utime()`` function.
@@ -246,6 +250,7 @@ def eglob(pattern, directory='.'):
     :Parameters:
         pattern : str
             The wildcard pattern. Must be a simple pattern with no directories.
+
         directory : str
             The directory in which to do the globbing.
 
