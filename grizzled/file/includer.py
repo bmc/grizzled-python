@@ -9,7 +9,7 @@
 Introduction
 ============
 
-The C{grizzled.file.includer} module contains a class that can be used to
+The ``grizzled.file.includer`` module contains a class that can be used to
 process includes within a text file, returning a file-like object. It also
 contains some utility functions that permit using include-enabled files in
 other contexts.
@@ -17,21 +17,21 @@ other contexts.
 Include Syntax
 ==============
 
-The I{include} syntax is defined by a regular expression; any line that
-matches the regular expression is treated as an I{include} directive. The
-default regular expression matches include directives like this::
+The *include* syntax is defined by a regular expression; any line that matches
+the regular expression is treated as an *include* directive. The default
+regular expression matches include directives like this::
 
     %include "/absolute/path/to/file"
     %include "../relative/path/to/file"
     %include "local_reference"
     %include "http://localhost/path/to/my.config"
 
-Relative and local file references are relative to the including file or
-URL. That, if an C{Includer} is processing file "/home/bmc/foo.txt"
-and encounters an attempt to include file "bar.txt", it will assume "bar.txt"
-is to be found in "/home/bmc".
+Relative and local file references are relative to the including file or URL.
+That, if an ``Includer`` is processing file "/home/bmc/foo.txt" and encounters
+an attempt to include file "bar.txt", it will assume "bar.txt" is to be found
+in "/home/bmc".
 
-Similarly, if an C{Includer} is processing URL "http://localhost/bmc/foo.txt"
+Similarly, if an ``Includer`` is processing URL "http://localhost/bmc/foo.txt"
 and encounters an attempt to include file "bar.txt", it will assume "bar.txt"
 is to be found at "http://localhost/bmc/bar.txt".
 
@@ -39,24 +39,25 @@ Nested includes are permitted; that is, an included file may, itself, include
 other files. The maximum recursion level is configurable and defaults to 100.
 
 The include syntax can be changed by passing a different regular expression to
-the L{C{Includer}<Includer>} class constructor.
+the ``Includer`` class constructor.
 
 Usage
 =====
 
-This module provides an L{C{Includer}<Includer>} class, which processes
-include directives in a file and behaves like a file-like object. See the
-class documentation for more details.
+This module provides an ``Includer`` class, which processes include directives
+in a file and behaves like a file-like object. See the class documentation for
+more details.
 
-The module also provides a L{C{preprocess()}<preprocess>} convenience
-function that can be used to preprocess a file; it returns the path to
-the resulting preprocessed file. See the
-L{function documentation<preprocess>} for details.
+The module also provides a ``preprocess()`` convenience function that can be
+used to preprocess a file; it returns the path to the resulting preprocessed
+file.
 
 Examples
 ========
 
-Preprocess a file containing include directives, then read the result::
+Preprocess a file containing include directives, then read the result:
+
+.. python::
 
     import includer
     import sys
@@ -66,7 +67,9 @@ Preprocess a file containing include directives, then read the result::
         sys.stdout.write(line)
 
 
-Use an include-enabled file with the standard Python logging module::
+Use an include-enabled file with the standard Python logging module:
+
+.. python::
 
     import logging
     import includer
@@ -109,20 +112,20 @@ log = logging.getLogger('includer')
 
 class IncludeError(grizzled.exception.ExceptionWithMessage):
     """
-    Thrown by C{Includer()} when an error occurs while processing the file.
-    An C{IncludeError} object always contains a single string value that
+    Thrown by ``Includer`` when an error occurs while processing the file.
+    An ``IncludeError`` object always contains a single string value that
     contains an error message describing the problem.
     """
     pass
 
 class Includer(object):
     '''
-    An C{Includer} object preprocesses a path or file-like object,
-    expanding include references. The resulting C{Includer} object is a
+    An ``Includer`` object preprocesses a path or file-like object,
+    expanding include references. The resulting ``Includer`` object is a
     file-like object, offering the same methods and capabilities as an open
     file.
 
-    By default, C{Includer} supports this include syntax::
+    By default, ``Includer`` supports this include syntax::
 
         %include "path"
         %include "url"
@@ -130,7 +133,7 @@ class Includer(object):
     However, the include directive syntax is controlled by a regular
     expression, so it can be configured.
 
-    See the L{module documentation<includer>} for details.
+    See the module documentation for details.
     '''
     def __init__(self,
                  source,
@@ -138,27 +141,24 @@ class Includer(object):
                  max_nest_level=100,
                  output=None):
         """
-        Create a new C{Includer} object.
+        Create a new ``Includer`` object.
 
-        @type source:  open file-like object, path name, or URL
-        @param source: the source to read and expand.
+        :Parameters:
+            source : file or str
+                The source to be read and expanded. May be an open file-like
+                object, a path name, or a URL string.
+            include_regex : str
+                Regular expression defining the include syntax. Must contain a
+                single parenthetical group that can be used to extract the
+                included file or URL.
+            max_nest_level : int
+                Maximum include nesting level. Exceeding this level will cause
+                ``Includer`` to throw an ``IncludeError``.
+            output : str or file
+                A string (path name) or file-like object to which to save the
+                expanded output.
 
-        @type include_regex:  string
-        @param include_regex: Regular expression defining the include syntax.
-                              Must contain a single parenthetical group
-                              that can be used to extract the included file
-                              or URL.
-
-        @type max_nest_level:  int
-        @param max_nest_level: Maximum include nesting level. Exceeding this
-                               level causing the C{Includer} to throw an
-                               C{IncludeError}
-
-        @type output:  string or file-like object
-        @param output: Save the expanded output to C{output}, which can specify
-                       a path name (string) or a file-like object.
-
-        @raise IncludeError: On error
+        :raise IncludeError: On error
         """
 
         if isinstance(source, str):
@@ -200,11 +200,11 @@ class Includer(object):
     def next(self):
         """A file object is its own iterator.
 
-        @rtype: string
-        @return: the next line from the file
+        :rtype: string
+        :return: the next line from the file
 
-        @raise StopIteration: end of file
-        @raise IncludeError: on error
+        :raise StopIteration: end of file
+        :raise IncludeError: on error
         """
         line = self.readline()
         if (line == None) or (len(line) == 0):
@@ -223,8 +223,8 @@ class Includer(object):
         Get the file descriptor. Returns the descriptor of the file being
         read.
 
-        @rtype:  int
-        @return: the file descriptor of the file being read
+        :rtype:  int
+        :return: the file descriptor of the file being read
         """
         _complain_if_closed(self.closed)
         return self.__f.fileno()
@@ -233,7 +233,7 @@ class Includer(object):
         """
         Determine whether the file being processed is a TTY or not.
 
-        @return: True/False
+        :return: ``True`` or ``False``
         """
         _complain_if_closed(self.closed)
         return self.__f.isatty()
@@ -242,36 +242,35 @@ class Includer(object):
         """
         Seek to the specified file offset in the include-processed file.
 
-        @type pos:  int
-        @param pos: file offset
-
-        @type mode:  int
-        @param mode: Seek mode (0=seek from top of file,
-                                1=seek relative to current file position,
-                                2=seek from bottom of file)
+        :Parameters:
+            pos : int
+                file offset
+            mode : int
+                the seek mode, as specified to a Python file's ``seek()``
+                method
         """
         self.__f.seek(pos, mode)
 
     def tell(self):
         """
-        Get the current file offset. Note that seeking to a file offset
-        is not supported.
+        Get the current file offset.
 
-        @rtype:  int
-        @return: current file offset
+        :rtype:  int
+        :return: current file offset
         """
         _complain_if_closed(self.closed)
         return self.__f.tell()
 
     def read(self, n=-1):
         """
-        Read I{n} bytes from the open file.
+        Read *n* bytes from the open file.
 
-        @type n:  int
-        @param n: Number of bytes to read. A negative number instructs
-                  the method to read all remaining bytes.
+        :Parameters:
+            n : int
+                Number of bytes to read. A negative number instructs
+                the method to read all remaining bytes.
 
-        @return: the bytes read
+        :return: the bytes read
         """
         _complain_if_closed(self.closed)
         return self.__f.read(n)
@@ -280,8 +279,12 @@ class Includer(object):
         """
         Read the next line from the file.
 
-        @type length:  int
-        @param length: a length hint, or negative if you don't care
+        :Parameters:
+            length : int
+                a length hint, or negative if you don't care
+                
+        :rtype: str
+        :return: the line read
         """
         _complain_if_closed(self.closed)
         return self.__f.readline(length)
@@ -290,22 +293,22 @@ class Includer(object):
         """
         Read all remaining lines in the file.
 
-        @rtype:  array
-        @return: array of lines
+        :rtype:  array
+        :return: array of lines
         """
         _complain_if_closed(self.closed)
         return self.__f.readlines(sizehint)
 
     def truncate(self, size=None):
-        """Not supported, since C{Includer} objects are read-only."""
+        """Not supported, since ``Includer`` objects are read-only."""
         raise IncludeError, 'Includers are read-only file objects.'
 
     def write(self, s):
-        """Not supported, since C{Includer} objects are read-only."""
+        """Not supported, since ``Includer`` objects are read-only."""
         raise IncludeError, 'Includers are read-only file objects.'
 
     def writelines(self, iterable):
-        """Not supported, since C{Includer} objects are read-only."""
+        """Not supported, since ``Includer`` objects are read-only."""
         raise IncludeError, 'Includers are read-only file objects.'
 
     def flush(self):
@@ -317,8 +320,8 @@ class Includer(object):
         Retrieve the entire contents of the file, which includes expanded,
         at any time before the C{close()} method is called.
 
-        @rtype:  string
-        @return: a single string containing the contents of the file
+        :rtype:  string
+        :return: a single string containing the contents of the file
         """
         return ''.join(self.readlines())
 
@@ -402,21 +405,18 @@ def preprocess(file_or_url, output=None, temp_suffix='.txt', temp_prefix='inc'):
     temporary file is automatically removed when the program exits, though
     the caller is free to remove it whenever it is no longer needed.
 
-    @type file_or_url:   string or file-like object
-    @param file_or_url:  URL or path to file to be expanded; or, a file-like
-                         object
- 
-    @type output:  file-like object
-    @param output: A file or file-like object to receive the output.
+    :Parameters:
+        file_or_url : file or str
+            URL or path to file to be expanded; or, a file-like object
+        output : file
+            A file or file-like object to receive the output.
+        temp_suffix : str
+            suffix to use with temporary file that holds preprocessed output
+        temp_prefix : str
+            prefix to use with temporary file that holds preprocessed output
 
-    @type temp_suffix:  string
-    @param temp_suffix: suffix to use with temporary file
-
-    @type temp_prefix:  string
-    @param temp_prefix: prefix to use with temporary file.
-
-    @rtype:  string
-    @return: C{output}, if C{output} is not C{None}; otherwise, the path to
+    :rtype:  string
+    :return: ``output``, if ``output`` is not ``None``; otherwise, the path to
              temporary file containing expanded content
     """
     result = None

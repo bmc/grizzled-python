@@ -4,7 +4,7 @@
 # ---------------------------------------------------------------------------
 
 """
-C{grizzled.collections} provides some useful Python collection classes.
+``grizzled.collections`` provides some useful Python collection classes.
 """
 
 # ---------------------------------------------------------------------------
@@ -21,14 +21,14 @@ C{grizzled.collections} provides some useful Python collection classes.
 
 class OrderedDict(dict):
     """
-    C{OrderedDict} is a simple ordered dictionary. The C{keys()}, C{items()}
-    C{__iter__()}, and other methods all return the keys in the order they
-    were added to the dictionary. Note that re-adding a key (i.e., replacing a
-    key with a new value) does not change the original order.
+    ``OrderedDict`` is a simple ordered dictionary. The ``keys()``,
+    ``items()``, `__iter__()``, and other methods all return the keys in the
+    order they were added to the dictionary. Note that re-adding a key (i.e.,
+    replacing a key with a new value) does not change the original order.
 
-    An C{OrderedDict} object is instantiated with exactly the same parameters
-    as a C{dict} object. The methods it provides are identical to those in
-    the C{dict} type and are not documented here.
+    An ``OrderedDict`` object is instantiated with exactly the same parameters
+    as a ``dict`` object. The methods it provides are identical to those in
+    the ``dict`` type and are not documented here.
     """
     def __init__(self, *args, **kw):
         dict.__init__(self, *args, **kw)

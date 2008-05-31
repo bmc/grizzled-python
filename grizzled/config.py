@@ -4,9 +4,9 @@
 Introduction
 ============
 
-Based on the standard Python C{ConfigParser} module, this module provides
-an enhanced configuration parser capabilities. C{Configuration} is a drop-in
-replacement for C{ConfigParser}.
+Based on the standard Python ``ConfigParser`` module, this module provides an
+enhanced configuration parser capabilities. ``Configuration`` is a drop-in
+replacement for ``ConfigParser``.
 
 A configuration file is broken into sections, and each section is
 introduced by a section name in brackets. For example::
@@ -34,7 +34,7 @@ Variable Syntax
 
 Each section contains zero or more variable settings.
 
- - Similar to a Java C{Properties} file, the variables are specified as
+ - Similar to a Java ``Properties`` file, the variables are specified as
    name/value pairs, separated by an equal sign ("=") or a colon (":").
  - Variable names are case-sensitive and may contain alphabetics, numerics,
    underscores and periods (".").
@@ -47,11 +47,11 @@ Variable Substitution
 
 A variable value can interpolate the values of other variables, using a
 variable substitution syntax. The general form of a variable reference is
-C{$E{lb}sectionName:varNameE{rb}}.
+``${section_name:var_name}``.
 
-  - I{sectionName} is the name of the section containing the variable to
+  - *section_name* is the name of the section containing the variable to
     substitute; if omitted, it defaults to the current section.
-  - I{varName} is the name of the variable to substitute.
+  - *var_name* is the name of the variable to substitute.
 
 Default values
 --------------
@@ -61,7 +61,7 @@ You can also specify a default value for a variable, using this syntax::
     ${foo?default}
     ${section:foo?default}
 
-That is, the sequence "C{?default}" after a variable name specifies the
+That is, the sequence ``?default`` after a variable name specifies the
 default value if the variable has no value. (Normally, if a variable has
 no value, it is replaced with an empty string.) Defaults can be useful,
 for instance, to allow overrides from the environment. The following example
@@ -76,33 +76,38 @@ Special section names
 The section names "env", and "program" are reserved for special
 pseudosections.
 
-The C{env} pseudosection
-~~~~~~~~~~~~~~~~~~~~~~~~
+The ``env`` pseudosection
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The "env" pseudosection is used to interpolate values from the environment.
-On UNIX systems, for instance, C{$E{lb}env:HOMEE{rb}} substitutes home
-directory of the current user. On some versions of Windows,
-C{$E{lb}env:USERNAMEE{rb}} will substitute the name of the user.
+The "env" pseudosection is used to interpolate values from the environment. On
+UNIX systems, for instance, ``${env:HOME}`` substitutes home directory of the
+current user. On some versions of Windows, ``${env:USERNAME}`` will substitute
+the name of the user.
 
 Note: On UNIX systems, environment variable names are typically
-case-sensitive; for instance, C{$E{lb}env:USERE{rb}} and
-C{$E{lb}env:userE{rb}} refer to different environment variables. On Windows
-systems, environment variable names are typically case-insensitive;
-C{$E{lb}env:USERNAMEE{rb}} C{$E{lb}env:usernameE{rb}} are equivalent.
+case-sensitive; for instance, ``${env:USER}`` and ``${env:user}`` refer to
+different environment variables. On Windows systems, environment variable
+names are typically case-insensitive; ``${env:USERNAME}`` and
+``${env:username}`` are equivalent.
 
-The C{program} pseudosection
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The ``program`` pseudosection
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The "program" pseudosection is a placeholder for various special variables
 provided by the Configuration class. Those variables are:
 
-  - B{C{cwd}}: The current working directory. Thus, C{$E{lb}program:cwdE{rb}}
-    will substitute the working directory, using the appropriate system-specific
+``cwd``
+    The current working directory. Thus, ``${program:cwd}`` will substitute
+    the working directory, using the appropriate system-specific
     file separator (e.g., "/" on Unix, "\\" on Windows).
-  - B{C{name}}: The calling program name. Equivalent to the Python expression
-    C{os.path.basename(sys.argv[0])}
-  - B{C{now}}: The current time, formatted using the C{time.strftime()} format
-    C{"%Y-%m-%d %H:%M:%S"} (e.g., "2008-03-03 16:15:27")
+
+``name``
+    The calling program name. Equivalent to the Python expression
+    ``os.path.basename(sys.argv[0])``
+
+``now``
+    The current time, formatted using the ``time.strftime()`` format
+    ``"%Y-%m-%d %H:%M:%S"`` (e.g., "2008-03-03 16:15:27")
 
 Includes
 --------
@@ -110,8 +115,8 @@ Includes
 A special include directive permits inline inclusion of another
 configuration file. The include directive takes two forms::
 
-    %include "path"
-    %include "URL"
+   %include "path"
+   %include "URL"
 
 For example::
 
@@ -126,19 +131,23 @@ file, with individual sections.
 Note: Attempting to include a file from itself, either directly or
 indirectly, will cause the parser to throw an exception.
 
-Replacing C{ConfigParser}
-=========================
+Replacing ``ConfigParser``
+==========================
 
 You can use this class anywhere you would use the standard Python
-C{ConfigParser} class. Thus, to change a piece of code to use enhanced
-configuration, you might change this::
+``ConfigParser`` class. Thus, to change a piece of code to use enhanced
+configuration, you might change this:
+
+.. python::
 
     import ConfigParser
 
     config = ConfigParser.SafeConfigParser()
     config.read(configPath)
 
-to this::
+to this:
+
+.. python::
 
     from grizzled.config import Configuration
 
@@ -147,14 +156,19 @@ to this::
 
 
 Sometimes, however, you have to use an API that expects a path to a
-configuration file that can I{only} be parsed with the (unenhanced)
-C{ConfigParser} class. In that case, you simply use the
-L{C{preprocess()}<preprocess>} method::
+configuration file that can *only* be parsed with the (unenhanced)
+``ConfigParser`` class. In that case, you simply use the ``preprocess()``
+method:
+
+.. python::
 
     import logging
     from grizzled import config
 
     logging.config.fileConfig(config.preprocess(pathToConfig))
+
+That will preprocess the enhanced configuration file, producing a file
+that is suitable for parsing by the standard Python ``config`` module.
 '''
 
 # ---------------------------------------------------------------------------
@@ -231,8 +245,8 @@ PROGRAM_SECTION = 'program'
 class NoVariableError(ExceptionWithMessage):
     """
     Thrown when a configuration file attempts to substitute a nonexistent
-    variable, and the C{Configuration} object was instantiated with
-    C{strict_substitution} set to C{True}.
+    variable, and the ``Configuration`` object was instantiated with
+    ``strict_substitution`` set to ``True``.
     """
     pass
 
@@ -247,28 +261,23 @@ class Configuration(ConfigParser.SafeConfigParser):
                  use_ordered_sections=False,
                  strict_substitution=False):
         """
-        Construct a new C{Configuration} object.
+        Construct a new ``Configuration`` object.
 
-        @type defaults:  dict
-        @param defaults: dictionary of default values
-
-        @type permit_includes:  boolean
-        @param permit_includes: whether or not to permit includes
-
-        @type use_ordered_sections:  boolean
-        @param use_ordered_sections: whether or not to use an ordered dictionary
-                                     for the section names. If C{True}, then a
-                                     call to L{C{sections()}<sections>} will
-                                     return the sections in the order they
-                                     were encountered in the file. If
-                                     C{False}, the order is based on the hash
-                                     keys for the sections' names.
-
-        @type strict_substitution:  boolean
-        @param strict_substitution: If C{true}, then throw an exception if
-                                    attempting to substitute a non-existent
-                                    variable. Otherwise, simple substitute an
-                                    empty value.
+        :Parameters:
+            defaults : dict
+                dictionary of default values
+            permit_includes : bool
+                whether or not to permit includes
+            use_ordered_sections : bool
+                whether or not to use an ordered dictionary for the section
+                names. If ``True``, then a call to ``sections()`` will return
+                the sections in the order they were encountered in the file.
+                If ``False``, the order is based on the hash keys for the
+                sections' names.
+            strict_substitution : bool
+                If ``True``, then throw an exception if attempting to
+                substitute a non-existent variable. Otherwise, simple
+                substitute an empty value.
         """
         ConfigParser.SafeConfigParser.__init__(self, defaults)
         self.__permit_includes = permit_includes
@@ -282,45 +291,47 @@ class Configuration(ConfigParser.SafeConfigParser):
         """
         Returns the instance-wide defaults.
 
-        @rtype:  dictionary
-        @return: the instance-wide defaults, or None if there aren't any
+        :rtype:  dict
+        :return: the instance-wide defaults, or ``None`` if there aren't any
         """
         return ConfigParser.SafeConfigParser.defaults(self)
 
     @property
     def sections(self):
         """
-        Get the list of available sections, not include C{DEFAULT}.
-        It's not really useful to call this method before calling
-        L{C{read()}<read>} or L{C{readfp()}<readfp>}.
+        Get the list of available sections, not including ``DEFAULT``. It's
+        not really useful to call this method before calling ``read()`` or
+        ``readfp()``.
 
-        @rtype:  list
-        @return: list of available sections, or None
+        :rtype:  list
+        :return: list of available sections, or None
         """
         return ConfigParser.SafeConfigParser.sections(self)
 
     def add_section(self, section):
         """
-        Add a section named I{section} to the instance. If a section by the
-        given name already exists, C{DuplicateSectionError} is raised.
+        Add a section named *section* to the instance. If a section by the
+        given name already exists, ``DuplicateSectionError`` is raised.
 
-        @type section:  string
-        @param section: name of section to add
+        :Parameters:
+            section : str
+                name of section to add
 
-        @raise DuplicateSectionError: section already exists
+        :raise DuplicateSectionError: section already exists
         """
         ConfigParser.SafeConfigParser.add_section(self, section)
 
     def has_section(self, section):
         """
         Determine whether a section exists in the configuration. Ignores
-        the C{DEFAULT} section.
+        the ``DEFAULT`` section.
 
-        @type section:  string
-        @param section: name of section
+        :Parameters:
+            section : str
+                name of section
 
-        @rtype:  boolean
-        @return: C{True} if the section exists in the configuration, C{False}
+        :rtype:  bool
+        :return: ``True`` if the section exists in the configuration, ``False``
                  if not.
         """
         return ConfigParser.SafeConfigParser.has_section(self, section)
@@ -329,13 +340,14 @@ class Configuration(ConfigParser.SafeConfigParser):
         """
         Get a list of options available in the specified section.
 
-        @type section:  string
-        @param section: name of section
+        :Parameters:
+            section : str
+                name of section
 
-        @rtype:  list
-        @return: list of available options. May be empty.
+        :rtype:  list
+        :return: list of available options. May be empty.
 
-        @raise ConfigParser.NoSectionError: no such section
+        :raise NoSectionError: no such section
         """
         return ConfigParser.SafeConfigParser.options(self, section)
 
@@ -343,15 +355,15 @@ class Configuration(ConfigParser.SafeConfigParser):
         """
         Determine whether a section has a specific option.
 
-        @type section:  string
-        @param section: name of section
+        :Parameters:
+            section : str
+                name of section
+            option : str
+                name of option to check
 
-        @type option:   string
-        @param option:  option to check
-
-        @rtype:  boolean
-        @return: C{True} if the section exists in the configuration and
-                 has the specified option, C{False} if not.
+        :rtype:  bool
+        :return: ``True`` if the section exists in the configuration and
+                 has the specified option, ``False`` if not.
         """
         return ConfigParser.SafeConfigParser.has_option(self, section, option)
 
@@ -359,17 +371,18 @@ class Configuration(ConfigParser.SafeConfigParser):
         """
         Attempt to read and parse a list of filenames or URLs, returning a
         list of filenames or URLs which were successfully parsed. If
-        I{filenames} is a string or Unicode string, it is treated as a
-        single filename or URL. If a file or URL named in filenames cannot
-        be opened, that file will be ignored. This is designed so that you
-        can specify a list of potential configuration file locations (for
-        example, the current directory, the user's home directory, and some
-        system-wide directory), and all existing configuration files in the
-        list will be read. If none of the named files exist, the
-        C{Configuration} instance will contain an empty dataset. An
-        application which requires initial values to be loaded from a file
-        should load the required file or files using C{readfp()} before
-        calling C{read()} for any optional files::
+        *filenames* is a string or Unicode string, it is treated as a single
+        filename or URL. If a file or URL named in filenames cannot be opened,
+        that file will be ignored. This is designed so that you can specify a
+        list of potential configuration file locations (for example, the
+        current directory, the user's home directory, and some system-wide
+        directory), and all existing configuration files in the list will be
+        read. If none of the named files exist, the ``Configuration`` instance
+        will contain an empty dataset. An application which requires initial
+        values to be loaded from a file should load the required file or files
+        using ``readfp()`` before calling ``read()`` for any optional files:
+
+        .. python::
 
             import Configuration
             import os
@@ -378,12 +391,13 @@ class Configuration(ConfigParser.SafeConfigParser):
             config.readfp(open('defaults.cfg'))
             config.read(['site.cfg', os.path.expanduser('~/.myapp.cfg')])
 
-        @type filenames:  list or string
-        @param filenames: list of file names or URLs, or string for one
-                          filename or URL
+        :Parameters:
+            filenames : list or string
+                list of file names or URLs, or the string for a single filename
+                or URL
 
-        @rtype:  list
-        @return: list of successfully parsed filenames or URLs
+        :rtype:  list
+        :return: list of successfully parsed filenames or URLs
         """
         if isinstance(filenames, basestring):
             filenames = [filenames]
@@ -401,16 +415,15 @@ class Configuration(ConfigParser.SafeConfigParser):
     def readfp(self, fp, filename=None):
         '''
         Read and parse configuration data from a file or file-like object.
-        (Only the C{readline()} moethod is used.)
+        (Only the ``readline()`` moethod is used.)
 
-        @type fp:        fp
-        @param fp:       File-like object with a C{readline()} method
-
-        @type filename:  string
-        @param filename: Name associated with C{fp}, for error messages.
-                         If omitted or C{None}, then C{fp.name} is used.
-                         If C{fp} has no C{name} attribute, then
-                         C{"<???">} is used.
+        :Parameters:
+            fp : file
+                File-like object with a ``readline()`` method
+            filename : str
+                Name associated with ``fp``, for error messages. If omitted or
+                ``None``, then ``fp.name`` is used. If `fp`` has no ``name``
+                attribute, then ``"<???">`` is used.
         '''
         self.__preprocess(fp, filename)
 
@@ -418,22 +431,20 @@ class Configuration(ConfigParser.SafeConfigParser):
         """
         Get an option from a section.
 
-        @type section:  string
-        @param section: name of section
+        :Parameters:
+            section : str
+                name of section
+            option : str
+                name of option to check
+            optional : bool
+                ``True`` to return None if the option doesn't exist. ``False``
+                to throw an exception if the option doesn't exist.
 
-        @type option:   string
-        @param option:  name of option
+        :rtype:  str
+        :return: the option value
 
-        @type optional:  boolean
-        @param optional: C{True} to return None if the option doesn't
-                         exist. C{False} to throw an exception if the option
-                         doesn't exist.
-
-        @rtype:  string
-        @return: the option
-
-        @raise ConfigParser.NoSectionError: no such section
-        @raise ConfigParser.NoOptionError:  no such option in the section
+        :raise NoSectionError: no such section
+        :raise NoOptionError: no such option in the section
         """
         def do_get(section, option):
             val = ConfigParser.SafeConfigParser.get(self, section, option)
@@ -449,24 +460,22 @@ class Configuration(ConfigParser.SafeConfigParser):
     def getint(self, section, option, optional=False):
         """
         Convenience method that coerces the result of a call to
-        L{C{get()}<get>} to an C{int}.
+        ``get()`` to an ``int``.
 
-        @type section:  string
-        @param section: name of section
+        :Parameters:
+            section : str
+                name of section
+            option : str
+                name of option to check
+            optional : bool
+                ``True`` to return None if the option doesn't exist. ``False``
+                to throw an exception if the option doesn't exist.
 
-        @type option:   string
-        @param option:  name of option
+        :rtype:  int
+        :return: the option value
 
-        @type optional:  boolean
-        @param optional: C{True} to return None if the option doesn't
-                         exist. C{False} to throw an exception if the option
-                         doesn't exist.
-
-        @rtype:  int
-        @return: the option value
-
-        @raise ConfigParser.NoSectionError: no such section
-        @raise ConfigParser.NoOptionError:  no such option in the section
+        :raise NoSectionError: no such section
+        :raise NoOptionError: no such option in the section
         """
         def do_get(section, option):
             return ConfigParser.SafeConfigParser.getint(self, section, option)
@@ -478,25 +487,23 @@ class Configuration(ConfigParser.SafeConfigParser):
 
     def getfloat(self, section, option, optional=False):
         """
-        Convenience method that coerces the result of a call to
-        L{C{get()}<get>} to a C{float}.
+        Convenience method that coerces the result of a call to ``get()`` to a
+        ``float``.
 
-        @type section:  string
-        @param section: name of section
+        :Parameters:
+            section : str
+                name of section
+            option : str
+                name of option to check
+            optional : bool
+                ``True`` to return None if the option doesn't exist. ``False``
+                to throw an exception if the option doesn't exist.
 
-        @type optional:  boolean
-        @param optional: C{True} to return None if the option doesn't
-                         exist. C{False} to throw an exception if the option
-                         doesn't exist.
+        :rtype:  float
+        :return: the option value
 
-        @type option:   string
-        @param option:  name of option
-
-        @rtype:  float
-        @return: the option value
-
-        @raise ConfigParser.NoSectionError: no such section
-        @raise ConfigParser.NoOptionError:  no such option in the section
+        :raise NoSectionError: no such section
+        :raise NoOptionError: no such option in the section
         """
         def do_get(section, option):
             return ConfigParser.SafeConfigParser.getfloat(self, section, option)
@@ -508,30 +515,28 @@ class Configuration(ConfigParser.SafeConfigParser):
 
     def getboolean(self, section, option, optional=False):
         '''
-        Convenience method that coerces the result of a call to
-        L{C{get()}<get>} to a boolean. Accepted boolean values are "1",
-        "yes", "true", and "on", which cause this method to return True,
-        and "0", "no", "false", and "off", which cause it to return False.
-        These string values are checked in a case-insensitive manner. Any
-        other value will cause it to raise C{ValueError}.
+        Convenience method that coerces the result of a call to ``get()`` to a
+        boolean. Accepted boolean values are "1", "yes", "true", and "on",
+        which cause this method to return True, and "0", "no", "false", and
+        "off", which cause it to return False. These string values are checked
+        in a case-insensitive manner. Any other value will cause it to raise
+        ``ValueError``.
 
-        @type section:  string
-        @param section: name of section
+        :Parameters:a
+            section : str
+                name of section
+            option : str
+                name of option to check
+            optional : bool
+                ``True`` to return None if the option doesn't exist. ``False``
+                to throw an exception if the option doesn't exist.
 
-        @type option:   string
-        @param option:  name of option
+        :rtype:  bool
+        :return: the option value (``True`` or ``False``)
 
-        @type optional:  boolean
-        @param optional: C{True} to return None if the option does not
-                         exist. C{False} to throw an exception if the option
-                         does not exist.
-
-        @rtype:  boolean
-        @return: the option value (C{True} or C{False})
-
-        @raise ConfigParser.NoSectionError: no such section
-        @raise ConfigParser.NoOptionError: no such option in the section
-        @raise ValueError: non-boolean value encountered
+        :raise NoSectionError: no such section
+        :raise NoOptionError: no such option in the section
+        :raise ValueError: non-boolean value encountered
         '''
         def do_get(section, option):
             return ConfigParser.SafeConfigParser.getboolean(self,
@@ -545,28 +550,27 @@ class Configuration(ConfigParser.SafeConfigParser):
 
     def getlist(self, section, option, sep=None, optional=False):
         '''
-        Convenience method that coerces the result of a call to
-        L{C{get()}<get>} to a list. The value is split using the
-        separator(s) specified by the C{sep} argument. A C{sep} value
-        of C{None} uses white space. The result is a list of string values.
+        Convenience method that coerces the result of a call to ``get()`` to a
+        list. The value is split using the separator(s) specified by the
+        ``sep`` argument. A ``sep`` value of ``None`` uses white space. The
+        result is a list of string values.
 
-        @type section:  string
-        @param section: name of section
+        :Parameters:
+            section : str
+                name of section
+            option : str
+                name of option to check
+            sep : str
+                list element separator to use. Defaults to white space.
+            optional : bool
+                ``True`` to return None if the option doesn't exist. ``False``
+                to throw an exception if the option doesn't exist.
 
-        @type option:   string
-        @param option:  name of option
+        :rtype:  bool
+        :return: the option value (``True`` or ``False``)
 
-        @type optional:  boolean
-        @param optional: C{True} to return None if the option does not
-                         exist. C{False} to throw an exception if the option
-                         does not exist.
-
-        @rtype:  list
-        @return: the option value as a list, or C{None}
-
-        @raise ConfigParser.NoSectionError: no such section
-        @raise ConfigParser.NoOptionError: no such option in the section
-        @raise ValueError: non-boolean value encountered
+        :raise NoSectionError: no such section
+        :raise NoOptionError: no such option in the section
         '''
         def do_get(section, option):
             value = ConfigParser.SafeConfigParser.get(self, section, option)
@@ -581,72 +585,73 @@ class Configuration(ConfigParser.SafeConfigParser):
         """
         Get all items in a section.
 
-        @type section:  string
-        @param section: the section name
+        :Parameters:
+            section : str
+                name of section
 
-        @rtype:  list
-        @return: a list of (I{name}, I{value}) tuples for each option in
-                 in I{section}
+        :rtype:  list
+        :return: a list of (*name*, *value*) tuples for each option in
+                 in *section*
 
-        @raise ConfigParser.NoSectionError: no such section
+        :raise NoSectionError: no such section
         """
         return ConfigParser.SafeConfigParser.items(self, section)
 
     def set(self, section, option, value):
         """
         If the given section exists, set the given option to the specified
-        value; otherwise raise C{NoSectionError}.
+        value; otherwise raise ``NoSectionError``.
 
-        @type section:  string
-        @param section: name of section
+        :Parameters:
+            section : str
+                name of section
+            option : str
+                name of option to check
+            value : str
+                the value to set
 
-        @type option:   string
-        @param option:  name of option
-
-        @type value:    string
-        @param value:   The value to set
-
-        @raise ConfigParser.NoSectionError: no such section
+        :raise NoSectionError: no such section
         """
         ConfigParser.SafeConfigParser.set(self, section, option, value)
 
     def write(self, fileobj):
         """
-        Write a representation of the configuration to the specified
-        file-like object. This output can be parsed by a future
-        C{read()} call.
+        Write a representation of the configuration to the specified file-like
+        object. This output can be parsed by a future ``read()`` call.
 
-        NOTE: Includes and variable references are I{not} reconstructed.
-        That is, the configuration data is written in I{expanded} form.
+        NOTE: Includes and variable references are ``not`` reconstructed.
+        That is, the configuration data is written in *expanded* form.
 
-        @type fileobj:  file-like object
-        @param fileobj: where to write the configuration
+        :Parameters:
+            fileobj : file
+                file-like object to which to write the configuration
         """
         ConfigParser.SafeConfigParser.write(self, fileobj)
 
     def remove_section(self, section):
         """
-        Remove a section named I{section} from the instance. If a section by the
-        given name does not exist, C{NoSectionError} is raised.
+        Remove a section from the instance. If a section by the given name
+        does not exist, ``NoSectionError`` is raised.
 
-        @type section:  string
-        @param section: name of section to remove
+        :Parameters:
+            section : str
+                name of section to remove
 
-        @raise NoSectionError: no such section
+        :raise NoSectionError: no such section
         """
         ConfigParser.SafeConfigParser.remove_section(self, section)
 
-    def optionxform(self, optionName):
+    def optionxform(self, option_name):
         """
-        Transforms the option name I{optionName} as found in an input file
-        or as passed in by client code to the form that should be used in
+        Transforms the option name in ``option_name`` as found in an input
+        file or as passed in by client code to the form that should be used in
         the internal structures. The default implementation returns a
-        lower-case version of I{optionName}; subclasses may override this
-        or client code can set an attribute of this name on instances to
-        affect this behavior. Setting this to C{str()}, for example, would
-        make option names case sensitive.
+        lower-case version of ``option_name``; subclasses may override this or
+        client code can set an attribute of this name on instances to affect
+        this behavior. Setting this to ``str()``, for example, would make
+        option names case sensitive.
         """
-        return str(optionName)
+        return option_name.lower()
 
     def __get_optional(self, func, section, option):
         try:
@@ -825,32 +830,34 @@ class _ConfigDict(dict):
 # Functions
 # ---------------------------------------------------------------------------
 
-def preprocess(fileOrURL, defaults=None):
+def preprocess(file_or_url, defaults=None):
     """
     This function preprocesses a file or URL for a configuration file,
     processing all includes and substituting all variables. It writes a new
     configuration file to a temporary file (or specified output file). The
-    new configuration file can be read by a standard C{ConfigParser}
+    new configuration file can be read by a standard ``ConfigParser``
     object. Thus, this method is useful when you have an extended
     configuration file that must be passed to a function or object that can
-    only read a standard C{ConfigParser} file.
+    only read a standard ``ConfigParser`` file.
 
     For example, here's how you might use the Python C{logging} API with an
-    extended configuration file::
+    extended configuration file:
+
+    .. python::
 
         from grizzled.config import Configuration
         import logging
 
         logging.config.fileConfig(Configuration.preprocess('/path/to/config')
 
-    @type fileOrURL:  string
-    @param fileOrURL: file or URL
+    :Parameters:
+        file_or_url :  str
+           file or URL to read and preprocess
+        defaults : dict
+            defaults to pass through to the config parser
 
-    @type defaults:   dictionary
-    @param defaults:  Defaults to pass through to the config parser
-
-    @rtype: string
-    @return: Path to a temporary file containing the expanded configuration.
+    :rtype: string
+    :return: Path to a temporary file containing the expanded configuration.
              The file will be deleted when the program exits, though the caller
              is free to delete it sooner.
     """
@@ -864,7 +871,7 @@ def preprocess(fileOrURL, defaults=None):
             pass
 
     parser = Configuration(use_ordered_sections=True)
-    parser.read(fileOrURL)
+    parser.read(file_or_url)
     fd, path = tempfile.mkstemp(suffix='.cfg')
     atexit.register(unlink, path)
     parser.write(os.fdopen(fd, "w"))

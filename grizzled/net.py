@@ -46,19 +46,18 @@ def download(url, directory=None, bufsize=8192):
     Note, however, that user/password authentication is only supported for
     "http" and "https" URLs.
 
-    @type url:  str
-    @param url: The URL to download
+    :Parameters:
+        url : str
+            the URL to download
+        directory : str
+            The directory to receive the downloaded file. If this parameter is
+            omitted, ``download()`` will create a temporary directory to
+            contain the file.
+        bufsize : int
+            buffer size to use when reading URL
 
-    @type directory:  str
-    @param directory: The directory to receive the downloaded file. If this
-                      parameter is omitted, C{urlDownload()} will create a
-                      temporary directory to contain the file.
-                      
-    @type bufsize:  int
-    @param bufsize: buffer size to use when reading URL.
-
-    @rtype:  tuple
-    @return: A C{(downloadDirectory, downloadedFile)} tuple
+    :rtype:  tuple
+    :return: A (*download_directory*, *downloaded_file*) tuple
     """
     pieces = urlparse.urlparse(url)
     path = pieces.path

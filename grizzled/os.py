@@ -8,8 +8,8 @@
 """
 Overview
 ========
-The C{grizzled.os} module contains some operating system-related functions and
-classes. It is a conceptual extension of the standard Python C{os} module.
+The ``grizzled.os`` module contains some operating system-related functions and
+classes. It is a conceptual extension of the standard Python ``os`` module.
 """
 # ---------------------------------------------------------------------------
 # Imports
@@ -26,7 +26,7 @@ from contextlib import contextmanager
 # Exports
 # ---------------------------------------------------------------------------
 
-__all__ = ['daemonize', 'DaemonError', 'working_directory', 
+__all__ = ['daemonize', 'DaemonError', 'working_directory',
            'file_separator', 'path_separator']
 
 # ---------------------------------------------------------------------------
@@ -66,8 +66,8 @@ log = logging.getLogger('grizzled.os')
 
 class DaemonError(OSError):
     """
-    Thrown by L{C{daemonize()}<daemonize>} when an error occurs while
-    attempting to create a daemon.
+    Thrown by ``daemonize()`` when an error occurs while attempting to create
+    a daemon.
     """
     pass
 
@@ -82,8 +82,8 @@ def path_separator():
     "PATH" or "CLASSPATH". (It's a ":" on Unix-like systems and a ";"
     on Windows.)
 
-    @rtype: str
-    @return: the path separator
+    :rtype: str
+    :return: the path separator
     """
     return PATH_SEPARATOR[_os.name]
 
@@ -93,8 +93,8 @@ def file_separator():
     separator is used to separate file elements in a pathname. (It's
     "/" on Unix-like systems and a "\\" on Windows.)
 
-    @rtype: str
-    @return: the file separator
+    :rtype: str
+    :return: the file separator
     """
     return FILE_SEPARATOR[_os.name]
 
@@ -102,7 +102,9 @@ def file_separator():
 def working_directory(directory):
     """
     This function is intended to be used as a C{with} statement context
-    manager. It allows you to replace code like this::
+    manager. It allows you to replace code like this:
+
+    .. python::
 
         import os
 
@@ -113,7 +115,9 @@ def working_directory(directory):
         finally:
             os.chdir(original_directory)
 
-    with something simpler::
+    with something simpler:
+
+    .. python ::
 
         from __future__ import with_statement
         from grizzled.os import working_directory
@@ -121,10 +125,11 @@ def working_directory(directory):
         with working_directory(some_dir):
             ... bunch of code ...
 
-    @type directory:  path
-    @param directory: directory in which to execute
+    :Parameters:
+        directory : str
+            directory in which to execute
 
-    @return: yields the C{directory} parameter
+    :return: yields the ``directory`` parameter
     """
     original_directory = _os.getcwd()
     try:
@@ -137,35 +142,35 @@ def working_directory(directory):
 def daemonize(no_close=False):
     """
     Convert the calling process into a daemon. To make the current Python
-    process into a daemon process, you need two lines of code::
+    process into a daemon process, you need two lines of code:
+
+    .. python::
 
         from grizzled.os import daemon
         daemon.daemonize()
 
-    If C{daemonize()} fails for any reason, it throws a
-    L{C{DaemonError}<DaemonError>} exception, which is a subclass of the
-    standard C{OSError} exception. also logs debug messages, using the
-    standard Python C{logging} package, to channel 'grizzled.os.daemon'.
+    If ``daemonize()`` fails for any reason, it throws a ``DaemonError``,
+    which is a subclass of the standard ``OSError`` exception. also logs debug
+    messages, using the standard Python ``logging`` package, to channel
+    "grizzled.os.daemon".
 
-    B{Adapted from:}
+    **Adapted from:** http://www.clapper.org/software/daemonize/
 
-     - U{http://www.clapper.org/software/daemonize/}
+    **See Also:**
 
-    B{See Also:}
+    - Stevens, W. Richard. *Unix Network Programming* (Addison-Wesley, 1990).
 
-     - Stevens, W. Richard. I{Unix Network Programming} (Addison-Wesley, 1990).
+    :Parameters:
+        no_close : bool
+            If ``True``, don't close the file descriptors. Useful if the
+            calling process has already redirected file descriptors to an
+            output file. **Warning**: Only set this parameter to ``True`` if
+            you're *sure* there are no open file descriptors to the calling
+            terminal. Otherwise, you'll risk having the daemon re-acquire a
+            control terminal, which can cause it to be killed if someone logs
+            off that terminal.
 
-    @type no_close:  boolean
-    @param no_close: If C{True}, don't close the file descriptors. Useful
-                     if the calling process has already redirected file
-                     descriptors to an output file. B{Warning}: Only set this
-                     parameter to C{True} if you're I{sure} there are no open
-                     file descriptors to the calling terminal. Otherwise,
-                     you'll risk having the daemon re-acquire a control
-                     terminal, which can cause it to be killed if someone logs
-                     off that terminal.
-
-    @raise DaemonError: Error during daemonizing
+    :raise DaemonError: Error during daemonizing
     """
     log = logging.getLogger('grizzled.os.daemon')
 

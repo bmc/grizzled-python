@@ -30,13 +30,14 @@ __all__ = ['unlink_quietly', 'recursively_remove', 'copy_recursively',
 
 def unlink_quietly(*paths):
     """
-    Like the standard C{os.unlink()} function, this function attempts to
+    Like the standard ``os.unlink()`` function, this function attempts to
     delete a file. However, it swallows any exceptions that occur during the
     unlink operation, making it more suitable for certain uses (e.g.,
-    in C{atexit} handlers).
+    in ``atexit`` handlers).
 
-    @type paths:  strings or lists of strings
-    @param paths: path(s) to unlink
+    :Parameters:
+        paths : str or list
+            path(s) to unlink
     """
     def looper(*paths):
         for i in paths:
@@ -54,11 +55,12 @@ def unlink_quietly(*paths):
 
 def recursively_remove(dir):
     """
-    Recursively remove all files and directories below and including a specified
-    directory.
+    Recursively remove all files and directories below and including a
+    specified directory.
 
-    @type dir:  string
-    @param dir: path to directory to remove
+    :Parameters:
+        dir : str
+            path to directory to remove
     """
     if not _os.path.exists(dir):
         return
@@ -70,42 +72,43 @@ def copy_recursively(source_dir, target_dir):
     Recursively copy a source directory (and all its contents) to a target
     directory.
 
-    @type source_dir:  str
-    @param source_dir: Source directory to copy recursively. This path must
-                       exist and must specify a directory; otherwise, this
-                       function throws a C{ValueError}
+    :Parameters:
+        source_dir : str
+            Source directory to copy recursively. This path must
+            exist and must specify a directory; otherwise, this
+            function throws a ``ValueError``
+        target_dir : str
+            Directory to which to copy the contents of ``source_dir``.
+            This directory must not already exist.
 
-    @type target_dir:  str
-    @param target_dir: Directory to which to copy the contents of C{source_dir}.
-                       This directory must not already exist.
-
-    @raise ValueError: If: C{source_dir} does not exist; C{source_dir} exists
-                       but is not a directory; or C{target_dir} exists but is
+    :raise ValueError: If: ``source_dir`` does not exist; ``source_dir`` exists
+                       but is not a directory; or ``target_dir`` exists but is
                        not a directory.
     """
     shutil.copytree(source_dir, target_dir)
 
-def copy(files, target_dir, createTarget=False):
+def copy(files, target_dir, create_target=False):
     """
     Copy one or more files to a target directory.
 
-    @type files:  string or list
-    @param files: a single file path or a list of file paths to be copied
-
-    @type target_dir:  string
-    @param target_dir: path to target directory
-
-    @type createTarget:  boolean
-    @param createTarget: If C{True}, C{copy()} will attempt to create the
-                         target directory if it does not exist. If C{False},
-                         C{copy()} will throw an exception if the target
-                         directory does not exist.
+    :Parameters:
+        files : str or list
+            single file path or a list of file paths to be copied
+        target_dir : str
+            path to target directory
+        create_target : bool
+            If ``True``, ``copy()`` will attempt to create the target directory
+            if it does not exist. If ``False``, ``copy()`` will throw an
+            exception if the target directory does not exist.
+            
+    :raise OSError: ``target_dir`` does not exist, and ``create_target`` is
+                    ``False``
     """
     if type(files) == str:
         files = [files]
 
     if not _os.path.exists(target_dir):
-        if createTarget:
+        if create_target:
             _os.mkdir(target_dir)
 
     if _os.path.exists(target_dir) and (not _os.path.isdir(target_dir)):
@@ -117,23 +120,22 @@ def copy(files, target_dir, createTarget=False):
 
 def touch(files, times=None):
     """
-    Similar to the Unix I{touch}(1) command, this function:
+    Similar to the Unix *touch* command, this function:
 
-     - updates the access and modification times for any existing files
-       in a list of files
-     - creates any non-existent files in the list of files
+    - updates the access and modification times for any existing files
+      in a list of files
+    - creates any non-existent files in the list of files
 
     If any file in the list is a directory, this function will throw an
     exception.
 
-    @type files:  list or string
-    @param files: pathname or list of pathnames of files to be created or
-                  updated
-
-    @type times:  tuple
-    @param times: tuple of the form (I{atime}, I{mtime}), identical to
-                  what is passed to the standard C{os.utime()} function.
-                  If this tuple is C{None}, then the current time is used.
+    :Parameters:
+        files : list or str
+            pathname or list of pathnames of files to be created or updated
+        times : tuple
+            tuple of the form (*atime*, *mtime*), identical to
+            what is passed to the standard `os.utime()` function.
+            If this tuple is `None`, then the current time is used.
     """
     if type(files) == str:
         files = [files]
@@ -157,11 +159,12 @@ def pathsplit(path):
     If there's a Windows drive letter in the path, it'll end up with the
     first component.
 
-    @type path:  str
-    @param path: path to split. Can be relative or absolute.
+    :Parameters:
+        path : str
+            path to split. Can be relative or absolute
 
-    @rtype:  list
-    @return: a list of path components
+    :rtype:  list
+    :return: a list of path components
     """
     result = []
     (head, tail) = _os.path.split(path)
@@ -232,20 +235,22 @@ def eglob(pattern, directory='.'):
     """
     Extended glob function that supports the all the wildcards supported
     by the Python standard C{glob} routine, as well as a special "**"
-    wildcard that recursively matches any directory. Examples::
+    wildcard that recursively matches any directory. Examples:
+    
+      +--------------+--------------------------------------------------------+
+      | \*\*/\*.py   | all files ending in '.py' under the current directory  |
+      +--------------+--------------------------------------------------------+
+      | foo/\*\*/bar | all files name 'bar' anywhere under subdirectory 'foo' |
+      +--------------+--------------------------------------------------------+
 
-        **/*.py    all files ending in '.py' under the current directory
-        foo/**/bar all files name 'bar' anywhere under subdirectory 'foo'
+    :Parameters:
+        pattern : str
+            The wildcard pattern. Must be a simple pattern with no directories.
+        directory : str
+            The directory in which to do the globbing.
 
-    @type pattern:    str
-    @param pattern:   The wildcard pattern. Must be a simple pattern with
-                      no directories.
-
-    @type directory:  str
-    @param directory: The directory in which to do the globbing.
-
-    @rtype:  list
-    @return: A list of matched files, or an empty list for no match
+    :rtype:  list
+    :return: A list of matched files, or an empty list for no match
     """
     pieces = pathsplit(pattern)
     return __find_matches(pieces, directory)
@@ -255,15 +260,16 @@ def universal_path(path):
     Converts a path name from its operating system-specific format to a
     universal path notation. Universal path notation always uses a Unix-style
     "/" to separate path elements. A universal path can be converted to a
-    native (operating system-specific) path via the
-    L{C{native_path()}<native_path>} function. Note that on POSIX-compliant
-    systems, this function simply returns C{path} argument unmodified.
+    native (operating system-specific) path via the ``native_path()``
+    function. Note that on POSIX-compliant systems, this function simply
+    returns the ``path`` parameter unmodified.
 
-    @type path:  str
-    @param path: the path to convert to universal path notation
+    :Parameters:
+        path : str
+            the path to convert to universal path notation
 
-    @rtype:  str
-    @return: the universal path.
+    :rtype:  str
+    :return: the universal path.
     """
     if _os.name != 'posix':
         path = path.replace(file_separator(), '/')
@@ -275,15 +281,16 @@ def native_path(path):
     Converts a path name from universal path notation to the operating
     system-specific format. Universal path notation always uses a Unix-style
     "/" to separate path elements. A native path can be converted to a
-    universal path via the L{C{universal_path()}<universal_path>} function.
-    Note that on POSIX-compliant systems, this function simply returns C{path}
-    argument unmodified.
+    universal path via the ``universal_path()`` function. Note that on
+    POSIX-compliant systems, this function simply returns the ``path``
+    parameter unmodified.
 
-    @type path:  str
-    @param path: the path to convert to native path notation
+    :Parameters:
+        path : str
+            the path to convert to native path notation
 
-    @rtype:  str
-    @return: the native path.
+    :rtype:  str
+    :return: the native path.
     """
     if _os.name != 'posix':
         path = path.replace('/', file_separator())

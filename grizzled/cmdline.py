@@ -4,8 +4,8 @@
 # ---------------------------------------------------------------------------
 
 """
-Provides a front-end to the Python standard C{optparse} module. The
-C{CommandLineParser} class makes two changes to the standard behavior.
+Provides a front-end to the Python standard ``optparse`` module. The
+``CommandLineParser`` class makes two changes to the standard behavior.
 
   - The output for the '-h' option is slightly different.
   - A bad option causes the parser to generate the entire usage output,
@@ -53,8 +53,9 @@ class CommandLineParser(OptionParser):
         specified output file. You can define an epilogue by setting the
         C{epilogue} field.
         
-        @type out:  file
-        @param out: where to write the usage
+        :Parameters:
+            out : file
+                where to write the usage message
         """
         OptionParser.print_help(self, out)
         if self.epilogue:
@@ -66,9 +67,10 @@ class CommandLineParser(OptionParser):
         """
         Force the display of the usage message.
 
-        @type msg:  string
-        @param msg: If not set the None (the default), this message will
-                    be displayed before the usage message.
+        :Parameters:
+            msg : string
+                If not set to ``None`` (the default), this message will be
+                displayed before the usage message
         """
         if msg != None:
             print >> sys.stderr, msg
@@ -77,7 +79,7 @@ class CommandLineParser(OptionParser):
 
     def error(self, msg):
         """
-        Overrides parent C{OptionParser} class's C{error} message and
+        Overrides parent ``OptionParser`` class's ``error()`` method and
         forces the full usage message on error.
         """
         sys.stderr.write("%s: error: %s\n" % (self.get_prog_name(), msg))

@@ -4,9 +4,9 @@
 Introduction
 ============
 
-The C{db} module is a DB API wrapper. It provides a DB API-compliant API
-that wraps real underlying DB API drivers, simplifying some non-portable
-operations like C{connect()} and providing some new operations.
+The ``db`` module is a DB API wrapper. It provides a DB API-compliant API that
+wraps real underlying DB API drivers, simplifying some non-portable operations
+like ``connect()`` and providing some new operations.
 
 Some drivers come bundled with this package. Others can be added on the fly.
 
@@ -14,37 +14,37 @@ Getting the List of Drivers
 ===========================
 
 To get a list of all drivers currently registered with this module, use the
-get_driver_names() method::
+``get_driver_names()`` method:
+
+.. python::
 
     import db
 
     for driver_name in db.get_driver_names():
         print driver_name
 
-Currently, this module provides the following bundled drivers::
+Currently, this module provides the following bundled drivers:
 
-    ======================================================================
-    Driver Name, as passed                           underlying Python
-    to db.get_driver()          Database             DB API Module
-    ======================================================================
-    dummy                       None (a dummy,       db.DummyDB
-                                no-op driver,
-                                useful for testing)
-    ----------------------------------------------------------------------
-    mysql                       MySQL                MySQLdb
-    ----------------------------------------------------------------------
-    oracle                      Oracle               cx_Oracle
-    ----------------------------------------------------------------------
-    postgresql                  PostgreSQL           psycopg2
-    ----------------------------------------------------------------------
-    sqlserver                   Microsoft SQL Server pymssql
-    ----------------------------------------------------------------------
-    sqlite                      SQLite 3             pysqlite
-    ======================================================================
+  +------------------+------------+-------------------+
+  | Driver Name,     |            |                   |
+  | as passed to     |            | Underlying Python |
+  | ``get_driver()`` | Database   | DB API module     |
+  +==================+============+===================+
+  | dummy            | None       | ``db.DummyDB``    |
+  +------------------+------------+-------------------+
+  | mysql            | MySQL      | ``MySQLdb``       |
+  +------------------+------------+-------------------+
+  | oracle           | Oracle     | ``cx_Oracle``     |
+  +------------------+------------+-------------------+
+  | postgresql       | PostgreSQL | ``psycopg2``      |
+  +------------------+------------+-------------------+
+  | sqlserver        | SQL Server | ``pymssql``       |
+  +------------------+------------+-------------------+
+  | sqlite           | SQLite 3   | ``pysqlite``      |
+  +------------------+------------+-------------------+
 
 To use a given driver, you must have the corresponding Python DB API module
 installed on your system.
-
 
 Adding a Driver
 ===============
@@ -52,19 +52,21 @@ Adding a Driver
 It's possible to add a new driver to the list of drivers supplied by this
 module. To do so:
 
- 1. The driver class must extend L{C{DBDriver}<DBDriver>} and provide the 
-    appropriate methods. See examples in this module.
+ 1. The driver class must extend ``DBDriver`` and provide the appropriate
+    methods. See examples in this module.
  2. The driver's module (or the calling program) must register the driver
-    with this module by calling the L{C{add_driver()}<add_driver>} function.
+    with this module by calling the ``add_driver()`` function.
 
 
 DB API Factory Functions
 ========================
 
-The C{Binary()}, C{Date()}, C{DateFromTicks()}, C{Time()},
-C{TimeFromTicks()}, C{Timestamp()} and C{TimestampFromTicks()} DB API
+The ``Binary()``, ``Date()``, ``DateFromTicks()``, ``Time()``,
+``TimeFromTicks()``, ``TimeStamp()`` and ``TimestampFromTicks()`` DB API
 functions can be found in the DB class. Thus, to make a string into a BLOB
-with this API, you use::
+with this API, you use:
+
+.. python::
 
     driver = db.get_driver(driver_name)
     db = driver.connect(...)
@@ -112,17 +114,18 @@ def add_driver(key, driver_class, force=False):
     """
     Add a driver class to the list of drivers.
 
-    @type key:   string
-    @param key:  the key, also used as the driver's name
+    :Parameters:
+        key : str
+            the key, also used as the driver's name
+        driver_class : class
+            the ``DBDriver`` subclass object
+        force : bool
+            ``True`` to force registration of the driver, even if there's an
+            existing driver with the same key; ``False`` to throw an exception
+            if there's an existing driver with the same key.
 
-    @type driver_class:  C{DBDriver} subclass
-    @param driver_class: The driver class
-
-    @type force:  boolean
-    @param force: C{True} to force registration of the driver, even if
-                  there's an existing driver with the same key. C{False}
-                  to throw an exception if there's an existing driver
-                  with the same key.
+    :raise ValueError: There's an existing driver with the same key, and
+                       ``force`` is ``False``
     """
     try:
         drivers[key]
@@ -136,16 +139,17 @@ def add_driver(key, driver_class, force=False):
 
 def get_drivers():
     """
-    Get the list of drivers currently registered with this API.
-    The result is a list of DBDriver subclasses. Note that these are
-    classes, not instances. Once way to use the resulting list is as
-    follows::
+    Get the list of drivers currently registered with this API. The result is
+    a list of ``DBDriver`` subclasses. Note that these are classes, not
+    instances. Once way to use the resulting list is as follows:
+
+    .. python::
 
         for driver in db.get_drivers():
             print driver.__doc__
 
-    @rtype:  list
-    @return: list of C{DBDriver} class names
+    :rtype:  list
+    :return: list of ``DBDriver`` class names
     """
     return [str(d) for d in drivers.values()]
 
@@ -153,22 +157,23 @@ def get_driver_names():
     """
     Get the list of driver names currently registered with this API.
     Each of the returned names may be used as the first parameter to
-    the L{C{get_driver()}<get_driver>} function.
+    the ``get_driver()`` function.
     """
     return drivers.keys()
 
 def get_driver(driver_name):
     """
     Get the DB API object for the specific database type. The list of
-    legal database types are available by calling
-    L{C{get_driver_names()}<get_driver_names>}.
+    legal database types are available by calling ``get_driver_names()``.
 
-    @type driver_name:  str
-    @param driver_name: name of driver
+    :Parameters:
+        driver_name : str
+            name (key) of the driver
 
-    @return: the instantiated driver
+    :rtype: DBDriver
+    :return: the instantiated driver
 
-    @raise ValueError: Unknown driver name
+    :raise ValueError: Unknown driver name
     """
     try:
         o = drivers[driver_name]
@@ -191,30 +196,27 @@ class DBError(ExceptionWithMessage):
     pass
 
 class Error(DBError):
-    """Thrown to indicate an error in the C{db} module."""
+    """Thrown to indicate an error in the ``db`` module."""
     pass
 
 class Warning(DBError):
-    """Thrown to indicate an error in the C{db} module."""
+    """Thrown to indicate an error in the ``db`` module."""
     pass
 
 class Cursor(object):
     """
-    Class for DB cursors returned by the C{DB.cursor()} method. This class
+    Class for DB cursors returned by the ``DB.cursor()`` method. This class
     conforms to the Python DB cursor interface, including the following
-    attributes:
+    attributes.
 
-    B{C{description}}
-
-    A read-only attribute that is a sequence of 7-item tuples, one per
-    column in the last query executed::
-
-        (name, typecode, displaysize, internalsize, precision, scale)
-
-    B{C{rowcount}}
-
-    A read-only attribute that specifies the number of rows
-    fetched in the last query, or -1 if unknown
+    :IVariables:
+        description : tuple
+            A read-only attribute that is a sequence of 7-item tuples, one per
+            column, from the last query executed. The tuple values are:
+            *(name, typecode, displaysize, internalsize, precision, scale)*
+        rowcount : int
+            A read-only attribute that specifies the number of rows
+            fetched in the last query, or -1 if unknown
     """
 
     def __init__(self, cursor, driver):
@@ -222,8 +224,11 @@ class Cursor(object):
         Create a new Cursor object, wrapping the underlying real DB API
         cursor.
 
-        @param cursor: the real DB API cursor object
-        @param driver: the driver that is creating this object
+        :Parameters:
+            cursor
+                the real DB API cursor object
+            driver
+                the driver that is creating this object
         """
         self.__cursor = cursor
         self.__driver = driver
@@ -246,8 +251,8 @@ class Cursor(object):
         """
         Close the cursor.
 
-        @raise Warning: Non-fatal warning
-        @raise Error:   Error; unable to close
+        :raise Warning: Non-fatal warning
+        :raise Error:   Error; unable to close
         """
         dbi = self.__driver.get_import()
         try:
@@ -262,17 +267,16 @@ class Cursor(object):
         Execute a SQL statement string with the given parameters.
         'parameters' is a sequence when the parameter style is
         'format', 'numeric' or 'qmark', and a dictionary when the
-        style is 'pyformat' or 'named'. See DB.paramstyle()
+        style is 'pyformat' or 'named'. See ``DB.paramstyle()``.
 
-        @type statement:  string
-        @param statement: the SQL statement to execute
+        :Parameters:
+            statement : str
+                the SQL statement to execute
+            parameters : list
+                parameters to use, if the statement is parameterized
 
-        @type parameters:  list
-        @param parameters: parameters to use, if the statement is
-                           parameterized
-
-        @raise Warning: Non-fatal warning
-        @raise Error:   Error
+        :raise Warning: Non-fatal warning
+        :raise Error:   Error
         """
         dbi = self.__driver.get_import()
         try:
@@ -289,17 +293,17 @@ class Cursor(object):
         """
         Execute a SQL statement once for each item in the given parameters.
 
-        @type statement:  string
-        @param statement: SQL statement to be executed
+        :Parameters:
+            statement : str
+                the SQL statement to execute
+            parameters : sequence
+                a sequence of sequences when the parameter style
+                is 'format', 'numeric' or 'qmark', and a sequence
+                of dictionaries when the style is 'pyformat' or
+                'named'.
 
-        @type parameters:  sequence
-        @param parameters: a sequence of sequences when the parameter style
-                           is 'format', 'numeric' or 'qmark', and a sequence
-                           of dictionaries when the style is 'pyformat' or
-                           'named'.
-
-        @raise Warning: Non-fatal warning
-        @raise Error:   Error
+        :raise Warning: Non-fatal warning
+        :raise Error:   Error
         """
         dbi = self.__driver.get_import()
         try:
@@ -319,11 +323,11 @@ class Cursor(object):
         Returns the next result set row from the last query, as a sequence
         of tuples. Raises an exception if the last statement was not a query.
 
-        @rtype:  tuple
-        @return: Next result set row
+        :rtype:  tuple
+        :return: Next result set row
 
-        @raise Warning: Non-fatal warning
-        @raise Error:   Error
+        :raise Warning: Non-fatal warning
+        :raise Error:   Error
         """
         dbi = self.__driver.get_import()
         try:
@@ -338,11 +342,11 @@ class Cursor(object):
         Returns all remaining result rows from the last query, as a sequence
         of tuples. Raises an exception if the last statement was not a query.
 
-        @rtype:  list of tuples
-        @return: List of rows, each represented as a tuple
+        :rtype:  list of tuples
+        :return: List of rows, each represented as a tuple
 
-        @raise Warning: Non-fatal warning
-        @raise Error:   Error
+        :raise Warning: Non-fatal warning
+        :raise Error:   Error
         """
         dbi = self.__driver.get_import()
         try:
@@ -360,14 +364,15 @@ class Cursor(object):
         sequence of tuples. Raises an exception if the last statement was
         not a query.
 
-        @type n:  int
-        @param n: maximum number of result rows to get
+        :Parameters:
+            n : int
+                maximum number of result rows to get
 
-        @rtype:  list of tuples
-        @return: List of rows, each represented as a tuple
+        :rtype:  list of tuples
+        :return: List of rows, each represented as a tuple
 
-        @raise Warning: Non-fatal warning
-        @raise Error:   Error
+        :raise Warning: Non-fatal warning
+        :raise Error:   Error
         """
         dbi = self.__driver.get_import()
         try:
@@ -382,29 +387,38 @@ class Cursor(object):
     def get_table_metadata(self, table):
         """
         Get the metadata for a table. Returns a list of tuples, one for
-        each column. Each tuple consists of the following::
+        each column. Each tuple consists of the following:
 
-           (column_name, type_string, max_char_size, precision, scale, nullable)
+        *(column_name, type_string, max_char_size, precision, scale, nullable)*
 
         The tuple elements have the following meanings.
 
-         - B{C{column_name}}: the name of the column
-         - B{C{type_string}}: the column type, as a string
-         - B{C{max_char_size}}: maximum size for a character field, or C{None}
-         - B{C{precision}}: precision, for a numeric field, or C{None}
-         - B{C{scale}}: scale, for a numeric field, or C{None}
-         - B{C{nullable}}: C{True} or C{False}
+        column_name
+            the name of the column
+        type_string
+            the column type, as a string
+        max_char_size
+            the maximum size for a character field, or ``None``
+        precision
+            the precision, for a numeric field; or ``None``
+        scale
+            the scale, for a numeric field; or ``None``
+        nullable
+            ``True`` if the column is nullable, ``False`` if it is not
 
-        The data may come from the DB API's C{cursor.description} field, or
+        The data may come from the DB API's ``cursor.description`` field, or
         it may be richer, coming from a direct SELECT against
         database-specific tables.
 
-        This default implementation uses the DB API's C{cursor.description}
+        This default implementation uses the DB API's ``cursor.description``
         field. Subclasses are free to override this method to produce their
         own version that uses other means.
 
-        @raise Warning: Non-fatal warning
-        @raise Error:   Error
+        :rtype: list
+        :return: list of tuples, as described above
+
+        :raise Warning: Non-fatal warning
+        :raise Error:   Error
         """
         # Default implementation
         dbi = self.__driver.get_import()
@@ -428,12 +442,12 @@ class Cursor(object):
          - B{C{index_columns}}: a list of column names
          - B{C{description}}: index description, or C{None}
 
-        @rtype:  list of tuples
-        @return: the list of tuples, or C{None} if not supported in the
+        :rtype:  list of tuples
+        :return: the list of tuples, or C{None} if not supported in the
                  underlying database
 
-        @raise Warning: Non-fatal warning
-        @raise Error:   Error
+        :raise Warning: Non-fatal warning
+        :raise Error:   Error
         """
         dbi = self.__driver.get_import()
         try:
@@ -442,19 +456,19 @@ class Cursor(object):
             raise Warning(val)
         except dbi.Error, val:
             raise Error(val)
-        
+
     def get_tables(self):
         """
         Get the list of tables in the database to which this cursor is
         connected.
-        
-        @rtype:  list
-        @return: List of table names. The list will be empty if the database
+
+        :rtype:  list
+        :return: List of table names. The list will be empty if the database
                  contains no tables.
-                 
-        @raise NotImplementedError: Capability not supported by database driver
-        @raise Warning:             Non-fatal warning
-        @raise Error:               Error
+
+        :raise NotImplementedError: Capability not supported by database driver
+        :raise Warning:             Non-fatal warning
+        :raise Error:               Error
         """
         dbi = self.__driver.get_import()
         try:
@@ -466,19 +480,20 @@ class Cursor(object):
 
 class DB(object):
     """
-    The object returned by a call to C{DBDriver.connect()}. C{DB} wraps the
+    The object returned by a call to ``DBDriver.connect()``. ``db`` wraps the
     real database object returned by the underlying Python DB API module's
-    C{connect()} method.
+    ``connect()`` method.
     """
     def __init__(self, db, driver):
         """
         Create a new DB object.
 
-        @param db: the underlying Python DB API database object
-
-        @type driver:  C{DBDriver}
-        @param driver: the driver (i.e., the subclass of DBDriver) that
-                       created the 'db' object
+        :Parameters:
+            db
+                the underlying Python DB API database object
+            driver : DBDriver
+                the driver (i.e., the subclass of ``DBDriver``) that
+                created the ``db`` object
         """
         self.__db = db
         self.__driver = driver
@@ -535,14 +550,15 @@ class DB(object):
         """
         Returns an object representing the given string of bytes as a BLOB.
 
-        This method is equivalent to the module-level C{Binary()} method in
+        This method is equivalent to the module-level ``Binary()`` method in
         an underlying DB API-compliant module.
 
-        @type string:  str
-        @param string: the string to convert to a BLOB
+        :Parameters:
+            string : str
+                the string to convert to a BLOB
 
-        @rtype:  object
-        @return: the corresponding BLOB
+        :rtype:  object
+        :return: the corresponding BLOB
         """
         return self.__driver.get_import().Binary(string)
 
@@ -553,30 +569,37 @@ class DB(object):
         This method is equivalent to the module-level C{Date()} method in
         an underlying DB API-compliant module.
 
-        @param year:  the year
-        @param month: the month
-        @param day:   the day of the month
+        :Parameters:
+            year
+                the year
+            month
+                the month
+            day
+                the day of the month
 
-        @return: an object containing the date
+        :return: an object containing the date
         """
         return self.__driver.get_import().Date(year, month, day)
 
     def DateFromTicks(self, secs):
         """
-        Returns an object representing the date I{secs} seconds after the
-        epoch. For example::
+        Returns an object representing the date *secs* seconds after the
+        epoch. For example:
+
+        .. python::
 
             import time
 
             d = db.DateFromTicks(time.time())
 
-        This method is equivalent to the module-level C{DateFromTicks()}
+        This method is equivalent to the module-level ``DateFromTicks()``
         method in an underlying DB API-compliant module.
 
-        @type secs:  int
-        @param secs: the seconds from the epoch
+        :Parameters:
+            secs : int
+                the seconds from the epoch
 
-        @return: an object containing the date
+        :return: an object containing the date
         """
         return self.__driver.get_import().Date(year, month, day)
 
@@ -584,33 +607,40 @@ class DB(object):
         """
         Returns an object representing the specified time.
 
-        This method is equivalent to the module-level C{Time()} method in an
+        This method is equivalent to the module-level ``Time()`` method in an
         underlying DB API-compliant module.
 
-        @param hour:    the hour of the day
-        @param minute:  the minute within the hour. 0 <= C{minute} <= 59
-        @param second:  the second within the minute. 0 <= C{second} <= 59
+        :Parameters:
+            hour
+                the hour of the day
+            minute
+                the minute within the hour. 0 <= *minute* <= 59
+            second
+                the second within the minute. 0 <= *second* <= 59
 
-        @return: an object containing the time
+        :return: an object containing the time
         """
         return self.__driver.get_import().Time(hour, minute, second)
 
     def TimeFromTicks(self, secs):
         """
         Returns an object representing the time 'secs' seconds after the
-        epoch. For example::
+        epoch. For example:
+
+        .. python::
 
             import time
 
             d = db.TimeFromTicks(time.time())
 
-        This method is equivalent to the module-level TimeFromTicks()
+        This method is equivalent to the module-level ``TimeFromTicks()``
         method in an underlying DB API-compliant module.
 
-        @type secs:  int
-        @param secs: the seconds from the epoch
+        :Parameters:
+            secs : int
+                the seconds from the epoch
 
-        @return: an object containing the time
+        :return: an object containing the time
         """
         return self.__driver.get_import().Date(year, month, day)
 
@@ -618,37 +648,47 @@ class DB(object):
         """
         Returns an object representing the specified time.
 
-        This method is equivalent to the module-level C{Timestamp()} method
+        This method is equivalent to the module-level ``Timestamp()`` method
         in an underlying DB API-compliant module.
 
-        @param year:  the year
-        @param month: the month
-        @param day:   the day of the month
-        @param hour:    the hour of the day
-        @param minute:  the minute within the hour. 0 <= C{minute} <= 59
-        @param second:  the second within the minute. 0 <= C{second} <= 59
+        :Parameters:
+            year
+                the year
+            month
+                the month
+            day
+                the day of the month
+            hour
+                the hour of the day
+            minute
+                the minute within the hour. 0 <= *minute* <= 59
+            second
+                the second within the minute. 0 <= *second* <= 59
 
-        @return: an object containing the timestamp
+        :return: an object containing the timestamp
         """
         return self.__driver.get_import().Timestamp(year, month, day,
                                                    hour, minute, second)
 
     def TimestampFromTicks(self, secs):
         """
-        Returns an object representing the date and time 'secs' seconds
-        after the epoch. For example::
+        Returns an object representing the date and time ``secs`` seconds
+        after the epoch. For example:
+
+        .. python::
 
             import time
 
             d = db.TimestampFromTicks(time.time())
 
-        This method is equivalent to the module-level TimestampFromTicks()
+        This method is equivalent to the module-level ``TimestampFromTicks()``
         method in an underlying DB API-compliant module.
 
-        @type secs:  int
-        @param secs: the seconds from the epoch
+        :Parameters:
+            secs : int
+                the seconds from the epoch
 
-        @return: an object containing the timestamp
+        :return: an object containing the timestamp
         """
         return self.__driver.get_import().Date(year, month, day)
 
@@ -657,10 +697,10 @@ class DB(object):
         Get a cursor suitable for accessing the database. The returned object
         conforms to the Python DB API cursor interface.
 
-        @return: the cursor
+        :return: the cursor
 
-        @raise Warning: Non-fatal warning
-        @raise Error:   Error
+        :raise Warning: Non-fatal warning
+        :raise Error:   Error
         """
         dbi = self.__driver.get_import()
         try:
@@ -674,8 +714,8 @@ class DB(object):
         """
         Commit the current transaction.
 
-        @raise Warning: Non-fatal warning
-        @raise Error:   Error
+        :raise Warning: Non-fatal warning
+        :raise Error:   Error
         """
         dbi = self.__driver.get_import()
         try:
@@ -689,8 +729,8 @@ class DB(object):
         """
         Roll the current transaction back.
 
-        @raise Warning: Non-fatal warning
-        @raise Error:   Error
+        :raise Warning: Non-fatal warning
+        :raise Error:   Error
         """
         dbi = self.__driver.get_import()
         try:
@@ -704,8 +744,8 @@ class DB(object):
         """
         Close the database connection.
 
-        @raise Warning: Non-fatal warning
-        @raise Error:   Error
+        :raise Warning: Non-fatal warning
+        :raise Error:   Error
         """
         dbi = self.__driver.get_import()
         try:
@@ -725,13 +765,15 @@ class DBDriver(object):
         """
         Get a bound import for the underlying DB API module. All subclasses
         must provide an implementation of this method. Here's an example,
-        assuming the real underlying Python DB API module is 'foosql'::
+        assuming the real underlying Python DB API module is 'foosql':
+        
+        .. python::
 
             def get_import(self):
                 import foosql
                 return foosql
 
-        @return: a bound module
+        :return: a bound module
         """
         pass
 
@@ -746,8 +788,8 @@ class DBDriver(object):
         'MySQL'). All subclasses must provide an implementation of this
         method.
 
-        @rtype:  str
-        @return: the driver's displayable name
+        :rtype:  str
+        :return: the driver's displayable name
         """
         pass
 
@@ -779,11 +821,11 @@ class DBDriver(object):
         @type database:  str
         @param database: the database to which to connect
 
-        @rtype:  C{DB}
-        @return: a C{DB} object representing the open database
+        :rtype:  ``db``
+        :return: a ``db`` object representing the open database
 
-        @raise Warning: Non-fatal warning
-        @raise Error:   Error
+        :raise Warning: Non-fatal warning
+        :raise Error:   Error
         """
         dbi = self.get_import()
         try:
@@ -809,7 +851,9 @@ class DBDriver(object):
         Connect to the actual underlying database, using the driver.
         Subclasses must provide an implementation of this method. The
         method must return the result of the real DB API implementation's
-        C{connect()} method. For instance::
+        ``connect()`` method. For instance:
+        
+        .. python::
 
             def do_connect():
                 dbi = self.get_import()
@@ -817,28 +861,25 @@ class DBDriver(object):
                                    database=database)
 
         There is no need to catch exceptions; the C{DBDriver} class's
-        C{connect()} method handles that.
+        ``connect()`` method handles that.
 
-        @type host:      str
-        @param host:     the host where the database lives
+        :Parameters:
+            host : str
+                the host where the database lives
+            port : int
+                the TCP port to use when connecting
+            user : str
+                the user to use when connecting
+            password : str
+                the password to use when connecting
+            database : str
+                the name of the database to which to connect
 
-        @type port:      int
-        @param port:     the TCP port to use when connecting
+        :rtype:  ``DB``
+        :return: a ``DB`` object representing the open database
 
-        @type user:      str
-        @param user:     the user to use when connecting
-
-        @type password:  str
-        @param password: the user to use when connecting
-
-        @type database:  str
-        @param database: the database to which to connect
-
-        @rtype:  C{DB}
-        @return: a C{DB} object representing the open database
-
-        @raise Warning: Non-fatal warning
-        @raise Error:   Error
+        :raise Warning: Non-fatal warning
+        :raise Error:   Error
         """
         pass
 
@@ -847,62 +888,71 @@ class DBDriver(object):
         Get the metadata for the indexes for a table. Returns a list of
         tuples, one for each index. Each tuple consists of the following::
 
-            (indexName, [indexColumns], description)
+            (index_name, [index_columns], description)
 
         The tuple elements have the following meanings.
+        
+        - *index_name*: the index name
+        - *index_keys*: a list of column names
+        - *description*: index description, or `None`
 
-         - B{C{indexName}}: the index name
-         - B{C{indexKeys}}: a list of column names
-         - B{C{description}}: index description, or C{None}
+        The default implementation of this method returns `None`
 
-        The default implementation of this method returns C{None}.
+        :Parameters:
+            table : str
+                table name
+            cursor : Cursor
+                a ``Cursor`` object from a recent query
 
-        @type table:  str
-        @param table: table name
-
-        @type cursor:  L{C{Cursor}<Cursor>}
-        @param cursor: a C{Cursor} object from a recent query
-
-        @rtype:  list of tuples
-        @return: the list of tuples, or C{None} if not supported in the
+        :rtype:  list of tuples
+        :return: the list of tuples, or ``None`` if not supported in the
                  underlying database
 
-        @raise Warning: Non-fatal warning
+        :raise Warning: Non-fatal warning
         """
         return None
 
     def get_table_metadata(self, table, cursor):
         """
         Get the metadata for a table. Returns a list of tuples, one for
-        each column. Each tuple consists of the following::
+        each column. Each tuple consists of the following:
 
-           (columnName, TypeString, maxCharSize, precision, scale, nullable)
+        *(column_name, type_string, max_char_size, precision, scale, nullable)*
 
         The tuple elements have the following meanings.
 
-         - B{C{columnName}}: the name of the column
-         - B{C{typeAsString}}: the column type, as a string
-         - B{C{maxCharSize}}: maximum size for a character field, or C{None}
-         - B{C{precision}}: precision, for a numeric field, or C{None}
-         - B{C{scale}}: scale, for a numeric field, or C{None}
-         - B{C{nullable}}: C{True} or C{False}
+        column_name
+            the name of the column
+        type_string
+            the column type, as a string
+        max_char_size
+            the maximum size for a character field, or ``None``
+        precision
+            the precision, for a numeric field; or ``None``
+        scale
+            the scale, for a numeric field; or ``None``
+        nullable
+            ``True`` if the column is nullable, ``False`` if it is not
 
-        The data may come from the DB API's C{cursor.description} field, or
+        The data may come from the DB API's ``cursor.description`` field, or
         it may be richer, coming from a direct SELECT against
         database-specific tables.
 
-        This default implementation uses the DB API's C{cursor.description}
+        This default implementation uses the DB API's ``cursor.description``
         field. Subclasses are free to override this method to produce their
         own version that uses other means.
 
-        @type table:  str
-        @param table: table name
+        :Parameters:
+            table : str
+                the table name for which metadata is desired
+            cursor : Cursor
+                a ``Cursor`` object from a recent query
 
-        @type cursor:  L{C{Cursor}<Cursor>}
-        @param cursor: a C{Cursor} object from a recent query
+        :rtype: list
+        :return: list of tuples, as described above
 
-        @raise Warning: Non-fatal warning
-        @raise Error:   Error
+        :raise Warning: Non-fatal warning
+        :raise Error:   Error
         """
         dbi = self.get_import()
         cursor.execute('SELECT * FROM %s WHERE 1=0' % table)
@@ -951,17 +1001,18 @@ class DBDriver(object):
     def get_tables(self, cursor):
         """
         Get the list of tables in the database.
-        
-        @type cursor:  L{C{Cursor}<Cursor>}
-        @param cursor: a C{Cursor} object from a recent query
 
-        @rtype:  list
-        @return: List of table names. The list will be empty if the database
+        :Parameters:
+            cursor : Cursor
+                a ``Cursor`` object from a recent query
+
+        :rtype:  list
+        :return: List of table names. The list will be empty if the database
                  contains no tables.
-                 
-        @raise NotImplementedError: Capability not supported by database driver
-        @raise Warning:             Non-fatal warning
-        @raise Error:               Error
+
+        :raise NotImplementedError: Capability not supported by database driver
+        :raise Warning:             Non-fatal warning
+        :raise Error:               Error
         """
         raise NotImplementedError
 
@@ -1053,7 +1104,7 @@ class MySQLDriver(DBDriver):
         while rs != None:
             table_names += [rs[0]]
             rs = cursor.fetchone()
-            
+
         return table_names
 
 class SQLServerDriver(DBDriver):
@@ -1089,7 +1140,7 @@ class SQLServerDriver(DBDriver):
         while rs != None:
             table_names += [rs[0]]
             rs = cursor.fetchone()
-            
+
         return table_names
 
     def get_table_metadata(self, table, cursor):
@@ -1155,21 +1206,21 @@ class PostgreSQLDriver(DBDriver):
     def get_table_metadata(self, table, cursor):
         dbi = self.get_import()
         sel = """\
-        SELECT a.attname, pg_catalog.format_type(a.atttypid, a.atttypmod), 
-                    (SELECT substring(d.adsrc for 128) 
-                     FROM pg_catalog.pg_attrdef d 
-                     WHERE d.adrelid = a.attrelid AND 
+        SELECT a.attname, pg_catalog.format_type(a.atttypid, a.atttypmod),
+                    (SELECT substring(d.adsrc for 128)
+                     FROM pg_catalog.pg_attrdef d
+                     WHERE d.adrelid = a.attrelid AND
                      d.adnum = a.attnum AND a.atthasdef) AS DEFAULT,
-                    a.attnotnull, 
-                    a.attnum, 
+                    a.attnotnull,
+                    a.attnum,
                     a.attrelid as table_oid
              FROM pg_catalog.pg_attribute a
-             WHERE a.attrelid = 
-             (SELECT c.oid FROM pg_catalog.pg_class c 
-             LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace 
-             WHERE (pg_table_is_visible(c.oid)) AND c.relname = '%s' 
-             AND c.relkind in ('r','v')) 
-             AND a.attnum > 0 
+             WHERE a.attrelid =
+             (SELECT c.oid FROM pg_catalog.pg_class c
+             LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+             WHERE (pg_table_is_visible(c.oid)) AND c.relname = '%s'
+             AND c.relkind in ('r','v'))
+             AND a.attnum > 0
              AND NOT a.attisdropped
              ORDER BY a.attnum"""
 
@@ -1224,7 +1275,7 @@ class PostgreSQLDriver(DBDriver):
         while rs != None:
             table_names += [rs[0]]
             rs = cursor.fetchone()
-            
+
         return table_names
 
     def __get_index_names(self, table, cursor):
@@ -1337,7 +1388,7 @@ class OracleDriver(DBDriver):
         while rs != None:
             table_names += [rs[0]]
             rs = cursor.fetchone()
-            
+
         return table_names
 
 class SQLite3Driver(DBDriver):
@@ -1366,9 +1417,9 @@ class SQLite3Driver(DBDriver):
         while rs != None:
             table_names += [rs[0]]
             rs = cursor.fetchone()
-            
+
         return table_names
- 
+
 class DummyDriver(DBDriver):
     """Dummy database driver, for testing."""
 
