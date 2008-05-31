@@ -511,39 +511,32 @@ class DB(object):
         DB API module's 'paramstyle' attribute. It will have one of the
         following values:
 
-        'format'
-
-        The parameter marker is '%s', as in string formatting.
-        A query looks like this::
-
-            c.execute('SELECT * FROM Foo WHERE Bar=%s', [x])
-
-        'named'
-
-        The parameter marker is :name, and parameters are named.
-        A query looks like this::
-
-            c.execute('SELECT * FROM Foo WHERE Bar=:x', {'x':x})
-
-        'numeric'
-
-        The parameter marker is :n, giving the parameter's number
-        (starting at 1). A query looks like this::
-
-            c.execute('SELECT * FROM Foo WHERE Bar=:1', [x])
-
-        'pyformat'
-
-        The parameter marker is %(name)s, and parameters are named. A query
-        looks like this::
-
-            c.execute('SELECT * FROM Foo WHERE Bar=%(x)s', {'x':x})
-
-        'qmark'
-
-        The parameter is ?. A query looks like this::
-
-            c.execute('SELECT * FROM Foo WHERE Bar=?', [x])
+        +----------+-----------------------------------------------------------+
+        | format   | The parameter marker is '%s', as in string                |
+        |          | formatting. A query looks like this::                     |
+        |          |                                                           |
+        |          |   c.execute('SELECT * FROM Foo WHERE Bar=%s', [x])        |
+        +----------+-----------------------------------------------------------+
+        | named    | The parameter marker is ``:name``, and parameters         |
+        |          | are named. A query looks like this::                      |
+        |          |                                                           |
+        |          |   c.execute('SELECT * FROM Foo WHERE Bar=:x', {'x':x})    |
+        +----------+-----------------------------------------------------------+
+        | numeric  | The parameter marker is ``:n``, giving the parameter's    |
+        |          | number (starting at 1). A query looks like this::         |
+        |          |                                                           |
+        |          |   c.execute('SELECT * FROM Foo WHERE Bar=:1', [x])        |
+        +----------+-----------------------------------------------------------+
+        | pyformat | The parameter marker is ``:name``, and parameters         |
+        |          | are named. A query looks like this::                      |
+        |          |                                                           |
+        |          |   c.execute('SELECT * FROM Foo WHERE Bar=%(x)s', {'x':x}) |
+        +----------+-----------------------------------------------------------+
+        | qmark    | The parameter marker is "?", and parameters are           |
+        |          | substituted in order. A query looks like this::           |
+        |          |                                                           |
+        |          |   c.execute('SELECT * FROM Foo WHERE Bar=?', [x])         |
+        +----------+-----------------------------------------------------------+
         """
 
     def Binary(self, string):
