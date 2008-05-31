@@ -22,7 +22,7 @@
 class OrderedDict(dict):
     """
     ``OrderedDict`` is a simple ordered dictionary. The ``keys()``,
-    ``items()``, `__iter__()``, and other methods all return the keys in the
+    ``items()``, ``__iter__()``, and other methods all return the keys in the
     order they were added to the dictionary. Note that re-adding a key (i.e.,
     replacing a key with a new value) does not change the original order.
 

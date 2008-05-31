@@ -422,7 +422,7 @@ class Configuration(ConfigParser.SafeConfigParser):
                 File-like object with a ``readline()`` method
             filename : str
                 Name associated with ``fp``, for error messages. If omitted or
-                ``None``, then ``fp.name`` is used. If `fp`` has no ``name``
+                ``None``, then ``fp.name`` is used. If ``fp`` has no ``name``
                 attribute, then ``"<???">`` is used.
         '''
         self.__preprocess(fp, filename)

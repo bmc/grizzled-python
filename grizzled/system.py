@@ -141,7 +141,7 @@ def split_python_version(version=None):
     """
     Convert a binary Python version string (e.g., ``0x020501f0``) into the
     same (*major*, *minor*, *micro*, *releaselevel*, *serial*) tuple that is
-    found in ``sys.version_info``. Thus, for an input value of `0x020501f0`,
+    found in ``sys.version_info``. Thus, for an input value of ``0x020501f0``,
     this function returns the tuple ``(2, 5, 1, 'final', 0)``.
 
     :Parameters:

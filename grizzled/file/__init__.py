@@ -134,8 +134,8 @@ def touch(files, times=None):
             pathname or list of pathnames of files to be created or updated
         times : tuple
             tuple of the form (*atime*, *mtime*), identical to
-            what is passed to the standard `os.utime()` function.
-            If this tuple is `None`, then the current time is used.
+            what is passed to the standard ``os.utime()`` function.
+            If this tuple is ``None``, then the current time is used.
     """
     if type(files) == str:
         files = [files]
