@@ -2,6 +2,7 @@ $Id$
 
 Version 0.7 (...)
 
+- Documentation format changed from default Epydoc to reStructuredText.
 - Fixed bug in grizzled.db.add_driver() function that prevented a driver
   from being added programmatically.
 - Added class_for_name() function to grizzled.system module.
