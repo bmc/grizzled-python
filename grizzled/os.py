@@ -20,6 +20,7 @@ from __future__ import absolute_import
 import logging
 import os as _os
 import sys
+import glob
 from contextlib import contextmanager
 
 # ---------------------------------------------------------------------------
@@ -98,6 +99,18 @@ def file_separator():
     """
     return FILE_SEPARATOR[_os.name]
 
+def path_elements(path):
+    """
+    Given a path string value (e.g., the value of the environment variable
+    ``PATH``), this generator function yields each item in the path.
+
+    :Parameters:
+        path
+            the path to break up
+    """
+    for p in path.split(path_separator()):
+        yield p
+
 @contextmanager
 def working_directory(directory):
     """
@@ -138,6 +151,49 @@ def working_directory(directory):
 
     finally:
         _os.chdir(original_directory)
+
+def find_command(command_name, path=None):
+    """
+    Determine whether the specified system command exists in the specified
+    path.
+
+    :Parameters:
+        command_name
+            The (simple) filename of the command to find. May be a glob
+            string.
+
+        path
+            The path to search, as a list or a string. If this parameter
+            is a string, then it is split using the operating system-specific
+            path separator. If this parameter is missing, then the ``PATH``
+            environment variable is used
+
+    :rtype: str
+    :return: The path to the first command that matches ``command_name``, or 
+             ``None`` if not found
+    """
+    if not path:
+        path = _os.environ.get('PATH', '.')
+
+    if type(path) == str:
+        path = path.split(path_separator())
+    elif type(path) == list:
+        pass
+    else:
+        assert False, 'path parameter must be a list or a string'
+
+    found = None
+    for p in path:
+        full_path = _os.path.join(p, command_name)
+        for p2 in glob.glob(full_path):
+            if _os.access(p2, _os.X_OK):
+                found = p2
+                break
+
+        if found:
+            break
+
+    return found
 
 def daemonize(no_close=False):
     """
