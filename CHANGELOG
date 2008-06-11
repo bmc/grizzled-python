@@ -2,6 +2,8 @@ $Id$
 
 Version 0.7 (...)
 
+- In grizzled.db, the MySQL index metadata function wasn't detecting column
+  uniqueness properly.
 - Added find_command() and path_elements() functions to grizzled.os.
 - Documentation format changed from default Epydoc to reStructuredText.
 - Fixed bug in grizzled.db.add_driver() function that prevented a driver

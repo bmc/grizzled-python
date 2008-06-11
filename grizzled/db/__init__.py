@@ -1074,7 +1074,10 @@ class MySQLDriver(DBDriver):
                 columns[name] = []
 
             columns[name] += [rs[4]]
-            if rs[1] or (name.lower() == 'primary'):
+            
+            # Column 1 is a "non-unique" flag.
+
+            if (not rs[1]) or (name.lower() == 'primary'):
                 description = 'Unique'
             else:
                 description = 'Non-unique'
