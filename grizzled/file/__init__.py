@@ -14,8 +14,6 @@ import os as _os
 import sys
 import shutil
 
-from grizzled.os import file_separator
-
 # ---------------------------------------------------------------------------
 # Exports
 # ---------------------------------------------------------------------------
@@ -277,7 +275,7 @@ def universal_path(path):
     :return: the universal path.
     """
     if _os.name != 'posix':
-        path = path.replace(file_separator(), '/')
+        path = path.replace(_os.path.sep, '/')
 
     return path
 
@@ -298,6 +296,6 @@ def native_path(path):
     :return: the native path.
     """
     if _os.name != 'posix':
-        path = path.replace('/', file_separator())
+        path = path.replace('/', _os.path.sep)
 
     return path
