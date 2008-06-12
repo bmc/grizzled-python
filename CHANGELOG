@@ -2,6 +2,8 @@ $Id$
 
 Version 0.7 (...)
 
+- Deprecated grizzled.os.file_separator(). Silly me, there's a standard
+  os.path.sep variable.
 - In grizzled.db, the MySQL index metadata function wasn't detecting column
   uniqueness properly.
 - In grizzled.db, the PostgreSQL table metadata function wasn't detecting

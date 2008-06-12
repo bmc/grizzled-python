@@ -23,6 +23,8 @@ import sys
 import glob
 from contextlib import contextmanager
 
+from grizzled.decorators import deprecated
+
 # ---------------------------------------------------------------------------
 # Exports
 # ---------------------------------------------------------------------------
@@ -88,11 +90,15 @@ def path_separator():
     """
     return PATH_SEPARATOR[_os.name]
 
+@deprecated(since='0.7', message='Use os.path.sep, instead.')
 def file_separator():
     """
     Get the file separator for the current operating system. The file
     separator is used to separate file elements in a pathname. (It's
     "/" on Unix-like systems and a "\\\\" on Windows.)
+    
+    **Deprecated**. Use the standard Python ``os.path.sep`` variable,
+    instead.
 
     :rtype: str
     :return: the file separator
