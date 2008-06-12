@@ -4,6 +4,8 @@ Version 0.7 (...)
 
 - In grizzled.db, the MySQL index metadata function wasn't detecting column
   uniqueness properly.
+- In grizzled.db, the PostgreSQL table metadata function wasn't detecting
+  NULL/NOT NULL properly.
 - Added find_command() and path_elements() functions to grizzled.os.
 - Documentation format changed from default Epydoc to reStructuredText.
 - Fixed bug in grizzled.db.add_driver() function that prevented a driver

@@ -1226,7 +1226,7 @@ class PostgreSQLDriver(DBDriver):
         while rs != None:
             column = rs[0]
             coltype = rs[1]
-            null = rs[3]
+            null = not rs[3]
 
             match = self.TYPE_RE.match(coltype)
             if match:
