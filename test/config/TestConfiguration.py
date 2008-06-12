@@ -142,7 +142,7 @@ class TestParser(object):
         assert config.has_section('a')
         assert config.has_section('y')
         assert config.has_section('z')
-        sections = config.sections()
+        sections = config.sections
         assert len(sections) == 4
         assert sections[0] == 'z'
         assert sections[1] == 'y'
