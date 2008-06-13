@@ -1,6 +1,6 @@
 $Id$
 
-Version 0.7 (...)
+Version 0.7 (12 June, 2008)
 
 - Deprecated grizzled.os.file_separator(). Silly me, there's a standard
   os.path.sep variable.
