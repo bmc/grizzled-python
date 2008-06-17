@@ -1,5 +1,10 @@
 $Id$
 
+Version 0.7.1 (...)
+
+- Added grizzled.misc module and ReadOnly class.
+
+---------------------------------------------------------------------------
 Version 0.7 (12 June, 2008)
 
 - Deprecated grizzled.os.file_separator(). Silly me, there's a standard
