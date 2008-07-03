@@ -201,6 +201,36 @@ def find_command(command_name, path=None):
 
     return found
 
+def spawnd(path, args, pidfile=None):
+    """
+    Run a command as a daemon. This method is really just shorthand for the
+    following code:
+    
+    .. python::
+    
+        pid = os.fork()
+        if pid == 0:
+            daemonize(pidfile=pidfile)
+            os.execv(path, args)
+
+    :Parameters:
+        path : str
+            Full path to program to run
+            
+        args : list
+            List of command arguments. The first element in this list must
+            be the command name (i.e., arg0).
+            
+        pidfile : str
+            Path to file to which to write daemon's process ID. The string may
+            contain a ``${pid}`` token, which is replaced with the process ID
+            of the daemon. e.g.: ``/var/run/myserver-${pid}``
+    """
+    pid = _os.fork()
+    if pid == 0:
+        daemonize(pidfile=pidfile)
+        _os.execv(path, args)
+
 def daemonize(no_close=False):
     """
     Convert the calling process into a daemon. To make the current Python

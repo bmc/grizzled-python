@@ -3,6 +3,7 @@ $Id$
 Version 0.7.1 (...)
 
 - Added grizzled.misc module and ReadOnly class.
+- Added the spawnd() function the grizzled.os module.
 
 ---------------------------------------------------------------------------
 Version 0.7 (12 June, 2008)
