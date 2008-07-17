@@ -1,9 +1,11 @@
 $Id$
 
-Version 0.7.1 (...)
+Version 0.7.1 (16 July, 2008)
 
 - Added grizzled.misc module and ReadOnly class.
 - Added the spawnd() function the grizzled.os module.
+- Enhanced grizzled.db SQLite3 driver to return better index and table
+  metadata.
 
 ---------------------------------------------------------------------------
 Version 0.7 (12 June, 2008)
