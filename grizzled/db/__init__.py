@@ -216,7 +216,9 @@ class Cursor(object):
             *(name, typecode, displaysize, internalsize, precision, scale)*
         rowcount : int
             A read-only attribute that specifies the number of rows
-            fetched in the last query, or -1 if unknown
+            fetched in the last query, or -1 if unknown. *Note*: It's best
+            not to rely on the row count, because some database drivers
+            (such as SQLite) don't report valid row counts.
     """
 
     def __init__(self, cursor, driver):
@@ -280,7 +282,10 @@ class Cursor(object):
         """
         dbi = self.__driver.get_import()
         try:
-            result = self.__cursor.execute(statement, parameters)
+            if parameters:
+                result = self.__cursor.execute(statement, parameters)
+            else:
+                result = self.__cursor.execute(statement)
             self.__rowcount = self.__cursor.rowcount
             self.__description = self.__cursor.description
             return result
@@ -437,6 +442,13 @@ class Cursor(object):
             (index_name, [index_columns], description)
 
         The tuple elements have the following meanings.
+        
+        index_name
+            the index name
+        index_columns
+            a list of column names
+        description
+            index description, or ``None``
 
          - B{C{index_name}}: the index name
          - B{C{index_columns}}: a list of column names
@@ -1388,7 +1400,7 @@ class OracleDriver(DBDriver):
         return table_names
 
 class SQLite3Driver(DBDriver):
-    """DB Driver for Oracle, using the cx_Oracle DB API module."""
+    """DB Driver for SQLite, using the pysqlite DB API module."""
 
     def get_import(self):
         import sqlite3
@@ -1404,7 +1416,7 @@ class SQLite3Driver(DBDriver):
                    password='',
                    database='default'):
         dbi = self.get_import()
-        return dbi.connect(database=database)
+        return dbi.connect(database=database, isolation_level=None)
 
     def get_tables(self, cursor):
         cursor.execute("select name from sqlite_master where type = 'table'")
@@ -1415,6 +1427,76 @@ class SQLite3Driver(DBDriver):
             rs = cursor.fetchone()
 
         return table_names
+
+    def get_table_metadata(self, table, cursor):
+        # There's no easy way to get metadata in SQLite, other than to (yuck)
+        # parse the CREATE TABLE SQL that's captured in the master table.
+        
+        cursor.execute("select sql from sqlite_master where type = 'table' "
+                       "and name = '%s'" % table)
+        rs = cursor.fetchone()
+        result = []
+        
+        char_pattern = re.compile(r'^(.*)\((\d+)\)')
+        primary_key_pattern = re.compile(r'primary\skey')
+        not_null_pattern = re.compile(r'not null')
+        while rs != None:
+            sql = rs[0]
+            try:
+                i = sql.index('(')
+                sql = sql[i+1:]
+                i = sql.rindex(')')
+                sql = sql[:i]
+                sql = sql.lower()
+
+                for column in sql.split(','):
+                    column = column.strip()
+                    tokens = column.split()
+                    nullable = False
+                    if len(tokens) >= 2:
+                        column_name = tokens[0]
+                        column_type = tokens[1]
+                        match = char_pattern.match(column_type)
+                        max_char_size = 0
+                        if match:
+                            max_char_size = int(match.group(2))
+                            column_type = match.group(1)
+
+                        nullable = False if not_null_pattern.search(column) \
+                                         else True
+
+                    result += [(column_name, column_type, max_char_size, 0, 0, 
+                                nullable)]
+            except ValueError:
+                pass
+            
+            rs = cursor.fetchone()
+            
+        return result
+
+    def get_index_metadata(self, table, cursor):
+        cursor.execute("select name, sql from sqlite_master where "
+                       "type = 'index' and tbl_name = '%s'" % table)
+        result = []
+        rs = cursor.fetchone()
+        while rs != None:
+            name = rs[0]
+            sql = rs[1]
+            if sql:
+                i = sql.index('(')
+                columns = sql[i+1:]
+                i = columns.rindex(')')
+                columns = columns[:i]
+
+                column_names = []
+                for column in columns.split(','):
+                    column_names += column.strip()
+
+                result += [(name, columns, sql)]
+
+            rs = cursor.fetchone()
+            
+        return result
 
 class DummyDriver(DBDriver):
     """Dummy database driver, for testing."""
