@@ -840,7 +840,7 @@ def preprocess(file_or_url, defaults=None):
     configuration file that must be passed to a function or object that can
     only read a standard ``ConfigParser`` file.
 
-    For example, here's how you might use the Python C{logging} API with an
+    For example, here's how you might use the Python ``logging`` API with an
     extended configuration file:
 
     .. python::

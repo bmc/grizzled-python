@@ -40,7 +40,7 @@ Currently, this module provides the following bundled drivers:
   +------------------+------------+-------------------+
   | sqlserver        | SQL Server | ``pymssql``       |
   +------------------+------------+-------------------+
-  | sqlite           | SQLite 3   | ``pysqlite``      |
+  | sqlite           | SQLite 3   | ``sqlite3``       |
   +------------------+------------+-------------------+
 
 To use a given driver, you must have the corresponding Python DB API module
@@ -450,12 +450,8 @@ class Cursor(object):
         description
             index description, or ``None``
 
-         - B{C{index_name}}: the index name
-         - B{C{index_columns}}: a list of column names
-         - B{C{description}}: index description, or C{None}
-
         :rtype:  list of tuples
-        :return: the list of tuples, or C{None} if not supported in the
+        :return: the list of tuples, or ``None`` if not supported in the
                  underlying database
 
         :raise Warning: Non-fatal warning
@@ -571,7 +567,7 @@ class DB(object):
         """
         Returns an object representing the specified date.
 
-        This method is equivalent to the module-level C{Date()} method in
+        This method is equivalent to the module-level ``Date()`` method in
         an underlying DB API-compliant module.
 
         :Parameters:
@@ -807,24 +803,21 @@ class DBDriver(object):
                 password='',
                 database=None):
         """
-        Connect to the underlying database. Subclasses should I{not}
+        Connect to the underlying database. Subclasses should *not*
         override this method. Instead, a subclass should override the
-        L{C{do_connect()}<do_connect>} method.
+        ``do_connect()`` method.
 
-        @type host:      str
-        @param host:     the host where the database lives
-
-        @type port:      int
-        @param port:     the TCP port to use when connecting
-
-        @type user:      str
-        @param user:     the user to use when connecting
-
-        @type password:  str
-        @param password: the user to use when connecting
-
-        @type database:  str
-        @param database: the database to which to connect
+        :Parameters:
+            host : str
+                the host where the database lives
+            port : int
+                the TCP port to use when connecting, or ``None``
+            user : str
+                the user to use when connecting, or ``None``
+            password : str
+                the password to use when connecting, or ``None``
+            database : str
+                the name of the database to which to connect
 
         :rtype:  ``db``
         :return: a ``db`` object representing the open database
@@ -865,7 +858,7 @@ class DBDriver(object):
                 return dbi.connect(host=host, user=user, passwd=password,
                                    database=database)
 
-        There is no need to catch exceptions; the C{DBDriver} class's
+        There is no need to catch exceptions; the ``DBDriver`` class's
         ``connect()`` method handles that.
 
         :Parameters:

@@ -18,9 +18,11 @@ class ExceptionWithMessage(Exception):
     """
     Useful base class for exceptions that have a single exception message
     argument. Among other things, this method provides a reasonable default
-    C{__str__()} method.
+    ``__str__()`` method.
 
-    Usage::
+    Usage:
+    
+    .. python::
 
         from grizzled.exception import ExceptionWithMessage
 

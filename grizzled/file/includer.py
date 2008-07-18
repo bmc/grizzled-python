@@ -318,7 +318,7 @@ class Includer(object):
     def getvalue(self):
         """
         Retrieve the entire contents of the file, which includes expanded,
-        at any time before the C{close()} method is called.
+        at any time before the ``close()`` method is called.
 
         :rtype:  string
         :return: a single string containing the contents of the file

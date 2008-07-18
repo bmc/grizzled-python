@@ -236,7 +236,7 @@ def __find_matches(pattern_pieces, directory):
 def eglob(pattern, directory='.'):
     """
     Extended glob function that supports the all the wildcards supported
-    by the Python standard C{glob} routine, as well as a special "**"
+    by the Python standard ``glob`` routine, as well as a special "**"
     wildcard that recursively matches any directory. Examples:
     
       +--------------+--------------------------------------------------------+

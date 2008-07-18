@@ -51,7 +51,7 @@ class CommandLineParser(OptionParser):
         """
         Print the help message, followed by the epilogue (if set), to the
         specified output file. You can define an epilogue by setting the
-        C{epilogue} field.
+        ``epilogue`` field.
         
         :Parameters:
             out : file
@@ -84,4 +84,3 @@ class CommandLineParser(OptionParser):
         """
         sys.stderr.write("%s: error: %s\n" % (self.get_prog_name(), msg))
         self.show_usage()
-

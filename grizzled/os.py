@@ -8,6 +8,7 @@
 """
 Overview
 ========
+
 The ``grizzled.os`` module contains some operating system-related functions and
 classes. It is a conceptual extension of the standard Python ``os`` module.
 """
@@ -120,7 +121,7 @@ def path_elements(path):
 @contextmanager
 def working_directory(directory):
     """
-    This function is intended to be used as a C{with} statement context
+    This function is intended to be used as a ``with`` statement context
     manager. It allows you to replace code like this:
 
     .. python::

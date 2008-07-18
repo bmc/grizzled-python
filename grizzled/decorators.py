@@ -25,7 +25,9 @@ def deprecated(since=None, message=None):
     Decorator for marking a function deprecated. Generates a warning on
     standard output if the function is called.
 
-    Usage::
+    Usage:
+    
+    .. python::
 
         from grizzled.decorators import deprecated
 
@@ -36,13 +38,17 @@ def deprecated(since=None, message=None):
                 pass
 
     Given the above declaration, the following code will cause a
-    warning to be printed (though the method call will otherwise succeed)::
+    warning to be printed (though the method call will otherwise succeed):
+    
+    .. python::
 
         obj = MyClass()
         obj.oldMethod()
 
-    You may also specify a C{since} argument, used to display a deprecation
-    message with a version stamp (e.g., 'deprecated since ...')::
+    You may also specify a ``since`` argument, used to display a deprecation
+    message with a version stamp (e.g., 'deprecated since ...'):
+    
+    .. python::
 
         from grizzled.decorators import deprecated
 
@@ -52,11 +58,11 @@ def deprecated(since=None, message=None):
             def oldMethod(self):
                 pass
 
-    @type since:  str
-    @param since: version stamp, or C{None} for none
-
-    @type message: str
-    @param message: optional additional message to print
+    :Parameters:
+        since : str
+            version stamp, or ``None`` for none
+        message : str
+            optional additional message to print
     """
     def decorator(func):
         if since is None:
@@ -83,9 +89,11 @@ def deprecated(since=None, message=None):
 def abstract(func):
     """
     Decorator for marking a function abstract. Throws a
-    C{NotImplementedError} if an abstract method is called.
+    ``NotImplementedError`` if an abstract method is called.
 
-    Usage::
+    Usage:
+    
+    .. python::
 
         from grizzled.decorators import abstract
 
@@ -99,7 +107,9 @@ def abstract(func):
             # Class doesn't define abstractMethod().
 
     Given the above declaration, the following code will cause an
-    C{NotImplementedError}::
+    C``NotImplementedError``:
+    
+    .. python::
 
         obj = NotReallyConcrete()
         obj.abstractMethod()
