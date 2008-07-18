@@ -1,9 +1,9 @@
 $Id$
 
-Version 0.7.2 (...)
+Version 0.7.2 (18 July, 2008)
 
-- Converted some lingering Epytext markup to reStructuredText.
 - Added grizzled.history.
+- Converted some lingering Epytext markup to reStructuredText.
 
 ---------------------------------------------------------------------------
 Version 0.7.1 (16 July, 2008)
