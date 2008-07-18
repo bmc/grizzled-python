@@ -1,5 +1,10 @@
 $Id$
 
+Version 0.7.2 (...)
+
+- Converted some lingering Epytext markup to reStructuredText.
+
+---------------------------------------------------------------------------
 Version 0.7.1 (16 July, 2008)
 
 - Added grizzled.misc module and ReadOnly class.
