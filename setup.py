@@ -12,11 +12,23 @@ import re
 import sys
 import os
 
+LONG_DESCRIPTION =\
+"""
+The *Grizzled Utility Library* is a general-purpose Python library with
+a variety of different modules and packages. It's roughly organized into
+subpackages that group different kinds of utility functions and classes.
+
+See the `API documentation`_ for complete details.
+
+.. _API documentation: http://www.clapper.org/software/python/grizzled/epydoc
+"""
+
 # Now the setup stuff.
 
 setup (name             = 'grizzled',
        version          = '0.7.2',
        description      = 'The Grizzled Utility Library',
+       long_description = LONG_DESCRIPTION,
        packages         = find_packages(),
        url              = 'http://www.clapper.org/software/python/grizzled/',
        license          = 'BSD license',
