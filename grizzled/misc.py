@@ -144,17 +144,14 @@ def str2bool(s):
     
     :raise ValueError: Bad boolean string
     """
-BOOL_STRS = { "on"    : True,
-              "off"   : False,
-              "yes"   : True,
-              "no"    : False,
-              "1"     : True,
-              "0"     : False,
-              "true"  : True,
-              "false" : False }
-
-    s = s.lower()
     try:
-        return BOOL_STRS[s]
+        return { "on"    : True,
+                 "off"   : False,
+                 "yes"   : True,
+                 "no"    : False,
+                 "1"     : True,
+                 "0"     : False,
+                 "true"  : True,
+                 "false" : False }[s.lower()]
     except KeyError:
         raise ValueError, 'Bad value "%s" for boolean string' % s
