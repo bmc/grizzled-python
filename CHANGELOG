@@ -1,5 +1,13 @@
 $Id$
 
+Version 0.8 (...)
+
+- Added grizzled.log module (including a WrappingLogFormatter class) which
+  contains some classes and functions for use with the standard logging
+  module.
+- Added grizzled.misc.str2bool() function.
+
+---------------------------------------------------------------------------
 Version 0.7.2 (18 July, 2008)
 
 - Added grizzled.history.
