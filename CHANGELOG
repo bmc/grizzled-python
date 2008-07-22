@@ -1,6 +1,6 @@
 $Id$
 
-Version 0.8 (...)
+Version 0.8 (22 July, 2008)
 
 - Added grizzled.log module (including a WrappingLogFormatter class) which
   contains some classes and functions for use with the standard logging
