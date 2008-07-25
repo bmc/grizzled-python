@@ -1458,6 +1458,13 @@ class SQLite3Driver(DBDriver):
                         nullable = False if not_null_pattern.search(column) \
                                          else True
 
+                    # Some applications (e.g., Django) use CREATE TABLE 
+                    # statements with quotes around the column names.
+                    column_name = column_name.strip()
+                    if column_name[0] in ['"', "'"]:
+                        column_name = column_name[1:]
+                    if column_name[-1] in ['"', "'"]:
+                        column_name = column_name[:-1]
                     result += [(column_name, column_type, max_char_size, 0, 0, 
                                 nullable)]
             except ValueError:

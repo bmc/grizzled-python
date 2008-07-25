@@ -1,5 +1,11 @@
 $Id$
 
+Version 0.8.1 (...)
+
+- grizzled.db now accounts for and removes quote marks in SQLite3 table
+  metadata column names.
+
+---------------------------------------------------------------------------
 Version 0.8 (22 July, 2008)
 
 - Added grizzled.log module (including a WrappingLogFormatter class) which
