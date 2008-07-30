@@ -2,8 +2,8 @@ $Id$
 
 Version 0.8.1 (...)
 
-- grizzled.db now accounts for and removes quote marks in SQLite3 table
-  metadata column names.
+- grizzled.db now uses SQLite3 PRAGMAs to get table metadata and index
+  metadata.
 
 ---------------------------------------------------------------------------
 Version 0.8 (22 July, 2008)

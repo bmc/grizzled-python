@@ -952,6 +952,7 @@ class DBDriver(object):
         :raise Warning: Non-fatal warning
         :raise Error:   Error
         """
+        self._ensure_valid_table(cursor, table)
         dbi = self.get_import()
         cursor.execute('SELECT * FROM %s WHERE 1=0' % table)
         result = []
@@ -1013,6 +1014,25 @@ class DBDriver(object):
         :raise Error:               Error
         """
         raise NotImplementedError
+    
+    def _ensure_valid_table(self, cursor, table_name):
+        """
+        Determines whether a table name represents a legal table in the
+        current database, throwing an ``Error`` if not.
+        
+        :Parameters:
+            cursor : Cursor
+                an open ``Cursor``
+                
+            table_name : str
+                the table name
+                
+        :raise Error: bad table name
+        """
+        tables = self.get_tables(cursor)
+        if not table_name in tables:
+            raise Error, 'No such table: "%s"' % table_name
+        
 
 class MySQLDriver(DBDriver):
     """DB Driver for MySQL, using the MySQLdb DB API module."""
@@ -1036,7 +1056,7 @@ class MySQLDriver(DBDriver):
         return dbi.connect(host=host, user=user, passwd=password, db=database)
 
     def get_table_metadata(self, table, cursor):
-        """Default implementation"""
+        self._ensure_valid_table(cursor, table)
         dbi = self.get_import()
         cursor.execute('DESC %s' % table)
         rs = cursor.fetchone()
@@ -1065,6 +1085,7 @@ class MySQLDriver(DBDriver):
         return results
 
     def get_index_metadata(self, table, cursor):
+        self._ensure_valid_table(cursor, table)
         dbi = self.get_import()
         cursor.execute('SHOW INDEX FROM %s' % table)
         rs = cursor.fetchone()
@@ -1145,6 +1166,7 @@ class SQLServerDriver(DBDriver):
         return table_names
 
     def get_table_metadata(self, table, cursor):
+        self._ensure_valid_table(cursor, table)
         dbi = self.get_import()
         cursor.execute("SELECT column_name, data_type, " \
                        "character_maximum_length, numeric_precision, " \
@@ -1162,6 +1184,7 @@ class SQLServerDriver(DBDriver):
         return results
 
     def get_index_metadata(self, table, cursor):
+        self._ensure_valid_table(cursor, table)
         dbi = self.get_import()
         cursor.execute("EXEC sp_helpindex '%s'" % table)
         rs = cursor.fetchone()
@@ -1205,6 +1228,7 @@ class PostgreSQLDriver(DBDriver):
         return dbi.connect(dsn=dsn)
 
     def get_table_metadata(self, table, cursor):
+        self._ensure_valid_table(cursor, table)
         dbi = self.get_import()
         sel = """\
         SELECT a.attname, pg_catalog.format_type(a.atttypid, a.atttypmod),
@@ -1252,6 +1276,7 @@ class PostgreSQLDriver(DBDriver):
         return results
 
     def get_index_metadata(self, table, cursor):
+        self._ensure_valid_table(cursor, table)
         dbi = self.get_import()
         # First, issue one query to get the list of indexes for the table.
         index_names = self.__get_index_names(table, cursor)
@@ -1422,80 +1447,84 @@ class SQLite3Driver(DBDriver):
         return table_names
 
     def get_table_metadata(self, table, cursor):
-        # There's no easy way to get metadata in SQLite, other than to (yuck)
-        # parse the CREATE TABLE SQL that's captured in the master table.
-        
-        cursor.execute("select sql from sqlite_master where type = 'table' "
-                       "and name = '%s'" % table)
+        self._ensure_valid_table(cursor, table)
+
+        # The table_info pragma returns results looking something like this:
+        #
+        # cid name            type              notnull dflt_value pk
+        # --- --------------- ----------------- ------- ---------- --
+        # 0   id              integer           99      NULL       1 
+        # 1   action_time     datetime          99      NULL       0 
+        # 2   user_id         integer           99      NULL       0 
+        # 3   content_type_id integer           0       NULL       0 
+        # 4   object_id       text              0       NULL       0 
+        # 5   object_repr     varchar(200)      99      NULL       0 
+        # 6   action_flag     smallint unsigned 99      NULL       0 
+        # 7   change_message  text              99      NULL       0 
+
+        cursor.execute('PRAGMA table_info(%s)' % table)
         rs = cursor.fetchone()
         result = []
-        
-        char_pattern = re.compile(r'^(.*)\((\d+)\)')
-        primary_key_pattern = re.compile(r'primary\skey')
-        not_null_pattern = re.compile(r'not null')
+
+        char_field_re = re.compile(r'(varchar|char)\((\d+)\)')
         while rs != None:
-            sql = rs[0]
-            try:
-                i = sql.index('(')
-                sql = sql[i+1:]
-                i = sql.rindex(')')
-                sql = sql[:i]
-                sql = sql.lower()
+            (id, name, type, not_null, default_value, is_primary) = rs
+            m = char_field_re.match(type)
+            if m:
+                type = m.group(1)
+                try:
+                    max_char_size = int(m.group(2))
+                except ValueError:
+                    log.error('Bad number in "%s" type for column "%s"' %
+                              (type, name))
+            else:
+                max_char_size = 0
 
-                for column in sql.split(','):
-                    column = column.strip()
-                    tokens = column.split()
-                    nullable = False
-                    if len(tokens) >= 2:
-                        column_name = tokens[0]
-                        column_type = tokens[1]
-                        match = char_pattern.match(column_type)
-                        max_char_size = 0
-                        if match:
-                            max_char_size = int(match.group(2))
-                            column_type = match.group(1)
-
-                        nullable = False if not_null_pattern.search(column) \
-                                         else True
-
-                    # Some applications (e.g., Django) use CREATE TABLE 
-                    # statements with quotes around the column names.
-                    column_name = column_name.strip()
-                    if column_name[0] in ['"', "'"]:
-                        column_name = column_name[1:]
-                    if column_name[-1] in ['"', "'"]:
-                        column_name = column_name[:-1]
-                    result += [(column_name, column_type, max_char_size, 0, 0, 
-                                nullable)]
-            except ValueError:
-                pass
+            result += [(name, type, max_char_size, 0, 0, not not_null)]
             
             rs = cursor.fetchone()
             
         return result
 
     def get_index_metadata(self, table, cursor):
-        cursor.execute("select name, sql from sqlite_master where "
-                       "type = 'index' and tbl_name = '%s'" % table)
+        self._ensure_valid_table(cursor, table)
+
+        # First, get the list of indexes for the table, using the appropriate
+        # pragma. The pragma returns output like this:
+        #
+        # seq name    unique
+        # --- ------- ------
+        # 0   id        0     
+        # 1   name      0
+        # 2   address   0
+
         result = []
+
+        cursor.execute("PRAGMA index_list('%s')" % table)
+        indexes = []
         rs = cursor.fetchone()
         while rs != None:
-            name = rs[0]
-            sql = rs[1]
-            if sql:
-                i = sql.index('(')
-                columns = sql[i+1:]
-                i = columns.rindex(')')
-                columns = columns[:i]
-
-                column_names = []
-                for column in columns.split(','):
-                    column_names += column.strip()
-
-                result += [(name, columns, sql)]
-
+            indexes += [(rs[1], rs[2])]
             rs = cursor.fetchone()
+
+        # Now, get the data about each index, using another pragma. This
+        # pragma returns data like this:
+        #
+        # seqno cid name           
+        # ----- --- ---------------
+        # 0     3   content_type_id
+
+        for name, unique in indexes:
+            cursor.execute("PRAGMA index_info('%s')" % name)
+            rs = cursor.fetchone()
+            columns = []
+            while rs != None:
+                columns += [rs[2]]
+                rs = cursor.fetchone()
             
+            description = 'UNIQUE' if unique else ''
+            result += [(name, columns, description)]
+
         return result
 
 class DummyDriver(DBDriver):
