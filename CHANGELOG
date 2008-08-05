@@ -1,6 +1,6 @@
 $Id$
 
-Version 0.8.1 (...)
+Version 0.8.1 (5 August, 2008)
 
 - grizzled.db now uses SQLite3 PRAGMAs to get table metadata and index
   metadata.
