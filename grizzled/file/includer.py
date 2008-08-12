@@ -92,7 +92,9 @@ import tempfile
 import atexit
 import urllib2
 import urlparse
+
 import grizzled.exception
+from grizzled.file import unlink_quietly
 
 # ---------------------------------------------------------------------------
 # Exports
@@ -420,16 +422,22 @@ def preprocess(file_or_url, output=None, temp_suffix='.txt', temp_prefix='inc'):
              temporary file containing expanded content
     """
     result = None
+    path = None
     if not output:
-        fd, path = tempfile.mkstemp(suffix=temp_suffix, prefix=temp_prefix)
+        fd, path = tempfile.mkstemp(suffix=tempSuffix, prefix=tempPrefix)
         output = open(path, 'w')
-        atexit.register(os.unlink, path)
+        atexit.register(unlink_quietly, path)
         os.close(fd)
         result = path
     else:
         result = output
 
-    Includer(file_or_url, output=output)
+    try:
+        Includer(fileOrURL, output=output)
+    finally:
+        if path:
+            unlink_quietly(path)
+
     return result
 
     
