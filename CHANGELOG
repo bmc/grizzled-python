@@ -1,5 +1,11 @@
 $Id$
 
+Version 0.8.2 (...)
+
+- Include module's preprocess() method is now a little more careful about
+  temp file turds.
+
+---------------------------------------------------------------------------
 Version 0.8.1 (5 August, 2008)
 
 - grizzled.db now uses SQLite3 PRAGMAs to get table metadata and index
