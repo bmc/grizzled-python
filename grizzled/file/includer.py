@@ -432,12 +432,7 @@ def preprocess(file_or_url, output=None, temp_suffix='.txt', temp_prefix='inc'):
     else:
         result = output
 
-    try:
-        Includer(fileOrURL, output=output)
-    finally:
-        if path:
-            unlink_quietly(path)
-
+    Includer(fileOrURL, output=output)
     return result
 
     
