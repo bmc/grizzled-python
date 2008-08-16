@@ -424,7 +424,7 @@ def preprocess(file_or_url, output=None, temp_suffix='.txt', temp_prefix='inc'):
     result = None
     path = None
     if not output:
-        fd, path = tempfile.mkstemp(suffix=tempSuffix, prefix=tempPrefix)
+        fd, path = tempfile.mkstemp(suffix=temp_suffix, prefix=temp_prefix)
         output = open(path, 'w')
         atexit.register(unlink_quietly, path)
         os.close(fd)
@@ -432,7 +432,7 @@ def preprocess(file_or_url, output=None, temp_suffix='.txt', temp_prefix='inc'):
     else:
         result = output
 
-    Includer(fileOrURL, output=output)
+    Includer(file_or_url, output=output)
     return result
 
     

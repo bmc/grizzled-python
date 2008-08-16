@@ -42,7 +42,7 @@ def hexdump(source, out, width=16, start=0, limit=None, show_repeats=False):
 
     The output width (i.e., the number of decoded characters shown on a
     line) can be controlled with the ``width`` parameter.
-    
+
     Adjacent repeated lines are collapsed by default. For example::
 
         000000: 00 00 00 00 00  00 00 00 00 00  ..........
@@ -64,11 +64,11 @@ def hexdump(source, out, width=16, start=0, limit=None, show_repeats=False):
 
         start : int
             Offset within ``input`` where reading should begin
-            
+
         limit : int
             Total number of bytes to dump. Defaults to everything from
             ``start`` to the end.
-            
+
         show_repeats : bool
             ``False`` to collapse repeated output lines, ``True`` to
             dump all lines, even if they're repeats.
@@ -123,7 +123,7 @@ def hexdump(source, out, width=16, start=0, limit=None, show_repeats=False):
 
         else:
             show_buf = True
-    
+
             if buf == lastbuf:
                 repeat_count += 1
                 show_buf = False
@@ -134,7 +134,7 @@ def hexdump(source, out, width=16, start=0, limit=None, show_repeats=False):
                     else:
                         print >> out, REPEAT_FORMAT % (repeat_count - 1)
                     repeat_count = 0
-    
+
             # Build output line.
             hex = ""
             asc = ""
@@ -145,11 +145,71 @@ def hexdump(source, out, width=16, start=0, limit=None, show_repeats=False):
                 hex = hex + ("%02x" % ord(c)) + " "
                 asc = asc + ascii_map[ord(c)]
             line = "%06x: %-*s %s" % (pos, hex_field_width, hex, asc)
-    
+
             if show_buf:
                 print >> out, line
-    
+
             pos = pos + length
             lastbuf = buf
             lastline = line
 
+def str2bool(s):
+    """
+    Convert a string to a boolean value. The supported conversions are:
+
+        +--------------+---------------+
+        | String       | Boolean value |
+        +==============+===============+
+        | "false"      | False         |
+        +--------------+---------------+
+        | "true"       | True          |
+        +--------------+---------------+
+        | "f"          | False         |
+        +--------------+---------------+
+        | "t"          + True          |
+        +--------------+---------------+
+        | "0"          | False         |
+        +--------------+---------------+
+        | "1"          + True          |
+        +--------------+---------------+
+        | "n"          | False         |
+        +--------------+---------------+
+        | "y"          + True          |
+        +--------------+---------------+
+        | "no"         | False         |
+        +--------------+---------------+
+        | "yes"        + True          |
+        +--------------+---------------+
+        | "off"        | False         |
+        +--------------+---------------+
+        | "on"         + True          |
+        +--------------+---------------+
+
+    Strings are compared in a case-blind fashion.
+
+    **Note**: This function is not currently localizable.
+
+    :Parameters:
+        s : str
+            The string to convert to boolean
+
+    :rtype: bool
+    :return: the corresponding boolean value
+
+    :raise ValueError: unrecognized boolean string
+    """
+    try:
+        return {'false' : False,
+                'true'  : True,
+                'f'     : False,
+                't'     : True,
+                '0'     : False,
+                '1'     : True,
+                'no'    : False,
+                'yes'   : True,
+                'y'     : False,
+                'n'     : True,
+                'off'   : False,
+                'on'    : True}[s.lower()]
+    except KeyError:
+        raise ValueError, 'Unrecognized boolean string: "%s"' % s
