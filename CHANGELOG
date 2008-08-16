@@ -3,8 +3,11 @@ $Id$
 Version 0.8.2 (...)
 
 - The grizzled.text module now provides a hexdump() function.
-- Include module's preprocess() method is now a little more careful about
-  temp file turds.
+- The grizzled.text module now provides a str2bool() function.
+- grizzled.file.include module's preprocess() method is now a little more
+  careful about temp file turds.
+- Fixed some unconverted camelCase variables in grizzled.file.include module's
+  preprocess() method, removing some runtime errors.
 
 ---------------------------------------------------------------------------
 Version 0.8.1 (5 August, 2008)
