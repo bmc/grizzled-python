@@ -2,6 +2,7 @@ $Id$
 
 Version 0.8.2 (...)
 
+- The grizzled.text module now provides a hexdump() function.
 - Include module's preprocess() method is now a little more careful about
   temp file turds.
 
