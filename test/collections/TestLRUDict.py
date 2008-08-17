@@ -8,6 +8,8 @@ Tester.
 # Imports
 # ---------------------------------------------------------------------------
 
+from timeit import Timer
+
 from grizzled.collections import LRUDict
 
 # ---------------------------------------------------------------------------
@@ -62,3 +64,17 @@ class TestLRUDict(object):
         print lru
         print lru.keys()
         assert lru.keys() == ['f', 'b', 'e', 'd', 'a']
+
+    def add_one(self, lru, key):
+        lru[key] = key
+
+    def testBig(self):
+        print 'Putting 10000 entries in a new LRU cache'
+        lru = LRUDict(10000)
+        for i in range(0, lru.max_capacity):
+            lru[i] = i
+
+        assert len(lru) == lru.max_capacity
+        print 'Adding one more'
+        assert len(lru) == lru.max_capacity
+        print iter(lru).next()
