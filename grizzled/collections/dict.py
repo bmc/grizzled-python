@@ -204,6 +204,12 @@ class LRUList(object):
     def iterkeys(self):
         self.__iter__()
 
+    def itervalues(self):
+        entry = self.head
+        while entry:
+            yield entry.value
+            entry = entry.next
+
     def clear(self):
         while self.head:
             cur = self.head
@@ -409,7 +415,7 @@ class LRUDict(dict):
         return s
 
     def __iter__(self):
-        self.__lru_queue.__iter__()
+        return self.__lru_queue.__iter__()
 
     def get(self, key, default=None):
         try:
@@ -432,7 +438,10 @@ class LRUDict(dict):
         return self.__lru_queue.iteritems()
 
     def iterkeys(self):
-        return self.__lru_queue.iteritems()
+        return self.__lru_queue.iterkeys()
+
+    def itervalues(self):
+        return self.__lru_queue.itervalues()
 
     def update(self, d):
         for key, value in d.iteritems():
