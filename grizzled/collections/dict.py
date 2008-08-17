@@ -12,6 +12,8 @@ that extend the behavior of the built-in Python ``dict`` type.
 # Imports
 # ---------------------------------------------------------------------------
 
+import sys
+
 # ---------------------------------------------------------------------------
 # Exports
 # ---------------------------------------------------------------------------
@@ -299,7 +301,7 @@ class LRUDict(dict):
     ``org.clapper.util`` library. See http://www.clapper.org/software/java/util/
     for details.
     """
-    def __init__(self, max_capacity, *args, **kw):
+    def __init__(self, *args, **kw):
         """
         Initialize an ``LRUDict`` that will hold, at most, ``max_capacity``
         items. Attempts to insert more than ``max_capacity`` items in the
@@ -310,17 +312,44 @@ class LRUDict(dict):
             max_capacity : int
                 The maximum size of the dictionary
         """
+        if kw.has_key('max_capacity'):
+            self.__max_capacity = kw['max_capacity']
+            del kw['max_capacity']
+        else:
+            self.__max_capacity = sys.maxint
+            
         dict.__init__(self)
-        self.__max_capacity = max_capacity
         self.__removal_listeners = {}
         self.__lru_queue = LRUList()
+        
+    def __del__(self):
+        self.clear()
 
-    @property
-    def max_capacity(self):
+    def get_max_capacity(self):
         """
-        The maximum capacity of the dictionary.
+        Get the maximum capacity of the dictionary.
+        
+        :rtype: int
+        :return: the maximum capacity
         """
         return self.__max_capacity
+
+    def set_max_capacity(self, new_capacity):
+        """
+        Set or change the maximum capacity of the dictionary. Reducing
+        the size of a dictionary with items already in it might result
+        in items being evicted.
+        
+        :Parameters:
+            new_capacity : int
+                the new maximum capacity
+        """
+        self.__max_capacity = new_capacity
+        if len(self) > new_capacity:
+            self.__clear_to(new_capacity)
+
+    max_capacity = property(get_max_capacity, set_max_capacity,
+                            doc='The maximum capacity. Can be reset at will.')
 
     def add_ejection_listener(self, listener, *args):
         """
@@ -380,6 +409,13 @@ class LRUDict(dict):
             return True
         except KeyError:
             return False
+        
+    def clear_listeners(self):
+        """
+        Clear all removal and ejection listeners from the list of listeners.
+        """
+        for key in self.__removal_listeners.keys():
+            del self.__removal_listeners[key]
 
     def __setitem__(self, key, value):
         self.__put(key, value)
@@ -416,6 +452,9 @@ class LRUDict(dict):
 
     def __iter__(self):
         return self.__lru_queue.__iter__()
+
+    def clear(self):
+        self.__clear_to(0)
 
     def get(self, key, default=None):
         try:
@@ -461,9 +500,21 @@ class LRUDict(dict):
         return result
 
     def popitem(self):
-        key, value = dict.popitem(self)
-        del self[key]
-        return (key, value)
+        """
+        Pops the least recently used recent key/value pair from the
+        dictionary.
+        
+        :rtype: tuple
+        :return: the least recent key/value pair, as a tuple
+        
+        :raise KeyError: empty dictionary
+        """
+        if len(self) == 0:
+            raise KeyError, 'Attempted popitem() on empty dictionary'
+
+        lru_entry = self.__lru_queue.remove_tail()
+        dict.__delitem__(self, lru_entry.key)
+        return lru_entry.key, lru_entry.value
 
     def __put(self, key, value):
         try:
