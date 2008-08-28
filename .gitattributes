@@ -3,3 +3,4 @@
 README	ident
 CHANGELOG	ident
 *.cfg	ident
+*.css	ident
