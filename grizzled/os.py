@@ -227,10 +227,8 @@ def spawnd(path, args, pidfile=None):
             contain a ``${pid}`` token, which is replaced with the process ID
             of the daemon. e.g.: ``/var/run/myserver-${pid}``
     """
-    pid = _os.fork()
-    if pid == 0:
-        daemonize(pidfile=pidfile)
-        _os.execv(path, args)
+    daemonize(pidfile=pidfile)
+    _os.execv(path, args)
 
 def daemonize(no_close=False):
     """

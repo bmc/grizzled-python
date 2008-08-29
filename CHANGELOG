@@ -2,6 +2,7 @@ $Id$
 
 Version 0.8.2 (...)
 
+- Eliminated extra fork() in grizzled.os.spawnd() function.
 - Added grizzled.collections.LRUDict class, implementating a fixed-size
   dictionary with least recently used semantics.
 - The grizzled.text module now provides a hexdump() function.
