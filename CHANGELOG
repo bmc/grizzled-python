@@ -11,6 +11,7 @@ Version 0.8.2 (...)
   careful about temp file turds.
 - Fixed some unconverted camelCase variables in grizzled.file.include module's
   preprocess() method, removing some runtime errors.
+- Now properly bundles ez_setup.py
 
 ---------------------------------------------------------------------------
 Version 0.8.1 (5 August, 2008)
