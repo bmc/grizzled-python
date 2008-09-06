@@ -1,4 +1,4 @@
-# $Id$
+1# $Id$
 
 """
 Introduction
@@ -78,6 +78,10 @@ with this API, you use:
 # ---------------------------------------------------------------------------
 
 import re
+import time
+import os
+import sys
+from datetime import date, datetime
 
 from grizzled.exception import ExceptionWithMessage
 from grizzled.decorators import abstract
@@ -100,7 +104,8 @@ drivers = { 'dummy'      : 'DummyDriver',
             'postgresql' : 'PostgreSQLDriver',
             'sqlserver'  : 'SQLServerDriver',
             'sqlite'     : 'SQLite3Driver',
-            'oracle'     : 'OracleDriver' }
+            'oracle'     : 'OracleDriver',
+            'gadfly'     : 'GadflyDriver'}
 
 apilevel = '2.0'
 threadsafety = '1'
@@ -286,13 +291,19 @@ class Cursor(object):
                 result = self.__cursor.execute(statement, parameters)
             else:
                 result = self.__cursor.execute(statement)
-            self.__rowcount = self.__cursor.rowcount
+
+            try:
+                self.__rowcount = self.__cursor.rowcount
+            except AttributeError:
+                self.__rowcount = -1
             self.__description = self.__cursor.description
             return result
         except dbi.Warning, val:
             raise Warning(val)
         except dbi.Error, val:
             raise Error(val)
+        except:
+            raise Error(sys.exc_info()[1])
 
     def executemany(self, statement, *parameters):
         """
@@ -442,7 +453,7 @@ class Cursor(object):
             (index_name, [index_columns], description)
 
         The tuple elements have the following meanings.
-        
+
         index_name
             the index name
         index_columns
@@ -546,6 +557,7 @@ class DB(object):
         |          |   c.execute('SELECT * FROM Foo WHERE Bar=?', [x])         |
         +----------+-----------------------------------------------------------+
         """
+        return self.__driver.get_import().paramstyle
 
     def Binary(self, string):
         """
@@ -602,7 +614,8 @@ class DB(object):
 
         :return: an object containing the date
         """
-        return self.__driver.get_import().Date(year, month, day)
+        date = date.fromtimestamp(secs)
+        return self.__driver.get_import().Date(date.year, date.month, date.day)
 
     def Time(self, hour, minute, second):
         """
@@ -621,7 +634,8 @@ class DB(object):
 
         :return: an object containing the time
         """
-        return self.__driver.get_import().Time(hour, minute, second)
+        dt = datetime.fromtimestamp(secs)
+        return self.__driver.get_import().Time(dt.hour, dt.minute, dt.second)
 
     def TimeFromTicks(self, secs):
         """
@@ -643,7 +657,8 @@ class DB(object):
 
         :return: an object containing the time
         """
-        return self.__driver.get_import().Date(year, month, day)
+        dt = datetime.fromtimestamp(secs)
+        return self.__driver.get_import().Time(dt.hour, dt.minute, dt.second)
 
     def Timestamp(self, year, month, day, hour, minute, second):
         """
@@ -669,7 +684,7 @@ class DB(object):
         :return: an object containing the timestamp
         """
         return self.__driver.get_import().Timestamp(year, month, day,
-                                                   hour, minute, second)
+                                                    hour, minute, second)
 
     def TimestampFromTicks(self, secs):
         """
@@ -691,7 +706,9 @@ class DB(object):
 
         :return: an object containing the timestamp
         """
-        return self.__driver.get_import().Date(year, month, day)
+        dt = datetime.now()
+        return self.__driver.get_import().Timestamp(dt.year, dt.month, dt.day,
+                                                    dt.hour, dt.minute, dt.second)
 
     def cursor(self):
         """
@@ -767,7 +784,7 @@ class DBDriver(object):
         Get a bound import for the underlying DB API module. All subclasses
         must provide an implementation of this method. Here's an example,
         assuming the real underlying Python DB API module is 'foosql':
-        
+
         .. python::
 
             def get_import(self):
@@ -850,7 +867,7 @@ class DBDriver(object):
         Subclasses must provide an implementation of this method. The
         method must return the result of the real DB API implementation's
         ``connect()`` method. For instance:
-        
+
         .. python::
 
             def do_connect():
@@ -873,8 +890,8 @@ class DBDriver(object):
             database : str
                 the name of the database to which to connect
 
-        :rtype:  ``DB``
-        :return: a ``DB`` object representing the open database
+        :rtype:  object
+        :return: a DB API-compliant object representing the open database
 
         :raise Warning: Non-fatal warning
         :raise Error:   Error
@@ -889,7 +906,7 @@ class DBDriver(object):
             (index_name, [index_columns], description)
 
         The tuple elements have the following meanings.
-        
+
         - *index_name*: the index name
         - *index_keys*: a list of column names
         - *description*: index description, or `None`
@@ -1014,25 +1031,41 @@ class DBDriver(object):
         :raise Error:               Error
         """
         raise NotImplementedError
-    
+
     def _ensure_valid_table(self, cursor, table_name):
         """
         Determines whether a table name represents a legal table in the
         current database, throwing an ``Error`` if not.
-        
+
         :Parameters:
             cursor : Cursor
                 an open ``Cursor``
-                
+
             table_name : str
                 the table name
-                
+
         :raise Error: bad table name
         """
-        tables = self.get_tables(cursor)
-        if not table_name in tables:
+        if not self._is_valid_table(cursor, table_name):
             raise Error, 'No such table: "%s"' % table_name
-        
+
+    def _is_valid_table(self, cursor, table_name):
+        """
+        Determines whether a table name represents a legal table in the
+        current database, throwing an ``Error`` if not.
+
+        :Parameters:
+            cursor : Cursor
+                an open ``Cursor``
+
+            table_name : str
+                the table name
+
+        :rtype: bool
+        :return: ``True`` if the table is valid, ``False`` if not
+        """
+        tables = self.get_tables(cursor)
+        return table_name in tables
 
 class MySQLDriver(DBDriver):
     """DB Driver for MySQL, using the MySQLdb DB API module."""
@@ -1100,7 +1133,7 @@ class MySQLDriver(DBDriver):
                 columns[name] = []
 
             columns[name] += [rs[4]]
-            
+
             # Column 1 is a "non-unique" flag.
 
             if (not rs[1]) or (name.lower() == 'primary'):
@@ -1453,14 +1486,14 @@ class SQLite3Driver(DBDriver):
         #
         # cid name            type              notnull dflt_value pk
         # --- --------------- ----------------- ------- ---------- --
-        # 0   id              integer           99      NULL       1 
-        # 1   action_time     datetime          99      NULL       0 
-        # 2   user_id         integer           99      NULL       0 
-        # 3   content_type_id integer           0       NULL       0 
-        # 4   object_id       text              0       NULL       0 
-        # 5   object_repr     varchar(200)      99      NULL       0 
-        # 6   action_flag     smallint unsigned 99      NULL       0 
-        # 7   change_message  text              99      NULL       0 
+        # 0   id              integer           99      NULL       1
+        # 1   action_time     datetime          99      NULL       0
+        # 2   user_id         integer           99      NULL       0
+        # 3   content_type_id integer           0       NULL       0
+        # 4   object_id       text              0       NULL       0
+        # 5   object_repr     varchar(200)      99      NULL       0
+        # 6   action_flag     smallint unsigned 99      NULL       0
+        # 7   change_message  text              99      NULL       0
 
         cursor.execute('PRAGMA table_info(%s)' % table)
         rs = cursor.fetchone()
@@ -1481,9 +1514,9 @@ class SQLite3Driver(DBDriver):
                 max_char_size = 0
 
             result += [(name, type, max_char_size, 0, 0, not not_null)]
-            
+
             rs = cursor.fetchone()
-            
+
         return result
 
     def get_index_metadata(self, table, cursor):
@@ -1494,7 +1527,7 @@ class SQLite3Driver(DBDriver):
         #
         # seq name    unique
         # --- ------- ------
-        # 0   id        0     
+        # 0   id        0
         # 1   name      0
         # 2   address   0
 
@@ -1510,7 +1543,7 @@ class SQLite3Driver(DBDriver):
         # Now, get the data about each index, using another pragma. This
         # pragma returns data like this:
         #
-        # seqno cid name           
+        # seqno cid name
         # ----- --- ---------------
         # 0     3   content_type_id
 
@@ -1521,11 +1554,163 @@ class SQLite3Driver(DBDriver):
             while rs != None:
                 columns += [rs[2]]
                 rs = cursor.fetchone()
-            
+
             description = 'UNIQUE' if unique else ''
             result += [(name, columns, description)]
 
         return result
+
+class GadflyCursor(object):
+    def __init__(self, real_cursor, driver):
+        self.real_cursor = real_cursor
+        self.driver = driver
+
+    @property
+    def rowcount(self):
+        total = len(self.real_cursor.fetchall())
+        self.real_cursor.reset_results()
+        return total
+
+    @property
+    def description(self):
+        return self.real_cursor.description
+
+    def close(self):
+        try:
+            self.real_cursor.close()
+        except:
+            raise Error(sys.exc_info()[1])
+
+    def execute(self, statement, parameters=None):
+        try:
+            if parameters:
+                result = self.real_cursor.execute(statement, parameters)
+            else:
+                result = self.real_cursor.execute(statement)
+            return result
+        except:
+            raise Error(sys.exc_info()[1])
+
+    def executemany(self, statement, *parameters):
+        try:
+            return self.real_cursor.executemany(statement, *parameters)
+        except:
+            raise Error(sys.exc_info()[1])
+
+    def fetchall(self):
+        try:
+            return self.real_cursor.fetchall()
+        except:
+            raise Error(sys.exc_info()[1])
+
+    def fetchone(self):
+        try:
+            return self.real_cursor.fetchone()
+        except:
+            s = sys.exc_info()[1]
+            if (type(s) == str) and (s.startswith('no more')):
+                return None
+            raise Error(s)
+
+    def fetchmany(self, n):
+        try:
+            return self.real_cursor.fetchmany(n)
+        except:
+            s = sys.exc_info()[1]
+            if (type(s) == str) and (s.startswith('no more')):
+                return None
+            raise Error(s)
+
+class GadflyDB(DB):
+    def __init__(self, db, driver):
+        DB.__init__(self, db, driver)
+        self.__db = db
+        self.__driver = driver
+
+    def cursor(self):
+        return Cursor(GadflyCursor(self.__db.cursor(), self.__driver),
+                      self.__driver)
+
+class GadflyDriver(DBDriver):
+    """DB Driver for Gadfly, a pure Python RDBMS"""
+    
+    def __init__(self):
+        gadfly = self.get_import()
+        gadfly.error = Exception()
+
+    def get_import(self):
+        import gadfly
+        return gadfly
+
+    def get_display_name(self):
+        return "Gadfly"
+
+    def connect(self,
+                host=None,
+                port=None,
+                user='',
+                password='',
+                database='default'):
+        gadfly = self.get_import()
+        directory = os.path.dirname(database)
+        database = os.path.basename(database)
+        if database.endswith('.gfd'):
+            database = database[:-4]
+
+        try:
+            return GadflyDB(gadfly.gadfly(database, directory), self)
+        except IOError:
+            raise Error(sys.exc_info()[1])
+
+    def get_tables(self, cursor):
+        cursor.execute('SELECT table_name FROM __table_names__ '
+                       'WHERE is_view = 0')
+        table_names = []
+        for row in cursor.fetchall():
+            table_names += [row[0]]
+
+        return table_names
+
+    def get_table_metadata(self, table, cursor):
+        self._ensure_valid_table(cursor, table)
+
+        cursor.execute("SELECT column_name FROM __columns__ "
+                       "WHERE table_name = '%s'" % table.upper())
+        result = []
+        column_names = []
+        for row in cursor.fetchall():
+            result += [(row[0], 'object', None, None, None, True)]
+        return result
+
+    def get_index_metadata(self, table, cursor):
+        self._ensure_valid_table(cursor, table)
+
+        cursor.execute("SELECT is_unique, index_name FROM __indices__ "
+                       "WHERE table_name = '%s'" % table.upper())
+        indexes = []
+        result = []
+        for row in cursor.fetchall():
+            indexes.append(row)
+
+        for unique, index_name in indexes:
+            cursor.execute("SELECT column_name FROM __indexcols__ "
+                           "WHERE index_name = '%s'" % index_name)
+            cols = []
+            for row in cursor.fetchall():
+                cols.append(row[0])
+
+            if unique:
+                description = 'UNIQUE'
+            else:
+                description = 'NON-UNIQUE'
+
+            result.append((index_name, cols, description))
+
+        return result
+
+    def _is_valid_table(self, cursor, table_name):
+        tables = self.get_tables(cursor)
+        return table_name.upper() in tables
 
 class DummyDriver(DBDriver):
     """Dummy database driver, for testing."""

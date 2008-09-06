@@ -12,6 +12,10 @@ Version 0.8.2 (...)
 - Fixed some unconverted camelCase variables in grizzled.file.include module's
   preprocess() method, removing some runtime errors.
 - Now properly bundles ez_setup.py
+- grizzled.db.DBDriver now implements paramstyle() method that actually
+  does something.
+- grizzled.db now has simple support for the Gadly pure-Python SQL
+  database. (See http://gadfly.sourceforge.net/)
 
 ---------------------------------------------------------------------------
 Version 0.8.1 (5 August, 2008)
