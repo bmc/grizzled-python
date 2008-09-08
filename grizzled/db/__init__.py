@@ -42,6 +42,8 @@ Currently, this module provides the following bundled drivers:
   +------------------+------------+-------------------+
   | sqlite           | SQLite 3   | ``sqlite3``       |
   +------------------+------------+-------------------+
+  | gadfly           | Gadfly     | ``gadfly``        |
+  +------------------+------------+-------------------+
 
 To use a given driver, you must have the corresponding Python DB API module
 installed on your system.
