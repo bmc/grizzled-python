@@ -1,6 +1,6 @@
 $Id$
 
-Version 0.8.2 (...)
+Version 0.8.2 (8 September, 2008)
 
 - Eliminated extra fork() in grizzled.os.spawnd() function.
 - Added grizzled.collections.LRUDict class, implementating a fixed-size
