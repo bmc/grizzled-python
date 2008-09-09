@@ -63,9 +63,10 @@ class ReadOnly(object):
 
     .. python::
 
-        from invitemedia.lang import ReadOnly
+        from grizzled.misc import ReadOnly
+        from grizzled.config import Configuration
 
-        config = IMConfigParser()
+        config = Configuration()
         config.read('/path/to/some/file')
         roConfig = ReadOnly(config)
 
@@ -74,7 +75,7 @@ class ReadOnly(object):
 
     The ``__class__`` member of the instantiate ``ReadOnly`` class will be the
     class of the contained object, rather than ``ReadOnly``
-    (``IMConfigParser`` in the example). Similarly, the ``isinstance()``
+    (``Configuration`` in the example). Similarly, the ``isinstance()``
     built-in function will compare against the contained object's class.
     However, the ``type()`` built-in will return the ``ReadOnly`` class
     object.
