@@ -6,7 +6,7 @@ File Locking
 
 This module provides portable advisory file locking primitives that operate on
 file descriptors. POSIX-like systems and Windows systems use different
-primitives to perform file locking, and these different primitive are modeled
+primitives to perform file locking, and these different primitives are modeled
 by incompatible (and different) modules in the Python standard library. This
 module provides an abstract ``FileLock`` class, and underlying
 implementations, to hide the operating system dependencies behind a simple
