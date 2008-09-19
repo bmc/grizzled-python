@@ -92,4 +92,4 @@ class CommandLineParser(OptionParser):
         forces the full usage message on error.
         """
         sys.stderr.write("%s: error: %s\n" % (self.get_prog_name(), msg))
-        self.show_usage()
+        self.die_with_usage(msg)
