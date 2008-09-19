@@ -21,6 +21,8 @@ It also provides a couple extra utility modules.
 from optparse import OptionParser
 import sys
 
+from grizzled.decorators import deprecated
+
 # ---------------------------------------------------------------------------
 # Exports
 # ---------------------------------------------------------------------------
@@ -63,19 +65,26 @@ class CommandLineParser(OptionParser):
             print >> out, '\n%s' % textwrap.fill(self.epilogue, 80)
             out.flush()
 
+    @deprecated(since='0.8.3', message='Use die_with_usage()')
     def show_usage(self, msg=None):
+        self.die_with_usage(msg)
+        
+    def die_with_usage(self, msg=None, exit_code=2):
         """
-        Force the display of the usage message.
+        Display of the usage message and exit.
 
         :Parameters:
             msg : string
                 If not set to ``None`` (the default), this message will be
                 displayed before the usage message
+                
+            exit_code : int
+                The process exit code. Defaults to 2.
         """
         if msg != None:
             print >> sys.stderr, msg
         self.print_help(sys.stderr)
-        sys.exit(2)
+        sys.exit(exit_code)
 
     def error(self, msg):
         """

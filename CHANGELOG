@@ -1,5 +1,11 @@
 $Id$
 
+Version 0.8.3 (...)
+
+- Renamed grizzled.cmdline.CommandLineParser's show_usage() method to
+  die_with_usage(). Provided a deprecated version of show_usage().
+
+---------------------------------------------------------------------------
 Version 0.8.2 (8 September, 2008)
 
 - Eliminated extra fork() in grizzled.os.spawnd() function.
