@@ -13,6 +13,7 @@ Provides some classes and functions for use with the standard Python
 # ---------------------------------------------------------------------------
 
 import logging
+import sys
 import textwrap
 
 # ---------------------------------------------------------------------------
