@@ -581,10 +581,10 @@ class Configuration(ConfigParser.SafeConfigParser):
         else:
             return do_get(section, option)
 
-    def get_one_of(self, 
-                   section, 
-                   options, 
-                   optional=False, 
+    def get_one_of(self,
+                   section,
+                   options,
+                   optional=False,
                    default=None,
                    value_type=str):
         '''
@@ -630,20 +630,29 @@ class Configuration(ConfigParser.SafeConfigParser):
         :raise NoOptionError: none of the named options are in the section
         '''
         value = None
+        if value_type is bool:
+            get = self.getboolean
+        else:
+            get = self.get
+
         for option in options:
-            value = self.get(section, option, optional=True)
+            value = get(section, option, optional=True)
             if value:
                 break
 
-        if not value:
+        if value is None:
             value = default
 
-        if not (value or optional):
+        if (value is None) and (not optional):
             raise NoOptionError('Section "%s" must contain exactly one of the '
                                 'following options: %s' %
                                 (section, ', '.join(list(options))))
 
-        return eval('%s(%s)' % (value_type.__name__, value))
+        if value is not None:
+            if not (value_type in (bool, str)):
+                value = eval('%s(%s)' % (value_type.__name__, value))
+
+        return value
 
     def items(self, section):
         """
