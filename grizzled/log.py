@@ -67,3 +67,61 @@ class WrappingLogFormatter(logging.Formatter):
             result += [self.wrapper.fill(line)]
 
         return '\n'.join(result)
+
+# ---------------------------------------------------------------------------
+# Functions
+# ---------------------------------------------------------------------------
+
+def init_simple_stream_logging(level=logging.INFO,
+                               streams=None,
+                               format=None,
+                               date_format=None):
+    """
+    Useful for simple command-line tools, this method configures the Python
+    logging API to:
+    
+    - log to one or more open streams (defaulting to standard output) and
+    - use a ``WrappingLogFormatter``
+
+    :Parameters:
+        level : int
+            Desired log level
+
+        debug : bool
+            Whether or not to enable "debug mode". See above.
+           
+        streams : list
+            List of files or file-like objects to which to log, or ``None``
+            to log to standard output only
+            
+        format : str
+            Log format to use, or ``None`` to use a reasonable default
+
+        date_format : str
+            Date format to use in logging, or ``None`` to use a reasonable
+            default
+    """
+    if not streams:
+        streams = [sys.stdout]
+
+    if not format:
+        format = '%(asctime)s %(message)s'
+
+    if not date_format:
+        date_format = '%H:%M:%S'
+
+    logging.basicConfig(level=level)
+    handlers = []
+
+    formatter = WrappingLogFormatter(format=format, date_format=date_format)
+    for stream in streams:
+        log_handler = logging.StreamHandler(stream)
+        log_handler.setLevel(level)
+        log_handler.setFormatter(formatter)
+
+        if level == logging.INFO:
+            log_handler.addFilter(InfoFilter())
+
+        handlers += [log_handler]
+
+    logging.getLogger('').handlers = handlers
