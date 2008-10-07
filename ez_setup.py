@@ -14,7 +14,7 @@ the appropriate options to ``use_setuptools()``.
 This file can also be run as a script to install or upgrade setuptools.
 """
 import sys
-DEFAULT_VERSION = "0.6c7"
+DEFAULT_VERSION = "0.6c8"
 DEFAULT_URL     = "http://pypi.python.org/packages/%s/s/setuptools/" % sys.version[:3]
 
 md5_data = {
@@ -45,6 +45,7 @@ md5_data = {
     'setuptools-0.6c7-py2.3.egg': '209fdf9adc3a615e5115b725658e13e2',
     'setuptools-0.6c7-py2.4.egg': '5a8f954807d46a0fb67cf1f26c55a82e',
     'setuptools-0.6c7-py2.5.egg': '45d2ad28f9750e7434111fde831e8372',
+    'setuptools-0.6c8-py2.6.egg': '4c540a665d740ff20627befd99ce0b69',
 }
 
 import sys, os
@@ -79,6 +80,7 @@ def use_setuptools(
     """
     try:
         import setuptools
+	print setuptools.__version__
         if setuptools.__version__ == '0.0.1':
             print >>sys.stderr, (
             "You have an obsolete version of setuptools installed.  Please\n"
