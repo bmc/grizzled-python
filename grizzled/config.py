@@ -581,6 +581,70 @@ class Configuration(ConfigParser.SafeConfigParser):
         else:
             return do_get(section, option)
 
+    def get_one_of(self, 
+                   section, 
+                   options, 
+                   optional=False, 
+                   default=None,
+                   value_type=str):
+        '''
+        Retrieve at most one of a list or set of options from a section. This
+        method is useful if there are multiple possible names for a single
+        option. For example, suppose you permit either a ``user_name`` or a
+        ``login_name`` option, but not both, in a section called
+        ``credentials``. You can use the following code to retrieve the
+        option value:
+
+        .. python::
+
+            from grizzled.config import Configuration
+
+            config = Configuration()
+            config.read('/path/to/config')
+            user = config.get_one_of('credentials', ['user_name', 'login_name'])
+
+        If both options exist, ``get_one_of()`` will a ``NoOptionError``. If
+        neither option exists, ``get_one_of()`` will throw a ``NoOptionError``
+        if ``optional`` is ``False`` and there's no default value; otherwise,
+        it will return the default value.
+
+        :Parameters:
+            section : str
+                name of section
+            options : list or set
+                list or set of allowable option names
+            optional : bool
+                ``True`` to return None if the option doesn't exist. ``False``
+                to throw an exception if the option doesn't exist.
+            default : str
+                The default value, if the option does not exist.
+            value_type : type
+                The type to which to coerce the value. The value is coerced by
+                casting.
+
+        :rtype:  str
+        :return: the option value, or ``None`` if nonexistent and
+                 ``optional`` is ``True``
+
+        :raise NoSectionError: no such section
+        :raise NoOptionError: none of the named options are in the section
+        '''
+        value = None
+        for option in options:
+            value = self.get(section, option, optional=True)
+            if value:
+                break
+
+        if not value:
+            value = default
+
+        if not (value or optional):
+            raise NoOptionError('Section "%s" must contain exactly one of the '
+                                'following options: %s' %
+                                (section, ', '.join(list(options))))
+
+        return eval('%s(%s)' % (value_type.__name__, value))
+
     def items(self, section):
         """
         Get all items in a section.
