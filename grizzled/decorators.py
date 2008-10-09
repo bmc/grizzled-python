@@ -88,8 +88,8 @@ def deprecated(since=None, message=None):
 
 def abstract(func):
     """
-    Decorator for marking a function abstract. Throws a
-    ``NotImplementedError`` if an abstract method is called.
+    Decorator for marking a method abstract. Throws a ``NotImplementedError``
+    if an abstract method is called.
 
     Usage:
     
@@ -107,7 +107,7 @@ def abstract(func):
             # Class doesn't define abstractMethod().
 
     Given the above declaration, the following code will cause an
-    C``NotImplementedError``:
+    ``NotImplementedError``:
     
     .. python::
 
@@ -116,6 +116,34 @@ def abstract(func):
     """
     def wrapper(*__args, **__kw):
         raise NotImplementedError('Missing required %s() method' %\
+                                  func.__name__)
+    wrapper.__name__ = func.__name__
+    wrapper.__dict__ = func.__dict__
+    wrapper.__doc__ = func.__doc__
+    return wrapper
+
+def unimplemented(func):
+    """
+    Decorator for marking a function or method unimplemented. Throws a
+    ``NotImplementedError`` if called. Note that this decorator is
+    conceptually different from ``@abstract``. With ``@abstract``, the method
+    is intended to be implemented by a subclass. With ``@unimplemented``, the
+    method should never be implemented.
+
+    Usage:
+    
+    .. python::
+
+        from grizzled.decorators import unimplemented
+
+        class ReadOnlyDict(dict):
+
+            @unimplemented
+            def __setitem__(self, key, value):
+                pass
+    """
+    def wrapper(*__args, **__kw):
+        raise NotImplementedError('Method or function "%s" is not implemented',
                                   func.__name__)
     wrapper.__name__ = func.__name__
     wrapper.__dict__ = func.__dict__
