@@ -120,9 +120,6 @@ def init_simple_stream_logging(level=logging.INFO,
         log_handler.setLevel(level)
         log_handler.setFormatter(formatter)
 
-        if level == logging.INFO:
-            log_handler.addFilter(InfoFilter())
-
         handlers += [log_handler]
 
     logging.getLogger('').handlers = handlers
