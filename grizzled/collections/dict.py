@@ -308,7 +308,7 @@ class LRUDict(dict):
         dictionary will cause the least-recently used entries to drop out of
         the dictionary.
 
-        :Parameters:
+        :Keywords:
             max_capacity : int
                 The maximum size of the dictionary
         """

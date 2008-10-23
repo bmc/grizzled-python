@@ -20,7 +20,7 @@ import textwrap
 # Exports
 # ---------------------------------------------------------------------------
 
-__all__ = ['WrappingLogFormatter']
+__all__ = ['WrappingLogFormatter', 'init_simple_stream_logging']
 
 # ---------------------------------------------------------------------------
 # Classes
@@ -88,9 +88,6 @@ def init_simple_stream_logging(level=logging.INFO,
         level : int
             Desired log level
 
-        debug : bool
-            Whether or not to enable "debug mode". See above.
-           
         streams : list
             List of files or file-like objects to which to log, or ``None``
             to log to standard output only
