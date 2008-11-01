@@ -209,10 +209,10 @@ def spawnd(path, args, pidfile=None):
     
     .. python::
     
-        pid = os.fork()
+        pid = _os.fork()
         if pid == 0:
             daemonize(pidfile=pidfile)
-            os.execv(path, args)
+            _os.execv(path, args)
 
     :Parameters:
         path : str
