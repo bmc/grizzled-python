@@ -126,14 +126,12 @@ def working_directory(directory):
 
     .. python::
 
-        import os
-
-        original_directory = os.getcwd()
+        original_directory = _os.getcwd()
         try:
-            os.chdir(some_dir)
+            _os.chdir(some_dir)
             ... bunch of code ...
         finally:
-            os.chdir(original_directory)
+            _os.chdir(original_directory)
 
     with something simpler:
 
@@ -297,7 +295,7 @@ def daemonize(no_close=False):
             # descriptor (0, or standard input). Then, we can dup that
             # descriptor for standard output and standard error.
 
-            _os.open(NULL_DEVICE, os.O_RDWR)
+            _os.open(NULL_DEVICE, _os.O_RDWR)
             _os.dup2(0, 1)
             _os.dup2(0, 2)
 
@@ -334,7 +332,7 @@ def daemonize(no_close=False):
 
         # This is the second child. Set the umask.
         log.debug('Setting umask')
-        os.umask(UMASK)
+        _os.umask(UMASK)
 
         # Go to a neutral corner (i.e., the primary file system, so
         # the daemon doesn't prevent some other file system from being
@@ -366,9 +364,9 @@ if __name__ == '__main__':
     log.addHandler(hdlr)
     log.setLevel(logging.DEBUG)
 
-    log.debug('Before daemonizing, PID=%d' % os.getpid())
+    log.debug('Before daemonizing, PID=%d' % _os.getpid())
     daemonize(no_close=True)
-    log.debug('After daemonizing, PID=%d' % os.getpid())
+    log.debug('After daemonizing, PID=%d' % _os.getpid())
     log.debug('Daemon is sleeping for 10 seconds')
 
     import time
