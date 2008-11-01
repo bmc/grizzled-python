@@ -267,7 +267,7 @@ def daemonize(no_close=False):
 
     def __fork():
         try:
-            return os.fork()
+            return _os.fork()
         except OSError, e:
             raise DaemonError, ('Cannot fork', e.errno, e.strerror)
 
