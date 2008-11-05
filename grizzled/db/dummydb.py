@@ -1,14 +1,29 @@
 # $Id$
-
+# ---------------------------------------------------------------------------
+ 
 """
 A dummy database driver, useful for testing.
 """
+
+# ---------------------------------------------------------------------------
+# Imports
+# ---------------------------------------------------------------------------
+
+from grizzled.db.base import DBDriver
+
+# ---------------------------------------------------------------------------
+# Constants
+# ---------------------------------------------------------------------------
 
 BINARY = 0
 NUMBER = 1
 STRING = 2
 DATETIME = 3
 ROWID = 4
+
+# ---------------------------------------------------------------------------
+# Classes
+# ---------------------------------------------------------------------------
 
 class DummyCursor(object):
     def close(self):
@@ -44,3 +59,21 @@ class DummyDB(object):
 
     def close(self):
         pass
+
+class DummyDriver(DBDriver):
+    """Dummy database driver, for testing."""
+
+    def get_import(self):
+        import dummydb
+        return dummydb
+
+    def get_display_name(self):
+        return "Dummy"
+
+    def do_connect(self,
+                   host="localhost",
+                   port=None,
+                   user='',
+                   password='',
+                   database='default'):
+        return dummydb.DummyDB()
