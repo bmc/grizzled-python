@@ -1,5 +1,11 @@
 $Id$
 
+Version 0.8.5 (...)
+
+- Reorganized internals of grizzled.db for easier maintenance. Has no effect
+  on the visible API.
+
+---------------------------------------------------------------------------
 Version 0.8.4 (4 November, 2008)
 
 - Improved Oracle support in grizzled.db package.

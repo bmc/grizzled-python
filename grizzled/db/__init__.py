@@ -1,4 +1,4 @@
-1# $Id$
+# $Id$
 
 """
 Introduction
