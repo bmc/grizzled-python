@@ -1,4 +1,4 @@
-1# $Id$
+# $Id$
 
 """
 SQLite3 extended database driver.

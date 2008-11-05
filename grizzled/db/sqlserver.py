@@ -1,4 +1,4 @@
-1# $Id$
+# $Id$
 
 """
 SQL Server extended database driver.

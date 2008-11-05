@@ -1,4 +1,4 @@
-1# $Id$
+# $Id$
 
 """
 Gadfly extended database driver.
