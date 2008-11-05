@@ -1096,7 +1096,7 @@ class MySQLDriver(DBDriver):
         cursor.execute('DESC %s' % table)
         rs = cursor.fetchone()
         results = []
-        while rs != None:
+        while rs is not None:
             column = rs[0]
             coltype = rs[1]
             null = False if rs[2] == 'NO' else True
@@ -1127,7 +1127,7 @@ class MySQLDriver(DBDriver):
         result = []
         columns = {}
         descr = {}
-        while rs != None:
+        while rs is not None:
             name = rs[2]
             try:
                 columns[name]
@@ -1142,7 +1142,7 @@ class MySQLDriver(DBDriver):
                 description = 'Unique'
             else:
                 description = 'Non-unique'
-            if rs[10] != None:
+            if rs[10] is not None:
                 description += ', %s index' % rs[10]
             descr[name] = description
             rs = cursor.fetchone()
@@ -1158,7 +1158,7 @@ class MySQLDriver(DBDriver):
         cursor.execute('SHOW TABLES')
         table_names = []
         rs = cursor.fetchone()
-        while rs != None:
+        while rs is not None:
             table_names += [rs[0]]
             rs = cursor.fetchone()
 
@@ -1194,7 +1194,7 @@ class SQLServerDriver(DBDriver):
                        self.db_name)
         table_names = []
         rs = cursor.fetchone()
-        while rs != None:
+        while rs is not None:
             table_names += [rs[0]]
             rs = cursor.fetchone()
 
@@ -1210,7 +1210,7 @@ class SQLServerDriver(DBDriver):
                        "LOWER(table_name) = '%s'" % table)
         rs = cursor.fetchone()
         results = []
-        while rs != None:
+        while rs is not None:
             is_nullable = False
             if rs[5] == 'YES':
                 is_nullable = True
@@ -1224,7 +1224,7 @@ class SQLServerDriver(DBDriver):
         cursor.execute("EXEC sp_helpindex '%s'" % table)
         rs = cursor.fetchone()
         results_by_name = {}
-        while rs != None:
+        while rs is not None:
             name = rs[0]
             description = rs[1]
             columns = rs[2].split(', ')
@@ -1287,7 +1287,7 @@ class PostgreSQLDriver(DBDriver):
         cursor.execute(sel % table)
         rs = cursor.fetchone()
         results = []
-        while rs != None:
+        while rs is not None:
             column = rs[0]
             coltype = rs[1]
             null = not rs[3]
@@ -1333,7 +1333,7 @@ class PostgreSQLDriver(DBDriver):
         cursor.execute(sel)
         table_names = []
         rs = cursor.fetchone()
-        while rs != None:
+        while rs is not None:
             table_names += [rs[0]]
             rs = cursor.fetchone()
 
@@ -1357,7 +1357,7 @@ class PostgreSQLDriver(DBDriver):
         cursor.execute(sel)
         index_names = []
         rs = cursor.fetchone()
-        while rs != None:
+        while rs is not None:
             index_names += [rs[1]]
             rs = cursor.fetchone()
 
@@ -1382,7 +1382,7 @@ class PostgreSQLDriver(DBDriver):
         cursor.execute(sel)
         columns = []
         rs = cursor.fetchone()
-        while rs != None:
+        while rs is not None:
             columns += [rs[0]]
             rs = cursor.fetchone()
 
@@ -1399,7 +1399,7 @@ class PostgreSQLDriver(DBDriver):
         cursor.execute(sel)
         desc = ''
         rs = cursor.fetchone()
-        if rs != None:
+        if rs is not None:
             if str(rs[1]) == "True":
                 desc += "(PRIMARY) "
 
@@ -1413,7 +1413,7 @@ class PostgreSQLDriver(DBDriver):
             else:
                 desc += ", non-clustered"
 
-            if rs[3] != None:
+            if rs[3] is not None:
                 desc += " %s" % rs[3]
 
             desc += ' index'
@@ -1443,14 +1443,102 @@ class OracleDriver(DBDriver):
         return dbi.connect('%s/%s@%s' % (user, password, database))
 
     def get_tables(self, cursor):
-        cursor.execute("select table_name from user_tables")
+        cursor.execute('select lower(table_name) from user_tables')
         table_names = []
         rs = cursor.fetchone()
-        while rs != None:
+        while rs is not None:
             table_names += [rs[0]]
             rs = cursor.fetchone()
 
         return table_names
+
+    def get_table_metadata(self, table, cursor):
+        self._ensure_valid_table(cursor, table)
+        cursor.execute("select column_name, data_type, data_length, "
+                       "data_precision, data_scale, nullable, "
+                       "char_col_decl_length from all_tab_columns "
+                       "where lower(table_name) = '%s'" % table.lower())
+        results = []
+        rs = cursor.fetchone()
+        while rs:
+            column = rs[0]
+            coltype = rs[1]
+            data_length = rs[2]
+            precision = rs[3]
+            scale = rs[4]
+            nullable = (rs[5] == 'Y')
+            declared_char_length = rs[6]
+
+            if declared_char_length:
+                length = declared_char_length
+            else:
+                length = data_length
+            results += [(column,
+                         coltype,
+                         length,
+                         precision,
+                         scale,
+                         nullable)]
+
+            rs = cursor.fetchone()
+
+        return results
+
+    def get_index_metadata(self, table, cursor):
+        self._ensure_valid_table(cursor, table)
+        # First, issue a query to get the list of indexes and some
+        # descriptive information.
+        cursor.execute("select index_name, index_type, uniqueness, "
+                       "max_extents,temporary from user_indexes where "
+                       "lower(table_name) = '%s'" % table.lower())
+
+        names = []
+        description = {}
+        rs = cursor.fetchone()
+        while rs is not None:
+            (name, index_type, unique, max_extents, temporary) = rs
+            desc = 'Temporary ' if temporary == 'Y' else ''
+            unique = unique.lower()
+            if unique == 'nonunique':
+                unique = 'non-unique' 
+            index_type = index_type.lower()
+            desc += '%s %s index' % (index_type, unique)
+            if max_extents:
+                desc += ' (max_extents=%d)' % max_extents
+            names.append(name)
+            description[name] = desc
+            rs = cursor.fetchone()
+
+        cursor.execute("SELECT aic.index_name, aic.column_name, "
+                       "aic.column_position, aic.descend, aic.table_owner, "
+                       "CASE alc.constraint_type WHEN 'U' THEN 'UNIQUE' "
+                       "WHEN 'P' THEN 'PRIMARY KEY' ELSE '' END "
+                       "AS index_type FROM all_ind_columns aic "
+                       "LEFT JOIN all_constraints alc "
+                       "ON aic.index_name = alc.constraint_name AND "
+                       "aic.table_name = alc.table_name AND "
+                       "aic.table_owner = alc.owner "
+                       "WHERE lower(aic.table_name) = '%s' "
+                       "ORDER BY COLUMN_POSITION" % table.lower())
+        rs = cursor.fetchone()
+        columns = {}
+        while rs is not None:
+            index_name = rs[0]
+            column_name = rs[1]
+            asc = rs[3]
+            cols = columns.get(index_name, [])
+            cols.append('%s %s' % (column_name, asc))
+            columns[index_name] = cols
+            rs = cursor.fetchone()
+
+        # Finally, assemble the result.
+        results = []
+        for name in names:
+            cols = columns.get(name, [])
+            desc = description.get(name, None)
+            results += [(name, cols, desc)]
+
+        return results
 
 class SQLite3Driver(DBDriver):
     """DB Driver for SQLite, using the pysqlite DB API module."""
@@ -1475,7 +1563,7 @@ class SQLite3Driver(DBDriver):
         cursor.execute("select name from sqlite_master where type = 'table'")
         table_names = []
         rs = cursor.fetchone()
-        while rs != None:
+        while rs is not None:
             table_names += [rs[0]]
             rs = cursor.fetchone()
 
@@ -1502,7 +1590,7 @@ class SQLite3Driver(DBDriver):
         result = []
 
         char_field_re = re.compile(r'(varchar|char)\((\d+)\)')
-        while rs != None:
+        while rs is not None:
             (id, name, type, not_null, default_value, is_primary) = rs
             m = char_field_re.match(type)
             if m:
@@ -1538,7 +1626,7 @@ class SQLite3Driver(DBDriver):
         cursor.execute("PRAGMA index_list('%s')" % table)
         indexes = []
         rs = cursor.fetchone()
-        while rs != None:
+        while rs is not None:
             indexes += [(rs[1], rs[2])]
             rs = cursor.fetchone()
 
@@ -1553,7 +1641,7 @@ class SQLite3Driver(DBDriver):
             cursor.execute("PRAGMA index_info('%s')" % name)
             rs = cursor.fetchone()
             columns = []
-            while rs != None:
+            while rs is not None:
                 columns += [rs[2]]
                 rs = cursor.fetchone()
 
@@ -1635,7 +1723,7 @@ class GadflyDB(DB):
 
 class GadflyDriver(DBDriver):
     """DB Driver for Gadfly, a pure Python RDBMS"""
-    
+
     def __init__(self):
         gadfly = self.get_import()
         gadfly.error = Exception()

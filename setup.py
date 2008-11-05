@@ -26,7 +26,7 @@ See the `API documentation`_ for complete details.
 # Now the setup stuff.
 
 setup (name             = 'grizzled',
-       version          = '0.8.3',
+       version          = '0.8.4',
        description      = 'The Grizzled Utility Library',
        long_description = LONG_DESCRIPTION,
        packages         = find_packages(),
