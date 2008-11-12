@@ -32,6 +32,8 @@ Currently, this module provides the following bundled drivers:
   +==================+============+===================+
   | dummy            | None       | ``db.DummyDB``    |
   +------------------+------------+-------------------+
+  | gadfly           | Gadfly     | ``gadfly``        |
+  +------------------+------------+-------------------+
   | mysql            | MySQL      | ``MySQLdb``       |
   +------------------+------------+-------------------+
   | oracle           | Oracle     | ``cx_Oracle``     |
@@ -41,8 +43,6 @@ Currently, this module provides the following bundled drivers:
   | sqlserver        | SQL Server | ``pymssql``       |
   +------------------+------------+-------------------+
   | sqlite           | SQLite 3   | ``sqlite3``       |
-  +------------------+------------+-------------------+
-  | gadfly           | Gadfly     | ``gadfly``        |
   +------------------+------------+-------------------+
 
 To use a given driver, you must have the corresponding Python DB API module
