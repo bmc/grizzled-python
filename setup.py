@@ -8,34 +8,27 @@
 import ez_setup
 ez_setup.use_setuptools(download_delay=2)
 from setuptools import setup, find_packages
-import re
 import sys
 import os
+import imp
 
-LONG_DESCRIPTION =\
-"""
-The *Grizzled Utility Library* is a general-purpose Python library with
-a variety of different modules and packages. It's roughly organized into
-subpackages that group different kinds of utility functions and classes.
-
-See the `API documentation`_ for complete details.
-
-.. _API documentation: http://www.clapper.org/software/python/grizzled/epydoc
-"""
+here = os.path.dirname(os.path.abspath(__file__))
+module_file = os.path.join(here, 'grizzled', '__init__.py')
+module = imp.load_module('grizzled', open(module_file), module_file,
+                         ('__init__.py', 'r', imp.PY_SOURCE))
 
 # Now the setup stuff.
 
 setup (name             = 'grizzled',
-       version          = '0.8.5',
+       version          = module.version,
        description      = 'The Grizzled Utility Library',
-       long_description = LONG_DESCRIPTION,
+       long_description = module.__doc__,
        packages         = find_packages(),
        py_modules       = ['ez_setup'],
-       url              = 'http://www.clapper.org/software/python/grizzled/',
-       license          = 'BSD license',
-       author           = 'Brian M. Clapper',
-       author_email     = 'bmc@clapper.org',
-       #install_requires = ['includer>=1.0.5'],
+       url              = module.url,
+       license          = module.version,
+       author           = module.author,
+       author_email     = module.email,
        test_suite       = 'nose.collector',
        classifiers = [
         'Intended Audience :: Developers',
