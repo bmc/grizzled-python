@@ -15,6 +15,7 @@ __author__  = 'Brian M. Clapper'
 __email__   = 'bmc@clapper.org'
 __url__     = 'http://www.clapper.org/software/python/grizzled/'
 __license__ = 'BSD-style license'
+__title__   = 'The Grizzled Python Utility Library'
 
 # Public stuff
 
@@ -23,3 +24,4 @@ author  = __author__
 email   = __email__
 url     = __url__
 license = __license__
+title   = __title__

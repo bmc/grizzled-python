@@ -21,7 +21,7 @@ module = imp.load_module('grizzled', open(module_file), module_file,
 
 setup (name             = 'grizzled',
        version          = module.version,
-       description      = 'The Grizzled Utility Library',
+       description      = module.title,
        long_description = module.__doc__,
        packages         = find_packages(),
        py_modules       = ['ez_setup'],
