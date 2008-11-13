@@ -6,6 +6,9 @@ Version 0.8.5 (...)
   on the visible API.
 - Moved package metadata from setup.py to grizzled/__init__.py, making it
   easier for other packages to use.
+- Added grizzled.collections.namedtuple() function, which works like Python's
+  new 2.6 namedtuple() function. If running under 2.6, the grizzled.collections
+  version *is* the 2.6 namedtuple() function.
 
 ---------------------------------------------------------------------------
 Version 0.8.4 (4 November, 2008)
