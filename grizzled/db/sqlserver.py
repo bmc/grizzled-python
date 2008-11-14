@@ -11,7 +11,8 @@ SQL Server extended database driver.
 import os
 import sys
 
-from grizzled.db.base import DBDriver, Error, Warning
+from grizzled.db.base import (DBDriver, Error, Warning, TableMetadata,
+                              IndexMetadata, RDBMSMetadata)
 
 # ---------------------------------------------------------------------------
 # Exports
@@ -57,6 +58,28 @@ class SQLServerDriver(DBDriver):
 
         return table_names
 
+    def get_rdbms_metadata(self, cursor):
+        product = ''
+        version = ''
+        vendor = 'Microsoft Corporation'
+        cursor.execute('xp_msver');
+        rs = cursor.fetchone()
+        while rs is not None:
+            name = rs[1].lower()
+            value = rs[3]
+            if name == 'productname':
+                product = value
+
+            elif name == 'productversion':
+                version = value
+            
+            elif name == 'companyname':
+                vendor == value
+
+            rs = cursor.fetchone()
+
+        return RDBMSMetadata(vendor, product, version)
+
     def get_table_metadata(self, table, cursor):
         self._ensure_valid_table(cursor, table)
         dbi = self.get_import()
@@ -71,7 +94,9 @@ class SQLServerDriver(DBDriver):
             is_nullable = False
             if rs[5] == 'YES':
                 is_nullable = True
-            results += [(rs[0], rs[1], rs[2], rs[3], rs[4], is_nullable)]
+
+            data = TableMetadata(rs[0], rs[1], rs[2], rs[3], rs[4], is_nullable)
+            results += [data]
             rs = cursor.fetchone()
         return results
 
@@ -85,7 +110,7 @@ class SQLServerDriver(DBDriver):
             name = rs[0]
             description = rs[1]
             columns = rs[2].split(', ')
-            results_by_name[name] = (name, columns, description)
+            results_by_name[name] = IndexMetadata(name, columns, description)
             rs = cursor.fetchone()
 
         names = results_by_name.keys()

@@ -12,11 +12,15 @@ import os
 import sys
 import re
 
-from grizzled.db.base import DBDriver, Error, Warning
+from grizzled.db.base import (DBDriver, Error, Warning, TableMetadata,
+                              IndexMetadata, RDBMSMetadata)
 
 # ---------------------------------------------------------------------------
-# Exports
+# Constants
 # ---------------------------------------------------------------------------
+
+VENDOR  = 'MySQL AB'
+PRODUCT = 'MySQL'
 
 # ---------------------------------------------------------------------------
 # Classes
@@ -43,6 +47,16 @@ class MySQLDriver(DBDriver):
         dbi = self.get_import()
         return dbi.connect(host=host, user=user, passwd=password, db=database)
 
+    def get_rdbms_metadata(self, cursor):
+        cursor.execute('SELECT version()')
+        rs = cursor.fetchone()
+        if rs is None:
+            result = RDBMSMetadata(VENDOR, PRODUCT, 'unknown')
+        else:
+            result = RDBMSMetadata(VENDOR, PRODUCT, rs[0])
+
+        return result
+
     def get_table_metadata(self, table, cursor):
         self._ensure_valid_table(cursor, table)
         dbi = self.get_import()
@@ -67,7 +81,13 @@ class MySQLDriver(DBDriver):
                     max_char_size = None
                     precision = size
 
-            results += [(column, coltype, max_char_size, precision, 0, null)]
+            data = TableMetadata(column,
+                                 coltype,
+                                 max_char_size,
+                                 precision,
+                                 0,
+                                 null)
+            results += [data]
             rs = cursor.fetchone()
 
         return results
@@ -103,7 +123,7 @@ class MySQLDriver(DBDriver):
         names = columns.keys()
         names.sort()
         for name in names:
-            result += [(name, columns[name], descr[name])]
+            result += [IndexMetadata(name, columns[name], descr[name])]
 
         return result
 

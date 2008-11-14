@@ -12,11 +12,15 @@ import os
 import sys
 import re
 
-from grizzled.db.base import DBDriver, Error, Warning
+from grizzled.db.base import (DBDriver, Error, Warning, TableMetadata,
+                              IndexMetadata, RDBMSMetadata)
 
 # ---------------------------------------------------------------------------
-# Exports
+# Constants
 # ---------------------------------------------------------------------------
+
+VENDOR  = 'PostgreSQL Global Development Group'
+PRODUCT = 'PostgreSQL'
 
 # ---------------------------------------------------------------------------
 # Classes
@@ -45,9 +49,18 @@ class PostgreSQLDriver(DBDriver):
             (host, database, user, password)
         return dbi.connect(dsn=dsn)
 
+    def get_rdbms_metadata(self, cursor):
+        cursor.execute('SELECT version()')
+        rs = cursor.fetchone()
+        if rs is None:
+            result = RDBMSMetadata(VENDOR, PRODUCT, 'unknown')
+        else:
+            result = RDBMSMetadata(VENDOR, PRODUCT, rs[0])
+
+        return result
+
     def get_table_metadata(self, table, cursor):
         self._ensure_valid_table(cursor, table)
-        dbi = self.get_import()
         sel = """\
         SELECT a.attname, pg_catalog.format_type(a.atttypid, a.atttypmod),
                     (SELECT substring(d.adsrc for 128)
@@ -88,14 +101,19 @@ class PostgreSQLDriver(DBDriver):
                     max_char_size = None
                     precision = size
 
-            results += [(column, coltype, max_char_size, precision, 0, null)]
+            data = TableMetadata(column,
+                                 coltype,
+                                 max_char_size,
+                                 precision,
+                                 0,
+                                 null)
+            results += [data]
             rs = cursor.fetchone()
 
         return results
 
     def get_index_metadata(self, table, cursor):
         self._ensure_valid_table(cursor, table)
-        dbi = self.get_import()
         # First, issue one query to get the list of indexes for the table.
         index_names = self.__get_index_names(table, cursor)
 
@@ -105,7 +123,7 @@ class PostgreSQLDriver(DBDriver):
         for name in index_names:
             columns = self.__get_index_columns(name, cursor)
             desc = self.__get_index_description(name, cursor)
-            results += [(name, columns, desc)]
+            results += [IndexMetadata(name, columns, desc)]
 
         return results
 

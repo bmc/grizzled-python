@@ -87,8 +87,8 @@ from datetime import date, datetime
 
 from grizzled.exception import ExceptionWithMessage
 from grizzled.decorators import abstract
-from grizzled.db import (base, dummydb, gadfly, mysql, oracle, postgresql,
-                         sqlite3, sqlserver)
+from grizzled.db import (base, dummydb, dbgadfly, mysql, oracle, postgresql,
+                         sqlite, sqlserver)
 from grizzled.db.base import *
 
 # ---------------------------------------------------------------------------
@@ -104,11 +104,11 @@ __all__ = ['get_driver', 'add_driver', 'get_driver_names', 'DBDriver',
 # ---------------------------------------------------------------------------
 
 DummyDriver = dummydb.DummyDriver
-GadflyDriver = gadfly.GadflyDriver
+GadflyDriver = dbgadfly.GadflyDriver
 MySQLDriver = mysql.MySQLDriver
 OracleDriver = oracle.OracleDriver
 PostgreSQLDriver = postgresql.PostgreSQLDriver
-SQLite3Driver = sqlite3.SQLite3Driver
+SQLite3Driver = sqlite.SQLite3Driver
 SQLServerDriver = sqlserver.SQLServerDriver
 
 drivers = { 'dummy'      : 'DummyDriver',

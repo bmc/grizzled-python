@@ -11,11 +11,15 @@ Oracle extended database driver.
 import os
 import sys
 
-from grizzled.db.base import DBDriver, Error, Warning
+from grizzled.db.base import (DBDriver, Error, Warning,
+                              TableMetadata, IndexMetadata, RDBMSMetadata)
 
 # ---------------------------------------------------------------------------
-# Exports
+# Constants
 # ---------------------------------------------------------------------------
+
+VENDOR = 'Oracle Corporation'
+PRODUCT = 'Oracle'
 
 # ---------------------------------------------------------------------------
 # Classes
@@ -50,6 +54,17 @@ class OracleDriver(DBDriver):
 
         return table_names
 
+    def get_rdbms_metadata(self, cursor):
+        cursor.execute("SELECT banner FROM v$version WHERE "
+                       "banner LIKE 'Oracle%'")
+        rs = cursor.fetchone()
+        if rs is None:
+            result = RDBMSMetadata(VENDOR, PRODUCT, 'unknown')
+        else:
+            result = RDBMSMetadata(VENDOR, PRODUCT, rs[0])
+
+        return result
+
     def get_table_metadata(self, table, cursor):
         self._ensure_valid_table(cursor, table)
         cursor.execute("select column_name, data_type, data_length, "
@@ -71,13 +86,13 @@ class OracleDriver(DBDriver):
                 length = declared_char_length
             else:
                 length = data_length
-            results += [(column,
-                         coltype,
-                         length,
-                         precision,
-                         scale,
-                         nullable)]
 
+            results += [TableMetadata(column,
+                                      coltype,
+                                      length,
+                                      precision,
+                                      scale,
+                                      nullable)]
             rs = cursor.fetchone()
 
         return results
@@ -98,7 +113,7 @@ class OracleDriver(DBDriver):
             desc = 'Temporary ' if temporary == 'Y' else ''
             unique = unique.lower()
             if unique == 'nonunique':
-                unique = 'non-unique' 
+                unique = 'non-unique'
             index_type = index_type.lower()
             desc += '%s %s index' % (index_type, unique)
             if max_extents:
@@ -134,7 +149,7 @@ class OracleDriver(DBDriver):
         for name in names:
             cols = columns.get(name, [])
             desc = description.get(name, None)
-            results += [(name, cols, desc)]
+            results += [IndexMetadata(name, cols, desc)]
 
         return results
 

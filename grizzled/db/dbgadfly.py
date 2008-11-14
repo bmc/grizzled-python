@@ -11,7 +11,8 @@ Gadfly extended database driver.
 import os
 import sys
 
-from grizzled.db.base import Cursor, DB, DBDriver, Error, Warning
+from grizzled.db.base import (Cursor, DB, DBDriver, Error, Warning,
+                              TableMetadata, IndexMetadata, RDBMSMetadata)
 
 # ---------------------------------------------------------------------------
 # Exports
@@ -119,7 +120,9 @@ class GadflyDriver(DBDriver):
             database = database[:-4]
 
         try:
-            return GadflyDB(gadfly.gadfly(database, directory), self)
+            g = gadfly.gadfly()
+            g.startup(database, directory)
+            return GadflyDB(g, self)
         except IOError:
             raise Error(sys.exc_info()[1])
 
@@ -132,6 +135,11 @@ class GadflyDriver(DBDriver):
 
         return table_names
 
+    def get_rdbms_metadata(self, cursor):
+        import gadfly
+        version = '.'.join([str(i) for i in gadfly.version_info])
+        return RDBMSMetadata('gadfly', 'gadfly', version)
+
     def get_table_metadata(self, table, cursor):
         self._ensure_valid_table(cursor, table)
 
@@ -140,7 +148,7 @@ class GadflyDriver(DBDriver):
         result = []
         column_names = []
         for row in cursor.fetchall():
-            result += [(row[0], 'object', None, None, None, True)]
+            result += [TableMetadata(row[0], 'object', None, None, None, True)]
         return result
 
     def get_index_metadata(self, table, cursor):
@@ -165,7 +173,7 @@ class GadflyDriver(DBDriver):
             else:
                 description = 'NON-UNIQUE'
 
-            result.append((index_name, cols, description))
+            result.append(IndexMetadata(index_name, cols, description))
 
         return result
 

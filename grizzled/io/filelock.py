@@ -38,8 +38,6 @@ You can also use the ``locked_file()`` function to simplify your code:
         ...
 """
 
-__docformat__ == 'restructuredtext'
-
 # ---------------------------------------------------------------------------
 # Imports
 # ---------------------------------------------------------------------------

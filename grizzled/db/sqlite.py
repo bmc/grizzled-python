@@ -11,7 +11,8 @@ SQLite3 extended database driver.
 import os
 import sys
 
-from grizzled.db.base import DBDriver, Error, Warning
+from grizzled.db.base import (DBDriver, Error, Warning, TableMetadata,
+                              IndexMetadata, RDBMSMetadata)
 
 # ---------------------------------------------------------------------------
 # Exports
@@ -39,6 +40,10 @@ class SQLite3Driver(DBDriver):
                    database='default'):
         dbi = self.get_import()
         return dbi.connect(database=database, isolation_level=None)
+
+    def get_rdbms_metadata(self, cursor):
+        import sqlite3
+        return RDBMSMetadata('SQLite', 'SQLite 3', sqlite3.sqlite_version)
 
     def get_tables(self, cursor):
         cursor.execute("select name from sqlite_master where type = 'table'")
@@ -84,7 +89,8 @@ class SQLite3Driver(DBDriver):
             else:
                 max_char_size = 0
 
-            result += [(name, type, max_char_size, 0, 0, not not_null)]
+            data = TableMetadata(name, type, max_char_size, 0, 0, not not_null)
+            result += [data]
 
             rs = cursor.fetchone()
 
@@ -127,6 +133,6 @@ class SQLite3Driver(DBDriver):
                 rs = cursor.fetchone()
 
             description = 'UNIQUE' if unique else ''
-            result += [(name, columns, description)]
+            result += [IndexMetadata(name, columns, description)]
 
         return result

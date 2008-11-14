@@ -16,12 +16,14 @@ from datetime import date, datetime
 
 from grizzled.exception import ExceptionWithMessage
 from grizzled.decorators import abstract
+from grizzled.collections import namedtuple
 
 # ---------------------------------------------------------------------------
 # Exports
 # ---------------------------------------------------------------------------
 
-__all__ = ['DBDriver', 'DB', 'Cursor', 'DBError', 'Error', 'Warning']
+__all__ = ['DBDriver', 'DB', 'Cursor', 'DBError', 'Error', 'Warning',
+           'TableMetadata', 'IndexMetadata', 'RDBMSMetadata']
 
 # ---------------------------------------------------------------------------
 # Globals
@@ -44,6 +46,19 @@ class Error(DBError):
 class Warning(DBError):
     """Thrown to indicate an error in the ``db`` module."""
     pass
+
+TableMetadata = namedtuple('TableMetadata', ['column_name',
+                                             'type_string',
+                                             'max_char_size',
+                                             'precision',
+                                             'scale',
+                                             'nullable'])
+
+IndexMetadata = namedtuple('IndexMetadata', ['index_name',
+                                             'index_columns',
+                                             'description'])
+
+RDBMSMetadata = namedtuple('RDBMSMetadata', ['vendor', 'product', 'version'])
 
 class Cursor(object):
     """
@@ -237,12 +252,40 @@ class Cursor(object):
 
     fetchMany = fetchmany
 
+    def get_rdbms_metadata(self):
+        """
+        Return data about the RDBMS: the product name, the version,
+        etc. The result is a named tuple, with the following fields::
+        
+        vendor
+            The product vendor, if applicable, or ``None`` if not known
+        product
+            The name of the database product, or ``None`` if not known
+        version
+            The database product version, or ``None`` if not known
+            
+        The fields may be accessed by position or name. This method
+        just calls through to the equivalent method in the underlying
+        ``DBDriver`` implementation.
+
+        :rtype: named tuple
+        :return: the vendor information
+        """
+        # Default implementation
+        dbi = self.__driver.get_import()
+        try:
+            return self.__driver.get_rdbms_metadata(self.__cursor)
+        except dbi.Warning, val:
+            raise Warning(val)
+        except dbi.Error, val:
+            raise Error(val)
+
     def get_table_metadata(self, table):
         """
         Get the metadata for a table. Returns a list of tuples, one for
-        each column. Each tuple consists of the following:
+        each column. Each tuple consists of the following::
 
-        *(column_name, type_string, max_char_size, precision, scale, nullable)*
+            (column_name, type_string, max_char_size, precision, scale, nullable)
 
         The tuple elements have the following meanings.
 
@@ -257,15 +300,14 @@ class Cursor(object):
         scale
             the scale, for a numeric field; or ``None``
         nullable
-            ``True`` if the column is nullable, ``False`` if it is not
+            True if the column is nullable, False if it is not
+
+        The tuples are named tuples, so the fields may be referenced by the
+        names above or by position.
 
         The data may come from the DB API's ``cursor.description`` field, or
         it may be richer, coming from a direct SELECT against
         database-specific tables.
-
-        This default implementation uses the DB API's ``cursor.description``
-        field. Subclasses are free to override this method to produce their
-        own version that uses other means.
 
         :rtype: list
         :return: list of tuples, as described above
@@ -297,6 +339,9 @@ class Cursor(object):
             a list of column names
         description
             index description, or ``None``
+
+        The tuples are named tuples, so the fields may be referenced by the
+        names above or by position.
 
         :rtype:  list of tuples
         :return: the list of tuples, or ``None`` if not supported in the
@@ -735,6 +780,27 @@ class DBDriver(object):
         """
         pass
 
+    def get_rdbms_metadata(self, cursor):
+        """
+        Return data about the RDBMS: the product name, the version,
+        etc. The result is a named tuple, with the following fields::
+        
+        vendor
+            The product vendor, if applicable, or ``None`` if not known
+        product
+            The name of the database product, or ``None`` if not known
+        version
+            The database product version, or ``None`` if not known
+            
+        :Parameters:
+            cursor : Cursor
+                a ``Cursor`` object from a recent query
+            
+        :rtype: named tuple
+        :return: the vendor information
+        """
+        return RDBMSMetadata('unknown', 'unknown', 'unknown')
+
     def get_index_metadata(self, table, cursor):
         """
         Get the metadata for the indexes for a table. Returns a list of
@@ -744,9 +810,15 @@ class DBDriver(object):
 
         The tuple elements have the following meanings.
 
-        - *index_name*: the index name
-        - *index_keys*: a list of column names
-        - *description*: index description, or `None`
+        index_name
+            the index name
+        index_columns
+            a list of column names
+        description
+            index description, or ``None``
+
+        The tuples are named tuples, so the fields may be referenced by the
+        names above or by position.
 
         The default implementation of this method returns `None`
 
@@ -767,9 +839,9 @@ class DBDriver(object):
     def get_table_metadata(self, table, cursor):
         """
         Get the metadata for a table. Returns a list of tuples, one for
-        each column. Each tuple consists of the following:
+        each column. Each tuple consists of the following::
 
-        *(column_name, type_string, max_char_size, precision, scale, nullable)*
+            (column_name, type_string, max_char_size, precision, scale, nullable)
 
         The tuple elements have the following meanings.
 
@@ -786,11 +858,10 @@ class DBDriver(object):
         nullable
             ``True`` if the column is nullable, ``False`` if it is not
 
-        The data may come from the DB API's ``cursor.description`` field, or
-        it may be richer, coming from a direct SELECT against
-        database-specific tables.
+        The tuples are named tuples, so the fields may be referenced by the
+        names above or by position.
 
-        This default implementation uses the DB API's ``cursor.description``
+        The default implementation uses the DB API's ``cursor.description``
         field. Subclasses are free to override this method to produce their
         own version that uses other means.
 
@@ -847,7 +918,8 @@ class DBDriver(object):
             if not sType:
                 stype = 'unknown (type code=%s)' % str(type)
 
-            result += [(name, stype, size, precision, scale, nullable)]
+            data = TableMetadata(name, stype, size, precision, scale, nullable)
+            result += [data]
 
         return result
 
