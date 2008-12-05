@@ -10,6 +10,7 @@ SQLite3 extended database driver.
 
 import os
 import sys
+import re
 
 from grizzled.db.base import (DBDriver, Error, Warning, TableMetadata,
                               IndexMetadata, RDBMSMetadata)

@@ -1,5 +1,10 @@
 $Id$
 
+Version 0.9.1 (...)
+
+- Added missing import of "re" module to grizzled.db.sqlite module.
+
+---------------------------------------------------------------------------
 Version 0.9 (13 November, 2008)
 
 - Added get_rdbms_metadata() function to grizzled.db drivers, to return
