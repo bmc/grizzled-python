@@ -1,6 +1,6 @@
 $Id$
 
-Version 0.9.1 (...)
+Version 0.9.1 (5 December, 2008)
 
 - Added missing import of "re" module to grizzled.db.sqlite module.
 
