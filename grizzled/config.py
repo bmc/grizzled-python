@@ -302,9 +302,8 @@ class Configuration(ConfigParser.SafeConfigParser):
         Get the list of available sections, not including ``DEFAULT``. It's
         not really useful to call this method before calling ``read()`` or
         ``readfp()``.
-
-        :rtype:  list
-        :return: list of available sections, or None
+        
+        Returns a list of sections.
         """
         return ConfigParser.SafeConfigParser.sections(self)
 

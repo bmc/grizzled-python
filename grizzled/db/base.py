@@ -255,15 +255,15 @@ class Cursor(object):
     def get_rdbms_metadata(self):
         """
         Return data about the RDBMS: the product name, the version,
-        etc. The result is a named tuple, with the following fields::
-        
+        etc. The result is a named tuple, with the following fields:
+
         vendor
             The product vendor, if applicable, or ``None`` if not known
         product
             The name of the database product, or ``None`` if not known
         version
             The database product version, or ``None`` if not known
-            
+
         The fields may be accessed by position or name. This method
         just calls through to the equivalent method in the underlying
         ``DBDriver`` implementation.
@@ -783,19 +783,19 @@ class DBDriver(object):
     def get_rdbms_metadata(self, cursor):
         """
         Return data about the RDBMS: the product name, the version,
-        etc. The result is a named tuple, with the following fields::
-        
+        etc. The result is a named tuple, with the following fields.
+
         vendor
             The product vendor, if applicable, or ``None`` if not known
         product
             The name of the database product, or ``None`` if not known
         version
             The database product version, or ``None`` if not known
-            
+
         :Parameters:
             cursor : Cursor
                 a ``Cursor`` object from a recent query
-            
+
         :rtype: named tuple
         :return: the vendor information
         """

@@ -3,6 +3,10 @@ $Id$
 Version 0.9.1 (5 December, 2008)
 
 - Added missing import of "re" module to grizzled.db.sqlite module.
+- Move grizzled/net.py to grizzled/net/__init__.py.
+- Added grizzled.net.ftp package and grizzled.net.ftp.parse module, the
+  latter containing a Python port of Dan Bernstein's ftpparse function,
+  for parsing output from an FTP server's "LIST" command.
 
 ---------------------------------------------------------------------------
 Version 0.9 (13 November, 2008)
