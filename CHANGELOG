@@ -1,5 +1,10 @@
 $Id$
 
+Version 0.10 (...)
+
+- Added grizzled.misc.bitcount(), to calculate the number of 1 bits in a number.
+
+---------------------------------------------------------------------------
 Version 0.9.1 (5 December, 2008)
 
 - Added missing import of "re" module to grizzled.db.sqlite module.

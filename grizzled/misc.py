@@ -156,3 +156,32 @@ def str2bool(s):
                  "false" : False }[s.lower()]
     except KeyError:
         raise ValueError, 'Bad value "%s" for boolean string' % s
+
+def bitcount(num):
+    """
+    Count the number of bits in a numeric (integer or long) value. This
+    method is adapted from the Hamming Weight algorithm, described (among
+    other places) at http://en.wikipedia.org/wiki/Hamming_weight
+
+    Works for up to 64 bits.
+
+    :Parameters:
+        num : int
+            The numeric value
+
+    :rtype: int
+    :return: The number of 1 bits in the binary representation of ``num``
+    """
+    # Put count of each 2 bits into those 2 bits.
+    num = num - ((num >> 1) & 0x5555555555555555)
+
+    # Put count of each 4 bits into those 4 bits.
+    num = (num & 0x3333333333333333) + ((num >> 2) & 0x3333333333333333)
+
+    # Put count of each 8 bits into those 8 bits.
+    num = (num + (num >> 4)) & 0x0f0f0f0f0f0f0f0f
+
+    # Left-most bits.
+    return int((num * 0x0101010101010101) >> 56)
+
+    

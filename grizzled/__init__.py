@@ -10,7 +10,7 @@ See the `API documentation`_ for complete details.
 .. _API documentation: http://www.clapper.org/software/python/grizzled/epydoc
 """
 
-__version__ = '0.9.1'
+__version__ = '0.10'
 __author__  = 'Brian M. Clapper'
 __email__   = 'bmc@clapper.org'
 __url__     = 'http://www.clapper.org/software/python/grizzled/'
