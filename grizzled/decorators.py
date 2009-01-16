@@ -8,8 +8,6 @@ This module contains various Python decorators.
 # Imports
 # ---------------------------------------------------------------------------
 
-from grizzled.exception import ExceptionWithMessage
-
 # ---------------------------------------------------------------------------
 # Exports
 # ---------------------------------------------------------------------------
@@ -180,5 +178,4 @@ if __name__ == '__main__':
         b.foo()
         assert False
     except NotImplementedError, ex:
-        import sys
         print ex.message
