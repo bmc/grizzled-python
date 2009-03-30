@@ -45,11 +45,14 @@ class OracleDriver(DBDriver):
         return dbi.connect('%s/%s@%s' % (user, password, database))
 
     def get_tables(self, cursor):
-        cursor.execute('select lower(table_name) from user_tables')
+        cursor.execute('select lower(table_name) from all_tables')
         table_names = []
         rs = cursor.fetchone()
         while rs is not None:
-            table_names += [rs[0]]
+            name = rs[0]
+            # Skip tables with "$" in them.
+            if name.find('$') < 0:
+                table_names.append(name)
             rs = cursor.fetchone()
 
         return table_names

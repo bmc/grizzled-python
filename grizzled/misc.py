@@ -114,48 +114,8 @@ class ReadOnly(object):
 # Public functions
 # ---------------------------------------------------------------------------
 
-def str2bool(s):
-    """
-    Convert a string to a boolean. This function differs from the built-in
-    ``bool()`` constructor in that it is more restrictive, accepting only
-    a small set of well-defined legal inputs.
-
-    Legal boolean strings are currently::
-
-        on
-        off
-        yes
-        no
-        1
-        0
-        true
-        false
-
-    in any mixture of case.
-
-    **Restrictions**: This function is not currently localized; it only
-    recognizes English strings.
-
-    :Parameters:
-        s : str
-            string to convert to boolean
-
-    :rtype: bool
-    :return: the corresponding ``True`` or ``False`` value.
-    
-    :raise ValueError: Bad boolean string
-    """
-    try:
-        return { "on"    : True,
-                 "off"   : False,
-                 "yes"   : True,
-                 "no"    : False,
-                 "1"     : True,
-                 "0"     : False,
-                 "true"  : True,
-                 "false" : False }[s.lower()]
-    except KeyError:
-        raise ValueError, 'Bad value "%s" for boolean string' % s
+# backward compatibality
+from grizzled.text import str2bool
 
 def bitcount(num):
     """
