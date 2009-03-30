@@ -105,7 +105,7 @@ class OracleDriver(DBDriver):
         # First, issue a query to get the list of indexes and some
         # descriptive information.
         cursor.execute("select index_name, index_type, uniqueness, "
-                       "max_extents,temporary from user_indexes where "
+                       "max_extents,temporary from all_indexes where "
                        "lower(table_name) = '%s'" % table.lower())
 
         names = []

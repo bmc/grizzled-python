@@ -4,7 +4,8 @@ Version 0.9.2 (...)
 
 - Added grizzled.misc.bitcount(), to calculate the number of 1 bits in a number.
 - Modified grizzled.db for Oracle so that get_tables() uses ALL_TABLES,
-  not USER_TABLES (suppressing tables with "$" in them).
+  not USER_TABLES (suppressing tables with "$" in them). Made similar change
+  for get_indexes().
 - Moved grizzled.misc.str2bool() to grizzled.text.
 
 ---------------------------------------------------------------------------
