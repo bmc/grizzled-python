@@ -1,6 +1,6 @@
 $Id$
 
-Version 0.9.2 (...)
+Version 0.9.2 (26 May, 2009)
 
 - Added grizzled.misc.bitcount(), to calculate the number of 1 bits in a number.
 - Modified grizzled.db for Oracle so that get_tables() uses ALL_TABLES,
