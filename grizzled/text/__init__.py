@@ -128,7 +128,7 @@ def hexdump(source, out, width=16, start=0, limit=None, show_repeats=False):
                 repeat_count += 1
                 show_buf = False
             else:
-                if repeat_count:
+                if repeat_count and (not show_repeats):
                     if repeat_count == 1:
                         print >> out, lastline
                     else:
