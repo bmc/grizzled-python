@@ -19,15 +19,15 @@ all history operations.
 
 To get the appropriate History implementation for the current platform,
 simply call the ``get_history()`` factory method.
-
-$Id$
 """
+
+from __future__ import with_statement
+
+__docformat__ = "restructuredtext en"
 
 # ---------------------------------------------------------------------------
 # Imports
 # ---------------------------------------------------------------------------
-
-from __future__ import with_statement
 
 import re
 import sys

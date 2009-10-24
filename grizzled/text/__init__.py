@@ -4,6 +4,8 @@
 The ``grizzled.text`` package contains text-related classes and modules.
 """
 
+__docformat__ = "restructuredtext en"
+
 # ---------------------------------------------------------------------------
 # Imports
 # ---------------------------------------------------------------------------

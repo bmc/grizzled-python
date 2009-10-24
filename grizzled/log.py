@@ -8,6 +8,8 @@ Provides some classes and functions for use with the standard Python
 ``logging`` module.
 """
 
+__docformat__ = "restructuredtext en"
+
 # ---------------------------------------------------------------------------
 # Imports
 # ---------------------------------------------------------------------------

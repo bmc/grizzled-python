@@ -78,6 +78,7 @@ Use an include-enabled file with the standard Python logging module:
 
 '''
 
+__docformat__ = "restructuredtext en"
 __all__ = ['Includer', 'IncludeError', 'preprocess']
 
 # ---------------------------------------------------------------------------

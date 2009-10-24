@@ -6,6 +6,7 @@
 """
 ``grizzled.collections`` provides some useful Python collection classes.
 """
+__docformat__ = "restructuredtext en"
 
 # ---------------------------------------------------------------------------
 # Imports

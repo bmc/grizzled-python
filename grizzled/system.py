@@ -13,11 +13,14 @@ The ``grizzled.system`` module contains some functions and classes that
 provide information about the Python system (the Python runtime, the language,
 etc.). Tt is a conceptual extension of the standard Python ``sys`` module.
 """
+
+from __future__ import absolute_import
+
+__docformat__ = "restructuredtext en"
+
 # ---------------------------------------------------------------------------
 # Imports
 # ---------------------------------------------------------------------------
-
-from __future__ import absolute_import
 
 import sys as _sys
 import logging

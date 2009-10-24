@@ -7,6 +7,7 @@
 ``grizzled.collections.tuple`` contains some useful tuple-related classes
 and functions.
 """
+__docformat__ = "restructuredtext en"
 
 # ---------------------------------------------------------------------------
 # Imports

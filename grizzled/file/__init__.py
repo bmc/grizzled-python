@@ -4,11 +4,13 @@
 This module contains file- and path-related methods, classes, and modules.
 """
 
+from __future__ import with_statement, absolute_import
+
+__docformat__ = "restructuredtext en"
+
 # ---------------------------------------------------------------------------
 # Imports
 # ---------------------------------------------------------------------------
-
-from __future__ import with_statement, absolute_import
 
 import os as _os
 import sys

@@ -3,11 +3,14 @@
 """
 Input/Output utility methods and classes.
 """
+
+from __future__ import absolute_import
+
+__docformat__ = "restructuredtext en"
+
 # ---------------------------------------------------------------------------
 # Imports
 # ---------------------------------------------------------------------------
-
-from __future__ import absolute_import
 
 import os
 import zipfile

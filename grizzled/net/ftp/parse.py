@@ -37,7 +37,7 @@ Definitely not covered:
     - NCSA Telnet FTP server. Has LIST = NLST (and bad NLST for directories).
 """
 
-__docformat__ = 'restructuredtext'
+__docformat__ = 'restructuredtext en'
 
 # ---------------------------------------------------------------------------
 # Globals

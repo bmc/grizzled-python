@@ -171,11 +171,13 @@ That will preprocess the enhanced configuration file, producing a file
 that is suitable for parsing by the standard Python ``config`` module.
 '''
 
+from __future__ import absolute_import
+
+__docformat__ = "restructuredtext en"
+
 # ---------------------------------------------------------------------------
 # Imports
 # ---------------------------------------------------------------------------
-
-from __future__ import absolute_import
 
 import ConfigParser
 import logging

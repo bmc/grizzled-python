@@ -12,11 +12,14 @@ Overview
 The ``grizzled.os`` module contains some operating system-related functions and
 classes. It is a conceptual extension of the standard Python ``os`` module.
 """
+
+from __future__ import absolute_import
+
+__docformat__ = "restructuredtext en"
+
 # ---------------------------------------------------------------------------
 # Imports
 # ---------------------------------------------------------------------------
-
-from __future__ import absolute_import
 
 import logging
 import os as _os
@@ -256,6 +259,7 @@ def daemonize(no_close=False, pidfile=None):
             terminal. Otherwise, you'll risk having the daemon re-acquire a
             control terminal, which can cause it to be killed if someone logs
             off that terminal.
+
         pidfile : str
             Path to file to which to write daemon's process ID. The string may
             contain a ``${pid}`` token, which is replaced with the process ID

@@ -7,6 +7,7 @@
 ``grizzled.collections.dict`` contains some useful dictionary classes
 that extend the behavior of the built-in Python ``dict`` type.
 """
+__docformat__ = "restructuredtext en"
 
 # ---------------------------------------------------------------------------
 # Imports

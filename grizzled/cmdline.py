@@ -14,6 +14,8 @@ Provides a front-end to the Python standard ``optparse`` module. The
 It also provides a couple extra utility modules.
 """
 
+__docformat__ = "restructuredtext en"
+
 # ---------------------------------------------------------------------------
 # Imports
 # ---------------------------------------------------------------------------
@@ -71,10 +73,10 @@ class CommandLineParser(OptionParser):
         
     def die_with_usage(self, msg=None, exit_code=2):
         """
-        Display of the usage message and exit.
+        Display a usage message and exit.
 
         :Parameters:
-            msg : string
+            msg : str
                 If not set to ``None`` (the default), this message will be
                 displayed before the usage message
                 

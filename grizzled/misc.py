@@ -13,6 +13,8 @@ The ``grizzled.misc`` module contains miscellanous functions and classes that
 don't seem to fit well in other modules.
 """
 
+__docformat__ = "restructuredtext en"
+
 # ---------------------------------------------------------------------------
 # Imports
 # ---------------------------------------------------------------------------
