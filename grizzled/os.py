@@ -207,10 +207,8 @@ def spawnd(path, args, pidfile=None):
     
     .. python::
     
-        pid = _os.fork()
-        if pid == 0:
-            daemonize(pidfile=pidfile)
-            _os.execv(path, args)
+        daemonize(pidfile=pidfile)
+        _os.execv(path, args)
 
     :Parameters:
         path : str
@@ -225,10 +223,10 @@ def spawnd(path, args, pidfile=None):
             contain a ``${pid}`` token, which is replaced with the process ID
             of the daemon. e.g.: ``/var/run/myserver-${pid}``
     """
-    daemonize(pidfile=pidfile)
+    daemonize(no_close=True, pidfile=pidfile)
     _os.execv(path, args)
 
-def daemonize(no_close=False):
+def daemonize(no_close=False, pidfile=None):
     """
     Convert the calling process into a daemon. To make the current Python
     process into a daemon process, you need two lines of code:
@@ -258,6 +256,10 @@ def daemonize(no_close=False):
             terminal. Otherwise, you'll risk having the daemon re-acquire a
             control terminal, which can cause it to be killed if someone logs
             off that terminal.
+        pidfile : str
+            Path to file to which to write daemon's process ID. The string may
+            contain a ``${pid}`` token, which is replaced with the process ID
+            of the daemon. e.g.: ``/var/run/myserver-${pid}``
 
     :raise DaemonError: Error during daemonizing
     """
@@ -344,6 +346,12 @@ def daemonize(no_close=False):
         if not no_close:
             log.debug('Redirecting file descriptors')
             __redirect_file_descriptors()
+
+        if pidfile:
+            from string import Template
+            t = Template(pidfile)
+            pidfile = t.safe_substitute(pid=str(_os.getpid()))
+            open(pidfile, 'w').write(str(_os.getpid()) + '\n')
 
     except DaemonError:
         raise

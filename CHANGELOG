@@ -1,9 +1,12 @@
 $Id$
 
-Version 0.9.3 (...)
+Version 0.9.3 (24 October, 2009)
 
 - Updated to latest ez_setup.py
 - Fixed grizzled.text.hexdump() to honor show_repeats=True in all cases.
+- Added pidfile argument to grizzled.os.daemonize(). grizzled.os.spawnd()
+  was passing a pidfile argument to daemonize(), but daemonize() didn't
+  support it.
 
 ---------------------------------------------------------------------------
 Version 0.9.2 (26 May, 2009)
