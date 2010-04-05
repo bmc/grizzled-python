@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>grizzled.net.ftp.parse</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="grizzled-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="grizzled-module.html">Package&nbsp;grizzled</a> ::
+        <a href="grizzled.net-module.html">Package&nbsp;net</a> ::
+        <a href="grizzled.net.ftp-module.html">Package&nbsp;ftp</a> ::
+        Module&nbsp;parse
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="grizzled.net.ftp.parse-module.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module parse</h1><p class="nomargin-top"><span class="codelink"><a href="grizzled.net.ftp.parse-pysrc.html">source&nbsp;code</a></span></p>
+<p>Module for parsing FTP data.</p>
+<p>Currently, this module contains classes for parsing FTP <tt class="rst-docutils literal"><span class="pre">LIST</span></tt> command
+output from a variety of FTP servers. In the future, this module may be
+extended to handle other FTP parsing chores. (Or not.)</p>
+<p>The FTP <tt class="rst-docutils literal"><span class="pre">LIST</span></tt> parsing logic was adapted for Python from D. J. Bernstein's
+<tt class="rst-docutils literal"><span class="pre">ftpparse.c</span></tt> library. See <a class="rst-reference external" href="http://cr.yp.to/ftpparse.html" target="_top">http://cr.yp.to/ftpparse.html</a>. The logic in this
+module is functionally similar to Bernstein's parser, with the following
+differences:</p>
+<blockquote>
+<ul class="rst-simple">
+<li>Bernstein's C-specific logic has been made more Python-like.</li>
+<li>The basic parser is encapsulated inside an <a href="grizzled.net.ftp.parse.FTPListDataParser-class.html" class="link">FTPListDataParser</a> class,
+instead of a function.</li>
+<li>The <tt class="rst-docutils literal"><span class="pre">ID_TYPE</span></tt> and <tt class="rst-docutils literal"><span class="pre">MTIME_TYPE</span></tt> values are enumerations.</li>
+<li><tt class="rst-docutils literal"><span class="pre">SIZE_TYPE</span></tt> is not supported (since it was always being set to the
+same value anyway).</li>
+</ul>
+</blockquote>
+<p>Currently covered formats:</p>
+<blockquote>
+<ul class="rst-simple">
+<li><a class="rst-reference external" href="http://cr.yp.to/ftp/list/eplf.html" target="_top">EPLF</a></li>
+<li>UNIX <em>ls</em>, with or without group ID</li>
+<li>Microsoft FTP Service</li>
+<li>Windows NT FTP Server</li>
+<li>VMS</li>
+<li>WFTPD</li>
+<li>NetPresenz (Mac)</li>
+<li>NetWare</li>
+<li>MSDOS</li>
+</ul>
+</blockquote>
+<p>Definitely not covered:</p>
+<blockquote>
+<ul class="rst-simple">
+<li>Long VMS filenames, with information split across two lines.</li>
+<li>NCSA Telnet FTP server. Has LIST = NLST (and bad NLST for directories).</li>
+</ul>
+</blockquote>
+
+<!-- ==================== CLASSES ==================== -->
+<a name="section-Classes"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Classes</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Classes"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="grizzled.net.ftp.parse.FTPListData-class.html" class="summary-name">FTPListData</a><br />
+      The <a href="grizzled.net.ftp.parse.FTPListDataParser-class.html" class="link">FTPListDataParser</a> class's <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">parse_line()</span></tt> method returns an
+instance of this class, capturing the parsed data.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="grizzled.net.ftp.parse.FTPListDataParser-class.html" class="summary-name">FTPListDataParser</a><br />
+      An <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">FTPListDataParser</span></tt> object can be used to parse one or more lines
+that were retrieved by an FTP <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">LIST</span></tt> command that was sent to a remote
+server.
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Functions</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Functions"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type"><a href="grizzled.net.ftp.parse.FTPListData-class.html" class="link">FTPListData</a></span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.net.ftp.parse-module.html#parse_ftp_list_line" class="summary-sig-name">parse_ftp_list_line</a>(<span class="summary-sig-arg">ftp_list_line</span>)</span><br />
+      Convenience function that instantiates an <a href="grizzled.net.ftp.parse.FTPListDataParser-class.html" class="link">FTPListDataParser</a> object
+and passes <tt class="rst-docutils literal"><span class="pre">ftp_list_line</span></tt> to the object's <tt class="rst-docutils literal"><span class="pre">parse_line()</span></tt> method,
+returning the result.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.net.ftp.parse-pysrc.html#parse_ftp_list_line">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_skip"></a><span class="summary-sig-name">_skip</span>(<span class="summary-sig-arg">s</span>,
+        <span class="summary-sig-arg">i</span>,
+        <span class="summary-sig-arg">c</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.net.ftp.parse-pysrc.html#_skip">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Variables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="grizzled.net.ftp.parse-module.html#MONTHS" class="summary-name" onclick="show_private();">MONTHS</a> = <code title="('jan',
+ 'feb',
+ 'mar',
+ 'apr',
+ 'may',
+ 'jun',
+ 'jul',
+ 'aug',
+..."><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">jan</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">feb</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">mar</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">apr</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">may</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">jun</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">jul</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">au</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="grizzled.net.ftp.parse-module.html#MTIME_TYPE" class="summary-name">MTIME_TYPE</a> = <code title="Enum('UNKNOWN', 'LOCAL', 'REMOTE_MINUTE', 'REMOTE_DAY')">Enum('UNKNOWN', 'LOCAL', 'REMOTE_MINUTE', 'REMOTE<code class="variable-ellipsis">...</code></code><br />
+      <tt class="rst-docutils literal"><span class="pre">MTIME_TYPE</span></tt> identifies how a modification time ought to be interpreted
+(assuming the caller cares).
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="grizzled.net.ftp.parse-module.html#ID_TYPE" class="summary-name">ID_TYPE</a> = <code title="Enum('UNKNOWN', 'FULL')">Enum('UNKNOWN', 'FULL')</code><br />
+      <tt class="rst-docutils literal"><span class="pre">ID_TYPE</span></tt> identifies how a file's identifier should be interpreted.
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="now"></a><span class="summary-name">now</span> = <code title="1256399927.68">1256399927.68</code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="current_year"></a><span class="summary-name">current_year</span> = <code title="2009">2009</code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Function Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-FunctionDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="parse_ftp_list_line"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">parse_ftp_list_line</span>(<span class="sig-arg">ftp_list_line</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.net.ftp.parse-pysrc.html#parse_ftp_list_line">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  Convenience function that instantiates an <a href="grizzled.net.ftp.parse.FTPListDataParser-class.html" class="link">FTPListDataParser</a> object
+and passes <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">ftp_list_line</span></tt> to the object's <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">parse_line()</span></tt> method,
+returning the result.
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>ftp_list_line</code></strong> (str) - The line of output</li>
+    </ul></dd>
+    <dt>Returns: <a href="grizzled.net.ftp.parse.FTPListData-class.html" class="link">FTPListData</a></dt>
+        <dd>An <a href="grizzled.net.ftp.parse.FTPListData-class.html" class="link">FTPListData</a> object describing the parsed line, or
+<tt class="rst-docutils literal"><span class="pre">None</span></tt> if the line could not be parsed. Note that it's
+possible for this method to return a partially-filled
+<a href="grizzled.net.ftp.parse.FTPListData-class.html" class="link">FTPListData</a> object (e.g., one without a name).</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== VARIABLES DETAILS ==================== -->
+<a name="section-VariablesDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-VariablesDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="MONTHS"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">MONTHS</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">jan</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">feb</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">mar</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">apr</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">may</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">jun</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">jul</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">aug</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="MTIME_TYPE"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">MTIME_TYPE</h3>
+  <p><tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">MTIME_TYPE</span></tt> identifies how a modification time ought to be interpreted
+(assuming the caller cares).</p>
+<blockquote>
+<ul class="rst-simple">
+<li><tt class="rst-docutils literal"><span class="pre">LOCAL</span></tt>: Time is local to the client, granular to (at least) the minute</li>
+<li><tt class="rst-docutils literal"><span class="pre">REMOTE_MINUTE</span></tt>: Time is local to the server and granular to the minute</li>
+<li><tt class="rst-docutils literal"><span class="pre">REMOTE_DAY</span></tt>: Time is local to the server and granular to the day.</li>
+<li><tt class="rst-docutils literal"><span class="pre">UNKNOWN</span></tt>: Time's locale is unknown.</li>
+</ul>
+</blockquote>
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+Enum('UNKNOWN', 'LOCAL', 'REMOTE_MINUTE', 'REMOTE_DAY')
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="ID_TYPE"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">ID_TYPE</h3>
+  <p><tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">ID_TYPE</span></tt> identifies how a file's identifier should be interpreted.</p>
+<blockquote>
+<ul class="rst-simple">
+<li><tt class="rst-docutils literal"><span class="pre">FULL</span></tt>: The ID is known to be complete.</li>
+<li><tt class="rst-docutils literal"><span class="pre">UNKNOWN</span></tt>: The ID is not set or its type is unknown.</li>
+</ul>
+</blockquote>
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+Enum('UNKNOWN', 'FULL')
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="grizzled-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sat Oct 24 11:58:55 2009
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

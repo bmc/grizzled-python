@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>grizzled.system</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="grizzled-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="grizzled-module.html">Package&nbsp;grizzled</a> ::
+        Module&nbsp;system
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="grizzled.system-module.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module system</h1><p class="nomargin-top"><span class="codelink"><a href="grizzled.system-pysrc.html">source&nbsp;code</a></span></p>
+<p>The <tt class="rst-rst-rst-docutils literal rst-rst-docutils literal rst-docutils literal"><span class="pre">grizzled.system</span></tt> module contains some functions and classes that
+provide information about the Python system (the Python runtime, the language,
+etc.). Tt is a conceptual extension of the standard Python <tt class="rst-docutils literal"><span class="pre">sys</span></tt> module.</p>
+
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Functions</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Functions"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.system-module.html#python_version" class="summary-sig-name">python_version</a>(<span class="summary-sig-arg">version</span>)</span><br />
+      Convert a Python string version (e.g., &quot;2.5.1&quot;, &quot;1.3&quot;, &quot;2.6a3&quot;) to a
+numeric version that can meaningfully be compared with the standard
+<tt class="rst-docutils literal"><span class="pre">sys</span></tt> module's <tt class="rst-docutils literal"><span class="pre">sys.hexversion</span></tt> value.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.system-pysrc.html#python_version">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">tuple</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.system-module.html#split_python_version" class="summary-sig-name">split_python_version</a>(<span class="summary-sig-arg">version</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Convert a binary Python version string (e.g., <tt class="rst-docutils literal"><span class="pre">0x020501f0</span></tt>) into the
+same (<em>major</em>, <em>minor</em>, <em>micro</em>, <em>releaselevel</em>, <em>serial</em>) tuple that is
+found in <tt class="rst-docutils literal"><span class="pre">sys.version_info</span></tt>.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.system-pysrc.html#split_python_version">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">str</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.system-module.html#python_version_string" class="summary-sig-name">python_version_string</a>(<span class="summary-sig-arg">version</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Convert a numeric Python version (such as <tt class="rst-docutils literal"><span class="pre">sys.hexversion</span></tt>) to a
+printable string.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.system-pysrc.html#python_version_string">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.system-module.html#ensure_version" class="summary-sig-name">ensure_version</a>(<span class="summary-sig-arg">min_version</span>)</span><br />
+      Raise a <tt class="rst-docutils literal"><span class="pre">RuntimeError</span></tt> if the current Python version isn't at least
+<tt class="rst-docutils literal"><span class="pre">min_version</span></tt>.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.system-pysrc.html#ensure_version">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">class</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.system-module.html#class_for_name" class="summary-sig-name">class_for_name</a>(<span class="summary-sig-arg">class_name</span>)</span><br />
+      Given fully-qualified class name, load and return the class object.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.system-pysrc.html#class_for_name">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Variables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RELEASE_LEVEL_RE"></a><span class="summary-name">RELEASE_LEVEL_RE</span> = <code title="re.compile(r'([0-9]+)(.[0-9]+)?')">re.compile(r'<code class="re-group">(</code><code class="re-group">[</code>0<code class="re-op">-</code>9<code class="re-group">]</code><code class="re-op">+</code><code class="re-group">)</code><code class="re-group">(</code>.<code class="re-group">[</code>0<code class="re-op">-</code>9<code class="re-group">]</code><code class="re-op">+</code><code class="re-group">)</code><code class="re-op">?</code>')</code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RELEASE_LEVELS"></a><span class="summary-name">RELEASE_LEVELS</span> = <code title="{'a': 10, 'b': 11, 'c': 12, 'f': 15}"><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">a</code><code class="variable-quote">'</code><code class="variable-op">: </code>10<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">b</code><code class="variable-quote">'</code><code class="variable-op">: </code>11<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">c</code><code class="variable-quote">'</code><code class="variable-op">: </code>12<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">f</code><code class="variable-quote">'</code><code class="variable-op">: </code>15<code class="variable-group">}</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="grizzled.system-module.html#RELEASE_LEVEL_NAMES" class="summary-name" onclick="show_private();">RELEASE_LEVEL_NAMES</a> = <code title="{10: 'alpha', 11: 'beta', 12: 'candidate', 15: 'final'}"><code class="variable-group">{</code>10<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">alpha</code><code class="variable-quote">'</code><code class="variable-op">, </code>11<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">beta</code><code class="variable-quote">'</code><code class="variable-op">, </code>12<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">candidate</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="log"></a><span class="summary-name">log</span> = <code title="logging.getLogger('grizzled.sys')">logging.getLogger('grizzled.sys')</code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Function Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-FunctionDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="python_version"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">python_version</span>(<span class="sig-arg">version</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.system-pysrc.html#python_version">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Convert a Python string version (e.g., &quot;2.5.1&quot;, &quot;1.3&quot;, &quot;2.6a3&quot;) to a
+numeric version that can meaningfully be compared with the standard
+<tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">sys</span></tt> module's <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">sys.hexversion</span></tt> value.</p>
+<p>For example, here's the usual way to ensure that your program is running
+under Python 2.5.1 or better:</p>
+<pre class="py-doctest">
+<span class="py-keyword">import</span> sys
+
+<span class="py-keyword">if</span> sys.hexversion &lt; 0x020501f0:
+    raise RuntimeError, <span class="py-string">'This program requires Python 2.5.1 or better'</span></pre>
+<p>Here's how you'd use <tt class="rst-docutils literal"><span class="pre">python_version()</span></tt> to do the same thing (in an
+arguably more readable way):</p>
+<pre class="py-doctest">
+<span class="py-keyword">import</span> sys
+<span class="py-keyword">from</span> grizzled.sys <span class="py-keyword">import</span> python_version
+
+<span class="py-keyword">if</span> sys.hexversion &lt; python_version(<span class="py-string">&quot;2.5.1&quot;</span>):
+    raise RuntimeError, <span class="py-string">'This program requires Python 2.5.1 or better'</span></pre>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>version</code></strong> (str) - string Python version to convert to binary</li>
+    </ul></dd>
+    <dt>Returns: int</dt>
+        <dd>corresponding integer Python version</dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'>ValueError</strong></code> - <tt class="rst-docutils literal"><span class="pre">version</span></tt> isn't of the form &quot;x&quot;, or &quot;x.y&quot; or
+&quot;x.y.z&quot;</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="split_python_version"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">split_python_version</span>(<span class="sig-arg">version</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.system-pysrc.html#split_python_version">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  Convert a binary Python version string (e.g., <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">0x020501f0</span></tt>) into the
+same (<em>major</em>, <em>minor</em>, <em>micro</em>, <em>releaselevel</em>, <em>serial</em>) tuple that is
+found in <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">sys.version_info</span></tt>. Thus, for an input value of <tt class="rst-docutils literal"><span class="pre">0x020501f0</span></tt>,
+this function returns the tuple <tt class="rst-docutils literal"><span class="pre">(2,</span> <span class="pre">5,</span> <span class="pre">1,</span> <span class="pre">'final',</span> <span class="pre">0)</span></tt>.
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>version</code></strong> (int) - Python integer version</li>
+    </ul></dd>
+    <dt>Returns: tuple</dt>
+        <dd>The (<em>major</em>, <em>minor</em>, <em>micro</em>, <em>releaselevel</em>, <em>serial</em>) tuple</dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'>ValueError</strong></code> - Bad version number</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="python_version_string"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">python_version_string</span>(<span class="sig-arg">version</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.system-pysrc.html#python_version_string">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  Convert a numeric Python version (such as <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">sys.hexversion</span></tt>) to a
+printable string.
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>version</code></strong> (int) - Python integer version</li>
+    </ul></dd>
+    <dt>Returns: str</dt>
+        <dd>The stringified version</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="ensure_version"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">ensure_version</span>(<span class="sig-arg">min_version</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.system-pysrc.html#ensure_version">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  Raise a <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">RuntimeError</span></tt> if the current Python version isn't at least
+<tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">min_version</span></tt>. <tt class="rst-docutils literal"><span class="pre">min_version</span></tt> may be an <tt class="rst-docutils literal"><span class="pre">int</span></tt> (e.g., <tt class="rst-docutils literal"><span class="pre">0x020500f0</span></tt>)
+or a string (e.g., &quot;2.5.0&quot;).
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>min_version</code></strong> (str or int) - minimum version, as a number or string</li>
+    </ul></dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'>TypeError</strong></code> - <tt class="rst-docutils literal"><span class="pre">min_version</span></tt> isn't a string or an integer</li>
+        <li><code><strong class='fraise'>ValueError</strong></code> - <tt class="rst-docutils literal"><span class="pre">min_version</span></tt> is a bad Python string version</li>
+        <li><code><strong class='fraise'>RuntimeError</strong></code> - Python version is too old</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="class_for_name"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">class_for_name</span>(<span class="sig-arg">class_name</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.system-pysrc.html#class_for_name">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  Given fully-qualified class name, load and return the class object. A
+fully-qualified class name contains the module and package, in addition to
+the simple class name (e.g., <tt class="rst-docutils literal"><span class="pre">grizzled.config.Configuration</span></tt>).
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>class_name</code></strong> (str) - fully-qualified class name</li>
+    </ul></dd>
+    <dt>Returns: class</dt>
+        <dd>the class object</dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'>NameError</strong></code> - Class not found</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== VARIABLES DETAILS ==================== -->
+<a name="section-VariablesDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-VariablesDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="RELEASE_LEVEL_NAMES"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">RELEASE_LEVEL_NAMES</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-group">{</code>10<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">alpha</code><code class="variable-quote">'</code><code class="variable-op">, </code>11<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">beta</code><code class="variable-quote">'</code><code class="variable-op">, </code>12<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">candidate</code><code class="variable-quote">'</code><code class="variable-op">, </code>15<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">final</code><code class="variable-quote">'</code><code class="variable-group">}</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="grizzled-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sat Oct 24 11:58:55 2009
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

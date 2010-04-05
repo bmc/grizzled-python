@@ -1,0 +1,607 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>grizzled.db</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="grizzled-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="grizzled-module.html">Package&nbsp;grizzled</a> ::
+        Package&nbsp;db
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="grizzled.db-module.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PACKAGE DESCRIPTION ==================== -->
+<h1 class="epydoc">Package db</h1><p class="nomargin-top"><span class="codelink"><a href="grizzled.db-pysrc.html">source&nbsp;code</a></span></p>
+<div class="rst-section" id="rst-introduction">
+<h1 class="heading">Introduction</h1>
+<p>The <tt class="rst-rst-rst-docutils literal rst-rst-docutils literal rst-docutils literal"><span class="pre">db</span></tt> module is a DB API wrapper. It provides a DB API-compliant API that
+wraps real underlying DB API drivers, simplifying some non-portable operations
+like <tt class="rst-docutils literal"><span class="pre">connect()</span></tt> and providing some new operations.</p>
+<p>Some drivers come bundled with this package. Others can be added on the fly.</p>
+</div>
+<div class="rst-section" id="rst-getting-the-list-of-drivers">
+<h1 class="heading">Getting the List of Drivers</h1>
+<p>To get a list of all drivers currently registered with this module, use the
+<tt class="rst-docutils literal"><span class="pre">get_driver_names()</span></tt> method:</p>
+<pre class="py-doctest">
+<span class="py-keyword">import</span> db
+
+<span class="py-keyword">for</span> driver_name <span class="py-keyword">in</span> db.get_driver_names():
+    <span class="py-keyword">print</span> driver_name</pre>
+<p>Currently, this module provides the following bundled drivers:</p>
+<blockquote>
+<table border="1" class="rst-docutils">
+<colgroup>
+<col width="37%" />
+<col width="24%" />
+<col width="39%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="rst-head">Driver Name,
+as passed to
+<tt class="rst-docutils literal"><span class="pre">get_driver()</span></tt></th>
+<th class="rst-head">Database</th>
+<th class="rst-head">Underlying Python
+DB API module</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>dummy</td>
+<td>None</td>
+<td><tt class="rst-docutils literal"><span class="pre">db.DummyDB</span></tt></td>
+</tr>
+<tr><td>gadfly</td>
+<td>Gadfly</td>
+<td><tt class="rst-docutils literal"><span class="pre">gadfly</span></tt></td>
+</tr>
+<tr><td>mysql</td>
+<td>MySQL</td>
+<td><tt class="rst-docutils literal"><span class="pre">MySQLdb</span></tt></td>
+</tr>
+<tr><td>oracle</td>
+<td>Oracle</td>
+<td><tt class="rst-docutils literal"><span class="pre">cx_Oracle</span></tt></td>
+</tr>
+<tr><td>postgresql</td>
+<td>PostgreSQL</td>
+<td><tt class="rst-docutils literal"><span class="pre">psycopg2</span></tt></td>
+</tr>
+<tr><td>sqlserver</td>
+<td>SQL Server</td>
+<td><tt class="rst-docutils literal"><span class="pre">pymssql</span></tt></td>
+</tr>
+<tr><td>sqlite</td>
+<td>SQLite 3</td>
+<td><tt class="rst-docutils literal"><span class="pre">sqlite3</span></tt></td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>To use a given driver, you must have the corresponding Python DB API module
+installed on your system.</p>
+</div>
+<div class="rst-section" id="rst-adding-a-driver">
+<h1 class="heading">Adding a Driver</h1>
+<p>It's possible to add a new driver to the list of drivers supplied by this
+module. To do so:</p>
+<blockquote>
+<ol class="rst-arabic simple">
+<li>The driver class must extend <tt class="rst-docutils literal"><span class="pre">DBDriver</span></tt> and provide the appropriate
+methods. See examples in this module.</li>
+<li>The driver's module (or the calling program) must register the driver
+with this module by calling the <tt class="rst-docutils literal"><span class="pre">add_driver()</span></tt> function.</li>
+</ol>
+</blockquote>
+</div>
+<div class="rst-section" id="rst-db-api-factory-functions">
+<h1 class="heading">DB API Factory Functions</h1>
+<p>The <tt class="rst-docutils literal"><span class="pre">Binary()</span></tt>, <tt class="rst-docutils literal"><span class="pre">Date()</span></tt>, <tt class="rst-docutils literal"><span class="pre">DateFromTicks()</span></tt>, <tt class="rst-docutils literal"><span class="pre">Time()</span></tt>,
+<tt class="rst-docutils literal"><span class="pre">TimeFromTicks()</span></tt>, <tt class="rst-docutils literal"><span class="pre">TimeStamp()</span></tt> and <tt class="rst-docutils literal"><span class="pre">TimestampFromTicks()</span></tt> DB API
+functions can be found in the DB class. Thus, to make a string into a BLOB
+with this API, you use:</p>
+<pre class="py-doctest">
+driver = db.get_driver(driver_name)
+db = driver.connect(...)
+blob = db.Binary(some_string)</pre>
+</div>
+
+<!-- ==================== SUBMODULES ==================== -->
+<a name="section-Submodules"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Submodules</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Submodules"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr><td class="summary">
+  <ul class="nomargin">
+    <li class="private"> <strong class="uidlink"><a href="grizzled.db.base-module.html" onclick="show_private();">grizzled.db.base</a></strong>: <em class="summary">Base classes for enhanced DB drivers.</em>    </li>
+    <li class="private"> <strong class="uidlink"><a href="grizzled.db.dbgadfly-module.html" onclick="show_private();">grizzled.db.dbgadfly</a></strong>: <em class="summary">Gadfly extended database driver.</em>    </li>
+    <li class="private"> <strong class="uidlink"><a href="grizzled.db.dummydb-module.html" onclick="show_private();">grizzled.db.dummydb</a></strong>: <em class="summary">A dummy database driver, useful for testing.</em>    </li>
+    <li class="private"> <strong class="uidlink"><a href="grizzled.db.mysql-module.html" onclick="show_private();">grizzled.db.mysql</a></strong>: <em class="summary">MySQL extended database driver.</em>    </li>
+    <li class="private"> <strong class="uidlink"><a href="grizzled.db.oracle-module.html" onclick="show_private();">grizzled.db.oracle</a></strong>: <em class="summary">Oracle extended database driver.</em>    </li>
+    <li class="private"> <strong class="uidlink"><a href="grizzled.db.postgresql-module.html" onclick="show_private();">grizzled.db.postgresql</a></strong>: <em class="summary">PostgreSQL extended database driver.</em>    </li>
+    <li class="private"> <strong class="uidlink"><a href="grizzled.db.sqlite-module.html" onclick="show_private();">grizzled.db.sqlite</a></strong>: <em class="summary">SQLite3 extended database driver.</em>    </li>
+    <li class="private"> <strong class="uidlink"><a href="grizzled.db.sqlserver-module.html" onclick="show_private();">grizzled.db.sqlserver</a></strong>: <em class="summary">SQL Server extended database driver.</em>    </li>
+  </ul></td></tr>
+</table>
+
+<br />
+<!-- ==================== CLASSES ==================== -->
+<a name="section-Classes"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Classes</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Classes"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="grizzled.db.base.Warning-class.html" class="summary-name">Warning</a><br />
+      Thrown to indicate an error in the <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">db</span></tt> module.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="grizzled.db.base.Error-class.html" class="summary-name">Error</a><br />
+      Thrown to indicate an error in the <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">db</span></tt> module.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="grizzled.db.base.DB-class.html" class="summary-name">DB</a><br />
+      The object returned by a call to <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">DBDriver.connect()</span></tt>.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="grizzled.db.base.DBError-class.html" class="summary-name">DBError</a><br />
+      Base class for all DB exceptions.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="grizzled.db.base.DBDriver-class.html" class="summary-name">DBDriver</a><br />
+      Base class for all DB drivers.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="grizzled.db.base.Cursor-class.html" class="summary-name">Cursor</a><br />
+      Class for DB cursors returned by the <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">DB.cursor()</span></tt> method.
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Functions</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Functions"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.db-module.html#add_driver" class="summary-sig-name">add_driver</a>(<span class="summary-sig-arg">key</span>,
+        <span class="summary-sig-arg">driver_class</span>,
+        <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Add a driver class to the list of drivers.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.db-pysrc.html#add_driver">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.db-module.html#get_drivers" class="summary-sig-name" onclick="show_private();">get_drivers</a>()</span><br />
+      Get the list of drivers currently registered with this API.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.db-pysrc.html#get_drivers">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.db-module.html#get_driver_names" class="summary-sig-name">get_driver_names</a>()</span><br />
+      Get the list of driver names currently registered with this API.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.db-pysrc.html#get_driver_names">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">DBDriver</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.db-module.html#get_driver" class="summary-sig-name">get_driver</a>(<span class="summary-sig-arg">driver_name</span>)</span><br />
+      Get the DB API object for the specific database type.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.db-pysrc.html#get_driver">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Variables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="grizzled.db-module.html#drivers" class="summary-name" onclick="show_private();">drivers</a> = <code title="{'dummy': 'DummyDriver',
+ 'gadfly': 'GadflyDriver',
+ 'mysql': 'MySQLDriver',
+ 'oracle': 'OracleDriver',
+ 'postgresql': 'PostgreSQLDriver',
+ 'sqlite': 'SQLite3Driver',
+ 'sqlserver': 'SQLServerDriver'}"><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">dummy</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">DummyDriver</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">gadfly</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">GadflyDriver</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="apilevel"></a><span class="summary-name">apilevel</span> = <code title="'2.0'"><code class="variable-quote">'</code><code class="variable-string">2.0</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="threadsafety"></a><span class="summary-name">threadsafety</span> = <code title="'1'"><code class="variable-quote">'</code><code class="variable-string">1</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="paramstyle"></a><span class="summary-name">paramstyle</span> = <code title="None">None</code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Function Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-FunctionDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="add_driver"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">add_driver</span>(<span class="sig-arg">key</span>,
+        <span class="sig-arg">driver_class</span>,
+        <span class="sig-arg">force</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.db-pysrc.html#add_driver">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  Add a driver class to the list of drivers.
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>key</code></strong> (str) - the key, also used as the driver's name</li>
+        <li><strong class="pname"><code>driver_class</code></strong> (class) - the <tt class="rst-docutils literal"><span class="pre">DBDriver</span></tt> subclass object</li>
+        <li><strong class="pname"><code>force</code></strong> (bool) - <tt class="rst-docutils literal"><span class="pre">True</span></tt> to force registration of the driver, even if there's an
+existing driver with the same key; <tt class="rst-docutils literal"><span class="pre">False</span></tt> to throw an exception
+if there's an existing driver with the same key.</li>
+    </ul></dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'>ValueError</strong></code> - There's an existing driver with the same key, and
+<tt class="rst-docutils literal"><span class="pre">force</span></tt> is <tt class="rst-docutils literal"><span class="pre">False</span></tt></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_drivers"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_drivers</span>()</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.db-pysrc.html#get_drivers">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get the list of drivers currently registered with this API. The result is
+a list of <tt class="rst-docutils literal"><span class="pre">DBDriver</span></tt> subclasses. Note that these are classes, not
+instances. Once way to use the resulting list is as follows:</p>
+<pre class="py-doctest">
+<span class="py-keyword">for</span> driver <span class="py-keyword">in</span> db.get_drivers():
+    <span class="py-keyword">print</span> driver.__doc__</pre>
+  <dl class="fields">
+    <dt>Returns: list</dt>
+        <dd>list of <tt class="rst-docutils literal"><span class="pre">DBDriver</span></tt> class names</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_driver_names"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_driver_names</span>()</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.db-pysrc.html#get_driver_names">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  Get the list of driver names currently registered with this API.
+Each of the returned names may be used as the first parameter to
+the <tt class="rst-docutils literal"><span class="pre">get_driver()</span></tt> function.
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_driver"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_driver</span>(<span class="sig-arg">driver_name</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.db-pysrc.html#get_driver">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  Get the DB API object for the specific database type. The list of
+legal database types are available by calling <tt class="rst-docutils literal"><span class="pre">get_driver_names()</span></tt>.
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>driver_name</code></strong> (str) - name (key) of the driver</li>
+    </ul></dd>
+    <dt>Returns: DBDriver</dt>
+        <dd>the instantiated driver</dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'>ValueError</strong></code> - Unknown driver name</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== VARIABLES DETAILS ==================== -->
+<a name="section-VariablesDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-VariablesDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="drivers"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">drivers</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">dummy</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">DummyDriver</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">gadfly</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">GadflyDriver</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">mysql</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">MySQLDriver</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">oracle</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">OracleDriver</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">postgresql</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">PostgreSQLDriver</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">sqlite</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">SQLite3Driver</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">sqlserver</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">SQLServerDriver</code><code class="variable-quote">'</code><code class="variable-group">}</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="grizzled-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sat Oct 24 11:58:55 2009
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

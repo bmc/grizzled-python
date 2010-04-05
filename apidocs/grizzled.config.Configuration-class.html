@@ -1,0 +1,1437 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>grizzled.config.Configuration</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="grizzled-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="grizzled-module.html">Package&nbsp;grizzled</a> ::
+        <a href="grizzled.config-module.html">Module&nbsp;config</a> ::
+        Class&nbsp;Configuration
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="grizzled.config.Configuration-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class Configuration</h1><p class="nomargin-top"><span class="codelink"><a href="grizzled.config-pysrc.html#Configuration">source&nbsp;code</a></span></p>
+<pre class="base-tree">
+ConfigParser.RawConfigParser --+        
+                               |        
+       ConfigParser.ConfigParser --+    
+                                   |    
+       ConfigParser.SafeConfigParser --+
+                                       |
+                                      <strong class="uidshort">Configuration</strong>
+</pre>
+
+<hr />
+Configuration file parser. See the module documentation for details.
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.config.Configuration-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">defaults</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">permit_includes</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">use_ordered_sections</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">strict_substitution</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Construct a new <tt class="rst-docutils literal"><span class="pre">Configuration</span></tt> object.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">dict</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.config.Configuration-class.html#defaults" class="summary-sig-name">defaults</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Returns the instance-wide defaults.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.defaults">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.config.Configuration-class.html#add_section" class="summary-sig-name">add_section</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">section</span>)</span><br />
+      Add a section named <em>section</em> to the instance.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.add_section">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">bool</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.config.Configuration-class.html#has_section" class="summary-sig-name">has_section</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">section</span>)</span><br />
+      Determine whether a section exists in the configuration.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.has_section">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.config.Configuration-class.html#options" class="summary-sig-name">options</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">section</span>)</span><br />
+      Get a list of options available in the specified section.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.options">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">bool</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.config.Configuration-class.html#has_option" class="summary-sig-name">has_option</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">section</span>,
+        <span class="summary-sig-arg">option</span>)</span><br />
+      Determine whether a section has a specific option.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.has_option">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.config.Configuration-class.html#read" class="summary-sig-name">read</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">filenames</span>)</span><br />
+      Attempt to read and parse a list of filenames or URLs, returning a
+list of filenames or URLs which were successfully parsed.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.read">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.config.Configuration-class.html#readfp" class="summary-sig-name">readfp</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">fp</span>,
+        <span class="summary-sig-arg">filename</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Read and parse configuration data from a file or file-like object.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.readfp">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">str</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.config.Configuration-class.html#get" class="summary-sig-name">get</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">section</span>,
+        <span class="summary-sig-arg">option</span>,
+        <span class="summary-sig-arg">optional</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Get an option from a section.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.get">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.config.Configuration-class.html#getint" class="summary-sig-name">getint</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">section</span>,
+        <span class="summary-sig-arg">option</span>,
+        <span class="summary-sig-arg">optional</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Convenience method that coerces the result of a call to
+<tt class="rst-docutils literal"><span class="pre">get()</span></tt> to an <tt class="rst-docutils literal"><span class="pre">int</span></tt>.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.getint">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">float</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.config.Configuration-class.html#getfloat" class="summary-sig-name">getfloat</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">section</span>,
+        <span class="summary-sig-arg">option</span>,
+        <span class="summary-sig-arg">optional</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Convenience method that coerces the result of a call to <tt class="rst-docutils literal"><span class="pre">get()</span></tt> to a
+<tt class="rst-docutils literal"><span class="pre">float</span></tt>.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.getfloat">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">bool</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.config.Configuration-class.html#getboolean" class="summary-sig-name">getboolean</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">section</span>,
+        <span class="summary-sig-arg">option</span>,
+        <span class="summary-sig-arg">optional</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Convenience method that coerces the result of a call to <tt class="rst-docutils literal"><span class="pre">get()</span></tt> to a
+boolean.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.getboolean">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">bool</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.config.Configuration-class.html#getlist" class="summary-sig-name">getlist</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">section</span>,
+        <span class="summary-sig-arg">option</span>,
+        <span class="summary-sig-arg">sep</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">optional</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Convenience method that coerces the result of a call to <tt class="rst-docutils literal"><span class="pre">get()</span></tt> to a
+list.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.getlist">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">str</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.config.Configuration-class.html#get_one_of" class="summary-sig-name">get_one_of</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">section</span>,
+        <span class="summary-sig-arg">options</span>,
+        <span class="summary-sig-arg">optional</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">default</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">value_type</span>=<span class="summary-sig-default">&lt;type 'str'&gt;</span>)</span><br />
+      Retrieve at most one of a list or set of options from a section.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.get_one_of">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.config.Configuration-class.html#items" class="summary-sig-name">items</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">section</span>)</span><br />
+      Get all items in a section.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.items">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.config.Configuration-class.html#set" class="summary-sig-name">set</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">section</span>,
+        <span class="summary-sig-arg">option</span>,
+        <span class="summary-sig-arg">value</span>)</span><br />
+      If the given section exists, set the given option to the specified
+value; otherwise raise <tt class="rst-docutils literal"><span class="pre">NoSectionError</span></tt>.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.set">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.config.Configuration-class.html#write" class="summary-sig-name">write</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">fileobj</span>)</span><br />
+      Write a representation of the configuration to the specified file-like
+object.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.write">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.config.Configuration-class.html#remove_section" class="summary-sig-name">remove_section</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">section</span>)</span><br />
+      Remove a section from the instance.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.remove_section">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.config.Configuration-class.html#optionxform" class="summary-sig-name">optionxform</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">option_name</span>)</span><br />
+      Transforms the option name in <tt class="rst-docutils literal"><span class="pre">option_name</span></tt> as found in an input
+file or as passed in by client code to the form that should be used in
+the internal structures.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.optionxform">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="__get_optional"></a><span class="summary-sig-name">__get_optional</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">func</span>,
+        <span class="summary-sig-arg">section</span>,
+        <span class="summary-sig-arg">option</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.__get_optional">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="__preprocess"></a><span class="summary-sig-name">__preprocess</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">fp</span>,
+        <span class="summary-sig-arg">name</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.__preprocess">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.config.Configuration-class.html#__normalizeVariableReferences" class="summary-sig-name" onclick="show_private();">__normalizeVariableReferences</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">sourceConfig</span>)</span><br />
+      Convert all section-local variable references (i.e., those that don't
+specify a section) to fully-qualified references.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.__normalizeVariableReferences">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="__substituteVariables"></a><span class="summary-sig-name">__substituteVariables</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">sourceConfig</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.__substituteVariables">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code>ConfigParser.SafeConfigParser</code></b> (private):
+      <code>_interpolate</code>,
+      <code>_interpolate_some</code>,
+      <code>_interpvar_match</code>
+      </p></div>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code>ConfigParser.ConfigParser</code></b> (private):
+      <code>_interpolation_replace</code>
+      </p></div>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>ConfigParser.RawConfigParser</code></b>:
+      <code>remove_option</code>
+      </p>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code>ConfigParser.RawConfigParser</code></b> (private):
+      <code>_get</code>,
+      <code>_read</code>
+      </p></div>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS VARIABLES ==================== -->
+<a name="section-ClassVariables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Class Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-ClassVariables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code>ConfigParser.ConfigParser</code></b> (private):
+      <code>_KEYCRE</code>
+      </p></div>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>ConfigParser.RawConfigParser</code></b>:
+      <code>OPTCRE</code>,
+      <code>SECTCRE</code>
+      </p>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code>ConfigParser.RawConfigParser</code></b> (private):
+      <code>_boolean_states</code>
+      </p></div>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="grizzled.config.Configuration-class.html#sections" class="summary-name">sections</a><br />
+      Get the list of available sections, not including <tt class="rst-docutils literal"><span class="pre">DEFAULT</span></tt>.
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">defaults</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">permit_includes</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">use_ordered_sections</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">strict_substitution</span>=<span class="sig-default">False</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  Construct a new <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">Configuration</span></tt> object.
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>defaults</code></strong> (dict) - dictionary of default values</li>
+        <li><strong class="pname"><code>permit_includes</code></strong> (bool) - whether or not to permit includes</li>
+        <li><strong class="pname"><code>use_ordered_sections</code></strong> (bool) - whether or not to use an ordered dictionary for the section
+names. If <tt class="rst-docutils literal"><span class="pre">True</span></tt>, then a call to <tt class="rst-docutils literal"><span class="pre">sections()</span></tt> will return
+the sections in the order they were encountered in the file.
+If <tt class="rst-docutils literal"><span class="pre">False</span></tt>, the order is based on the hash keys for the
+sections' names.</li>
+        <li><strong class="pname"><code>strict_substitution</code></strong> (bool) - If <tt class="rst-docutils literal"><span class="pre">True</span></tt>, then throw an exception if attempting to
+substitute a non-existent variable. Otherwise, simple
+substitute an empty value.</li>
+    </ul></dd>
+    <dt>Overrides:
+        ConfigParser.RawConfigParser.__init__
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="defaults"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">defaults</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.defaults">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  Returns the instance-wide defaults.
+  <dl class="fields">
+    <dt>Returns: dict</dt>
+        <dd>the instance-wide defaults, or <tt class="rst-docutils literal"><span class="pre">None</span></tt> if there aren't any</dd>
+    <dt>Overrides:
+        ConfigParser.RawConfigParser.defaults
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="add_section"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">add_section</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">section</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.add_section">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  Add a section named <em>section</em> to the instance. If a section by the
+given name already exists, <tt class="rst-docutils literal"><span class="pre">DuplicateSectionError</span></tt> is raised.
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>section</code></strong> (str) - name of section to add</li>
+    </ul></dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'>DuplicateSectionError</strong></code> - section already exists</li>
+    </ul></dd>
+    <dt>Overrides:
+        ConfigParser.RawConfigParser.add_section
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="has_section"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">has_section</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">section</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.has_section">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  Determine whether a section exists in the configuration. Ignores
+the <tt class="rst-docutils literal"><span class="pre">DEFAULT</span></tt> section.
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>section</code></strong> (str) - name of section</li>
+    </ul></dd>
+    <dt>Returns: bool</dt>
+        <dd><tt class="rst-docutils literal"><span class="pre">True</span></tt> if the section exists in the configuration, <tt class="rst-docutils literal"><span class="pre">False</span></tt>
+if not.</dd>
+    <dt>Overrides:
+        ConfigParser.RawConfigParser.has_section
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="options"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">options</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">section</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.options">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  Get a list of options available in the specified section.
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>section</code></strong> (str) - name of section</li>
+    </ul></dd>
+    <dt>Returns: list</dt>
+        <dd>list of available options. May be empty.</dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'><a href="ConfigParser.NoSectionError-class.html">NoSectionError</a></strong></code> - no such section</li>
+    </ul></dd>
+    <dt>Overrides:
+        ConfigParser.RawConfigParser.options
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="has_option"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">has_option</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">section</span>,
+        <span class="sig-arg">option</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.has_option">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  Determine whether a section has a specific option.
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>section</code></strong> (str) - name of section</li>
+        <li><strong class="pname"><code>option</code></strong> (str) - name of option to check</li>
+    </ul></dd>
+    <dt>Returns: bool</dt>
+        <dd><tt class="rst-docutils literal"><span class="pre">True</span></tt> if the section exists in the configuration and
+has the specified option, <tt class="rst-docutils literal"><span class="pre">False</span></tt> if not.</dd>
+    <dt>Overrides:
+        ConfigParser.RawConfigParser.has_option
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="read"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">read</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">filenames</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.read">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Attempt to read and parse a list of filenames or URLs, returning a
+list of filenames or URLs which were successfully parsed. If
+<em>filenames</em> is a string or Unicode string, it is treated as a single
+filename or URL. If a file or URL named in filenames cannot be opened,
+that file will be ignored. This is designed so that you can specify a
+list of potential configuration file locations (for example, the
+current directory, the user's home directory, and some system-wide
+directory), and all existing configuration files in the list will be
+read. If none of the named files exist, the <tt class="rst-docutils literal"><span class="pre">Configuration</span></tt> instance
+will contain an empty dataset. An application which requires initial
+values to be loaded from a file should load the required file or files
+using <tt class="rst-docutils literal"><span class="pre">readfp()</span></tt> before calling <tt class="rst-docutils literal"><span class="pre">read()</span></tt> for any optional files:</p>
+<pre class="py-doctest">
+<span class="py-keyword">import</span> Configuration
+<span class="py-keyword">import</span> os
+
+config = Configuration.Configuration()
+config.readfp(open(<span class="py-string">'defaults.cfg'</span>))
+config.read([<span class="py-string">'site.cfg'</span>, os.path.expanduser(<span class="py-string">'~/.myapp.cfg'</span>)])</pre>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>filenames</code></strong> (list or string) - list of file names or URLs, or the string for a single filename
+or URL</li>
+    </ul></dd>
+    <dt>Returns: list</dt>
+        <dd>list of successfully parsed filenames or URLs</dd>
+    <dt>Overrides:
+        ConfigParser.RawConfigParser.read
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="readfp"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">readfp</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">fp</span>,
+        <span class="sig-arg">filename</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.readfp">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  Read and parse configuration data from a file or file-like object.
+(Only the <tt class="rst-docutils literal"><span class="pre">readline()</span></tt> moethod is used.)
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>fp</code></strong> (file) - File-like object with a <tt class="rst-docutils literal"><span class="pre">readline()</span></tt> method</li>
+        <li><strong class="pname"><code>filename</code></strong> (str) - Name associated with <tt class="rst-docutils literal"><span class="pre">fp</span></tt>, for error messages. If omitted or
+<tt class="rst-docutils literal"><span class="pre">None</span></tt>, then <tt class="rst-docutils literal"><span class="pre">fp.name</span></tt> is used. If <tt class="rst-docutils literal"><span class="pre">fp</span></tt> has no <tt class="rst-docutils literal"><span class="pre">name</span></tt>
+attribute, then <tt class="rst-docutils literal"><span class="pre">&quot;&lt;???&quot;&gt;</span></tt> is used.</li>
+    </ul></dd>
+    <dt>Overrides:
+        ConfigParser.RawConfigParser.readfp
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="get"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">section</span>,
+        <span class="sig-arg">option</span>,
+        <span class="sig-arg">optional</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.get">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  Get an option from a section.
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>section</code></strong> (str) - name of section</li>
+        <li><strong class="pname"><code>option</code></strong> (str) - name of option to check</li>
+        <li><strong class="pname"><code>optional</code></strong> (bool) - <tt class="rst-docutils literal"><span class="pre">True</span></tt> to return None if the option doesn't exist. <tt class="rst-docutils literal"><span class="pre">False</span></tt>
+to throw an exception if the option doesn't exist.</li>
+    </ul></dd>
+    <dt>Returns: str</dt>
+        <dd>the option value</dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'><a href="ConfigParser.NoSectionError-class.html">NoSectionError</a></strong></code> - no such section</li>
+        <li><code><strong class='fraise'><a href="ConfigParser.NoOptionError-class.html">NoOptionError</a></strong></code> - no such option in the section</li>
+    </ul></dd>
+    <dt>Overrides:
+        ConfigParser.RawConfigParser.get
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="getint"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getint</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">section</span>,
+        <span class="sig-arg">option</span>,
+        <span class="sig-arg">optional</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.getint">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  Convenience method that coerces the result of a call to
+<tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">get()</span></tt> to an <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">int</span></tt>.
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>section</code></strong> (str) - name of section</li>
+        <li><strong class="pname"><code>option</code></strong> (str) - name of option to check</li>
+        <li><strong class="pname"><code>optional</code></strong> (bool) - <tt class="rst-docutils literal"><span class="pre">True</span></tt> to return None if the option doesn't exist. <tt class="rst-docutils literal"><span class="pre">False</span></tt>
+to throw an exception if the option doesn't exist.</li>
+    </ul></dd>
+    <dt>Returns: int</dt>
+        <dd>the option value</dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'><a href="ConfigParser.NoSectionError-class.html">NoSectionError</a></strong></code> - no such section</li>
+        <li><code><strong class='fraise'><a href="ConfigParser.NoOptionError-class.html">NoOptionError</a></strong></code> - no such option in the section</li>
+    </ul></dd>
+    <dt>Overrides:
+        ConfigParser.RawConfigParser.getint
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="getfloat"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getfloat</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">section</span>,
+        <span class="sig-arg">option</span>,
+        <span class="sig-arg">optional</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.getfloat">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  Convenience method that coerces the result of a call to <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">get()</span></tt> to a
+<tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">float</span></tt>.
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>section</code></strong> (str) - name of section</li>
+        <li><strong class="pname"><code>option</code></strong> (str) - name of option to check</li>
+        <li><strong class="pname"><code>optional</code></strong> (bool) - <tt class="rst-docutils literal"><span class="pre">True</span></tt> to return None if the option doesn't exist. <tt class="rst-docutils literal"><span class="pre">False</span></tt>
+to throw an exception if the option doesn't exist.</li>
+    </ul></dd>
+    <dt>Returns: float</dt>
+        <dd>the option value</dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'><a href="ConfigParser.NoSectionError-class.html">NoSectionError</a></strong></code> - no such section</li>
+        <li><code><strong class='fraise'><a href="ConfigParser.NoOptionError-class.html">NoOptionError</a></strong></code> - no such option in the section</li>
+    </ul></dd>
+    <dt>Overrides:
+        ConfigParser.RawConfigParser.getfloat
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="getboolean"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getboolean</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">section</span>,
+        <span class="sig-arg">option</span>,
+        <span class="sig-arg">optional</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.getboolean">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Convenience method that coerces the result of a call to <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">get()</span></tt> to a
+boolean. Accepted boolean values are &quot;1&quot;, &quot;yes&quot;, &quot;true&quot;, and &quot;on&quot;,
+which cause this method to return True, and &quot;0&quot;, &quot;no&quot;, &quot;false&quot;, and
+&quot;off&quot;, which cause it to return False. These string values are checked
+in a case-insensitive manner. Any other value will cause it to raise
+<tt class="rst-docutils literal"><span class="pre">ValueError</span></tt>.</p>
+<dl class="rst-docutils">
+<dt>:Parameters:a</dt>
+<dd><dl class="rst-first rst-last rst-docutils">
+<dt>section <span class="classifier-delimiter">:</span> <span class="rst-classifier">str</span></dt>
+<dd>name of section</dd>
+<dt>option <span class="classifier-delimiter">:</span> <span class="rst-classifier">str</span></dt>
+<dd>name of option to check</dd>
+<dt>optional <span class="classifier-delimiter">:</span> <span class="rst-classifier">bool</span></dt>
+<dd><tt class="rst-docutils literal"><span class="pre">True</span></tt> to return None if the option doesn't exist. <tt class="rst-docutils literal"><span class="pre">False</span></tt>
+to throw an exception if the option doesn't exist.</dd>
+</dl>
+</dd>
+</dl>
+  <dl class="fields">
+    <dt>Returns: bool</dt>
+        <dd>the option value (<tt class="rst-docutils literal"><span class="pre">True</span></tt> or <tt class="rst-docutils literal"><span class="pre">False</span></tt>)</dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'><a href="ConfigParser.NoSectionError-class.html">NoSectionError</a></strong></code> - no such section</li>
+        <li><code><strong class='fraise'><a href="ConfigParser.NoOptionError-class.html">NoOptionError</a></strong></code> - no such option in the section</li>
+        <li><code><strong class='fraise'>ValueError</strong></code> - non-boolean value encountered</li>
+    </ul></dd>
+    <dt>Overrides:
+        ConfigParser.RawConfigParser.getboolean
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="getlist"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getlist</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">section</span>,
+        <span class="sig-arg">option</span>,
+        <span class="sig-arg">sep</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">optional</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.getlist">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  Convenience method that coerces the result of a call to <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">get()</span></tt> to a
+list. The value is split using the separator(s) specified by the
+<tt class="rst-docutils literal"><span class="pre">sep</span></tt> argument. A <tt class="rst-docutils literal"><span class="pre">sep</span></tt> value of <tt class="rst-docutils literal"><span class="pre">None</span></tt> uses white space. The
+result is a list of string values.
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>section</code></strong> (str) - name of section</li>
+        <li><strong class="pname"><code>option</code></strong> (str) - name of option to check</li>
+        <li><strong class="pname"><code>sep</code></strong> (str) - list element separator to use. Defaults to white space.</li>
+        <li><strong class="pname"><code>optional</code></strong> (bool) - <tt class="rst-docutils literal"><span class="pre">True</span></tt> to return None if the option doesn't exist. <tt class="rst-docutils literal"><span class="pre">False</span></tt>
+to throw an exception if the option doesn't exist.</li>
+    </ul></dd>
+    <dt>Returns: bool</dt>
+        <dd>the option value (<tt class="rst-docutils literal"><span class="pre">True</span></tt> or <tt class="rst-docutils literal"><span class="pre">False</span></tt>)</dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'><a href="ConfigParser.NoSectionError-class.html">NoSectionError</a></strong></code> - no such section</li>
+        <li><code><strong class='fraise'><a href="ConfigParser.NoOptionError-class.html">NoOptionError</a></strong></code> - no such option in the section</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_one_of"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_one_of</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">section</span>,
+        <span class="sig-arg">options</span>,
+        <span class="sig-arg">optional</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">default</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">value_type</span>=<span class="sig-default">&lt;type 'str'&gt;</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.get_one_of">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Retrieve at most one of a list or set of options from a section. This
+method is useful if there are multiple possible names for a single
+option. For example, suppose you permit either a <tt class="rst-docutils literal"><span class="pre">user_name</span></tt> or a
+<tt class="rst-docutils literal"><span class="pre">login_name</span></tt> option, but not both, in a section called
+<tt class="rst-docutils literal"><span class="pre">credentials</span></tt>. You can use the following code to retrieve the
+option value:</p>
+<pre class="py-doctest">
+<span class="py-keyword">from</span> grizzled.config <span class="py-keyword">import</span> Configuration
+
+config = Configuration()
+config.read(<span class="py-string">'/path/to/config'</span>)
+user = config.get_one_of(<span class="py-string">'credentials'</span>, [<span class="py-string">'user_name'</span>, <span class="py-string">'login_name'</span>])</pre>
+<p>If both options exist, <tt class="rst-docutils literal"><span class="pre">get_one_of()</span></tt> will a <tt class="rst-docutils literal"><span class="pre">NoOptionError</span></tt>. If
+neither option exists, <tt class="rst-docutils literal"><span class="pre">get_one_of()</span></tt> will throw a <tt class="rst-docutils literal"><span class="pre">NoOptionError</span></tt>
+if <tt class="rst-docutils literal"><span class="pre">optional</span></tt> is <tt class="rst-docutils literal"><span class="pre">False</span></tt> and there's no default value; otherwise,
+it will return the default value.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>section</code></strong> (str) - name of section</li>
+        <li><strong class="pname"><code>options</code></strong> (list or set) - list or set of allowable option names</li>
+        <li><strong class="pname"><code>optional</code></strong> (bool) - <tt class="rst-docutils literal"><span class="pre">True</span></tt> to return None if the option doesn't exist. <tt class="rst-docutils literal"><span class="pre">False</span></tt>
+to throw an exception if the option doesn't exist.</li>
+        <li><strong class="pname"><code>default</code></strong> (str) - The default value, if the option does not exist.</li>
+        <li><strong class="pname"><code>value_type</code></strong> (type) - The type to which to coerce the value. The value is coerced by
+casting.</li>
+    </ul></dd>
+    <dt>Returns: str</dt>
+        <dd>the option value, or <tt class="rst-docutils literal"><span class="pre">None</span></tt> if nonexistent and
+<tt class="rst-docutils literal"><span class="pre">optional</span></tt> is <tt class="rst-docutils literal"><span class="pre">True</span></tt></dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'><a href="ConfigParser.NoSectionError-class.html">NoSectionError</a></strong></code> - no such section</li>
+        <li><code><strong class='fraise'><a href="ConfigParser.NoOptionError-class.html">NoOptionError</a></strong></code> - none of the named options are in the section</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="items"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">items</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">section</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.items">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  Get all items in a section.
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>section</code></strong> (str) - name of section</li>
+    </ul></dd>
+    <dt>Returns: list</dt>
+        <dd>a list of (<em>name</em>, <em>value</em>) tuples for each option in
+in <em>section</em></dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'><a href="ConfigParser.NoSectionError-class.html">NoSectionError</a></strong></code> - no such section</li>
+    </ul></dd>
+    <dt>Overrides:
+        ConfigParser.RawConfigParser.items
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="set"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">set</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">section</span>,
+        <span class="sig-arg">option</span>,
+        <span class="sig-arg">value</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.set">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  If the given section exists, set the given option to the specified
+value; otherwise raise <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">NoSectionError</span></tt>.
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>section</code></strong> (str) - name of section</li>
+        <li><strong class="pname"><code>option</code></strong> (str) - name of option to check</li>
+        <li><strong class="pname"><code>value</code></strong> (str) - the value to set</li>
+    </ul></dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'><a href="ConfigParser.NoSectionError-class.html">NoSectionError</a></strong></code> - no such section</li>
+    </ul></dd>
+    <dt>Overrides:
+        ConfigParser.RawConfigParser.set
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="write"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">write</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">fileobj</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.write">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Write a representation of the configuration to the specified file-like
+object. This output can be parsed by a future <tt class="rst-docutils literal"><span class="pre">read()</span></tt> call.</p>
+<p>NOTE: Includes and variable references are <tt class="rst-docutils literal"><span class="pre">not</span></tt> reconstructed.
+That is, the configuration data is written in <em>expanded</em> form.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>fileobj</code></strong> (file) - file-like object to which to write the configuration</li>
+    </ul></dd>
+    <dt>Overrides:
+        ConfigParser.RawConfigParser.write
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="remove_section"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_section</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">section</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.remove_section">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  Remove a section from the instance. If a section by the given name
+does not exist, <tt class="rst-docutils literal"><span class="pre">NoSectionError</span></tt> is raised.
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>section</code></strong> (str) - name of section to remove</li>
+    </ul></dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'><a href="ConfigParser.NoSectionError-class.html">NoSectionError</a></strong></code> - no such section</li>
+    </ul></dd>
+    <dt>Overrides:
+        ConfigParser.RawConfigParser.remove_section
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="optionxform"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">optionxform</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">option_name</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.optionxform">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  Transforms the option name in <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">option_name</span></tt> as found in an input
+file or as passed in by client code to the form that should be used in
+the internal structures. The default implementation returns a
+lower-case version of <tt class="rst-docutils literal"><span class="pre">option_name</span></tt>; subclasses may override this or
+client code can set an attribute of this name on instances to affect
+this behavior. Setting this to <tt class="rst-docutils literal"><span class="pre">str()</span></tt>, for example, would make
+option names case sensitive.
+  <dl class="fields">
+    <dt>Overrides:
+        ConfigParser.RawConfigParser.optionxform
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="__normalizeVariableReferences"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__normalizeVariableReferences</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">sourceConfig</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.config-pysrc.html#Configuration.__normalizeVariableReferences">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  Convert all section-local variable references (i.e., those that don't
+specify a section) to fully-qualified references. Necessary for
+recursive references to work.
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== PROPERTY DETAILS ==================== -->
+<a name="section-PropertyDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Property Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-PropertyDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="sections"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">sections</h3>
+  <p>Get the list of available sections, not including <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">DEFAULT</span></tt>. It's
+not really useful to call this method before calling <tt class="rst-docutils literal"><span class="pre">read()</span></tt> or
+<tt class="rst-docutils literal"><span class="pre">readfp()</span></tt>.</p>
+<p>Returns a list of sections.</p>
+  <dl class="fields">
+    <dt>Get Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.sections(<span class="summary-sig-arg">self</span>)</span>
+        - Get the list of available sections, not including <tt class="rst-docutils literal"><span class="pre">DEFAULT</span></tt>.
+    </dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="grizzled-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sat Oct 24 11:58:56 2009
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

@@ -1,0 +1,871 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>grizzled.db.base.DB</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="grizzled-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="grizzled-module.html">Package&nbsp;grizzled</a> ::
+        <a href="grizzled.db-module.html">Package&nbsp;db</a> ::
+        <a href="grizzled.db.base-module.html" onclick="show_private();">Module&nbsp;base</a> ::
+        Class&nbsp;DB
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="grizzled.db.base.DB-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class DB</h1><p class="nomargin-top"><span class="codelink"><a href="grizzled.db.base-pysrc.html#DB">source&nbsp;code</a></span></p>
+<pre class="base-tree">
+object --+
+         |
+        <strong class="uidshort">DB</strong>
+</pre>
+
+<dl><dt>Known Subclasses:</dt>
+<dd>
+      <ul class="subclass-list">
+<li><a href="grizzled.db.dbgadfly.GadflyDB-class.html">dbgadfly.GadflyDB</a></li>  </ul>
+</dd></dl>
+
+<hr />
+The object returned by a call to <tt class="rst-rst-rst-rst-docutils literal rst-rst-rst-docutils literal rst-rst-docutils literal rst-docutils literal"><span class="pre">DBDriver.connect()</span></tt>. <tt class="rst-docutils literal"><span class="pre">db</span></tt> wraps the
+real database object returned by the underlying Python DB API module's
+<tt class="rst-docutils literal"><span class="pre">connect()</span></tt> method.
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.db.base.DB-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">db</span>,
+        <span class="summary-sig-arg">driver</span>)</span><br />
+      Create a new DB object.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.db.base-pysrc.html#DB.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.db.base.DB-class.html#paramstyle" class="summary-sig-name">paramstyle</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Get the parameter style for the underlying DB API module.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.db.base-pysrc.html#DB.paramstyle">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">object</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.db.base.DB-class.html#Binary" class="summary-sig-name">Binary</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">string</span>)</span><br />
+      Returns an object representing the given string of bytes as a BLOB.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.db.base-pysrc.html#DB.Binary">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.db.base.DB-class.html#Date" class="summary-sig-name">Date</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">year</span>,
+        <span class="summary-sig-arg">month</span>,
+        <span class="summary-sig-arg">day</span>)</span><br />
+      Returns an object representing the specified date.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.db.base-pysrc.html#DB.Date">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.db.base.DB-class.html#DateFromTicks" class="summary-sig-name">DateFromTicks</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">secs</span>)</span><br />
+      Returns an object representing the date <em>secs</em> seconds after the
+epoch.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.db.base-pysrc.html#DB.DateFromTicks">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.db.base.DB-class.html#Time" class="summary-sig-name">Time</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">hour</span>,
+        <span class="summary-sig-arg">minute</span>,
+        <span class="summary-sig-arg">second</span>)</span><br />
+      Returns an object representing the specified time.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.db.base-pysrc.html#DB.Time">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.db.base.DB-class.html#TimeFromTicks" class="summary-sig-name">TimeFromTicks</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">secs</span>)</span><br />
+      Returns an object representing the time 'secs' seconds after the
+epoch.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.db.base-pysrc.html#DB.TimeFromTicks">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.db.base.DB-class.html#Timestamp" class="summary-sig-name">Timestamp</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">year</span>,
+        <span class="summary-sig-arg">month</span>,
+        <span class="summary-sig-arg">day</span>,
+        <span class="summary-sig-arg">hour</span>,
+        <span class="summary-sig-arg">minute</span>,
+        <span class="summary-sig-arg">second</span>)</span><br />
+      Returns an object representing the specified time.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.db.base-pysrc.html#DB.Timestamp">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.db.base.DB-class.html#TimestampFromTicks" class="summary-sig-name">TimestampFromTicks</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">secs</span>)</span><br />
+      Returns an object representing the date and time <tt class="rst-docutils literal"><span class="pre">secs</span></tt> seconds
+after the epoch.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.db.base-pysrc.html#DB.TimestampFromTicks">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.db.base.DB-class.html#cursor" class="summary-sig-name">cursor</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Get a cursor suitable for accessing the database.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.db.base-pysrc.html#DB.cursor">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.db.base.DB-class.html#commit" class="summary-sig-name">commit</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Commit the current transaction.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.db.base-pysrc.html#DB.commit">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.db.base.DB-class.html#rollback" class="summary-sig-name">rollback</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Roll the current transaction back.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.db.base-pysrc.html#DB.rollback">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.db.base.DB-class.html#close" class="summary-sig-name">close</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Close the database connection.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.db.base-pysrc.html#DB.close">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__getattribute__</code>,
+      <code>__hash__</code>,
+      <code>__new__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
+      <code>__setattr__</code>,
+      <code>__str__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">db</span>,
+        <span class="sig-arg">driver</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.db.base-pysrc.html#DB.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  Create a new DB object.
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>db</code></strong> - the underlying Python DB API database object</li>
+        <li><strong class="pname"><code>driver</code></strong> (DBDriver) - the driver (i.e., the subclass of <tt class="rst-docutils literal"><span class="pre">DBDriver</span></tt>) that
+created the <tt class="rst-docutils literal"><span class="pre">db</span></tt> object</li>
+    </ul></dd>
+    <dt>Overrides:
+        object.__init__
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="paramstyle"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">paramstyle</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.db.base-pysrc.html#DB.paramstyle">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get the parameter style for the underlying DB API module. The
+result of this method call corresponds exactly to the underlying
+DB API module's 'paramstyle' attribute. It will have one of the
+following values:</p>
+<table border="1" class="rst-docutils">
+<colgroup>
+<col width="14%" />
+<col width="86%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>format</td>
+<td><p class="rst-first">The parameter marker is '%s', as in string
+formatting. A query looks like this:</p>
+<pre class="rst-last rst-literal-block">
+c.execute('SELECT * FROM Foo WHERE Bar=%s', [x])
+</pre>
+</td>
+</tr>
+<tr><td>named</td>
+<td><p class="rst-first">The parameter marker is <tt class="rst-docutils literal"><span class="pre">:name</span></tt>, and parameters
+are named. A query looks like this:</p>
+<pre class="rst-last rst-literal-block">
+c.execute('SELECT * FROM Foo WHERE Bar=:x', {'x':x})
+</pre>
+</td>
+</tr>
+<tr><td>numeric</td>
+<td><p class="rst-first">The parameter marker is <tt class="rst-docutils literal"><span class="pre">:n</span></tt>, giving the parameter's
+number (starting at 1). A query looks like this:</p>
+<pre class="rst-last rst-literal-block">
+c.execute('SELECT * FROM Foo WHERE Bar=:1', [x])
+</pre>
+</td>
+</tr>
+<tr><td>pyformat</td>
+<td><p class="rst-first">The parameter marker is <tt class="rst-docutils literal"><span class="pre">:name</span></tt>, and parameters
+are named. A query looks like this:</p>
+<pre class="rst-last rst-literal-block">
+c.execute('SELECT * FROM Foo WHERE Bar=%(x)s', {'x':x})
+</pre>
+</td>
+</tr>
+<tr><td>qmark</td>
+<td><p class="rst-first">The parameter marker is &quot;?&quot;, and parameters are
+substituted in order. A query looks like this:</p>
+<pre class="rst-last rst-literal-block">
+c.execute('SELECT * FROM Foo WHERE Bar=?', [x])
+</pre>
+</td>
+</tr>
+</tbody>
+</table>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="Binary"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">Binary</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">string</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.db.base-pysrc.html#DB.Binary">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Returns an object representing the given string of bytes as a BLOB.</p>
+<p>This method is equivalent to the module-level <tt class="rst-docutils literal"><span class="pre">Binary()</span></tt> method in
+an underlying DB API-compliant module.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>string</code></strong> (str) - the string to convert to a BLOB</li>
+    </ul></dd>
+    <dt>Returns: object</dt>
+        <dd>the corresponding BLOB</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="Date"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">Date</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">year</span>,
+        <span class="sig-arg">month</span>,
+        <span class="sig-arg">day</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.db.base-pysrc.html#DB.Date">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Returns an object representing the specified date.</p>
+<p>This method is equivalent to the module-level <tt class="rst-docutils literal"><span class="pre">Date()</span></tt> method in
+an underlying DB API-compliant module.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>year</code></strong> - the year</li>
+        <li><strong class="pname"><code>month</code></strong> - the month</li>
+        <li><strong class="pname"><code>day</code></strong> - the day of the month</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>an object containing the date</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="DateFromTicks"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">DateFromTicks</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">secs</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.db.base-pysrc.html#DB.DateFromTicks">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Returns an object representing the date <em>secs</em> seconds after the
+epoch. For example:</p>
+<pre class="py-doctest">
+<span class="py-keyword">import</span> time
+
+d = db.DateFromTicks(time.time())</pre>
+<p>This method is equivalent to the module-level <tt class="rst-docutils literal"><span class="pre">DateFromTicks()</span></tt>
+method in an underlying DB API-compliant module.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>secs</code></strong> (int) - the seconds from the epoch</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>an object containing the date</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="Time"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">Time</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">hour</span>,
+        <span class="sig-arg">minute</span>,
+        <span class="sig-arg">second</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.db.base-pysrc.html#DB.Time">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Returns an object representing the specified time.</p>
+<p>This method is equivalent to the module-level <tt class="rst-docutils literal"><span class="pre">Time()</span></tt> method in an
+underlying DB API-compliant module.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>hour</code></strong> - the hour of the day</li>
+        <li><strong class="pname"><code>minute</code></strong> - the minute within the hour. 0 &lt;= <em>minute</em> &lt;= 59</li>
+        <li><strong class="pname"><code>second</code></strong> - the second within the minute. 0 &lt;= <em>second</em> &lt;= 59</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>an object containing the time</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="TimeFromTicks"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">TimeFromTicks</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">secs</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.db.base-pysrc.html#DB.TimeFromTicks">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Returns an object representing the time 'secs' seconds after the
+epoch. For example:</p>
+<pre class="py-doctest">
+<span class="py-keyword">import</span> time
+
+d = db.TimeFromTicks(time.time())</pre>
+<p>This method is equivalent to the module-level <tt class="rst-docutils literal"><span class="pre">TimeFromTicks()</span></tt>
+method in an underlying DB API-compliant module.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>secs</code></strong> (int) - the seconds from the epoch</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>an object containing the time</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="Timestamp"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">Timestamp</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">year</span>,
+        <span class="sig-arg">month</span>,
+        <span class="sig-arg">day</span>,
+        <span class="sig-arg">hour</span>,
+        <span class="sig-arg">minute</span>,
+        <span class="sig-arg">second</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.db.base-pysrc.html#DB.Timestamp">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Returns an object representing the specified time.</p>
+<p>This method is equivalent to the module-level <tt class="rst-docutils literal"><span class="pre">Timestamp()</span></tt> method
+in an underlying DB API-compliant module.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>year</code></strong> - the year</li>
+        <li><strong class="pname"><code>month</code></strong> - the month</li>
+        <li><strong class="pname"><code>day</code></strong> - the day of the month</li>
+        <li><strong class="pname"><code>hour</code></strong> - the hour of the day</li>
+        <li><strong class="pname"><code>minute</code></strong> - the minute within the hour. 0 &lt;= <em>minute</em> &lt;= 59</li>
+        <li><strong class="pname"><code>second</code></strong> - the second within the minute. 0 &lt;= <em>second</em> &lt;= 59</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>an object containing the timestamp</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="TimestampFromTicks"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">TimestampFromTicks</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">secs</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.db.base-pysrc.html#DB.TimestampFromTicks">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Returns an object representing the date and time <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">secs</span></tt> seconds
+after the epoch. For example:</p>
+<pre class="py-doctest">
+<span class="py-keyword">import</span> time
+
+d = db.TimestampFromTicks(time.time())</pre>
+<p>This method is equivalent to the module-level <tt class="rst-docutils literal"><span class="pre">TimestampFromTicks()</span></tt>
+method in an underlying DB API-compliant module.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>secs</code></strong> (int) - the seconds from the epoch</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>an object containing the timestamp</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="cursor"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">cursor</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.db.base-pysrc.html#DB.cursor">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  Get a cursor suitable for accessing the database. The returned object
+conforms to the Python DB API cursor interface.
+  <dl class="fields">
+    <dt>Returns:</dt>
+        <dd>the cursor</dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'><a href="grizzled.db.base.Warning-class.html">Warning</a></strong></code> - Non-fatal warning</li>
+        <li><code><strong class='fraise'><a href="grizzled.db.base.Error-class.html">Error</a></strong></code> - Error</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="commit"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">commit</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.db.base-pysrc.html#DB.commit">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  Commit the current transaction.
+  <dl class="fields">
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'><a href="grizzled.db.base.Warning-class.html">Warning</a></strong></code> - Non-fatal warning</li>
+        <li><code><strong class='fraise'><a href="grizzled.db.base.Error-class.html">Error</a></strong></code> - Error</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="rollback"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">rollback</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.db.base-pysrc.html#DB.rollback">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  Roll the current transaction back.
+  <dl class="fields">
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'><a href="grizzled.db.base.Warning-class.html">Warning</a></strong></code> - Non-fatal warning</li>
+        <li><code><strong class='fraise'><a href="grizzled.db.base.Error-class.html">Error</a></strong></code> - Error</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="close"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">close</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.db.base-pysrc.html#DB.close">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  Close the database connection.
+  <dl class="fields">
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'><a href="grizzled.db.base.Warning-class.html">Warning</a></strong></code> - Non-fatal warning</li>
+        <li><code><strong class='fraise'><a href="grizzled.db.base.Error-class.html">Error</a></strong></code> - Error</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="grizzled-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sat Oct 24 11:58:56 2009
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

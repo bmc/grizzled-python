@@ -1,0 +1,602 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>grizzled.io</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="grizzled-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="grizzled-module.html">Package&nbsp;grizzled</a> ::
+        Package&nbsp;io
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="grizzled.io-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="grizzled.io-module.html">Package grizzled.io</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment"># $Id$</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-docstring">Input/Output utility methods and classes.</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">__future__</tt> <tt class="py-keyword">import</tt> <tt class="py-name">absolute_import</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-name">__docformat__</tt> <tt class="py-op">=</tt> <tt class="py-string">"restructuredtext en"</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># Imports</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module grizzled.os=grizzled.os-module.html"><a title="grizzled.os" class="py-name" href="#" onclick="return doclink('link-0', 'os', 'link-0');">os</a></tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">zipfile</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># Exports</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-name">__all__</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-string">'AutoFlush'</tt><tt class="py-op">,</tt> <tt class="py-string">'MultiWriter'</tt><tt class="py-op">,</tt> <tt class="py-string">'PushbackFile'</tt><tt class="py-op">,</tt> <tt class="py-string">'Zip'</tt><tt class="py-op">]</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># Classes</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="AutoFlush"></a><div id="AutoFlush-def"><a name="L28"></a><tt class="py-lineno"> 28</tt> <a class="py-toggle" href="#" id="AutoFlush-toggle" onclick="return toggle('AutoFlush');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="grizzled.io.AutoFlush-class.html">AutoFlush</a><tt class="py-op">(</tt><tt class="py-base-class">object</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="AutoFlush-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="AutoFlush-expanded"><a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"><tt class="py-docstring">    An ``AutoFlush`` wraps a file-like object and flushes the output</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"><tt class="py-docstring">    (via a call to ``flush()`` after every write operation. Here's how</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"><tt class="py-docstring">    to use an ``AutoFlush`` object to force standard output to flush after</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"><tt class="py-docstring">    every write:</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line"><tt class="py-docstring">    .. python::</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"><tt class="py-docstring">        import sys</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line"><tt class="py-docstring">        from grizzled.io import AutoFlush</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line"><tt class="py-docstring">        sys.stdout = AutoFlush(sys.stdout)</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="AutoFlush.__init__"></a><div id="AutoFlush.__init__-def"><a name="L42"></a><tt class="py-lineno"> 42</tt> <a class="py-toggle" href="#" id="AutoFlush.__init__-toggle" onclick="return toggle('AutoFlush.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="grizzled.io.AutoFlush-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">f</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="AutoFlush.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="AutoFlush.__init__-expanded"><a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line"><tt class="py-docstring">        Create a new ``AutoFlush`` object to wrap a file-like object.</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line"><tt class="py-docstring">        :Parameters:</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line"><tt class="py-docstring">            f : file</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line"><tt class="py-docstring">                A file-like object that contains both a ``write()`` method</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line"><tt class="py-docstring">                and a ``flush()`` method.</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__file</tt> <tt class="py-op">=</tt> <tt class="py-name">f</tt> </tt>
+</div><a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line"> </tt>
+<a name="AutoFlush.write"></a><div id="AutoFlush.write-def"><a name="L53"></a><tt class="py-lineno"> 53</tt> <a class="py-toggle" href="#" id="AutoFlush.write-toggle" onclick="return toggle('AutoFlush.write');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="grizzled.io.AutoFlush-class.html#write">write</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">buf</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="AutoFlush.write-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="AutoFlush.write-expanded"><a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line"><tt class="py-docstring">        Write the specified buffer to the file.</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line"><tt class="py-docstring">        :Parameters:</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line"><tt class="py-docstring">            buf : str or bytes</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line"><tt class="py-docstring">                buffer to write</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__file</tt><tt class="py-op">.</tt><tt id="link-1" class="py-name" targets="Method grizzled.config.Configuration.write()=grizzled.config.Configuration-class.html#write,Method grizzled.file.includer.Includer.write()=grizzled.file.includer.Includer-class.html#write,Method grizzled.io.AutoFlush.write()=grizzled.io.AutoFlush-class.html#write,Method grizzled.io.MultiWriter.write()=grizzled.io.MultiWriter-class.html#write,Method grizzled.io.PushbackFile.write()=grizzled.io.PushbackFile-class.html#write"><a title="grizzled.config.Configuration.write
+grizzled.file.includer.Includer.write
+grizzled.io.AutoFlush.write
+grizzled.io.MultiWriter.write
+grizzled.io.PushbackFile.write" class="py-name" href="#" onclick="return doclink('link-1', 'write', 'link-1');">write</a></tt><tt class="py-op">(</tt><tt class="py-name">buf</tt><tt class="py-op">)</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__file</tt><tt class="py-op">.</tt><tt id="link-2" class="py-name" targets="Method grizzled.file.includer.Includer.flush()=grizzled.file.includer.Includer-class.html#flush,Method grizzled.io.AutoFlush.flush()=grizzled.io.AutoFlush-class.html#flush,Method grizzled.io.MultiWriter.flush()=grizzled.io.MultiWriter-class.html#flush,Method grizzled.io.PushbackFile.flush()=grizzled.io.PushbackFile-class.html#flush"><a title="grizzled.file.includer.Includer.flush
+grizzled.io.AutoFlush.flush
+grizzled.io.MultiWriter.flush
+grizzled.io.PushbackFile.flush" class="py-name" href="#" onclick="return doclink('link-2', 'flush', 'link-2');">flush</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line"> </tt>
+<a name="AutoFlush.flush"></a><div id="AutoFlush.flush-def"><a name="L64"></a><tt class="py-lineno"> 64</tt> <a class="py-toggle" href="#" id="AutoFlush.flush-toggle" onclick="return toggle('AutoFlush.flush');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="grizzled.io.AutoFlush-class.html#flush">flush</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="AutoFlush.flush-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="AutoFlush.flush-expanded"><a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line"><tt class="py-docstring">        Force a flush.</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__file</tt><tt class="py-op">.</tt><tt id="link-3" class="py-name"><a title="grizzled.file.includer.Includer.flush
+grizzled.io.AutoFlush.flush
+grizzled.io.MultiWriter.flush
+grizzled.io.PushbackFile.flush" class="py-name" href="#" onclick="return doclink('link-3', 'flush', 'link-2');">flush</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line"> </tt>
+<a name="AutoFlush.truncate"></a><div id="AutoFlush.truncate-def"><a name="L70"></a><tt class="py-lineno"> 70</tt> <a class="py-toggle" href="#" id="AutoFlush.truncate-toggle" onclick="return toggle('AutoFlush.truncate');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="grizzled.io.AutoFlush-class.html#truncate">truncate</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">size</tt><tt class="py-op">=</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="AutoFlush.truncate-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="AutoFlush.truncate-expanded"><a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line"><tt class="py-docstring">        Truncate the underlying file. Might fail.</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line"><tt class="py-docstring">        :Parameters:</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line"><tt class="py-docstring">            size : int</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line"><tt class="py-docstring">                Where to truncate. If less than 0, then file's current position</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line"><tt class="py-docstring">                is used.</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">size</tt> <tt class="py-op">&lt;</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">            <tt class="py-name">size</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__file</tt><tt class="py-op">.</tt><tt id="link-4" class="py-name" targets="Method grizzled.file.includer.Includer.tell()=grizzled.file.includer.Includer-class.html#tell,Method grizzled.io.AutoFlush.tell()=grizzled.io.AutoFlush-class.html#tell,Method grizzled.io.PushbackFile.tell()=grizzled.io.PushbackFile-class.html#tell"><a title="grizzled.file.includer.Includer.tell
+grizzled.io.AutoFlush.tell
+grizzled.io.PushbackFile.tell" class="py-name" href="#" onclick="return doclink('link-4', 'tell', 'link-4');">tell</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__file</tt><tt class="py-op">.</tt><tt id="link-5" class="py-name" targets="Method grizzled.file.includer.Includer.truncate()=grizzled.file.includer.Includer-class.html#truncate,Method grizzled.io.AutoFlush.truncate()=grizzled.io.AutoFlush-class.html#truncate,Method grizzled.io.PushbackFile.truncate()=grizzled.io.PushbackFile-class.html#truncate"><a title="grizzled.file.includer.Includer.truncate
+grizzled.io.AutoFlush.truncate
+grizzled.io.PushbackFile.truncate" class="py-name" href="#" onclick="return doclink('link-5', 'truncate', 'link-5');">truncate</a></tt><tt class="py-op">(</tt><tt class="py-name">size</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line"> </tt>
+<a name="AutoFlush.tell"></a><div id="AutoFlush.tell-def"><a name="L83"></a><tt class="py-lineno"> 83</tt> <a class="py-toggle" href="#" id="AutoFlush.tell-toggle" onclick="return toggle('AutoFlush.tell');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="grizzled.io.AutoFlush-class.html#tell">tell</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="AutoFlush.tell-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="AutoFlush.tell-expanded"><a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line"><tt class="py-docstring">        Return the file's current position, if applicable.</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line"><tt class="py-docstring">        :rtype:  int</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line"><tt class="py-docstring">        :return: Current file position</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__file</tt><tt class="py-op">.</tt><tt id="link-6" class="py-name"><a title="grizzled.file.includer.Includer.tell
+grizzled.io.AutoFlush.tell
+grizzled.io.PushbackFile.tell" class="py-name" href="#" onclick="return doclink('link-6', 'tell', 'link-4');">tell</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line"> </tt>
+<a name="AutoFlush.seek"></a><div id="AutoFlush.seek-def"><a name="L92"></a><tt class="py-lineno"> 92</tt> <a class="py-toggle" href="#" id="AutoFlush.seek-toggle" onclick="return toggle('AutoFlush.seek');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="grizzled.io.AutoFlush-class.html#seek">seek</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">offset</tt><tt class="py-op">,</tt> <tt class="py-param">whence</tt><tt class="py-op">=</tt><tt id="link-7" class="py-name"><a title="grizzled.os" class="py-name" href="#" onclick="return doclink('link-7', 'os', 'link-0');">os</a></tt><tt class="py-op">.</tt><tt class="py-name">SEEK_SET</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="AutoFlush.seek-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="AutoFlush.seek-expanded"><a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line"><tt class="py-docstring">        Set the file's current position. The ``whence`` argument is optional;</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line"><tt class="py-docstring">        legal values are:</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line"><tt class="py-docstring">         - ``os.SEEK_SET`` or 0: absolute file positioning (default)</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line"><tt class="py-docstring">         - ``os.SEEK_CUR`` or 1: seek relative to the current position</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line"><tt class="py-docstring">         - ``os.SEEK_END`` or 2: seek relative to the file's end</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line"><tt class="py-docstring">        There is no return value. Note that if the file is opened for</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line"><tt class="py-docstring">        appending (mode 'a' or 'a+'), any ``seek()`` operations will be undone</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line"><tt class="py-docstring">        at the next write. If the file is only opened for writing in append</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line"><tt class="py-docstring">        mode (mode 'a'), this method is essentially a no-op, but it remains</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line"><tt class="py-docstring">        useful for files opened in append mode with reading enabled (mode</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line"><tt class="py-docstring">        'a+'). If the file is opened in text mode (without 'b'), only offsets</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line"><tt class="py-docstring">        returned by ``tell()`` are legal. Use of other offsets causes</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line"><tt class="py-docstring">        undefined behavior.</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line"><tt class="py-docstring">        Note that not all file objects are seekable.</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line"><tt class="py-docstring">        :Parameters:</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line"><tt class="py-docstring">            offset : int</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line"><tt class="py-docstring">                where to seek</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line"><tt class="py-docstring">            whence : int</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line"><tt class="py-docstring">                see above</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__file</tt><tt class="py-op">.</tt><tt id="link-8" class="py-name" targets="Method grizzled.file.includer.Includer.seek()=grizzled.file.includer.Includer-class.html#seek,Method grizzled.io.AutoFlush.seek()=grizzled.io.AutoFlush-class.html#seek,Method grizzled.io.PushbackFile.seek()=grizzled.io.PushbackFile-class.html#seek"><a title="grizzled.file.includer.Includer.seek
+grizzled.io.AutoFlush.seek
+grizzled.io.PushbackFile.seek" class="py-name" href="#" onclick="return doclink('link-8', 'seek', 'link-8');">seek</a></tt><tt class="py-op">(</tt><tt class="py-name">offset</tt><tt class="py-op">,</tt> <tt class="py-name">whence</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line"> </tt>
+<a name="AutoFlush.fileno"></a><div id="AutoFlush.fileno-def"><a name="L120"></a><tt class="py-lineno">120</tt> <a class="py-toggle" href="#" id="AutoFlush.fileno-toggle" onclick="return toggle('AutoFlush.fileno');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="grizzled.io.AutoFlush-class.html#fileno">fileno</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="AutoFlush.fileno-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="AutoFlush.fileno-expanded"><a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line"><tt class="py-docstring">        Return the integer file descriptor used by the underlying file.</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line"><tt class="py-docstring">        :rtype:  int</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line"><tt class="py-docstring">        :return: the file descriptor</tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__file</tt><tt class="py-op">.</tt><tt id="link-9" class="py-name" targets="Method grizzled.file.includer.Includer.fileno()=grizzled.file.includer.Includer-class.html#fileno,Method grizzled.io.AutoFlush.fileno()=grizzled.io.AutoFlush-class.html#fileno,Method grizzled.io.PushbackFile.fileno()=grizzled.io.PushbackFile-class.html#fileno"><a title="grizzled.file.includer.Includer.fileno
+grizzled.io.AutoFlush.fileno
+grizzled.io.PushbackFile.fileno" class="py-name" href="#" onclick="return doclink('link-9', 'fileno', 'link-9');">fileno</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line"> </tt>
+<a name="MultiWriter"></a><div id="MultiWriter-def"><a name="L129"></a><tt class="py-lineno">129</tt> <a class="py-toggle" href="#" id="MultiWriter-toggle" onclick="return toggle('MultiWriter');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="grizzled.io.MultiWriter-class.html">MultiWriter</a><tt class="py-op">(</tt><tt class="py-base-class">object</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="MultiWriter-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="MultiWriter-expanded"><a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line"><tt class="py-docstring">    Wraps multiple file-like objects so that they all may be written at once.</tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line"><tt class="py-docstring">    For example, the following code arranges to have anything written to</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line"><tt class="py-docstring">    ``sys.stdout`` go to ``sys.stdout`` and to a temporary file:</tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line"><tt class="py-docstring">    .. python::</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line"><tt class="py-docstring">        import sys</tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line"><tt class="py-docstring">        from grizzled.io import MultiWriter</tt> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line"><tt class="py-docstring">        sys.stdout = MultiWriter(sys.__stdout__, open('/tmp/log', 'w'))</tt> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="MultiWriter.__init__"></a><div id="MultiWriter.__init__-def"><a name="L142"></a><tt class="py-lineno">142</tt> <a class="py-toggle" href="#" id="MultiWriter.__init__-toggle" onclick="return toggle('MultiWriter.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="grizzled.io.MultiWriter-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-op">*</tt><tt class="py-param">args</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="MultiWriter.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="MultiWriter.__init__-expanded"><a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line"><tt class="py-docstring">        Create a new ``MultiWriter`` object to wrap one or more file-like</tt> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line"><tt class="py-docstring">        objects.</tt> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line"><tt class="py-docstring">        :Parameters:</tt> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line"><tt class="py-docstring">            args : iterable</tt> </tt>
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line"><tt class="py-docstring">                One or more file-like objects to wrap</tt> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__files</tt> <tt class="py-op">=</tt> <tt class="py-name">args</tt> </tt>
+</div><a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line"> </tt>
+<a name="MultiWriter.write"></a><div id="MultiWriter.write-def"><a name="L153"></a><tt class="py-lineno">153</tt> <a class="py-toggle" href="#" id="MultiWriter.write-toggle" onclick="return toggle('MultiWriter.write');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="grizzled.io.MultiWriter-class.html#write">write</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">buf</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="MultiWriter.write-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="MultiWriter.write-expanded"><a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line"><tt class="py-docstring">        Write the specified buffer to the wrapped files.</tt> </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line"><tt class="py-docstring">        :Parameters:</tt> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line"><tt class="py-docstring">            buf : str or bytes</tt> </tt>
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line"><tt class="py-docstring">                buffer to write</tt> </tt>
+<a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">f</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__files</tt><tt class="py-op">:</tt> </tt>
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line">            <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name"><a title="grizzled.config.Configuration.write
+grizzled.file.includer.Includer.write
+grizzled.io.AutoFlush.write
+grizzled.io.MultiWriter.write
+grizzled.io.PushbackFile.write" class="py-name" href="#" onclick="return doclink('link-10', 'write', 'link-1');">write</a></tt><tt class="py-op">(</tt><tt class="py-name">buf</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line"> </tt>
+<a name="MultiWriter.flush"></a><div id="MultiWriter.flush-def"><a name="L164"></a><tt class="py-lineno">164</tt> <a class="py-toggle" href="#" id="MultiWriter.flush-toggle" onclick="return toggle('MultiWriter.flush');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="grizzled.io.MultiWriter-class.html#flush">flush</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="MultiWriter.flush-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="MultiWriter.flush-expanded"><a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line"><tt class="py-docstring">        Force a flush.</tt> </tt>
+<a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">f</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__files</tt><tt class="py-op">:</tt> </tt>
+<a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line">            <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-11" class="py-name"><a title="grizzled.file.includer.Includer.flush
+grizzled.io.AutoFlush.flush
+grizzled.io.MultiWriter.flush
+grizzled.io.PushbackFile.flush" class="py-name" href="#" onclick="return doclink('link-11', 'flush', 'link-2');">flush</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line"> </tt>
+<a name="MultiWriter.close"></a><div id="MultiWriter.close-def"><a name="L171"></a><tt class="py-lineno">171</tt> <a class="py-toggle" href="#" id="MultiWriter.close-toggle" onclick="return toggle('MultiWriter.close');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="grizzled.io.MultiWriter-class.html#close">close</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="MultiWriter.close-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="MultiWriter.close-expanded"><a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line"><tt class="py-docstring">        Close all contained files.</tt> </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">f</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__files</tt><tt class="py-op">:</tt> </tt>
+<a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line">            <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-12" class="py-name" targets="Method grizzled.db.base.Cursor.close()=grizzled.db.base.Cursor-class.html#close,Method grizzled.db.base.DB.close()=grizzled.db.base.DB-class.html#close,Method grizzled.db.dbgadfly.GadflyCursor.close()=grizzled.db.dbgadfly.GadflyCursor-class.html#close,Method grizzled.db.dummydb.DummyCursor.close()=grizzled.db.dummydb.DummyCursor-class.html#close,Method grizzled.db.dummydb.DummyDB.close()=grizzled.db.dummydb.DummyDB-class.html#close,Method grizzled.file.includer.Includer.close()=grizzled.file.includer.Includer-class.html#close,Method grizzled.io.MultiWriter.close()=grizzled.io.MultiWriter-class.html#close,Method grizzled.io.PushbackFile.close()=grizzled.io.PushbackFile-class.html#close"><a title="grizzled.db.base.Cursor.close
+grizzled.db.base.DB.close
+grizzled.db.dbgadfly.GadflyCursor.close
+grizzled.db.dummydb.DummyCursor.close
+grizzled.db.dummydb.DummyDB.close
+grizzled.file.includer.Includer.close
+grizzled.io.MultiWriter.close
+grizzled.io.PushbackFile.close" class="py-name" href="#" onclick="return doclink('link-12', 'close', 'link-12');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line"> </tt>
+<a name="PushbackFile"></a><div id="PushbackFile-def"><a name="L178"></a><tt class="py-lineno">178</tt> <a class="py-toggle" href="#" id="PushbackFile-toggle" onclick="return toggle('PushbackFile');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="grizzled.io.PushbackFile-class.html">PushbackFile</a><tt class="py-op">(</tt><tt class="py-base-class">object</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PushbackFile-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="PushbackFile-expanded"><a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L180"></a><tt class="py-lineno">180</tt>  <tt class="py-line"><tt class="py-docstring">    A file-like wrapper object that permits pushback.</tt> </tt>
+<a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="PushbackFile.__init__"></a><div id="PushbackFile.__init__-def"><a name="L182"></a><tt class="py-lineno">182</tt> <a class="py-toggle" href="#" id="PushbackFile.__init__-toggle" onclick="return toggle('PushbackFile.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="grizzled.io.PushbackFile-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">f</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PushbackFile.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PushbackFile.__init__-expanded"><a name="L183"></a><tt class="py-lineno">183</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line"><tt class="py-docstring">        Create a new ``PushbackFile`` object to wrap a file-like object.</tt> </tt>
+<a name="L185"></a><tt class="py-lineno">185</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L186"></a><tt class="py-lineno">186</tt>  <tt class="py-line"><tt class="py-docstring">        :Parameters:</tt> </tt>
+<a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line"><tt class="py-docstring">            f : file</tt> </tt>
+<a name="L188"></a><tt class="py-lineno">188</tt>  <tt class="py-line"><tt class="py-docstring">                A file-like object that contains both a ``write()`` method</tt> </tt>
+<a name="L189"></a><tt class="py-lineno">189</tt>  <tt class="py-line"><tt class="py-docstring">                and a ``flush()`` method.</tt> </tt>
+<a name="L190"></a><tt class="py-lineno">190</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L191"></a><tt class="py-lineno">191</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__buf</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-name">c</tt> <tt class="py-keyword">for</tt> <tt class="py-name">c</tt> <tt class="py-keyword">in</tt> <tt class="py-string">''</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-13" class="py-name" targets="Method grizzled.file.includer.Includer.readlines()=grizzled.file.includer.Includer-class.html#readlines,Method grizzled.io.PushbackFile.readlines()=grizzled.io.PushbackFile-class.html#readlines"><a title="grizzled.file.includer.Includer.readlines
+grizzled.io.PushbackFile.readlines" class="py-name" href="#" onclick="return doclink('link-13', 'readlines', 'link-13');">readlines</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">]</tt> </tt>
+</div><a name="L192"></a><tt class="py-lineno">192</tt>  <tt class="py-line"> </tt>
+<a name="PushbackFile.write"></a><div id="PushbackFile.write-def"><a name="L193"></a><tt class="py-lineno">193</tt> <a class="py-toggle" href="#" id="PushbackFile.write-toggle" onclick="return toggle('PushbackFile.write');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="grizzled.io.PushbackFile-class.html#write">write</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">buf</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PushbackFile.write-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PushbackFile.write-expanded"><a name="L194"></a><tt class="py-lineno">194</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L195"></a><tt class="py-lineno">195</tt>  <tt class="py-line"><tt class="py-docstring">        Write the specified buffer to the file. This method throws an</tt> </tt>
+<a name="L196"></a><tt class="py-lineno">196</tt>  <tt class="py-line"><tt class="py-docstring">        unconditional exception, since ``PushbackFile`` objects are read-only.</tt> </tt>
+<a name="L197"></a><tt class="py-lineno">197</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L198"></a><tt class="py-lineno">198</tt>  <tt class="py-line"><tt class="py-docstring">        :Parameters:</tt> </tt>
+<a name="L199"></a><tt class="py-lineno">199</tt>  <tt class="py-line"><tt class="py-docstring">            buf : str or bytes</tt> </tt>
+<a name="L200"></a><tt class="py-lineno">200</tt>  <tt class="py-line"><tt class="py-docstring">                buffer to write</tt> </tt>
+<a name="L201"></a><tt class="py-lineno">201</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L202"></a><tt class="py-lineno">202</tt>  <tt class="py-line"><tt class="py-docstring">        :raise NotImplementedError: unconditionally</tt> </tt>
+<a name="L203"></a><tt class="py-lineno">203</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L204"></a><tt class="py-lineno">204</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt class="py-name">NotImplementedError</tt><tt class="py-op">,</tt> <tt class="py-string">'PushbackFile is read-only'</tt> </tt>
+</div><a name="L205"></a><tt class="py-lineno">205</tt>  <tt class="py-line"> </tt>
+<a name="PushbackFile.pushback"></a><div id="PushbackFile.pushback-def"><a name="L206"></a><tt class="py-lineno">206</tt> <a class="py-toggle" href="#" id="PushbackFile.pushback-toggle" onclick="return toggle('PushbackFile.pushback');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="grizzled.io.PushbackFile-class.html#pushback">pushback</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">s</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PushbackFile.pushback-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PushbackFile.pushback-expanded"><a name="L207"></a><tt class="py-lineno">207</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L208"></a><tt class="py-lineno">208</tt>  <tt class="py-line"><tt class="py-docstring">        Push a character or string back onto the input stream.</tt> </tt>
+<a name="L209"></a><tt class="py-lineno">209</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L210"></a><tt class="py-lineno">210</tt>  <tt class="py-line"><tt class="py-docstring">        :Parameters:</tt> </tt>
+<a name="L211"></a><tt class="py-lineno">211</tt>  <tt class="py-line"><tt class="py-docstring">            s : str</tt> </tt>
+<a name="L212"></a><tt class="py-lineno">212</tt>  <tt class="py-line"><tt class="py-docstring">                the string to push back onto the input stream</tt> </tt>
+<a name="L213"></a><tt class="py-lineno">213</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L214"></a><tt class="py-lineno">214</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__buf</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-name">c</tt> <tt class="py-keyword">for</tt> <tt class="py-name">c</tt> <tt class="py-keyword">in</tt> <tt class="py-name">s</tt><tt class="py-op">]</tt> <tt class="py-op">+</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__buf</tt> </tt>
+</div><a name="L215"></a><tt class="py-lineno">215</tt>  <tt class="py-line"> </tt>
+<a name="L216"></a><tt class="py-lineno">216</tt>  <tt class="py-line">    <tt class="py-name">unread</tt><tt class="py-op">=</tt><tt id="link-14" class="py-name" targets="Method grizzled.io.PushbackFile.pushback()=grizzled.io.PushbackFile-class.html#pushback"><a title="grizzled.io.PushbackFile.pushback" class="py-name" href="#" onclick="return doclink('link-14', 'pushback', 'link-14');">pushback</a></tt> </tt>
+<a name="L217"></a><tt class="py-lineno">217</tt>  <tt class="py-line"> </tt>
+<a name="PushbackFile.read"></a><div id="PushbackFile.read-def"><a name="L218"></a><tt class="py-lineno">218</tt> <a class="py-toggle" href="#" id="PushbackFile.read-toggle" onclick="return toggle('PushbackFile.read');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="grizzled.io.PushbackFile-class.html#read">read</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">n</tt><tt class="py-op">=</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PushbackFile.read-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PushbackFile.read-expanded"><a name="L219"></a><tt class="py-lineno">219</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L220"></a><tt class="py-lineno">220</tt>  <tt class="py-line"><tt class="py-docstring">        Read *n* bytes from the open file.</tt> </tt>
+<a name="L221"></a><tt class="py-lineno">221</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L222"></a><tt class="py-lineno">222</tt>  <tt class="py-line"><tt class="py-docstring">        :Parameters:</tt> </tt>
+<a name="L223"></a><tt class="py-lineno">223</tt>  <tt class="py-line"><tt class="py-docstring">            n : int</tt> </tt>
+<a name="L224"></a><tt class="py-lineno">224</tt>  <tt class="py-line"><tt class="py-docstring">                Number of bytes to read. A negative number instructs</tt> </tt>
+<a name="L225"></a><tt class="py-lineno">225</tt>  <tt class="py-line"><tt class="py-docstring">                ``read()`` to read all remaining bytes.</tt> </tt>
+<a name="L226"></a><tt class="py-lineno">226</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L227"></a><tt class="py-lineno">227</tt>  <tt class="py-line"><tt class="py-docstring">        :return: the bytes read</tt> </tt>
+<a name="L228"></a><tt class="py-lineno">228</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L229"></a><tt class="py-lineno">229</tt>  <tt class="py-line">        <tt class="py-name">resultBuf</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L230"></a><tt class="py-lineno">230</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">n</tt> <tt class="py-op">&gt;</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__buf</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L231"></a><tt class="py-lineno">231</tt>  <tt class="py-line">            <tt class="py-name">n</tt> <tt class="py-op">=</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__buf</tt><tt class="py-op">)</tt> </tt>
+<a name="L232"></a><tt class="py-lineno">232</tt>  <tt class="py-line"> </tt>
+<a name="L233"></a><tt class="py-lineno">233</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-op">(</tt><tt class="py-name">n</tt> <tt class="py-op">&lt;</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt> <tt class="py-keyword">or</tt> <tt class="py-op">(</tt><tt class="py-name">n</tt> <tt class="py-op">&gt;=</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__buf</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L234"></a><tt class="py-lineno">234</tt>  <tt class="py-line">            <tt class="py-name">resultBuf</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__buf</tt> </tt>
+<a name="L235"></a><tt class="py-lineno">235</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__buf</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L236"></a><tt class="py-lineno">236</tt>  <tt class="py-line"> </tt>
+<a name="L237"></a><tt class="py-lineno">237</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L238"></a><tt class="py-lineno">238</tt>  <tt class="py-line">            <tt class="py-name">resultBuf</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__buf</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">:</tt><tt class="py-name">n</tt><tt class="py-op">]</tt> </tt>
+<a name="L239"></a><tt class="py-lineno">239</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__buf</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__buf</tt><tt class="py-op">[</tt><tt class="py-name">n</tt><tt class="py-op">:</tt><tt class="py-op">]</tt> </tt>
+<a name="L240"></a><tt class="py-lineno">240</tt>  <tt class="py-line"> </tt>
+<a name="L241"></a><tt class="py-lineno">241</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-string">''</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">resultBuf</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L242"></a><tt class="py-lineno">242</tt>  <tt class="py-line"> </tt>
+<a name="PushbackFile.readline"></a><div id="PushbackFile.readline-def"><a name="L243"></a><tt class="py-lineno">243</tt> <a class="py-toggle" href="#" id="PushbackFile.readline-toggle" onclick="return toggle('PushbackFile.readline');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="grizzled.io.PushbackFile-class.html#readline">readline</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">length</tt><tt class="py-op">=</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PushbackFile.readline-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PushbackFile.readline-expanded"><a name="L244"></a><tt class="py-lineno">244</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L245"></a><tt class="py-lineno">245</tt>  <tt class="py-line"><tt class="py-docstring">        Read the next line from the file.</tt> </tt>
+<a name="L246"></a><tt class="py-lineno">246</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L247"></a><tt class="py-lineno">247</tt>  <tt class="py-line"><tt class="py-docstring">        :Parameters:</tt> </tt>
+<a name="L248"></a><tt class="py-lineno">248</tt>  <tt class="py-line"><tt class="py-docstring">            length : int</tt> </tt>
+<a name="L249"></a><tt class="py-lineno">249</tt>  <tt class="py-line"><tt class="py-docstring">                a length hint, or negative if you don't care</tt> </tt>
+<a name="L250"></a><tt class="py-lineno">250</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L251"></a><tt class="py-lineno">251</tt>  <tt class="py-line"><tt class="py-docstring">        :rtype:  str</tt> </tt>
+<a name="L252"></a><tt class="py-lineno">252</tt>  <tt class="py-line"><tt class="py-docstring">        :return: the line</tt> </tt>
+<a name="L253"></a><tt class="py-lineno">253</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L254"></a><tt class="py-lineno">254</tt>  <tt class="py-line">        <tt class="py-name">i</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L255"></a><tt class="py-lineno">255</tt>  <tt class="py-line">        <tt class="py-keyword">while</tt> <tt class="py-name">i</tt> <tt class="py-op">&lt;</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__buf</tt><tt class="py-op">)</tt> <tt class="py-keyword">and</tt> <tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__buf</tt><tt class="py-op">[</tt><tt class="py-name">i</tt><tt class="py-op">]</tt> <tt class="py-op">!=</tt> <tt class="py-string">'\n'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L256"></a><tt class="py-lineno">256</tt>  <tt class="py-line">            <tt class="py-name">i</tt> <tt class="py-op">+=</tt> <tt class="py-number">1</tt> </tt>
+<a name="L257"></a><tt class="py-lineno">257</tt>  <tt class="py-line"> </tt>
+<a name="L258"></a><tt class="py-lineno">258</tt>  <tt class="py-line">        <tt class="py-name">result</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__buf</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">:</tt><tt class="py-name">i</tt><tt class="py-op">+</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> </tt>
+<a name="L259"></a><tt class="py-lineno">259</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__buf</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__buf</tt><tt class="py-op">[</tt><tt class="py-name">i</tt><tt class="py-op">+</tt><tt class="py-number">1</tt><tt class="py-op">:</tt><tt class="py-op">]</tt> </tt>
+<a name="L260"></a><tt class="py-lineno">260</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-string">''</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">result</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L261"></a><tt class="py-lineno">261</tt>  <tt class="py-line"> </tt>
+<a name="PushbackFile.readlines"></a><div id="PushbackFile.readlines-def"><a name="L262"></a><tt class="py-lineno">262</tt> <a class="py-toggle" href="#" id="PushbackFile.readlines-toggle" onclick="return toggle('PushbackFile.readlines');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="grizzled.io.PushbackFile-class.html#readlines">readlines</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">sizehint</tt><tt class="py-op">=</tt><tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PushbackFile.readlines-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PushbackFile.readlines-expanded"><a name="L263"></a><tt class="py-lineno">263</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L264"></a><tt class="py-lineno">264</tt>  <tt class="py-line"><tt class="py-docstring">        Read all remaining lines in the file.</tt> </tt>
+<a name="L265"></a><tt class="py-lineno">265</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L266"></a><tt class="py-lineno">266</tt>  <tt class="py-line"><tt class="py-docstring">        :rtype:  list</tt> </tt>
+<a name="L267"></a><tt class="py-lineno">267</tt>  <tt class="py-line"><tt class="py-docstring">        :return: list of lines</tt> </tt>
+<a name="L268"></a><tt class="py-lineno">268</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L269"></a><tt class="py-lineno">269</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name" targets="Method grizzled.config.Configuration.read()=grizzled.config.Configuration-class.html#read,Method grizzled.file.includer.Includer.read()=grizzled.file.includer.Includer-class.html#read,Method grizzled.io.PushbackFile.read()=grizzled.io.PushbackFile-class.html#read"><a title="grizzled.config.Configuration.read
+grizzled.file.includer.Includer.read
+grizzled.io.PushbackFile.read" class="py-name" href="#" onclick="return doclink('link-15', 'read', 'link-15');">read</a></tt><tt class="py-op">(</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L270"></a><tt class="py-lineno">270</tt>  <tt class="py-line"> </tt>
+<a name="PushbackFile.__iter__"></a><div id="PushbackFile.__iter__-def"><a name="L271"></a><tt class="py-lineno">271</tt> <a class="py-toggle" href="#" id="PushbackFile.__iter__-toggle" onclick="return toggle('PushbackFile.__iter__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="grizzled.io.PushbackFile-class.html#__iter__">__iter__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PushbackFile.__iter__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PushbackFile.__iter__-expanded"><a name="L272"></a><tt class="py-lineno">272</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt> </tt>
+</div><a name="L273"></a><tt class="py-lineno">273</tt>  <tt class="py-line"> </tt>
+<a name="PushbackFile.next"></a><div id="PushbackFile.next-def"><a name="L274"></a><tt class="py-lineno">274</tt> <a class="py-toggle" href="#" id="PushbackFile.next-toggle" onclick="return toggle('PushbackFile.next');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="grizzled.io.PushbackFile-class.html#next">next</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PushbackFile.next-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PushbackFile.next-expanded"><a name="L275"></a><tt class="py-lineno">275</tt>  <tt class="py-line">        <tt class="py-docstring">"""A file object is its own iterator.</tt> </tt>
+<a name="L276"></a><tt class="py-lineno">276</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L277"></a><tt class="py-lineno">277</tt>  <tt class="py-line"><tt class="py-docstring">        :rtype: str</tt> </tt>
+<a name="L278"></a><tt class="py-lineno">278</tt>  <tt class="py-line"><tt class="py-docstring">        :return: the next line from the file</tt> </tt>
+<a name="L279"></a><tt class="py-lineno">279</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L280"></a><tt class="py-lineno">280</tt>  <tt class="py-line"><tt class="py-docstring">        :raise StopIteration: end of file</tt> </tt>
+<a name="L281"></a><tt class="py-lineno">281</tt>  <tt class="py-line"><tt class="py-docstring">        :raise IncludeError: on error</tt> </tt>
+<a name="L282"></a><tt class="py-lineno">282</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L283"></a><tt class="py-lineno">283</tt>  <tt class="py-line">        <tt class="py-name">line</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-16" class="py-name" targets="Method grizzled.file.includer.Includer.readline()=grizzled.file.includer.Includer-class.html#readline,Method grizzled.io.PushbackFile.readline()=grizzled.io.PushbackFile-class.html#readline"><a title="grizzled.file.includer.Includer.readline
+grizzled.io.PushbackFile.readline" class="py-name" href="#" onclick="return doclink('link-16', 'readline', 'link-16');">readline</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L284"></a><tt class="py-lineno">284</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-op">(</tt><tt class="py-name">line</tt> <tt class="py-op">==</tt> <tt class="py-name">None</tt><tt class="py-op">)</tt> <tt class="py-keyword">or</tt> <tt class="py-op">(</tt><tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">line</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L285"></a><tt class="py-lineno">285</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt class="py-name">StopIteration</tt> </tt>
+<a name="L286"></a><tt class="py-lineno">286</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">line</tt> </tt>
+</div><a name="L287"></a><tt class="py-lineno">287</tt>  <tt class="py-line"> </tt>
+<a name="PushbackFile.close"></a><div id="PushbackFile.close-def"><a name="L288"></a><tt class="py-lineno">288</tt> <a class="py-toggle" href="#" id="PushbackFile.close-toggle" onclick="return toggle('PushbackFile.close');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="grizzled.io.PushbackFile-class.html#close">close</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PushbackFile.close-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PushbackFile.close-expanded"><a name="L289"></a><tt class="py-lineno">289</tt>  <tt class="py-line">        <tt class="py-docstring">"""Close the file. A no-op in this class."""</tt> </tt>
+<a name="L290"></a><tt class="py-lineno">290</tt>  <tt class="py-line">        <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L291"></a><tt class="py-lineno">291</tt>  <tt class="py-line"> </tt>
+<a name="PushbackFile.flush"></a><div id="PushbackFile.flush-def"><a name="L292"></a><tt class="py-lineno">292</tt> <a class="py-toggle" href="#" id="PushbackFile.flush-toggle" onclick="return toggle('PushbackFile.flush');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="grizzled.io.PushbackFile-class.html#flush">flush</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PushbackFile.flush-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PushbackFile.flush-expanded"><a name="L293"></a><tt class="py-lineno">293</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L294"></a><tt class="py-lineno">294</tt>  <tt class="py-line"><tt class="py-docstring">        Force a flush. This method throws an unconditional exception, since</tt> </tt>
+<a name="L295"></a><tt class="py-lineno">295</tt>  <tt class="py-line"><tt class="py-docstring">        ``PushbackFile`` objects are read-only.</tt> </tt>
+<a name="L296"></a><tt class="py-lineno">296</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L297"></a><tt class="py-lineno">297</tt>  <tt class="py-line"><tt class="py-docstring">        :raise NotImplementedError: unconditionally</tt> </tt>
+<a name="L298"></a><tt class="py-lineno">298</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L299"></a><tt class="py-lineno">299</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt class="py-name">NotImplementedError</tt><tt class="py-op">,</tt> <tt class="py-string">'PushbackFile is read-only'</tt> </tt>
+</div><a name="L300"></a><tt class="py-lineno">300</tt>  <tt class="py-line"> </tt>
+<a name="PushbackFile.truncate"></a><div id="PushbackFile.truncate-def"><a name="L301"></a><tt class="py-lineno">301</tt> <a class="py-toggle" href="#" id="PushbackFile.truncate-toggle" onclick="return toggle('PushbackFile.truncate');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="grizzled.io.PushbackFile-class.html#truncate">truncate</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">size</tt><tt class="py-op">=</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PushbackFile.truncate-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PushbackFile.truncate-expanded"><a name="L302"></a><tt class="py-lineno">302</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L303"></a><tt class="py-lineno">303</tt>  <tt class="py-line"><tt class="py-docstring">        Truncate the underlying file.  This method throws an unconditional exception, since</tt> </tt>
+<a name="L304"></a><tt class="py-lineno">304</tt>  <tt class="py-line"><tt class="py-docstring">        ``PushbackFile`` objects are read-only.</tt> </tt>
+<a name="L305"></a><tt class="py-lineno">305</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L306"></a><tt class="py-lineno">306</tt>  <tt class="py-line"><tt class="py-docstring">        :Parameters:</tt> </tt>
+<a name="L307"></a><tt class="py-lineno">307</tt>  <tt class="py-line"><tt class="py-docstring">            size : int</tt> </tt>
+<a name="L308"></a><tt class="py-lineno">308</tt>  <tt class="py-line"><tt class="py-docstring">                Where to truncate. If less than 0, then file's current</tt> </tt>
+<a name="L309"></a><tt class="py-lineno">309</tt>  <tt class="py-line"><tt class="py-docstring">                position is used</tt> </tt>
+<a name="L310"></a><tt class="py-lineno">310</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L311"></a><tt class="py-lineno">311</tt>  <tt class="py-line"><tt class="py-docstring">        :raise NotImplementedError: unconditionally</tt> </tt>
+<a name="L312"></a><tt class="py-lineno">312</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L313"></a><tt class="py-lineno">313</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt class="py-name">NotImplementedError</tt><tt class="py-op">,</tt> <tt class="py-string">'PushbackFile is read-only'</tt> </tt>
+</div><a name="L314"></a><tt class="py-lineno">314</tt>  <tt class="py-line"> </tt>
+<a name="PushbackFile.tell"></a><div id="PushbackFile.tell-def"><a name="L315"></a><tt class="py-lineno">315</tt> <a class="py-toggle" href="#" id="PushbackFile.tell-toggle" onclick="return toggle('PushbackFile.tell');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="grizzled.io.PushbackFile-class.html#tell">tell</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PushbackFile.tell-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PushbackFile.tell-expanded"><a name="L316"></a><tt class="py-lineno">316</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L317"></a><tt class="py-lineno">317</tt>  <tt class="py-line"><tt class="py-docstring">        Return the file's current position, if applicable. This method throws</tt> </tt>
+<a name="L318"></a><tt class="py-lineno">318</tt>  <tt class="py-line"><tt class="py-docstring">        an unconditional exception, since ``PushbackFile`` objects are</tt> </tt>
+<a name="L319"></a><tt class="py-lineno">319</tt>  <tt class="py-line"><tt class="py-docstring">        read-only.</tt> </tt>
+<a name="L320"></a><tt class="py-lineno">320</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L321"></a><tt class="py-lineno">321</tt>  <tt class="py-line"><tt class="py-docstring">        :rtype:  int</tt> </tt>
+<a name="L322"></a><tt class="py-lineno">322</tt>  <tt class="py-line"><tt class="py-docstring">        :return: Current file position</tt> </tt>
+<a name="L323"></a><tt class="py-lineno">323</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L324"></a><tt class="py-lineno">324</tt>  <tt class="py-line"><tt class="py-docstring">        :raise NotImplementedError: unconditionally</tt> </tt>
+<a name="L325"></a><tt class="py-lineno">325</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L326"></a><tt class="py-lineno">326</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt class="py-name">NotImplementedError</tt><tt class="py-op">,</tt> <tt class="py-string">'PushbackFile is not seekable'</tt> </tt>
+</div><a name="L327"></a><tt class="py-lineno">327</tt>  <tt class="py-line"> </tt>
+<a name="PushbackFile.seek"></a><div id="PushbackFile.seek-def"><a name="L328"></a><tt class="py-lineno">328</tt> <a class="py-toggle" href="#" id="PushbackFile.seek-toggle" onclick="return toggle('PushbackFile.seek');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="grizzled.io.PushbackFile-class.html#seek">seek</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">offset</tt><tt class="py-op">,</tt> <tt class="py-param">whence</tt><tt class="py-op">=</tt><tt id="link-17" class="py-name"><a title="grizzled.os" class="py-name" href="#" onclick="return doclink('link-17', 'os', 'link-0');">os</a></tt><tt class="py-op">.</tt><tt class="py-name">SEEK_SET</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PushbackFile.seek-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PushbackFile.seek-expanded"><a name="L329"></a><tt class="py-lineno">329</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L330"></a><tt class="py-lineno">330</tt>  <tt class="py-line"><tt class="py-docstring">        Set the file's current position. This method throws an unconditional</tt> </tt>
+<a name="L331"></a><tt class="py-lineno">331</tt>  <tt class="py-line"><tt class="py-docstring">        exception, since ``PushbackFile`` objects are not seekable.</tt> </tt>
+<a name="L332"></a><tt class="py-lineno">332</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L333"></a><tt class="py-lineno">333</tt>  <tt class="py-line"><tt class="py-docstring">        :Parameters:</tt> </tt>
+<a name="L334"></a><tt class="py-lineno">334</tt>  <tt class="py-line"><tt class="py-docstring">            offset : int</tt> </tt>
+<a name="L335"></a><tt class="py-lineno">335</tt>  <tt class="py-line"><tt class="py-docstring">                where to seek</tt> </tt>
+<a name="L336"></a><tt class="py-lineno">336</tt>  <tt class="py-line"><tt class="py-docstring">            whence : int</tt> </tt>
+<a name="L337"></a><tt class="py-lineno">337</tt>  <tt class="py-line"><tt class="py-docstring">                see above</tt> </tt>
+<a name="L338"></a><tt class="py-lineno">338</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L339"></a><tt class="py-lineno">339</tt>  <tt class="py-line"><tt class="py-docstring">        :raise NotImplementedError: unconditionally</tt> </tt>
+<a name="L340"></a><tt class="py-lineno">340</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L341"></a><tt class="py-lineno">341</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt class="py-name">NotImplementedError</tt><tt class="py-op">,</tt> <tt class="py-string">'PushbackFile is not seekable'</tt> </tt>
+</div><a name="L342"></a><tt class="py-lineno">342</tt>  <tt class="py-line"> </tt>
+<a name="PushbackFile.fileno"></a><div id="PushbackFile.fileno-def"><a name="L343"></a><tt class="py-lineno">343</tt> <a class="py-toggle" href="#" id="PushbackFile.fileno-toggle" onclick="return toggle('PushbackFile.fileno');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="grizzled.io.PushbackFile-class.html#fileno">fileno</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PushbackFile.fileno-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PushbackFile.fileno-expanded"><a name="L344"></a><tt class="py-lineno">344</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L345"></a><tt class="py-lineno">345</tt>  <tt class="py-line"><tt class="py-docstring">        Return the integer file descriptor used by the underlying file.</tt> </tt>
+<a name="L346"></a><tt class="py-lineno">346</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L347"></a><tt class="py-lineno">347</tt>  <tt class="py-line"><tt class="py-docstring">        :rtype:  int</tt> </tt>
+<a name="L348"></a><tt class="py-lineno">348</tt>  <tt class="py-line"><tt class="py-docstring">        :return: the file descriptor</tt> </tt>
+<a name="L349"></a><tt class="py-lineno">349</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L350"></a><tt class="py-lineno">350</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt> </tt>
+</div></div><a name="L351"></a><tt class="py-lineno">351</tt>  <tt class="py-line"> </tt>
+<a name="Zip"></a><div id="Zip-def"><a name="L352"></a><tt class="py-lineno">352</tt> <a class="py-toggle" href="#" id="Zip-toggle" onclick="return toggle('Zip');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="grizzled.io.Zip-class.html">Zip</a><tt class="py-op">(</tt><tt class="py-base-class">zipfile</tt><tt class="py-op">.</tt><tt class="py-base-class">ZipFile</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Zip-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="Zip-expanded"><a name="L353"></a><tt class="py-lineno">353</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L354"></a><tt class="py-lineno">354</tt>  <tt class="py-line"><tt class="py-docstring">    ``Zip`` extends the standard ``zipfile.ZipFile`` class and provides a</tt> </tt>
+<a name="L355"></a><tt class="py-lineno">355</tt>  <tt class="py-line"><tt class="py-docstring">    method to extract the contents of a zip file into a directory. Adapted</tt> </tt>
+<a name="L356"></a><tt class="py-lineno">356</tt>  <tt class="py-line"><tt class="py-docstring">    from http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/252508.</tt> </tt>
+<a name="L357"></a><tt class="py-lineno">357</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="Zip.__init__"></a><div id="Zip.__init__-def"><a name="L358"></a><tt class="py-lineno">358</tt> <a class="py-toggle" href="#" id="Zip.__init__-toggle" onclick="return toggle('Zip.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="grizzled.io.Zip-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">file</tt><tt class="py-op">,</tt> <tt class="py-param">mode</tt><tt class="py-op">=</tt><tt class="py-string">"r"</tt><tt class="py-op">,</tt> </tt>
+<a name="L359"></a><tt class="py-lineno">359</tt>  <tt class="py-line">                 <tt class="py-param">compression</tt><tt class="py-op">=</tt><tt class="py-name">zipfile</tt><tt class="py-op">.</tt><tt class="py-name">ZIP_STORED</tt><tt class="py-op">,</tt> </tt>
+<a name="L360"></a><tt class="py-lineno">360</tt>  <tt class="py-line">                 <tt class="py-param">allow_zip64</tt><tt class="py-op">=</tt><tt class="py-name">False</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Zip.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Zip.__init__-expanded"><a name="L361"></a><tt class="py-lineno">361</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L362"></a><tt class="py-lineno">362</tt>  <tt class="py-line"><tt class="py-docstring">        Constructor. Initialize a new zip file.</tt> </tt>
+<a name="L363"></a><tt class="py-lineno">363</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L364"></a><tt class="py-lineno">364</tt>  <tt class="py-line"><tt class="py-docstring">        :Parameters:</tt> </tt>
+<a name="L365"></a><tt class="py-lineno">365</tt>  <tt class="py-line"><tt class="py-docstring">            file : str</tt> </tt>
+<a name="L366"></a><tt class="py-lineno">366</tt>  <tt class="py-line"><tt class="py-docstring">                path to zip file</tt> </tt>
+<a name="L367"></a><tt class="py-lineno">367</tt>  <tt class="py-line"><tt class="py-docstring">            mode : str</tt> </tt>
+<a name="L368"></a><tt class="py-lineno">368</tt>  <tt class="py-line"><tt class="py-docstring">                open mode. Valid values are 'r' (read), 'w' (write), and</tt> </tt>
+<a name="L369"></a><tt class="py-lineno">369</tt>  <tt class="py-line"><tt class="py-docstring">                'a' (append)</tt> </tt>
+<a name="L370"></a><tt class="py-lineno">370</tt>  <tt class="py-line"><tt class="py-docstring">            compression : int</tt> </tt>
+<a name="L371"></a><tt class="py-lineno">371</tt>  <tt class="py-line"><tt class="py-docstring">                Compression type. Valid values: ``zipfile.ZIP_STORED`,</tt> </tt>
+<a name="L372"></a><tt class="py-lineno">372</tt>  <tt class="py-line"><tt class="py-docstring">                ``zipfile.ZIP_DEFLATED``</tt> </tt>
+<a name="L373"></a><tt class="py-lineno">373</tt>  <tt class="py-line"><tt class="py-docstring">            allow_zip64 : bool</tt> </tt>
+<a name="L374"></a><tt class="py-lineno">374</tt>  <tt class="py-line"><tt class="py-docstring">                Whether or not Zip64 extensions are to be used</tt> </tt>
+<a name="L375"></a><tt class="py-lineno">375</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L376"></a><tt class="py-lineno">376</tt>  <tt class="py-line">        <tt class="py-name">zipfile</tt><tt class="py-op">.</tt><tt class="py-name">ZipFile</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name" targets="Method grizzled.cmdline.CommandLineParser.__init__()=grizzled.cmdline.CommandLineParser-class.html#__init__,Method grizzled.collections.dict.LRUDict.__init__()=grizzled.collections.dict.LRUDict-class.html#__init__,Method grizzled.collections.dict.LRUList.__init__()=grizzled.collections.dict.LRUList-class.html#__init__,Method grizzled.collections.dict.LRUListEntry.__init__()=grizzled.collections.dict.LRUListEntry-class.html#__init__,Method grizzled.collections.dict.OrderedDict.__init__()=grizzled.collections.dict.OrderedDict-class.html#__init__,Method grizzled.config.Configuration.__init__()=grizzled.config.Configuration-class.html#__init__,Method grizzled.config._ConfigDict.__init__()=grizzled.config._ConfigDict-class.html#__init__,Method grizzled.db.base.Cursor.__init__()=grizzled.db.base.Cursor-class.html#__init__,Method grizzled.db.base.DB.__init__()=grizzled.db.base.DB-class.html#__init__,Method grizzled.db.dbgadfly.GadflyCursor.__init__()=grizzled.db.dbgadfly.GadflyCursor-class.html#__init__,Method grizzled.db.dbgadfly.GadflyDB.__init__()=grizzled.db.dbgadfly.GadflyDB-class.html#__init__,Method grizzled.db.dbgadfly.GadflyDriver.__init__()=grizzled.db.dbgadfly.GadflyDriver-class.html#__init__,Method grizzled.db.dummydb.DummyDB.__init__()=grizzled.db.dummydb.DummyDB-class.html#__init__,Method grizzled.exception.ExceptionWithMessage.__init__()=grizzled.exception.ExceptionWithMessage-class.html#__init__,Method grizzled.file.includer.Includer.__init__()=grizzled.file.includer.Includer-class.html#__init__,Method grizzled.history.DummyHistory.__init__()=grizzled.history.DummyHistory-class.html#__init__,Method grizzled.history.History.__init__()=grizzled.history.History-class.html#__init__,Method grizzled.history.PyReadlineHistory.__init__()=grizzled.history.PyReadlineHistory-class.html#__init__,Method grizzled.history.ReadlineHistory.__init__()=grizzled.history.ReadlineHistory-class.html#__init__,Method grizzled.io.AutoFlush.__init__()=grizzled.io.AutoFlush-class.html#__init__,Method grizzled.io.MultiWriter.__init__()=grizzled.io.MultiWriter-class.html#__init__,Method grizzled.io.PushbackFile.__init__()=grizzled.io.PushbackFile-class.html#__init__,Method grizzled.io.Zip.__init__()=grizzled.io.Zip-class.html#__init__,Method grizzled.io.filelock.FileLock.__init__()=grizzled.io.filelock.FileLock-class.html#__init__,Method grizzled.io.filelock._PosixFileLock.__init__()=grizzled.io.filelock._PosixFileLock-class.html#__init__,Method grizzled.io.filelock._WindowsFileLock.__init__()=grizzled.io.filelock._WindowsFileLock-class.html#__init__,Method grizzled.log.WrappingLogFormatter.__init__()=grizzled.log.WrappingLogFormatter-class.html#__init__,Method grizzled.misc.ReadOnly.__init__()=grizzled.misc.ReadOnly-class.html#__init__,Method grizzled.misc.ReadOnlyObjectError.__init__()=grizzled.misc.ReadOnlyObjectError-class.html#__init__,Method grizzled.net.ftp.parse.FTPListData.__init__()=grizzled.net.ftp.parse.FTPListData-class.html#__init__,Method grizzled.net.ftp.parse.FTPListDataParser.__init__()=grizzled.net.ftp.parse.FTPListDataParser-class.html#__init__"><a title="grizzled.cmdline.CommandLineParser.__init__
+grizzled.collections.dict.LRUDict.__init__
+grizzled.collections.dict.LRUList.__init__
+grizzled.collections.dict.LRUListEntry.__init__
+grizzled.collections.dict.OrderedDict.__init__
+grizzled.config.Configuration.__init__
+grizzled.config._ConfigDict.__init__
+grizzled.db.base.Cursor.__init__
+grizzled.db.base.DB.__init__
+grizzled.db.dbgadfly.GadflyCursor.__init__
+grizzled.db.dbgadfly.GadflyDB.__init__
+grizzled.db.dbgadfly.GadflyDriver.__init__
+grizzled.db.dummydb.DummyDB.__init__
+grizzled.exception.ExceptionWithMessage.__init__
+grizzled.file.includer.Includer.__init__
+grizzled.history.DummyHistory.__init__
+grizzled.history.History.__init__
+grizzled.history.PyReadlineHistory.__init__
+grizzled.history.ReadlineHistory.__init__
+grizzled.io.AutoFlush.__init__
+grizzled.io.MultiWriter.__init__
+grizzled.io.PushbackFile.__init__
+grizzled.io.Zip.__init__
+grizzled.io.filelock.FileLock.__init__
+grizzled.io.filelock._PosixFileLock.__init__
+grizzled.io.filelock._WindowsFileLock.__init__
+grizzled.log.WrappingLogFormatter.__init__
+grizzled.misc.ReadOnly.__init__
+grizzled.misc.ReadOnlyObjectError.__init__
+grizzled.net.ftp.parse.FTPListData.__init__
+grizzled.net.ftp.parse.FTPListDataParser.__init__" class="py-name" href="#" onclick="return doclink('link-18', '__init__', 'link-18');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt id="link-19" class="py-name" targets="Package grizzled.file=grizzled.file-module.html"><a title="grizzled.file" class="py-name" href="#" onclick="return doclink('link-19', 'file', 'link-19');">file</a></tt><tt class="py-op">,</tt> <tt class="py-name">mode</tt><tt class="py-op">,</tt> <tt class="py-name">compression</tt><tt class="py-op">,</tt> <tt class="py-name">allow_zip64</tt><tt class="py-op">)</tt> </tt>
+<a name="L377"></a><tt class="py-lineno">377</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">zipFile</tt> <tt class="py-op">=</tt> <tt id="link-20" class="py-name"><a title="grizzled.file" class="py-name" href="#" onclick="return doclink('link-20', 'file', 'link-19');">file</a></tt> </tt>
+</div><a name="L378"></a><tt class="py-lineno">378</tt>  <tt class="py-line"> </tt>
+<a name="Zip.extract"></a><div id="Zip.extract-def"><a name="L379"></a><tt class="py-lineno">379</tt> <a class="py-toggle" href="#" id="Zip.extract-toggle" onclick="return toggle('Zip.extract');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="grizzled.io.Zip-class.html#extract">extract</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">output_dir</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Zip.extract-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Zip.extract-expanded"><a name="L380"></a><tt class="py-lineno">380</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L381"></a><tt class="py-lineno">381</tt>  <tt class="py-line"><tt class="py-docstring">        Unpack the zip file into the specified output directory.</tt> </tt>
+<a name="L382"></a><tt class="py-lineno">382</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L383"></a><tt class="py-lineno">383</tt>  <tt class="py-line"><tt class="py-docstring">        :Parameters:</tt> </tt>
+<a name="L384"></a><tt class="py-lineno">384</tt>  <tt class="py-line"><tt class="py-docstring">            output_dir : str</tt> </tt>
+<a name="L385"></a><tt class="py-lineno">385</tt>  <tt class="py-line"><tt class="py-docstring">                path to output directory. The directory is</tt> </tt>
+<a name="L386"></a><tt class="py-lineno">386</tt>  <tt class="py-line"><tt class="py-docstring">                created if it doesn't already exist.</tt> </tt>
+<a name="L387"></a><tt class="py-lineno">387</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L388"></a><tt class="py-lineno">388</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">output_dir</tt><tt class="py-op">.</tt><tt class="py-name">endswith</tt><tt class="py-op">(</tt><tt class="py-string">':'</tt><tt class="py-op">)</tt> <tt class="py-keyword">and</tt> <tt class="py-keyword">not</tt> <tt id="link-21" class="py-name"><a title="grizzled.os" class="py-name" href="#" onclick="return doclink('link-21', 'os', 'link-0');">os</a></tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">exists</tt><tt class="py-op">(</tt><tt class="py-name">output_dir</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L389"></a><tt class="py-lineno">389</tt>  <tt class="py-line">            <tt id="link-22" class="py-name"><a title="grizzled.os" class="py-name" href="#" onclick="return doclink('link-22', 'os', 'link-0');">os</a></tt><tt class="py-op">.</tt><tt class="py-name">mkdir</tt><tt class="py-op">(</tt><tt class="py-name">output_dir</tt><tt class="py-op">)</tt> </tt>
+<a name="L390"></a><tt class="py-lineno">390</tt>  <tt class="py-line"> </tt>
+<a name="L391"></a><tt class="py-lineno">391</tt>  <tt class="py-line">        <tt class="py-name">num_files</tt> <tt class="py-op">=</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">namelist</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L392"></a><tt class="py-lineno">392</tt>  <tt class="py-line"> </tt>
+<a name="L393"></a><tt class="py-lineno">393</tt>  <tt class="py-line">        <tt class="py-comment"># extract files to directory structure</tt> </tt>
+<a name="L394"></a><tt class="py-lineno">394</tt>  <tt class="py-line"><tt class="py-comment"></tt>        <tt class="py-keyword">for</tt> <tt class="py-name">i</tt><tt class="py-op">,</tt> <tt id="link-23" class="py-name" targets="Variable grizzled.file.includer.Includer.name=grizzled.file.includer.Includer-class.html#name"><a title="grizzled.file.includer.Includer.name" class="py-name" href="#" onclick="return doclink('link-23', 'name', 'link-23');">name</a></tt> <tt class="py-keyword">in</tt> <tt class="py-name">enumerate</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">namelist</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L395"></a><tt class="py-lineno">395</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt id="link-24" class="py-name"><a title="grizzled.file.includer.Includer.name" class="py-name" href="#" onclick="return doclink('link-24', 'name', 'link-23');">name</a></tt><tt class="py-op">.</tt><tt class="py-name">endswith</tt><tt class="py-op">(</tt><tt class="py-string">'/'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L396"></a><tt class="py-lineno">396</tt>  <tt class="py-line">                <tt class="py-name">directory</tt> <tt class="py-op">=</tt> <tt id="link-25" class="py-name"><a title="grizzled.os" class="py-name" href="#" onclick="return doclink('link-25', 'os', 'link-0');">os</a></tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">dirname</tt><tt class="py-op">(</tt><tt id="link-26" class="py-name"><a title="grizzled.file.includer.Includer.name" class="py-name" href="#" onclick="return doclink('link-26', 'name', 'link-23');">name</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L397"></a><tt class="py-lineno">397</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">directory</tt> <tt class="py-op">==</tt> <tt class="py-string">''</tt><tt class="py-op">:</tt> </tt>
+<a name="L398"></a><tt class="py-lineno">398</tt>  <tt class="py-line">                    <tt class="py-name">directory</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L399"></a><tt class="py-lineno">399</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">directory</tt><tt class="py-op">:</tt> </tt>
+<a name="L400"></a><tt class="py-lineno">400</tt>  <tt class="py-line">                    <tt class="py-name">directory</tt> <tt class="py-op">=</tt> <tt id="link-27" class="py-name"><a title="grizzled.os" class="py-name" href="#" onclick="return doclink('link-27', 'os', 'link-0');">os</a></tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">output_dir</tt><tt class="py-op">,</tt> <tt class="py-name">directory</tt><tt class="py-op">)</tt> </tt>
+<a name="L401"></a><tt class="py-lineno">401</tt>  <tt class="py-line">                    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt id="link-28" class="py-name"><a title="grizzled.os" class="py-name" href="#" onclick="return doclink('link-28', 'os', 'link-0');">os</a></tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">exists</tt><tt class="py-op">(</tt><tt class="py-name">directory</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L402"></a><tt class="py-lineno">402</tt>  <tt class="py-line">                        <tt id="link-29" class="py-name"><a title="grizzled.os" class="py-name" href="#" onclick="return doclink('link-29', 'os', 'link-0');">os</a></tt><tt class="py-op">.</tt><tt class="py-name">makedirs</tt><tt class="py-op">(</tt><tt class="py-name">directory</tt><tt class="py-op">)</tt> </tt>
+<a name="L403"></a><tt class="py-lineno">403</tt>  <tt class="py-line"> </tt>
+<a name="L404"></a><tt class="py-lineno">404</tt>  <tt class="py-line">                <tt class="py-name">outfile</tt> <tt class="py-op">=</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt><tt id="link-30" class="py-name"><a title="grizzled.os" class="py-name" href="#" onclick="return doclink('link-30', 'os', 'link-0');">os</a></tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">output_dir</tt><tt class="py-op">,</tt> <tt id="link-31" class="py-name"><a title="grizzled.file.includer.Includer.name" class="py-name" href="#" onclick="return doclink('link-31', 'name', 'link-23');">name</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-string">'wb'</tt><tt class="py-op">)</tt> </tt>
+<a name="L405"></a><tt class="py-lineno">405</tt>  <tt class="py-line">                <tt class="py-name">outfile</tt><tt class="py-op">.</tt><tt id="link-32" class="py-name"><a title="grizzled.config.Configuration.write
+grizzled.file.includer.Includer.write
+grizzled.io.AutoFlush.write
+grizzled.io.MultiWriter.write
+grizzled.io.PushbackFile.write" class="py-name" href="#" onclick="return doclink('link-32', 'write', 'link-1');">write</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-33" class="py-name"><a title="grizzled.config.Configuration.read
+grizzled.file.includer.Includer.read
+grizzled.io.PushbackFile.read" class="py-name" href="#" onclick="return doclink('link-33', 'read', 'link-15');">read</a></tt><tt class="py-op">(</tt><tt id="link-34" class="py-name"><a title="grizzled.file.includer.Includer.name" class="py-name" href="#" onclick="return doclink('link-34', 'name', 'link-23');">name</a></tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L406"></a><tt class="py-lineno">406</tt>  <tt class="py-line">                <tt class="py-name">outfile</tt><tt class="py-op">.</tt><tt id="link-35" class="py-name"><a title="grizzled.file.includer.Includer.flush
+grizzled.io.AutoFlush.flush
+grizzled.io.MultiWriter.flush
+grizzled.io.PushbackFile.flush" class="py-name" href="#" onclick="return doclink('link-35', 'flush', 'link-2');">flush</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L407"></a><tt class="py-lineno">407</tt>  <tt class="py-line">                <tt class="py-name">outfile</tt><tt class="py-op">.</tt><tt id="link-36" class="py-name"><a title="grizzled.db.base.Cursor.close
+grizzled.db.base.DB.close
+grizzled.db.dbgadfly.GadflyCursor.close
+grizzled.db.dummydb.DummyCursor.close
+grizzled.db.dummydb.DummyDB.close
+grizzled.file.includer.Includer.close
+grizzled.io.MultiWriter.close
+grizzled.io.PushbackFile.close" class="py-name" href="#" onclick="return doclink('link-36', 'close', 'link-12');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L408"></a><tt class="py-lineno">408</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="grizzled-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sat Oct 24 11:59:00 2009
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>
