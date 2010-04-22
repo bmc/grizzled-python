@@ -64,7 +64,6 @@ request. Along with any patch you send:
 * Please indicate that you license the work to the Grizzled Python Library
   project under a [BSD License][license].
 
-[GitHub repository]: http://github.com/bmc/grizzled
 [license]: license.html
 [*epydoc*]: http://epydoc.sourceforge.net/
 [Python]: http://www.python.org/
