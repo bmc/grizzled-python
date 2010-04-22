@@ -1,4 +1,8 @@
+Version 0.9.4 (...)
 
+- Fixed various incorrect docstrings.
+
+---------------------------------------------------------------------------
 Version 0.9.3 (24 October, 2009)
 
 - Updated to latest ez_setup.py

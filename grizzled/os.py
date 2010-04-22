@@ -236,7 +236,7 @@ def daemonize(no_close=False, pidfile=None):
 
     .. python::
 
-        from grizzled.os import daemon
+        from grizzled.os import daemonize
         daemon.daemonize()
 
     If ``daemonize()`` fails for any reason, it throws a ``DaemonError``,
