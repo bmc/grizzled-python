@@ -1,5 +1,3 @@
-# $Id$
-
 """
 This module contains file- and path-related methods, classes, and modules.
 """

@@ -1,6 +1,4 @@
 #!/usr/bin/env python
-#
-# $Id$
 # ---------------------------------------------------------------------------
 
 """
@@ -22,8 +20,6 @@ __docformat__ = "restructuredtext en"
 
 from optparse import OptionParser
 import sys
-
-from grizzled.decorators import deprecated
 
 # ---------------------------------------------------------------------------
 # Exports
@@ -67,10 +63,6 @@ class CommandLineParser(OptionParser):
             print >> out, '\n%s' % textwrap.fill(self.epilogue, 80)
             out.flush()
 
-    @deprecated(since='0.8.3', message='Use die_with_usage()')
-    def show_usage(self, msg=None):
-        self.die_with_usage(msg)
-        
     def die_with_usage(self, msg=None, exit_code=2):
         """
         Display a usage message and exit.
