@@ -1,8 +1,3 @@
-#!/usr/bin/env python
-#
-# $Id$
-# ---------------------------------------------------------------------------
-
 """
 ``grizzled.collections.tuple`` contains some useful tuple-related classes
 and functions.

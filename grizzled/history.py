@@ -1,5 +1,3 @@
-# $Id$
-
 """
 ``grizzled.history`` provides a command line history capability that
 provides the same interface across different history implementations.
