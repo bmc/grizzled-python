@@ -1,3 +1,6 @@
 # Ignore files that match these wildcards
 
 *.pyc
+build
+dist
+grizzled.egg-info
