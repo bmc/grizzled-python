@@ -1,7 +1,3 @@
-#!/usr/bin/env python
-#
-# $Id$
-
 # NOTE: Documentation is intended to be processed by epydoc and contains
 # epydoc markup.
 
@@ -11,7 +7,7 @@ Overview
 
 The ``grizzled.system`` module contains some functions and classes that
 provide information about the Python system (the Python runtime, the language,
-etc.). Tt is a conceptual extension of the standard Python ``sys`` module.
+etc.). It is a conceptual extension of the standard Python ``sys`` module.
 """
 
 from __future__ import absolute_import
@@ -48,7 +44,7 @@ RELEASE_LEVEL_NAMES = {0xa : 'alpha',
 # Logging
 # ---------------------------------------------------------------------------
 
-log = logging.getLogger('grizzled.sys')
+log = logging.getLogger('grizzled.system')
 
 # ---------------------------------------------------------------------------
 # Public classes

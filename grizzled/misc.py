@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-#
-# $Id$
 
 # NOTE: Documentation is intended to be processed by epydoc and contains
 # epydoc markup.

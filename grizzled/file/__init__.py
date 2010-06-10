@@ -1,5 +1,3 @@
-# $Id$
-
 """
 This module contains file- and path-related methods, classes, and modules.
 """
@@ -66,6 +64,28 @@ def recursively_remove(dir):
         return
 
     shutil.rmtree(dir)
+
+def list_recursively(dir):
+    """
+    Recursively list the contents of a directory. Yields the contents of
+    the directory and all subdirectories. This method returns a generator,
+    so it evaluates its recursive walk lazily.
+
+    :Parameters:
+        dir : str
+            Path to directory to list
+
+    :raise ValueError: If ``dir`` does not exist, or if ``dir`` exists
+                       but is not a directory.
+    """
+    if not _os.path.isdir(dir):
+        raise ValueError, "%s is not a directory." % dir
+
+    for f in _os.listdir(dir):
+        if _os.path.isdir(f):
+            list_recursively(f)
+        else:
+            yield f
 
 def copy_recursively(source_dir, target_dir):
     """

@@ -1,6 +1,4 @@
 #!/usr/bin/env python
-#
-# $Id$
 
 # NOTE: Documentation is intended to be processed by epydoc and contains
 # epydoc markup.
@@ -236,8 +234,8 @@ def daemonize(no_close=False, pidfile=None):
 
     .. python::
 
-        from grizzled.os import daemon
-        daemon.daemonize()
+        from grizzled.os import daemonize
+        daemonize.daemonize()
 
     If ``daemonize()`` fails for any reason, it throws a ``DaemonError``,
     which is a subclass of the standard ``OSError`` exception. also logs debug

@@ -1,7 +1,3 @@
-#!/usr/bin/env python
-#
-# $Id$
-# ---------------------------------------------------------------------------
 
 """
 ``grizzled.collections.dict`` contains some useful dictionary classes

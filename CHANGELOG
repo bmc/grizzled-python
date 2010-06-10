@@ -1,4 +1,9 @@
+Version 0.9.4 (...)
 
+- Fixed various incorrect docstrings.
+- Added grizzled.file.list_recursively() function.
+
+---------------------------------------------------------------------------
 Version 0.9.3 (24 October, 2009)
 
 - Updated to latest ez_setup.py

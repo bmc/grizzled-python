@@ -3,4 +3,6 @@
 *.pyc
 build
 dist
-grizzled.egg-info
+.semantic.cache
+epydoc
+*.egg-info
