@@ -7,13 +7,13 @@ subpackages that group different kinds of utility functions and classes.
 
 See the `API documentation`_ for complete details.
 
-.. _API documentation: http://www.clapper.org/software/python/grizzled/epydoc
+.. _API documentation: http://software.clapper.org/python/grizzled/epydoc
 """
 
 __version__ = '0.9.4'
 __author__  = 'Brian M. Clapper'
 __email__   = 'bmc@clapper.org'
-__url__     = 'http://bmc.github.com/grizzled/'
+__url__     = 'http://software.clapper.org/grizzled/'
 __license__ = 'BSD license'
 __title__   = 'The Grizzled Python Utility Library'
 

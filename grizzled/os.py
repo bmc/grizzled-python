@@ -242,7 +242,7 @@ def daemonize(no_close=False, pidfile=None):
     messages, using the standard Python ``logging`` package, to channel
     "grizzled.os.daemon".
 
-    **Adapted from:** http://www.clapper.org/software/daemonize/
+    **Adapted from:** http://software.clapper.org/daemonize/
 
     **See Also:**
 

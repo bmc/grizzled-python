@@ -295,7 +295,7 @@ class LRUDict(dict):
       removed for *any* reason, including via ``del``.
 
     This implementation is based on a Java ``LRUMap`` class in the
-    ``org.clapper.util`` library. See http://www.clapper.org/software/java/util/
+    ``org.clapper.util`` library. See http://software.clapper.org/java/util/
     for details.
     """
     def __init__(self, *args, **kw):
