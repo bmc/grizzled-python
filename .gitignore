@@ -1,8 +1,8 @@
 # Ignore files that match these wildcards
 
 *.pyc
-.semantic.cache
+build
 dist
+.semantic.cache
 epydoc
 *.egg-info
-build
