@@ -10,30 +10,31 @@ with a variety of different modules and packages. It's roughly organized
 into subpackages that group different kinds of utility functions and
 classes. For a sampling of what's available, see the API documentation.
 
-Grizzled is under continual development, so check back regularly.
+Grizzled Python is under continual development, so check back regularly.
 
 ## Getting and installing Grizzled Python
 
 ### Installing via EasyInstall
 
-Because *grizzled* is available via [PyPI][], if you have [EasyInstall][]
-installed on your system, installing the library is as easy as running this
-command (usually as `root` or the system administrator):
+Because Grizzled Python is available via [PyPI][], if you have
+[EasyInstall][] installed on your system, installing the library is as easy
+as running this command (usually as `root` or the system administrator):
 
     easy_install grizzled
 
 ### Installing from source
 
-You can also install *grizzled* from source. Either download the source (as
-a zip or tarball) from <http://github.com/bmc/grizzled/downloads>, or make
-a local read-only clone of the [GitHub repository][] using one of the
-following commands:
+You can also install Grizzled Python from source. Either download the
+source (as a zip or tarball) from
+<http://github.com/bmc/grizzled-python/downloads>, or make a local
+read-only clone of the [GitHub repository][] using one of the following
+commands:
 
-    $ git clone git://github.com/bmc/grizzled.git
-    $ git clone http://github.com/bmc/grizzled.git
+    $ git clone git://github.com/bmc/grizzled-python.git
+    $ git clone http://github.com/bmc/grizzled-python.git
 
-Once you have a local `grizzled` source directory, change your working
-directory to the source directory, and type:
+Once you have a local `grizzled-python` source directory, change your
+working directory to the source directory, and type:
 
     python setup.py install
 
@@ -71,4 +72,4 @@ request. Along with any patch you send:
 [Brian M. Clapper]: mailto:bmc@clapper.org
 [EasyInstall]: http://peak.telecommunity.com/DevCenter/EasyInstall
 [PyPI]: http://pypi.python.org/pypi
-[GitHub repository]: http://github.com/bmc/grizzled
+[GitHub repository]: http://github.com/bmc/grizzled-python
