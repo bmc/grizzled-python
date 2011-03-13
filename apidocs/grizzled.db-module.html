@@ -56,82 +56,98 @@
 </table>
 <!-- ==================== PACKAGE DESCRIPTION ==================== -->
 <h1 class="epydoc">Package db</h1><p class="nomargin-top"><span class="codelink"><a href="grizzled.db-pysrc.html">source&nbsp;code</a></span></p>
-<pre class="literalblock">
-
-Introduction
-============
-
-The ``db`` module is a DB API wrapper. It provides a DB API-compliant API that
+<div class="rst-section" id="rst-introduction">
+<h1 class="heading">Introduction</h1>
+<p>The <tt class="rst-rst-rst-docutils literal rst-rst-docutils literal rst-docutils literal">db</tt> module is a DB API wrapper. It provides a DB API-compliant API that
 wraps real underlying DB API drivers, simplifying some non-portable operations
-like ``connect()`` and providing some new operations.
+like <tt class="rst-docutils literal">connect()</tt> and providing some new operations.</p>
+<p>Some drivers come bundled with this package. Others can be added on the fly.</p>
+</div>
+<div class="rst-section" id="rst-getting-the-list-of-drivers">
+<h1 class="heading">Getting the List of Drivers</h1>
+<p>To get a list of all drivers currently registered with this module, use the
+<tt class="rst-docutils literal">get_driver_names()</tt> method:</p>
+<pre class="py-doctest">
+<span class="py-keyword">import</span> db
 
-Some drivers come bundled with this package. Others can be added on the fly.
-
-Getting the List of Drivers
-===========================
-
-To get a list of all drivers currently registered with this module, use the
-``get_driver_names()`` method:
-
-.. python::
-
-    import db
-
-    for driver_name in db.get_driver_names():
-        print driver_name
-
-Currently, this module provides the following bundled drivers:
-
-  +------------------+------------+-------------------+
-  | Driver Name,     |            |                   |
-  | as passed to     |            | Underlying Python |
-  | ``get_driver()`` | Database   | DB API module     |
-  +==================+============+===================+
-  | dummy            | None       | ``db.DummyDB``    |
-  +------------------+------------+-------------------+
-  | gadfly           | Gadfly     | ``gadfly``        |
-  +------------------+------------+-------------------+
-  | mysql            | MySQL      | ``MySQLdb``       |
-  +------------------+------------+-------------------+
-  | oracle           | Oracle     | ``cx_Oracle``     |
-  +------------------+------------+-------------------+
-  | postgresql       | PostgreSQL | ``psycopg2``      |
-  +------------------+------------+-------------------+
-  | sqlserver        | SQL Server | ``pymssql``       |
-  +------------------+------------+-------------------+
-  | sqlite           | SQLite 3   | ``sqlite3``       |
-  +------------------+------------+-------------------+
-
-To use a given driver, you must have the corresponding Python DB API module
-installed on your system.
-
-Adding a Driver
-===============
-
-It's possible to add a new driver to the list of drivers supplied by this
-module. To do so:
-
- 1. The driver class must extend ``DBDriver`` and provide the appropriate
-    methods. See examples in this module.
- 2. The driver's module (or the calling program) must register the driver
-    with this module by calling the ``add_driver()`` function.
-
-
-DB API Factory Functions
-========================
-
-The ``Binary()``, ``Date()``, ``DateFromTicks()``, ``Time()``,
-``TimeFromTicks()``, ``TimeStamp()`` and ``TimestampFromTicks()`` DB API
+<span class="py-keyword">for</span> driver_name <span class="py-keyword">in</span> db.get_driver_names():
+    <span class="py-keyword">print</span> driver_name</pre>
+<p>Currently, this module provides the following bundled drivers:</p>
+<blockquote>
+<table border="1" class="rst-docutils">
+<colgroup>
+<col width="37%" />
+<col width="24%" />
+<col width="39%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="rst-head">Driver Name,
+as passed to
+<tt class="rst-docutils literal">get_driver()</tt></th>
+<th class="rst-head">Database</th>
+<th class="rst-head">Underlying Python
+DB API module</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>dummy</td>
+<td>None</td>
+<td><tt class="rst-docutils literal">db.DummyDB</tt></td>
+</tr>
+<tr><td>gadfly</td>
+<td>Gadfly</td>
+<td><tt class="rst-docutils literal">gadfly</tt></td>
+</tr>
+<tr><td>mysql</td>
+<td>MySQL</td>
+<td><tt class="rst-docutils literal">MySQLdb</tt></td>
+</tr>
+<tr><td>oracle</td>
+<td>Oracle</td>
+<td><tt class="rst-docutils literal">cx_Oracle</tt></td>
+</tr>
+<tr><td>postgresql</td>
+<td>PostgreSQL</td>
+<td><tt class="rst-docutils literal">psycopg2</tt></td>
+</tr>
+<tr><td>sqlserver</td>
+<td>SQL Server</td>
+<td><tt class="rst-docutils literal">pymssql</tt></td>
+</tr>
+<tr><td>sqlite</td>
+<td>SQLite 3</td>
+<td><tt class="rst-docutils literal">sqlite3</tt></td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>To use a given driver, you must have the corresponding Python DB API module
+installed on your system.</p>
+</div>
+<div class="rst-section" id="rst-adding-a-driver">
+<h1 class="heading">Adding a Driver</h1>
+<p>It's possible to add a new driver to the list of drivers supplied by this
+module. To do so:</p>
+<blockquote>
+<ol class="rst-arabic simple">
+<li>The driver class must extend <tt class="rst-docutils literal">DBDriver</tt> and provide the appropriate
+methods. See examples in this module.</li>
+<li>The driver's module (or the calling program) must register the driver
+with this module by calling the <tt class="rst-docutils literal">add_driver()</tt> function.</li>
+</ol>
+</blockquote>
+</div>
+<div class="rst-section" id="rst-db-api-factory-functions">
+<h1 class="heading">DB API Factory Functions</h1>
+<p>The <tt class="rst-docutils literal">Binary()</tt>, <tt class="rst-docutils literal">Date()</tt>, <tt class="rst-docutils literal">DateFromTicks()</tt>, <tt class="rst-docutils literal">Time()</tt>,
+<tt class="rst-docutils literal">TimeFromTicks()</tt>, <tt class="rst-docutils literal">TimeStamp()</tt> and <tt class="rst-docutils literal">TimestampFromTicks()</tt> DB API
 functions can be found in the DB class. Thus, to make a string into a BLOB
-with this API, you use:
-
-.. python::
-
-    driver = db.get_driver(driver_name)
-    db = driver.connect(...)
-    blob = db.Binary(some_string)
-
-</pre>
+with this API, you use:</p>
+<pre class="py-doctest">
+driver = db.get_driver(driver_name)
+db = driver.connect(...)
+blob = db.Binary(some_string)</pre>
+</div>
 
 <!-- ==================== SUBMODULES ==================== -->
 <a name="section-Submodules"></a>
@@ -182,51 +198,39 @@ with this API, you use:
   </td>
 </tr>
 <tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
+    <td class="summary" colspan="2">
         <a href="grizzled.db.base.Warning-class.html" class="summary-name">Warning</a><br />
-      Thrown to indicate an error in the ``db`` module.
+      Thrown to indicate an error in the <tt class="rst-rst-docutils literal rst-docutils literal">db</tt> module.
     </td>
   </tr>
 <tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
+    <td class="summary" colspan="2">
         <a href="grizzled.db.base.Error-class.html" class="summary-name">Error</a><br />
-      Thrown to indicate an error in the ``db`` module.
+      Thrown to indicate an error in the <tt class="rst-rst-docutils literal rst-docutils literal">db</tt> module.
     </td>
   </tr>
 <tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
+    <td class="summary" colspan="2">
         <a href="grizzled.db.base.DB-class.html" class="summary-name">DB</a><br />
-      The object returned by a call to ``DBDriver.connect()``.
+      The object returned by a call to <tt class="rst-rst-docutils literal rst-docutils literal">DBDriver.connect()</tt>.
     </td>
   </tr>
 <tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
+    <td class="summary" colspan="2">
         <a href="grizzled.db.base.DBError-class.html" class="summary-name">DBError</a><br />
       Base class for all DB exceptions.
     </td>
   </tr>
 <tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
+    <td class="summary" colspan="2">
         <a href="grizzled.db.base.DBDriver-class.html" class="summary-name">DBDriver</a><br />
       Base class for all DB drivers.
     </td>
   </tr>
 <tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
+    <td class="summary" colspan="2">
         <a href="grizzled.db.base.Cursor-class.html" class="summary-name">Cursor</a><br />
-      Class for DB cursors returned by the ``DB.cursor()`` method.
+      Class for DB cursors returned by the <tt class="rst-rst-docutils literal rst-docutils literal">DB.cursor()</tt> method.
     </td>
   </tr>
 </table>
@@ -268,7 +272,7 @@ with this API, you use:
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
+      <span class="summary-type">list</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -302,7 +306,7 @@ with this API, you use:
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
+      <span class="summary-type">DBDriver</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -366,8 +370,7 @@ with this API, you use:
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="paramstyle"></a><span class="summary-name">paramstyle</span> = <code title="None">None</code><br />
-      hash(x)
+        <a name="paramstyle"></a><span class="summary-name">paramstyle</span> = <code title="None">None</code>
     </td>
   </tr>
 <tr class="private">
@@ -412,25 +415,21 @@ with this API, you use:
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-
-Add a driver class to the list of drivers.
-
-:Parameters:
-    key : str
-        the key, also used as the driver's name
-    driver_class : class
-        the ``DBDriver`` subclass object
-    force : bool
-        ``True`` to force registration of the driver, even if there's an
-        existing driver with the same key; ``False`` to throw an exception
-        if there's an existing driver with the same key.
-
-:raise ValueError: There's an existing driver with the same key, and
-                   ``force`` is ``False``
-
-</pre>
+  Add a driver class to the list of drivers.
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>key</code></strong> (str) - the key, also used as the driver's name</li>
+        <li><strong class="pname"><code>driver_class</code></strong> (class) - the <tt class="rst-docutils literal">DBDriver</tt> subclass object</li>
+        <li><strong class="pname"><code>force</code></strong> (bool) - <tt class="rst-docutils literal">True</tt> to force registration of the driver, even if there's an
+existing driver with the same key; <tt class="rst-docutils literal">False</tt> to throw an exception
+if there's an existing driver with the same key.</li>
+    </ul></dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'>ValueError</strong></code> - There's an existing driver with the same key, and
+<tt class="rst-docutils literal">force</tt> is <tt class="rst-docutils literal">False</tt></li>
+    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -448,22 +447,15 @@ Add a driver class to the list of drivers.
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-
-Get the list of drivers currently registered with this API. The result is
-a list of ``DBDriver`` subclasses. Note that these are classes, not
-instances. Once way to use the resulting list is as follows:
-
-.. python::
-
-    for driver in db.get_drivers():
-        print driver.__doc__
-
-:rtype:  list
-:return: list of ``DBDriver`` class names
-
-</pre>
+  <p>Get the list of drivers currently registered with this API. The result is
+a list of <tt class="rst-docutils literal">DBDriver</tt> subclasses. Note that these are classes, not
+instances. Once way to use the resulting list is as follows:</p>
+<pre class="py-doctest">
+<span class="py-keyword">for</span> driver <span class="py-keyword">in</span> db.get_drivers():
+    <span class="py-keyword">print</span> driver.__doc__</pre>
   <dl class="fields">
+    <dt>Returns: list</dt>
+        <dd>list of <tt class="rst-docutils literal">DBDriver</tt> class names</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -481,13 +473,9 @@ instances. Once way to use the resulting list is as follows:
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-
-Get the list of driver names currently registered with this API.
+  Get the list of driver names currently registered with this API.
 Each of the returned names may be used as the first parameter to
-the ``get_driver()`` function.
-
-</pre>
+the <tt class="rst-docutils literal">get_driver()</tt> function.
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -506,22 +494,19 @@ the ``get_driver()`` function.
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-
-Get the DB API object for the specific database type. The list of
-legal database types are available by calling ``get_driver_names()``.
-
-:Parameters:
-    driver_name : str
-        name (key) of the driver
-
-:rtype: DBDriver
-:return: the instantiated driver
-
-:raise ValueError: Unknown driver name
-
-</pre>
+  Get the DB API object for the specific database type. The list of
+legal database types are available by calling <tt class="rst-docutils literal">get_driver_names()</tt>.
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>driver_name</code></strong> (str) - name (key) of the driver</li>
+    </ul></dd>
+    <dt>Returns: DBDriver</dt>
+        <dd>the instantiated driver</dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'>ValueError</strong></code> - Unknown driver name</li>
+    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -595,7 +580,8 @@ legal database types are available by calling ``get_driver_names()``.
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sun Mar 13 09:46:08 2011
+    Generated by Epydoc 3.0.1
+    on Sun Mar 13 09:59:15 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

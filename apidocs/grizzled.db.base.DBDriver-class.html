@@ -56,8 +56,8 @@
     </td>
   </tr>
 </table>
-<!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class DBDriver</h1><p class="nomargin-top"><span class="codelink"><a href="grizzled.db.base-pysrc.html#DBDriver">source&nbsp;code</a></span></p>
+<!-- ==================== TYPE DESCRIPTION ==================== -->
+<h1 class="epydoc">type DBDriver</h1><p class="nomargin-top"><span class="codelink"><a href="grizzled.db.base-pysrc.html#DBDriver">source&nbsp;code</a></span></p>
 <pre class="base-tree">
 object --+
          |
@@ -71,11 +71,7 @@ object --+
 </dd></dl>
 
 <hr />
-<pre class="literalblock">
-
 Base class for all DB drivers.
-
-</pre>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -130,7 +126,7 @@ Base class for all DB drivers.
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
+      <span class="summary-type">str</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -148,7 +144,7 @@ Base class for all DB drivers.
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
+      <span class="summary-type"><tt class="rst-docutils literal">db</tt></span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -170,7 +166,7 @@ Base class for all DB drivers.
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
+      <span class="summary-type">object</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -188,7 +184,7 @@ Base class for all DB drivers.
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
+      <span class="summary-type">named tuple</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -207,7 +203,7 @@ etc.</td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
+      <span class="summary-type">list of tuples</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -226,7 +222,7 @@ etc.</td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
+      <span class="summary-type">list</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -245,7 +241,7 @@ etc.</td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
+      <span class="summary-type">list</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -271,7 +267,7 @@ etc.</td>
         <span class="summary-sig-arg">cursor</span>,
         <span class="summary-sig-arg">table_name</span>)</span><br />
       Determines whether a table name represents a legal table in the
-current database, throwing an ``Error`` if not.</td>
+current database, throwing an <tt class="rst-docutils literal">Error</tt> if not.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="grizzled.db.base-pysrc.html#DBDriver._ensure_valid_table">source&nbsp;code</a></span>
             
@@ -283,7 +279,7 @@ current database, throwing an ``Error`` if not.</td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
+      <span class="summary-type">bool</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -291,7 +287,7 @@ current database, throwing an ``Error`` if not.</td>
         <span class="summary-sig-arg">cursor</span>,
         <span class="summary-sig-arg">table_name</span>)</span><br />
       Determines whether a table name represents a legal table in the
-current database, throwing an ``Error`` if not.</td>
+current database, throwing an <tt class="rst-docutils literal">Error</tt> if not.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="grizzled.db.base-pysrc.html#DBDriver._is_valid_table">source&nbsp;code</a></span>
             
@@ -299,25 +295,6 @@ current database, throwing an ``Error`` if not.</td>
         </tr>
       </table>
       
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
-      <code>__delattr__</code>,
-      <code>__format__</code>,
-      <code>__getattribute__</code>,
-      <code>__hash__</code>,
-      <code>__init__</code>,
-      <code>__new__</code>,
-      <code>__reduce__</code>,
-      <code>__reduce_ex__</code>,
-      <code>__repr__</code>,
-      <code>__setattr__</code>,
-      <code>__sizeof__</code>,
-      <code>__str__</code>,
-      <code>__subclasshook__</code>
-      </p>
     </td>
   </tr>
 </table>
@@ -344,13 +321,6 @@ current database, throwing an ``Error`` if not.</td>
     </td><td class="summary">
         <a href="grizzled.db.base.DBDriver-class.html#display_name" class="summary-name">display_name</a><br />
       get a displayable name for the driver
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
-      <code>__class__</code>
-      </p>
     </td>
   </tr>
 </table>
@@ -387,22 +357,16 @@ current database, throwing an ``Error`` if not.</td>
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-
-Get a bound import for the underlying DB API module. All subclasses
+  <p>Get a bound import for the underlying DB API module. All subclasses
 must provide an implementation of this method. Here's an example,
-assuming the real underlying Python DB API module is 'foosql':
-
-.. python::
-
-    def get_import(self):
-        import foosql
-        return foosql
-
-:return: a bound module
-
-</pre>
+assuming the real underlying Python DB API module is 'foosql':</p>
+<pre class="py-doctest">
+<span class="py-keyword">def</span> <span class="py-defname">get_import</span>(self):
+    <span class="py-keyword">import</span> foosql
+    return foosql</pre>
   <dl class="fields">
+    <dt>Returns:</dt>
+        <dd>a bound module</dd>
     <dt>Decorators:</dt>
     <dd><ul class="nomargin-top">
         <li><code>@abstract</code></li>
@@ -425,18 +389,13 @@ assuming the real underlying Python DB API module is 'foosql':
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-
-Get the driver's name, for display. The returned name ought to be
+  Get the driver's name, for display. The returned name ought to be
 a reasonable identifier for the database (e.g., 'SQL Server',
 'MySQL'). All subclasses must provide an implementation of this
 method.
-
-:rtype:  str
-:return: the driver's displayable name
-
-</pre>
   <dl class="fields">
+    <dt>Returns: str</dt>
+        <dd>the driver's displayable name</dd>
     <dt>Decorators:</dt>
     <dd><ul class="nomargin-top">
         <li><code>@abstract</code></li>
@@ -463,32 +422,25 @@ method.
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-
-Connect to the underlying database. Subclasses should *not*
+  Connect to the underlying database. Subclasses should <em>not</em>
 override this method. Instead, a subclass should override the
-``do_connect()`` method.
-
-:Parameters:
-    host : str
-        the host where the database lives
-    port : int
-        the TCP port to use when connecting, or ``None``
-    user : str
-        the user to use when connecting, or ``None``
-    password : str
-        the password to use when connecting, or ``None``
-    database : str
-        the name of the database to which to connect
-
-:rtype:  ``db``
-:return: a ``db`` object representing the open database
-
-:raise Warning: Non-fatal warning
-:raise Error:   Error
-
-</pre>
+<tt class="rst-docutils literal">do_connect()</tt> method.
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>host</code></strong> (str) - the host where the database lives</li>
+        <li><strong class="pname"><code>port</code></strong> (int) - the TCP port to use when connecting, or <tt class="rst-docutils literal">None</tt></li>
+        <li><strong class="pname"><code>user</code></strong> (str) - the user to use when connecting, or <tt class="rst-docutils literal">None</tt></li>
+        <li><strong class="pname"><code>password</code></strong> (str) - the password to use when connecting, or <tt class="rst-docutils literal">None</tt></li>
+        <li><strong class="pname"><code>database</code></strong> (str) - the name of the database to which to connect</li>
+    </ul></dd>
+    <dt>Returns: <tt class="rst-rst-docutils literal rst-docutils literal">db</tt></dt>
+        <dd>a <tt class="rst-docutils literal">db</tt> object representing the open database</dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'><a href="grizzled.db.base.Warning-class.html">Warning</a></strong></code> - Non-fatal warning</li>
+        <li><code><strong class='fraise'><a href="grizzled.db.base.Error-class.html">Error</a></strong></code> - Error</li>
+    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -507,46 +459,36 @@ override this method. Instead, a subclass should override the
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-
-Connect to the actual underlying database, using the driver.
+  <p>Connect to the actual underlying database, using the driver.
 Subclasses must provide an implementation of this method. The
 method must return the result of the real DB API implementation's
-``connect()`` method. For instance:
-
-.. python::
-
-    def do_connect():
-        dbi = self.get_import()
-        return dbi.connect(host=host, user=user, passwd=password,
-                           database=database)
-
-There is no need to catch exceptions; the ``DBDriver`` class's
-``connect()`` method handles that.
-
-:Parameters:
-    host : str
-        the host where the database lives
-    port : int
-        the TCP port to use when connecting
-    user : str
-        the user to use when connecting
-    password : str
-        the password to use when connecting
-    database : str
-        the name of the database to which to connect
-
-:rtype:  object
-:return: a DB API-compliant object representing the open database
-
-:raise Warning: Non-fatal warning
-:raise Error:   Error
-
-</pre>
+<tt class="rst-docutils literal">connect()</tt> method. For instance:</p>
+<pre class="py-doctest">
+<span class="py-keyword">def</span> <span class="py-defname">do_connect</span>():
+    dbi = self.get_import()
+    return dbi.connect(host=host, user=user, passwd=password,
+                       database=database)</pre>
+<p>There is no need to catch exceptions; the <tt class="rst-docutils literal">DBDriver</tt> class's
+<tt class="rst-docutils literal">connect()</tt> method handles that.</p>
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>host</code></strong> (str) - the host where the database lives</li>
+        <li><strong class="pname"><code>port</code></strong> (int) - the TCP port to use when connecting</li>
+        <li><strong class="pname"><code>user</code></strong> (str) - the user to use when connecting</li>
+        <li><strong class="pname"><code>password</code></strong> (str) - the password to use when connecting</li>
+        <li><strong class="pname"><code>database</code></strong> (str) - the name of the database to which to connect</li>
+    </ul></dd>
+    <dt>Returns: object</dt>
+        <dd>a DB API-compliant object representing the open database</dd>
     <dt>Decorators:</dt>
     <dd><ul class="nomargin-top">
         <li><code>@abstract</code></li>
+    </ul></dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'><a href="grizzled.db.base.Warning-class.html">Warning</a></strong></code> - Non-fatal warning</li>
+        <li><code><strong class='fraise'><a href="grizzled.db.base.Error-class.html">Error</a></strong></code> - Error</li>
     </ul></dd>
   </dl>
 </td></tr></table>
@@ -566,27 +508,23 @@ There is no need to catch exceptions; the ``DBDriver`` class's
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-
-Return data about the RDBMS: the product name, the version,
-etc. The result is a named tuple, with the following fields.
-
-vendor
-    The product vendor, if applicable, or ``None`` if not known
-product
-    The name of the database product, or ``None`` if not known
-version
-    The database product version, or ``None`` if not known
-
-:Parameters:
-    cursor : Cursor
-        a ``Cursor`` object from a recent query
-
-:rtype: named tuple
-:return: the vendor information
-
-</pre>
+  <p>Return data about the RDBMS: the product name, the version,
+etc. The result is a named tuple, with the following fields.</p>
+<dl class="rst-docutils">
+<dt>vendor</dt>
+<dd>The product vendor, if applicable, or <tt class="rst-docutils literal">None</tt> if not known</dd>
+<dt>product</dt>
+<dd>The name of the database product, or <tt class="rst-docutils literal">None</tt> if not known</dd>
+<dt>version</dt>
+<dd>The database product version, or <tt class="rst-docutils literal">None</tt> if not known</dd>
+</dl>
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>cursor</code></strong> (Cursor) - a <tt class="rst-docutils literal">Cursor</tt> object from a recent query</li>
+    </ul></dd>
+    <dt>Returns: named tuple</dt>
+        <dd>the vendor information</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -606,41 +544,36 @@ version
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-
-Get the metadata for the indexes for a table. Returns a list of
-tuples, one for each index. Each tuple consists of the following::
-
-    (index_name, [index_columns], description)
-
-The tuple elements have the following meanings.
-
-index_name
-    the index name
-index_columns
-    a list of column names
-description
-    index description, or ``None``
-
-The tuples are named tuples, so the fields may be referenced by the
-names above or by position.
-
-The default implementation of this method returns `None`
-
-:Parameters:
-    table : str
-        table name
-    cursor : Cursor
-        a ``Cursor`` object from a recent query
-
-:rtype:  list of tuples
-:return: the list of tuples, or ``None`` if not supported in the
-         underlying database
-
-:raise Warning: Non-fatal warning
-
+  <p>Get the metadata for the indexes for a table. Returns a list of
+tuples, one for each index. Each tuple consists of the following:</p>
+<pre class="rst-literal-block">
+(index_name, [index_columns], description)
 </pre>
+<p>The tuple elements have the following meanings.</p>
+<dl class="rst-docutils">
+<dt>index_name</dt>
+<dd>the index name</dd>
+<dt>index_columns</dt>
+<dd>a list of column names</dd>
+<dt>description</dt>
+<dd>index description, or <tt class="rst-docutils literal">None</tt></dd>
+</dl>
+<p>The tuples are named tuples, so the fields may be referenced by the
+names above or by position.</p>
+<p>The default implementation of this method returns <code class="link">None</code></p>
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>table</code></strong> (str) - table name</li>
+        <li><strong class="pname"><code>cursor</code></strong> (Cursor) - a <tt class="rst-docutils literal">Cursor</tt> object from a recent query</li>
+    </ul></dd>
+    <dt>Returns: list of tuples</dt>
+        <dd>the list of tuples, or <tt class="rst-docutils literal">None</tt> if not supported in the
+underlying database</dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'><a href="grizzled.db.base.Warning-class.html">Warning</a></strong></code> - Non-fatal warning</li>
+    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -660,49 +593,44 @@ The default implementation of this method returns `None`
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-
-Get the metadata for a table. Returns a list of tuples, one for
-each column. Each tuple consists of the following::
-
-    (column_name, type_string, max_char_size, precision, scale, nullable)
-
-The tuple elements have the following meanings.
-
-column_name
-    the name of the column
-type_string
-    the column type, as a string
-max_char_size
-    the maximum size for a character field, or ``None``
-precision
-    the precision, for a numeric field; or ``None``
-scale
-    the scale, for a numeric field; or ``None``
-nullable
-    ``True`` if the column is nullable, ``False`` if it is not
-
-The tuples are named tuples, so the fields may be referenced by the
-names above or by position.
-
-The default implementation uses the DB API's ``cursor.description``
-field. Subclasses are free to override this method to produce their
-own version that uses other means.
-
-:Parameters:
-    table : str
-        the table name for which metadata is desired
-    cursor : Cursor
-        a ``Cursor`` object from a recent query
-
-:rtype: list
-:return: list of tuples, as described above
-
-:raise Warning: Non-fatal warning
-:raise Error:   Error
-
+  <p>Get the metadata for a table. Returns a list of tuples, one for
+each column. Each tuple consists of the following:</p>
+<pre class="rst-literal-block">
+(column_name, type_string, max_char_size, precision, scale, nullable)
 </pre>
+<p>The tuple elements have the following meanings.</p>
+<dl class="rst-docutils">
+<dt>column_name</dt>
+<dd>the name of the column</dd>
+<dt>type_string</dt>
+<dd>the column type, as a string</dd>
+<dt>max_char_size</dt>
+<dd>the maximum size for a character field, or <tt class="rst-docutils literal">None</tt></dd>
+<dt>precision</dt>
+<dd>the precision, for a numeric field; or <tt class="rst-docutils literal">None</tt></dd>
+<dt>scale</dt>
+<dd>the scale, for a numeric field; or <tt class="rst-docutils literal">None</tt></dd>
+<dt>nullable</dt>
+<dd><tt class="rst-docutils literal">True</tt> if the column is nullable, <tt class="rst-docutils literal">False</tt> if it is not</dd>
+</dl>
+<p>The tuples are named tuples, so the fields may be referenced by the
+names above or by position.</p>
+<p>The default implementation uses the DB API's <tt class="rst-docutils literal">cursor.description</tt>
+field. Subclasses are free to override this method to produce their
+own version that uses other means.</p>
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>table</code></strong> (str) - the table name for which metadata is desired</li>
+        <li><strong class="pname"><code>cursor</code></strong> (Cursor) - a <tt class="rst-docutils literal">Cursor</tt> object from a recent query</li>
+    </ul></dd>
+    <dt>Returns: list</dt>
+        <dd>list of tuples, as described above</dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'><a href="grizzled.db.base.Warning-class.html">Warning</a></strong></code> - Non-fatal warning</li>
+        <li><code><strong class='fraise'><a href="grizzled.db.base.Error-class.html">Error</a></strong></code> - Error</li>
+    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -721,24 +649,21 @@ own version that uses other means.
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-
-Get the list of tables in the database.
-
-:Parameters:
-    cursor : Cursor
-        a ``Cursor`` object from a recent query
-
-:rtype:  list
-:return: List of table names. The list will be empty if the database
-         contains no tables.
-
-:raise NotImplementedError: Capability not supported by database driver
-:raise Warning:             Non-fatal warning
-:raise Error:               Error
-
-</pre>
+  Get the list of tables in the database.
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>cursor</code></strong> (Cursor) - a <tt class="rst-docutils literal">Cursor</tt> object from a recent query</li>
+    </ul></dd>
+    <dt>Returns: list</dt>
+        <dd>List of table names. The list will be empty if the database
+contains no tables.</dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'>NotImplementedError</strong></code> - Capability not supported by database driver</li>
+        <li><code><strong class='fraise'><a href="grizzled.db.base.Warning-class.html">Warning</a></strong></code> - Non-fatal warning</li>
+        <li><code><strong class='fraise'><a href="grizzled.db.base.Error-class.html">Error</a></strong></code> - Error</li>
+    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -758,22 +683,18 @@ Get the list of tables in the database.
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-
-Determines whether a table name represents a legal table in the
-current database, throwing an ``Error`` if not.
-
-:Parameters:
-    cursor : Cursor
-        an open ``Cursor``
-
-    table_name : str
-        the table name
-
-:raise Error: bad table name
-
-</pre>
+  Determines whether a table name represents a legal table in the
+current database, throwing an <tt class="rst-rst-docutils literal rst-docutils literal">Error</tt> if not.
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>cursor</code></strong> (Cursor) - an open <tt class="rst-docutils literal">Cursor</tt></li>
+        <li><strong class="pname"><code>table_name</code></strong> (str) - the table name</li>
+    </ul></dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'><a href="grizzled.db.base.Error-class.html">Error</a></strong></code> - bad table name</li>
+    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -793,23 +714,16 @@ current database, throwing an ``Error`` if not.
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-
-Determines whether a table name represents a legal table in the
-current database, throwing an ``Error`` if not.
-
-:Parameters:
-    cursor : Cursor
-        an open ``Cursor``
-
-    table_name : str
-        the table name
-
-:rtype: bool
-:return: ``True`` if the table is valid, ``False`` if not
-
-</pre>
+  Determines whether a table name represents a legal table in the
+current database, throwing an <tt class="rst-rst-docutils literal rst-docutils literal">Error</tt> if not.
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>cursor</code></strong> (Cursor) - an open <tt class="rst-docutils literal">Cursor</tt></li>
+        <li><strong class="pname"><code>table_name</code></strong> (str) - the table name</li>
+    </ul></dd>
+    <dt>Returns: bool</dt>
+        <dd><tt class="rst-docutils literal">True</tt> if the table is valid, <tt class="rst-docutils literal">False</tt> if not</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -838,10 +752,7 @@ current database, throwing an ``Error`` if not.
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <h3 class="epydoc">display_name</h3>
-  <pre class="literalblock">
-get a displayable name for the driver
-
-</pre>
+  get a displayable name for the driver
   <dl class="fields">
     <dt>Get Method:</dt>
     <dd class="value"><span class="summary-sig"><a href="grizzled.db.base.DBDriver-class.html#__display_name" class="summary-sig-name" onclick="show_private();">__display_name</a>(<span class="summary-sig-arg">self</span>)</span>
@@ -876,7 +787,8 @@ get a displayable name for the driver
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sun Mar 13 09:46:08 2011
+    Generated by Epydoc 3.0.1
+    on Sun Mar 13 09:59:15 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

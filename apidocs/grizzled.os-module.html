@@ -56,15 +56,8 @@
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
 <h1 class="epydoc">Module os</h1><p class="nomargin-top"><span class="codelink"><a href="grizzled.os-pysrc.html">source&nbsp;code</a></span></p>
-<pre class="literalblock">
-
-Overview
-========
-
-The ``grizzled.os`` module contains some operating system-related functions and
-classes. It is a conceptual extension of the standard Python ``os`` module.
-
-</pre>
+<p>The <tt class="rst-rst-rst-docutils literal rst-rst-docutils literal rst-docutils literal">grizzled.os</tt> module contains some operating system-related functions and
+classes. It is a conceptual extension of the standard Python <tt class="rst-docutils literal">os</tt> module.</p>
 
 <!-- ==================== CLASSES ==================== -->
 <a name="section-Classes"></a>
@@ -84,11 +77,9 @@ classes. It is a conceptual extension of the standard Python ``os`` module.
   </td>
 </tr>
 <tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
+    <td class="summary" colspan="2">
         <a href="grizzled.os.DaemonError-class.html" class="summary-name">DaemonError</a><br />
-      Thrown by ``daemonize()`` when an error occurs while attempting to create
+      Thrown by <tt class="rst-rst-docutils literal rst-docutils literal">daemonize()</tt> when an error occurs while attempting to create
 a daemon.
     </td>
   </tr>
@@ -112,7 +103,7 @@ a daemon.
 </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
+      <span class="summary-type">str</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -129,7 +120,7 @@ a daemon.
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
+      <span class="summary-type">str</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -153,7 +144,7 @@ a daemon.
         <tr>
           <td><span class="summary-sig"><a href="grizzled.os-module.html#path_elements" class="summary-sig-name" onclick="show_private();">path_elements</a>(<span class="summary-sig-arg">path</span>)</span><br />
       Given a path string value (e.g., the value of the environment variable
-``PATH``), this generator function yields each item in the path.</td>
+<tt class="rst-docutils literal">PATH</tt>), this generator function yields each item in the path.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="grizzled.os-pysrc.html#path_elements">source&nbsp;code</a></span>
             
@@ -171,7 +162,7 @@ a daemon.
         <tr>
           <td><span class="summary-sig"><a href="grizzled.os-module.html#working_directory" class="summary-sig-name">working_directory</a>(<span class="summary-sig-arg">*args</span>,
         <span class="summary-sig-arg">**kwds</span>)</span><br />
-      This function is intended to be used as a ``with`` statement context
+      This function is intended to be used as a <tt class="rst-docutils literal">with</tt> statement context
 manager.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="grizzled.os-pysrc.html#working_directory">source&nbsp;code</a></span>
@@ -184,7 +175,7 @@ manager.</td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
+      <span class="summary-type">str</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -309,8 +300,7 @@ path.</td>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="None">None</code><br />
-      hash(x)
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="None">None</code>
     </td>
   </tr>
 </table>
@@ -346,18 +336,13 @@ path.</td>
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-
-Get the path separator for the current operating system. The path
+  Get the path separator for the current operating system. The path
 separator is used to separate elements of a path string, such as
 &quot;PATH&quot; or &quot;CLASSPATH&quot;. (It's a &quot;:&quot; on Unix-like systems and a &quot;;&quot;
 on Windows.)
-
-:rtype: str
-:return: the path separator
-
-</pre>
   <dl class="fields">
+    <dt>Returns: str</dt>
+        <dd>the path separator</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -376,20 +361,14 @@ on Windows.)
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-
-Get the file separator for the current operating system. The file
+  <p>Get the file separator for the current operating system. The file
 separator is used to separate file elements in a pathname. (It's
-&quot;/&quot; on Unix-like systems and a &quot;\\&quot; on Windows.)
-
-**Deprecated**. Use the standard Python ``os.path.sep`` variable,
-instead.
-
-:rtype: str
-:return: the file separator
-
-</pre>
+&quot;/&quot; on Unix-like systems and a &quot;\&quot; on Windows.)</p>
+<p><strong>Deprecated</strong>. Use the standard Python <tt class="rst-docutils literal">os.path.sep</tt> variable,
+instead.</p>
   <dl class="fields">
+    <dt>Returns: str</dt>
+        <dd>the file separator</dd>
     <dt>Decorators:</dt>
     <dd><ul class="nomargin-top">
         <li><code>@deprecated(since= '0.7', message= 'Use os.path.sep, instead.')</code></li>
@@ -411,17 +390,13 @@ instead.
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-
-Given a path string value (e.g., the value of the environment variable
-``PATH``), this generator function yields each item in the path.
-
-:Parameters:
-    path
-        the path to break up
-
-</pre>
+  Given a path string value (e.g., the value of the environment variable
+<tt class="rst-rst-docutils literal rst-docutils literal">PATH</tt>), this generator function yields each item in the path.
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>path</code></strong> - the path to break up</li>
+    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -440,38 +415,29 @@ Given a path string value (e.g., the value of the environment variable
     </td>
   </tr></table>
   
-  <pre class="literalblock">
+  <p>This function is intended to be used as a <tt class="rst-rst-docutils literal rst-docutils literal">with</tt> statement context
+manager. It allows you to replace code like this:</p>
+<pre class="py-doctest">
+original_directory = _os.getcwd()
+try:
+    _os.chdir(some_dir)
+<span class="py-more">    ... </span>bunch of code ...
+<span class="py-keyword">finally</span>:
+    _os.chdir(original_directory)</pre>
+<p>with something simpler:</p>
+<pre class="py-doctest">
+<span class="py-keyword">from</span> __future__ <span class="py-keyword">import</span> with_statement
+<span class="py-keyword">from</span> grizzled.os <span class="py-keyword">import</span> working_directory
 
-This function is intended to be used as a ``with`` statement context
-manager. It allows you to replace code like this:
-
-.. python::
-
-    original_directory = _os.getcwd()
-    try:
-        _os.chdir(some_dir)
-        ... bunch of code ...
-    finally:
-        _os.chdir(original_directory)
-
-with something simpler:
-
-.. python ::
-
-    from __future__ import with_statement
-    from grizzled.os import working_directory
-
-    with working_directory(some_dir):
-        ... bunch of code ...
-
-:Parameters:
-    directory : str
-        directory in which to execute
-
-:return: yields the ``directory`` parameter
-
-</pre>
+with working_directory(some_dir):
+<span class="py-more">    ... </span>bunch of code ...</pre>
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>directory</code></strong> (str) - directory in which to execute</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>yields the <tt class="rst-docutils literal">directory</tt> parameter</dd>
     <dt>Decorators:</dt>
     <dd><ul class="nomargin-top">
         <li><code>@contextmanager</code></li>
@@ -494,28 +460,21 @@ with something simpler:
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-
-Determine whether the specified system command exists in the specified
+  Determine whether the specified system command exists in the specified
 path.
-
-:Parameters:
-    command_name
-        The (simple) filename of the command to find. May be a glob
-        string.
-
-    path
-        The path to search, as a list or a string. If this parameter
-        is a string, then it is split using the operating system-specific
-        path separator. If this parameter is missing, then the ``PATH``
-        environment variable is used
-
-:rtype: str
-:return: The path to the first command that matches ``command_name``, or 
-         ``None`` if not found
-
-</pre>
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>command_name</code></strong> - The (simple) filename of the command to find. May be a glob
+string.</li>
+        <li><strong class="pname"><code>path</code></strong> - The path to search, as a list or a string. If this parameter
+is a string, then it is split using the operating system-specific
+path separator. If this parameter is missing, then the <tt class="rst-docutils literal">PATH</tt>
+environment variable is used</li>
+    </ul></dd>
+    <dt>Returns: str</dt>
+        <dd>The path to the first command that matches <tt class="rst-docutils literal">command_name</tt>, or
+<tt class="rst-docutils literal">None</tt> if not found</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -535,31 +494,21 @@ path.
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-
-Run a command as a daemon. This method is really just shorthand for the
-following code:
-
-.. python::
-
-    daemonize(pidfile=pidfile)
-    _os.execv(path, args)
-
-:Parameters:
-    path : str
-        Full path to program to run
-        
-    args : list
-        List of command arguments. The first element in this list must
-        be the command name (i.e., arg0).
-        
-    pidfile : str
-        Path to file to which to write daemon's process ID. The string may
-        contain a ``${pid}`` token, which is replaced with the process ID
-        of the daemon. e.g.: ``/var/run/myserver-${pid}``
-
-</pre>
+  <p>Run a command as a daemon. This method is really just shorthand for the
+following code:</p>
+<pre class="py-doctest">
+daemonize(pidfile=pidfile)
+_os.execv(path, args)</pre>
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>path</code></strong> (str) - Full path to program to run</li>
+        <li><strong class="pname"><code>args</code></strong> (list) - List of command arguments. The first element in this list must
+be the command name (i.e., arg0).</li>
+        <li><strong class="pname"><code>pidfile</code></strong> (str) - Path to file to which to write daemon's process ID. The string may
+contain a <tt class="rst-docutils literal">${pid}</tt> token, which is replaced with the process ID
+of the daemon. e.g.: <tt class="rst-docutils literal"><span class="pre">/var/run/myserver-${pid}</span></tt></li>
+    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -578,46 +527,38 @@ following code:
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-
-Convert the calling process into a daemon. To make the current Python
-process into a daemon process, you need two lines of code:
-
-.. python::
-
-    from grizzled.os import daemonize
-    daemonize.daemonize()
-
-If ``daemonize()`` fails for any reason, it throws a ``DaemonError``,
-which is a subclass of the standard ``OSError`` exception. also logs debug
-messages, using the standard Python ``logging`` package, to channel
-&quot;grizzled.os.daemon&quot;.
-
-**Adapted from:** http://software.clapper.org/daemonize/
-
-**See Also:**
-
-- Stevens, W. Richard. *Unix Network Programming* (Addison-Wesley, 1990).
-
-:Parameters:
-    no_close : bool
-        If ``True``, don't close the file descriptors. Useful if the
-        calling process has already redirected file descriptors to an
-        output file. **Warning**: Only set this parameter to ``True`` if
-        you're *sure* there are no open file descriptors to the calling
-        terminal. Otherwise, you'll risk having the daemon re-acquire a
-        control terminal, which can cause it to be killed if someone logs
-        off that terminal.
-
-    pidfile : str
-        Path to file to which to write daemon's process ID. The string may
-        contain a ``${pid}`` token, which is replaced with the process ID
-        of the daemon. e.g.: ``/var/run/myserver-${pid}``
-
-:raise DaemonError: Error during daemonizing
-
-</pre>
+  <p>Convert the calling process into a daemon. To make the current Python
+process into a daemon process, you need two lines of code:</p>
+<pre class="py-doctest">
+<span class="py-keyword">from</span> grizzled.os <span class="py-keyword">import</span> daemonize
+daemonize.daemonize()</pre>
+<p>If <tt class="rst-docutils literal">daemonize()</tt> fails for any reason, it throws a <tt class="rst-docutils literal">DaemonError</tt>,
+which is a subclass of the standard <tt class="rst-docutils literal">OSError</tt> exception. also logs debug
+messages, using the standard Python <tt class="rst-docutils literal">logging</tt> package, to channel
+&quot;grizzled.os.daemon&quot;.</p>
+<p><strong>Adapted from:</strong> <a class="rst-reference external" href="http://software.clapper.org/daemonize/" target="_top">http://software.clapper.org/daemonize/</a></p>
+<p><strong>See Also:</strong></p>
+<ul class="rst-simple">
+<li>Stevens, W. Richard. <em>Unix Network Programming</em> (Addison-Wesley, 1990).</li>
+</ul>
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>no_close</code></strong> (bool) - If <tt class="rst-docutils literal">True</tt>, don't close the file descriptors. Useful if the
+calling process has already redirected file descriptors to an
+output file. <strong>Warning</strong>: Only set this parameter to <tt class="rst-docutils literal">True</tt> if
+you're <em>sure</em> there are no open file descriptors to the calling
+terminal. Otherwise, you'll risk having the daemon re-acquire a
+control terminal, which can cause it to be killed if someone logs
+off that terminal.</li>
+        <li><strong class="pname"><code>pidfile</code></strong> (str) - Path to file to which to write daemon's process ID. The string may
+contain a <tt class="rst-docutils literal">${pid}</tt> token, which is replaced with the process ID
+of the daemon. e.g.: <tt class="rst-docutils literal"><span class="pre">/var/run/myserver-${pid}</span></tt></li>
+    </ul></dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'><a href="grizzled.os.DaemonError-class.html">DaemonError</a></strong></code> - Error during daemonizing</li>
+    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -648,7 +589,8 @@ messages, using the standard Python ``logging`` package, to channel
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sun Mar 13 09:46:08 2011
+    Generated by Epydoc 3.0.1
+    on Sun Mar 13 09:59:15 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

@@ -56,11 +56,7 @@
 </table>
 <!-- ==================== PACKAGE DESCRIPTION ==================== -->
 <h1 class="epydoc">Package text</h1><p class="nomargin-top"><span class="codelink"><a href="grizzled.text-pysrc.html">source&nbsp;code</a></span></p>
-<pre class="literalblock">
-
-The ``grizzled.text`` package contains text-related classes and modules.
-
-</pre>
+The <tt class="rst-rst-rst-docutils literal rst-rst-docutils literal rst-docutils literal">grizzled.text</tt> package contains text-related classes and modules.
 
 <!-- ==================== FUNCTIONS ==================== -->
 <a name="section-Functions"></a>
@@ -104,7 +100,7 @@ object.</td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
+      <span class="summary-type">bool</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -189,55 +185,40 @@ object.</td>
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-
-Produce a &quot;standard&quot; hexdump of the specified string or file-like
-object. The output consists of a series of lines like this::
-
-    000000: 72 22 22 22 4f  53 20 72 6f 75  r'''OS rou
-    00000a: 74 69 6e 65 73  20 66 6f 72 20  tines for
-    000014: 4d 61 63 2c 20  4e 54 2c 20 6f  Mac, NT, o
-    00001e: 72 20 50 6f 73  69 78 20 64 65  r Posix de
-    000028: 70 65 6e 64 69  6e 67 20 6f 6e  pending on
-    000032: 20 77 68 61 74  20 73 79 73 74   what syst
-    00003c: 65 6d 20 77 65  27 72 65 20 6f  em we're o
-    000046: 6e 2e 0a 0a 54  68 69 73 20 65  n...This e
-
-The output width (i.e., the number of decoded characters shown on a
-line) can be controlled with the ``width`` parameter.
-
-Adjacent repeated lines are collapsed by default. For example::
-
-    000000: 00 00 00 00 00  00 00 00 00 00  ..........
-    *** Repeated 203 times
-    0007f8: 72 22 22 22 4f  53 20 72 6f 75  r'''OS rou
-
-This behavior can be disabled via the ``show_repeats`` parameter.
-
-:Parameters:
-    source : str or file
-        The object whose contents are to be dumped in hex. The
-        object can be a string or a file-like object.
-
-    out : file
-        Where to dump the hex output
-
-    width : int
-        The number of dumped characters per line
-
-    start : int
-        Offset within ``input`` where reading should begin
-
-    limit : int
-        Total number of bytes to dump. Defaults to everything from
-        ``start`` to the end.
-
-    show_repeats : bool
-        ``False`` to collapse repeated output lines, ``True`` to
-        dump all lines, even if they're repeats.
-
+  <p>Produce a &quot;standard&quot; hexdump of the specified string or file-like
+object. The output consists of a series of lines like this:</p>
+<pre class="rst-literal-block">
+000000: 72 22 22 22 4f  53 20 72 6f 75  r'''OS rou
+00000a: 74 69 6e 65 73  20 66 6f 72 20  tines for
+000014: 4d 61 63 2c 20  4e 54 2c 20 6f  Mac, NT, o
+00001e: 72 20 50 6f 73  69 78 20 64 65  r Posix de
+000028: 70 65 6e 64 69  6e 67 20 6f 6e  pending on
+000032: 20 77 68 61 74  20 73 79 73 74   what syst
+00003c: 65 6d 20 77 65  27 72 65 20 6f  em we're o
+000046: 6e 2e 0a 0a 54  68 69 73 20 65  n...This e
 </pre>
+<p>The output width (i.e., the number of decoded characters shown on a
+line) can be controlled with the <tt class="rst-docutils literal">width</tt> parameter.</p>
+<p>Adjacent repeated lines are collapsed by default. For example:</p>
+<pre class="rst-literal-block">
+000000: 00 00 00 00 00  00 00 00 00 00  ..........
+*** Repeated 203 times
+0007f8: 72 22 22 22 4f  53 20 72 6f 75  r'''OS rou
+</pre>
+<p>This behavior can be disabled via the <tt class="rst-docutils literal">show_repeats</tt> parameter.</p>
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>source</code></strong> (str or file) - The object whose contents are to be dumped in hex. The
+object can be a string or a file-like object.</li>
+        <li><strong class="pname"><code>out</code></strong> (file) - Where to dump the hex output</li>
+        <li><strong class="pname"><code>width</code></strong> (int) - The number of dumped characters per line</li>
+        <li><strong class="pname"><code>start</code></strong> (int) - Offset within <tt class="rst-docutils literal">input</tt> where reading should begin</li>
+        <li><strong class="pname"><code>limit</code></strong> (int) - Total number of bytes to dump. Defaults to everything from
+<tt class="rst-docutils literal">start</tt> to the end.</li>
+        <li><strong class="pname"><code>show_repeats</code></strong> (bool) - <tt class="rst-docutils literal">False</tt> to collapse repeated output lines, <tt class="rst-docutils literal">True</tt> to
+dump all lines, even if they're repeats.</li>
+    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -255,53 +236,76 @@ This behavior can be disabled via the ``show_repeats`` parameter.
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-
-Convert a string to a boolean value. The supported conversions are:
-
-    +--------------+---------------+
-    | String       | Boolean value |
-    +==============+===============+
-    | &quot;false&quot;      | False         |
-    +--------------+---------------+
-    | &quot;true&quot;       | True          |
-    +--------------+---------------+
-    | &quot;f&quot;          | False         |
-    +--------------+---------------+
-    | &quot;t&quot;          + True          |
-    +--------------+---------------+
-    | &quot;0&quot;          | False         |
-    +--------------+---------------+
-    | &quot;1&quot;          + True          |
-    +--------------+---------------+
-    | &quot;n&quot;          | False         |
-    +--------------+---------------+
-    | &quot;y&quot;          + True          |
-    +--------------+---------------+
-    | &quot;no&quot;         | False         |
-    +--------------+---------------+
-    | &quot;yes&quot;        + True          |
-    +--------------+---------------+
-    | &quot;off&quot;        | False         |
-    +--------------+---------------+
-    | &quot;on&quot;         + True          |
-    +--------------+---------------+
-
-Strings are compared in a case-blind fashion.
-
-**Note**: This function is not currently localizable.
-
-:Parameters:
-    s : str
-        The string to convert to boolean
-
-:rtype: bool
-:return: the corresponding boolean value
-
-:raise ValueError: unrecognized boolean string
-
-</pre>
+  <p>Convert a string to a boolean value. The supported conversions are:</p>
+<blockquote>
+<table border="1" class="rst-docutils">
+<colgroup>
+<col width="48%" />
+<col width="52%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="rst-head">String</th>
+<th class="rst-head">Boolean value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>&quot;false&quot;</td>
+<td>False</td>
+</tr>
+<tr><td>&quot;true&quot;</td>
+<td>True</td>
+</tr>
+<tr><td>&quot;f&quot;</td>
+<td>False</td>
+</tr>
+<tr><td rowspan="2">&quot;t&quot;</td>
+<td rowspan="2">True</td>
+</tr>
+<tr></tr>
+<tr><td>&quot;0&quot;</td>
+<td>False</td>
+</tr>
+<tr><td rowspan="2">&quot;1&quot;</td>
+<td rowspan="2">True</td>
+</tr>
+<tr></tr>
+<tr><td>&quot;n&quot;</td>
+<td>False</td>
+</tr>
+<tr><td rowspan="2">&quot;y&quot;</td>
+<td rowspan="2">True</td>
+</tr>
+<tr></tr>
+<tr><td>&quot;no&quot;</td>
+<td>False</td>
+</tr>
+<tr><td rowspan="2">&quot;yes&quot;</td>
+<td rowspan="2">True</td>
+</tr>
+<tr></tr>
+<tr><td>&quot;off&quot;</td>
+<td>False</td>
+</tr>
+<tr><td rowspan="2">&quot;on&quot;</td>
+<td rowspan="2">True</td>
+</tr>
+<tr></tr>
+</tbody>
+</table>
+</blockquote>
+<p>Strings are compared in a case-blind fashion.</p>
+<p><strong>Note</strong>: This function is not currently localizable.</p>
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>s</code></strong> (str) - The string to convert to boolean</li>
+    </ul></dd>
+    <dt>Returns: bool</dt>
+        <dd>the corresponding boolean value</dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'>ValueError</strong></code> - unrecognized boolean string</li>
+    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -332,7 +336,8 @@ Strings are compared in a case-blind fashion.
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sun Mar 13 09:46:08 2011
+    Generated by Epydoc 3.0.1
+    on Sun Mar 13 09:59:15 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

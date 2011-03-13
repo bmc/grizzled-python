@@ -56,16 +56,9 @@
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
 <h1 class="epydoc">Module system</h1><p class="nomargin-top"><span class="codelink"><a href="grizzled.system-pysrc.html">source&nbsp;code</a></span></p>
-<pre class="literalblock">
-
-Overview
-========
-
-The ``grizzled.system`` module contains some functions and classes that
+<p>The <tt class="rst-rst-rst-docutils literal rst-rst-docutils literal rst-docutils literal">grizzled.system</tt> module contains some functions and classes that
 provide information about the Python system (the Python runtime, the language,
-etc.). It is a conceptual extension of the standard Python ``sys`` module.
-
-</pre>
+etc.). It is a conceptual extension of the standard Python <tt class="rst-docutils literal">sys</tt> module.</p>
 
 <!-- ==================== FUNCTIONS ==================== -->
 <a name="section-Functions"></a>
@@ -86,14 +79,14 @@ etc.). It is a conceptual extension of the standard Python ``sys`` module.
 </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
+      <span class="summary-type">int</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="grizzled.system-module.html#python_version" class="summary-sig-name">python_version</a>(<span class="summary-sig-arg">version</span>)</span><br />
       Convert a Python string version (e.g., &quot;2.5.1&quot;, &quot;1.3&quot;, &quot;2.6a3&quot;) to a
 numeric version that can meaningfully be compared with the standard
-``sys`` module's ``sys.hexversion`` value.</td>
+<tt class="rst-docutils literal">sys</tt> module's <tt class="rst-docutils literal">sys.hexversion</tt> value.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="grizzled.system-pysrc.html#python_version">source&nbsp;code</a></span>
             
@@ -105,14 +98,14 @@ numeric version that can meaningfully be compared with the standard
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
+      <span class="summary-type">tuple</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="grizzled.system-module.html#split_python_version" class="summary-sig-name">split_python_version</a>(<span class="summary-sig-arg">version</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Convert a binary Python version string (e.g., ``0x020501f0``) into the
-same (*major*, *minor*, *micro*, *releaselevel*, *serial*) tuple that is
-found in ``sys.version_info``.</td>
+      Convert a binary Python version string (e.g., <tt class="rst-docutils literal">0x020501f0</tt>) into the
+same (<em>major</em>, <em>minor</em>, <em>micro</em>, <em>releaselevel</em>, <em>serial</em>) tuple that is
+found in <tt class="rst-docutils literal">sys.version_info</tt>.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="grizzled.system-pysrc.html#split_python_version">source&nbsp;code</a></span>
             
@@ -124,12 +117,12 @@ found in ``sys.version_info``.</td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
+      <span class="summary-type">str</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="grizzled.system-module.html#python_version_string" class="summary-sig-name">python_version_string</a>(<span class="summary-sig-arg">version</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Convert a numeric Python version (such as ``sys.hexversion``) to a
+      Convert a numeric Python version (such as <tt class="rst-docutils literal">sys.hexversion</tt>) to a
 printable string.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="grizzled.system-pysrc.html#python_version_string">source&nbsp;code</a></span>
@@ -147,8 +140,8 @@ printable string.</td>
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="grizzled.system-module.html#ensure_version" class="summary-sig-name">ensure_version</a>(<span class="summary-sig-arg">min_version</span>)</span><br />
-      Raise a ``RuntimeError`` if the current Python version isn't at least
-``min_version``.</td>
+      Raise a <tt class="rst-docutils literal">RuntimeError</tt> if the current Python version isn't at least
+<tt class="rst-docutils literal">min_version</tt>.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="grizzled.system-pysrc.html#ensure_version">source&nbsp;code</a></span>
             
@@ -160,7 +153,7 @@ printable string.</td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
+      <span class="summary-type">class</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -225,8 +218,7 @@ printable string.</td>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="None">None</code><br />
-      hash(x)
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="None">None</code>
     </td>
   </tr>
 </table>
@@ -262,45 +254,36 @@ printable string.</td>
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-
-Convert a Python string version (e.g., &quot;2.5.1&quot;, &quot;1.3&quot;, &quot;2.6a3&quot;) to a
+  <p>Convert a Python string version (e.g., &quot;2.5.1&quot;, &quot;1.3&quot;, &quot;2.6a3&quot;) to a
 numeric version that can meaningfully be compared with the standard
-``sys`` module's ``sys.hexversion`` value.
+<tt class="rst-rst-docutils literal rst-docutils literal">sys</tt> module's <tt class="rst-rst-docutils literal rst-docutils literal">sys.hexversion</tt> value.</p>
+<p>For example, here's the usual way to ensure that your program is running
+under Python 2.5.1 or better:</p>
+<pre class="py-doctest">
+<span class="py-keyword">import</span> sys
 
-For example, here's the usual way to ensure that your program is running
-under Python 2.5.1 or better:
+<span class="py-keyword">if</span> sys.hexversion &lt; 0x020501f0:
+    raise RuntimeError, <span class="py-string">'This program requires Python 2.5.1 or better'</span></pre>
+<p>Here's how you'd use <tt class="rst-docutils literal">python_version()</tt> to do the same thing (in an
+arguably more readable way):</p>
+<pre class="py-doctest">
+<span class="py-keyword">import</span> sys
+<span class="py-keyword">from</span> grizzled.sys <span class="py-keyword">import</span> python_version
 
-.. python::
-
-    import sys
-
-    if sys.hexversion &lt; 0x020501f0:
-        raise RuntimeError, 'This program requires Python 2.5.1 or better'
-
-Here's how you'd use ``python_version()`` to do the same thing (in an
-arguably more readable way):
-
-.. python::
-
-    import sys
-    from grizzled.sys import python_version
-
-    if sys.hexversion &lt; python_version(&quot;2.5.1&quot;):
-        raise RuntimeError, 'This program requires Python 2.5.1 or better'
-
-:Parameters:
-    version : str
-        string Python version to convert to binary
-
-:rtype:  int
-:return: corresponding integer Python version
-
-:raise ValueError: ``version`` isn't of the form &quot;x&quot;, or &quot;x.y&quot; or
-                   &quot;x.y.z&quot;
-
-</pre>
+<span class="py-keyword">if</span> sys.hexversion &lt; python_version(<span class="py-string">&quot;2.5.1&quot;</span>):
+    raise RuntimeError, <span class="py-string">'This program requires Python 2.5.1 or better'</span></pre>
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>version</code></strong> (str) - string Python version to convert to binary</li>
+    </ul></dd>
+    <dt>Returns: int</dt>
+        <dd>corresponding integer Python version</dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'>ValueError</strong></code> - <tt class="rst-docutils literal">version</tt> isn't of the form &quot;x&quot;, or &quot;x.y&quot; or
+&quot;x.y.z&quot;</li>
+    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -318,24 +301,21 @@ arguably more readable way):
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-
-Convert a binary Python version string (e.g., ``0x020501f0``) into the
-same (*major*, *minor*, *micro*, *releaselevel*, *serial*) tuple that is
-found in ``sys.version_info``. Thus, for an input value of ``0x020501f0``,
-this function returns the tuple ``(2, 5, 1, 'final', 0)``.
-
-:Parameters:
-    version : int
-        Python integer version
-
-:rtype:  tuple
-:return: The (*major*, *minor*, *micro*, *releaselevel*, *serial*) tuple
-
-:raise ValueError: Bad version number
-
-</pre>
+  Convert a binary Python version string (e.g., <tt class="rst-rst-docutils literal rst-docutils literal">0x020501f0</tt>) into the
+same (<em>major</em>, <em>minor</em>, <em>micro</em>, <em>releaselevel</em>, <em>serial</em>) tuple that is
+found in <tt class="rst-rst-docutils literal rst-docutils literal">sys.version_info</tt>. Thus, for an input value of <tt class="rst-docutils literal">0x020501f0</tt>,
+this function returns the tuple <tt class="rst-docutils literal">(2, 5, 1, 'final', 0)</tt>.
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>version</code></strong> (int) - Python integer version</li>
+    </ul></dd>
+    <dt>Returns: tuple</dt>
+        <dd>The (<em>major</em>, <em>minor</em>, <em>micro</em>, <em>releaselevel</em>, <em>serial</em>) tuple</dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'>ValueError</strong></code> - Bad version number</li>
+    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -353,20 +333,15 @@ this function returns the tuple ``(2, 5, 1, 'final', 0)``.
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-
-Convert a numeric Python version (such as ``sys.hexversion``) to a
+  Convert a numeric Python version (such as <tt class="rst-rst-docutils literal rst-docutils literal">sys.hexversion</tt>) to a
 printable string.
-
-:Parameters:
-    version : int
-        Python integer version
-
-:rtype:  str
-:return: The stringified version
-
-</pre>
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>version</code></strong> (int) - Python integer version</li>
+    </ul></dd>
+    <dt>Returns: str</dt>
+        <dd>The stringified version</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -384,22 +359,20 @@ printable string.
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-
-Raise a ``RuntimeError`` if the current Python version isn't at least
-``min_version``. ``min_version`` may be an ``int`` (e.g., ``0x020500f0``)
+  Raise a <tt class="rst-rst-docutils literal rst-docutils literal">RuntimeError</tt> if the current Python version isn't at least
+<tt class="rst-rst-docutils literal rst-docutils literal">min_version</tt>. <tt class="rst-docutils literal">min_version</tt> may be an <tt class="rst-docutils literal">int</tt> (e.g., <tt class="rst-docutils literal">0x020500f0</tt>)
 or a string (e.g., &quot;2.5.0&quot;).
-
-:Parameters:
-    min_version : str or int
-        minimum version, as a number or string
-
-:raise TypeError:    ``min_version`` isn't a string or an integer
-:raise ValueError:   ``min_version`` is a bad Python string version
-:raise RuntimeError: Python version is too old
-
-</pre>
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>min_version</code></strong> (str or int) - minimum version, as a number or string</li>
+    </ul></dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'>TypeError</strong></code> - <tt class="rst-docutils literal">min_version</tt> isn't a string or an integer</li>
+        <li><code><strong class='fraise'>ValueError</strong></code> - <tt class="rst-docutils literal">min_version</tt> is a bad Python string version</li>
+        <li><code><strong class='fraise'>RuntimeError</strong></code> - Python version is too old</li>
+    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -417,23 +390,20 @@ or a string (e.g., &quot;2.5.0&quot;).
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-
-Given fully-qualified class name, load and return the class object. A
+  Given fully-qualified class name, load and return the class object. A
 fully-qualified class name contains the module and package, in addition to
-the simple class name (e.g., ``grizzled.config.Configuration``).
-
-:Parameters:
-    class_name : str
-        fully-qualified class name
-
-:rtype:  class
-:return: the class object
-
-:raise NameError: Class not found
-
-</pre>
+the simple class name (e.g., <tt class="rst-docutils literal">grizzled.config.Configuration</tt>).
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>class_name</code></strong> (str) - fully-qualified class name</li>
+    </ul></dd>
+    <dt>Returns: class</dt>
+        <dd>the class object</dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'>NameError</strong></code> - Class not found</li>
+    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -501,7 +471,8 @@ the simple class name (e.g., ``grizzled.config.Configuration``).
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sun Mar 13 09:46:08 2011
+    Generated by Epydoc 3.0.1
+    on Sun Mar 13 09:59:15 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"
