@@ -6,4 +6,4 @@ classes.
 Grizzled is copyright &copy; 2008-2010 by Brian M. Clapper and is released
 under a BSD license.
 
-[Grizzled Python Utility Library]: http://software.clapper.org/grizzled/
+[Grizzled Python Utility Library]: http://software.clapper.org/grizzled-python/
