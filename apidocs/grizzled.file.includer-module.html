@@ -57,62 +57,79 @@
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
 <h1 class="epydoc">Module includer</h1><p class="nomargin-top"><span class="codelink"><a href="grizzled.file.includer-pysrc.html">source&nbsp;code</a></span></p>
-<div class="rst-section" id="rst-introduction">
-<h1 class="heading">Introduction</h1>
-<p>The <tt class="rst-rst-rst-rst-docutils literal rst-rst-rst-docutils literal rst-rst-docutils literal rst-docutils literal"><span class="pre">grizzled.file.includer</span></tt> module contains a class that can be used to
+<pre class="literalblock">
+
+Introduction
+============
+
+The ``grizzled.file.includer`` module contains a class that can be used to
 process includes within a text file, returning a file-like object. It also
 contains some utility functions that permit using include-enabled files in
-other contexts.</p>
-</div>
-<div class="rst-section" id="rst-include-syntax">
-<h1 class="heading">Include Syntax</h1>
-<p>The <em>include</em> syntax is defined by a regular expression; any line that matches
-the regular expression is treated as an <em>include</em> directive. The default
-regular expression matches include directives like this:</p>
-<pre class="rst-literal-block">
-%include &quot;/absolute/path/to/file&quot;
-%include &quot;../relative/path/to/file&quot;
-%include &quot;local_reference&quot;
-%include &quot;http://localhost/path/to/my.config&quot;
-</pre>
-<p>Relative and local file references are relative to the including file or URL.
-That, if an <tt class="rst-docutils literal"><span class="pre">Includer</span></tt> is processing file &quot;/home/bmc/foo.txt&quot; and encounters
+other contexts.
+
+Include Syntax
+==============
+
+The *include* syntax is defined by a regular expression; any line that matches
+the regular expression is treated as an *include* directive. The default
+regular expression matches include directives like this::
+
+    %include &quot;/absolute/path/to/file&quot;
+    %include &quot;../relative/path/to/file&quot;
+    %include &quot;local_reference&quot;
+    %include &quot;http://localhost/path/to/my.config&quot;
+
+Relative and local file references are relative to the including file or URL.
+That, if an ``Includer`` is processing file &quot;/home/bmc/foo.txt&quot; and encounters
 an attempt to include file &quot;bar.txt&quot;, it will assume &quot;bar.txt&quot; is to be found
-in &quot;/home/bmc&quot;.</p>
-<p>Similarly, if an <tt class="rst-docutils literal"><span class="pre">Includer</span></tt> is processing URL &quot;<a class="rst-reference external" href="http://localhost/bmc/foo.txt" target="_top">http://localhost/bmc/foo.txt</a>&quot;
+in &quot;/home/bmc&quot;.
+
+Similarly, if an ``Includer`` is processing URL &quot;http://localhost/bmc/foo.txt&quot;
 and encounters an attempt to include file &quot;bar.txt&quot;, it will assume &quot;bar.txt&quot;
-is to be found at &quot;<a class="rst-reference external" href="http://localhost/bmc/bar.txt" target="_top">http://localhost/bmc/bar.txt</a>&quot;.</p>
-<p>Nested includes are permitted; that is, an included file may, itself, include
-other files. The maximum recursion level is configurable and defaults to 100.</p>
-<p>The include syntax can be changed by passing a different regular expression to
-the <tt class="rst-docutils literal"><span class="pre">Includer</span></tt> class constructor.</p>
-</div>
-<div class="rst-section" id="rst-usage">
-<h1 class="heading">Usage</h1>
-<p>This module provides an <tt class="rst-docutils literal"><span class="pre">Includer</span></tt> class, which processes include directives
+is to be found at &quot;http://localhost/bmc/bar.txt&quot;.
+
+Nested includes are permitted; that is, an included file may, itself, include
+other files. The maximum recursion level is configurable and defaults to 100.
+
+The include syntax can be changed by passing a different regular expression to
+the ``Includer`` class constructor.
+
+Usage
+=====
+
+This module provides an ``Includer`` class, which processes include directives
 in a file and behaves like a file-like object. See the class documentation for
-more details.</p>
-<p>The module also provides a <tt class="rst-docutils literal"><span class="pre">preprocess()</span></tt> convenience function that can be
+more details.
+
+The module also provides a ``preprocess()`` convenience function that can be
 used to preprocess a file; it returns the path to the resulting preprocessed
-file.</p>
-</div>
-<div class="rst-section" id="rst-examples">
-<h1 class="heading">Examples</h1>
-<p>Preprocess a file containing include directives, then read the result:</p>
-<pre class="py-doctest">
-<span class="py-keyword">import</span> includer
-<span class="py-keyword">import</span> sys
+file.
 
-inc = includer.Includer(path)
-<span class="py-keyword">for</span> line <span class="py-keyword">in</span> inc:
-    sys.stdout.write(line)</pre>
-<p>Use an include-enabled file with the standard Python logging module:</p>
-<pre class="py-doctest">
-<span class="py-keyword">import</span> logging
-<span class="py-keyword">import</span> includer
+Examples
+========
 
-logging.fileConfig(includer.preprocess(<span class="py-string">&quot;mylog.cfg&quot;</span>))</pre>
-</div>
+Preprocess a file containing include directives, then read the result:
+
+.. python::
+
+    import includer
+    import sys
+
+    inc = includer.Includer(path)
+    for line in inc:
+        sys.stdout.write(line)
+
+
+Use an include-enabled file with the standard Python logging module:
+
+.. python::
+
+    import logging
+    import includer
+
+    logging.fileConfig(includer.preprocess(&quot;mylog.cfg&quot;))
+
+</pre>
 
 <!-- ==================== CLASSES ==================== -->
 <a name="section-Classes"></a>
@@ -136,7 +153,7 @@ logging.fileConfig(includer.preprocess(<span class="py-string">&quot;mylog.cfg&q
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="grizzled.file.includer.IncludeError-class.html" class="summary-name">IncludeError</a><br />
-      Thrown by <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">Includer</span></tt> when an error occurs while processing the file.
+      Thrown by ``Includer`` when an error occurs while processing the file.
     </td>
   </tr>
 <tr>
@@ -144,7 +161,7 @@ logging.fileConfig(includer.preprocess(<span class="py-string">&quot;mylog.cfg&q
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="grizzled.file.includer.Includer-class.html" class="summary-name">Includer</a><br />
-      An <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">Includer</span></tt> object preprocesses a path or file-like object,
+      An ``Includer`` object preprocesses a path or file-like object,
 expanding include references.
     </td>
   </tr>
@@ -168,7 +185,7 @@ expanding include references.
 </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">string</span>
+      <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -228,6 +245,13 @@ to a temporary file that contains the results of the expansion.</td>
         <a name="log"></a><span class="summary-name">log</span> = <code title="logging.getLogger('includer')">logging.getLogger('includer')</code>
     </td>
   </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'grizzled.file'"><code class="variable-quote">'</code><code class="variable-string">grizzled.file</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
 </table>
 <!-- ==================== FUNCTION DETAILS ==================== -->
 <a name="section-FunctionDetails"></a>
@@ -264,21 +288,29 @@ to a temporary file that contains the results of the expansion.</td>
     </td>
   </tr></table>
   
-  Process all include directives in the specified file, returning a path
+  <pre class="literalblock">
+
+Process all include directives in the specified file, returning a path
 to a temporary file that contains the results of the expansion. The
 temporary file is automatically removed when the program exits, though
 the caller is free to remove it whenever it is no longer needed.
+
+:Parameters:
+    file_or_url : file or str
+        URL or path to file to be expanded; or, a file-like object
+    output : file
+        A file or file-like object to receive the output.
+    temp_suffix : str
+        suffix to use with temporary file that holds preprocessed output
+    temp_prefix : str
+        prefix to use with temporary file that holds preprocessed output
+
+:rtype:  string
+:return: ``output``, if ``output`` is not ``None``; otherwise, the path to
+         temporary file containing expanded content
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>file_or_url</code></strong> (file or str) - URL or path to file to be expanded; or, a file-like object</li>
-        <li><strong class="pname"><code>output</code></strong> (file) - A file or file-like object to receive the output.</li>
-        <li><strong class="pname"><code>temp_suffix</code></strong> (str) - suffix to use with temporary file that holds preprocessed output</li>
-        <li><strong class="pname"><code>temp_prefix</code></strong> (str) - prefix to use with temporary file that holds preprocessed output</li>
-    </ul></dd>
-    <dt>Returns: string</dt>
-        <dd><tt class="rst-docutils literal"><span class="pre">output</span></tt>, if <tt class="rst-docutils literal"><span class="pre">output</span></tt> is not <tt class="rst-docutils literal"><span class="pre">None</span></tt>; otherwise, the path to
-temporary file containing expanded content</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -309,7 +341,7 @@ temporary file containing expanded content</dd>
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sat Oct 24 11:58:55 2009
+    Generated by Epydoc 3.0.1 on Sun Mar 13 09:46:08 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

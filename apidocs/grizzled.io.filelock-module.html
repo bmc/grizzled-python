@@ -57,32 +57,45 @@
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
 <h1 class="epydoc">Module filelock</h1><p class="nomargin-top"><span class="codelink"><a href="grizzled.io.filelock-pysrc.html">source&nbsp;code</a></span></p>
-<p>This module provides portable advisory file locking primitives that operate on
+<pre class="literalblock">
+
+File Locking
+============
+
+This module provides portable advisory file locking primitives that operate on
 file descriptors. POSIX-like systems and Windows systems use different
 primitives to perform file locking, and these different primitives are modeled
 by incompatible (and different) modules in the Python standard library. This
-module provides an abstract <tt class="rst-docutils literal"><span class="pre">FileLock</span></tt> class, and underlying
+module provides an abstract ``FileLock`` class, and underlying
 implementations, to hide the operating system dependencies behind a simple
-portable interface.</p>
-<p>To create a file lock, simply instantiate the <tt class="rst-docutils literal"><span class="pre">FileLock</span></tt> class with an open
-file descriptor. It handles the rest:</p>
-<pre class="py-doctest">
-<span class="py-keyword">from</span> grizzled.io.filelock <span class="py-keyword">import</span> FileLock
+portable interface.
 
-fd = open(<span class="py-string">'/tmp/lockfile'</span>, <span class="py-string">'r+'</span>)
-lock = FileLock(fd)
-lock.acquire()
+To create a file lock, simply instantiate the ``FileLock`` class with an open
+file descriptor. It handles the rest:
 
-<span class="py-more">...</span>
+.. python::
 
-lock.release()</pre>
-<p>You can also use the <tt class="rst-docutils literal"><span class="pre">locked_file()</span></tt> function to simplify your code:</p>
-<pre class="py-doctest">
-<span class="py-keyword">from</span> grizzled.io.filelock <span class="py-keyword">import</span> locked_file
+    from grizzled.io.filelock import FileLock
 
-fd = open(<span class="py-string">'/tmp/lockfile'</span>, <span class="py-string">'r+'</span>)
-with locked_file(fd):
-<span class="py-more">    ...</span></pre>
+    fd = open('/tmp/lockfile', 'r+')
+    lock = FileLock(fd)
+    lock.acquire()
+
+    ...
+
+    lock.release()
+
+You can also use the ``locked_file()`` function to simplify your code:
+
+.. python::
+
+    from grizzled.io.filelock import locked_file
+
+    fd = open('/tmp/lockfile', 'r+')
+    with locked_file(fd):
+        ...
+
+</pre>
 
 <!-- ==================== CLASSES ==================== -->
 <a name="section-Classes"></a>
@@ -106,7 +119,7 @@ with locked_file(fd):
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="grizzled.io.filelock.FileLock-class.html" class="summary-name">FileLock</a><br />
-      A <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">FileLock</span></tt> object models a file lock.
+      A ``FileLock`` object models a file lock.
     </td>
   </tr>
 <tr class="private">
@@ -154,7 +167,7 @@ with locked_file(fd):
       This function is intended to be used as a ``with`` statement context
 manager.</td>
           <td align="right" valign="top">
-            
+            <span class="codelink"><a href="grizzled.io.filelock-pysrc.html#locked_file">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -187,6 +200,13 @@ manager.</td>
         <a href="grizzled.io.filelock-module.html#LOCK_CLASSES" class="summary-name" onclick="show_private();">LOCK_CLASSES</a> = <code title="{'nt': '_WindowsFileLock', 'posix': '_PosixFileLock'}"><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">nt</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">_WindowsFileLock</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">posix</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">_PosixFile</code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'grizzled.io'"><code class="variable-quote">'</code><code class="variable-string">grizzled.io</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
 </table>
 <!-- ==================== FUNCTION DETAILS ==================== -->
 <a name="section-FunctionDetails"></a>
@@ -217,7 +237,7 @@ manager.</td>
         <span class="sig-arg">**kwds</span>)</span>
   </h3>
   </td><td align="right" valign="top"
-    >&nbsp;
+    ><span class="codelink"><a href="grizzled.io.filelock-pysrc.html#locked_file">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
   
@@ -327,7 +347,7 @@ with this code:
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sat Oct 24 11:58:55 2009
+    Generated by Epydoc 3.0.1 on Sun Mar 13 09:46:08 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

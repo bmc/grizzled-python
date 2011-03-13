@@ -57,8 +57,8 @@
 </table>
 <h1 class="epydoc">Source Code for <a href="grizzled.db.mysql-module.html" onclick="show_private();">Module grizzled.db.mysql</a></h1>
 <pre class="py-src">
-<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment"># $Id: 09ac132a27ad58c65e081c918f091fcfcc28b392 $</tt> </tt>
-<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment"># $Id: a384faeed9e9e609ca4b056c682c8ecda51f9e64 $</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"> </tt>
 <a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
 <a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-docstring">MySQL extended database driver.</tt> </tt>
 <a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
@@ -66,9 +66,9 @@
 <a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-name">__docformat__</tt> <tt class="py-op">=</tt> <tt class="py-string">"restructuredtext en"</tt> </tt>
 <a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"> </tt>
 <a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># Imports</tt> </tt>
-<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment"># Imports</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"> </tt>
 <a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module grizzled.os=grizzled.os-module.html"><a title="grizzled.os" class="py-name" href="#" onclick="return doclink('link-0', 'os', 'link-0');">os</a></tt> </tt>
 <a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">sys</tt> </tt>
 <a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">re</tt> </tt>
@@ -77,9 +77,9 @@
 <a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line">                              <tt id="link-8" class="py-name" targets="Class grizzled.db.base.IndexMetadata=grizzled.db.base.IndexMetadata-class.html"><a title="grizzled.db.base.IndexMetadata" class="py-name" href="#" onclick="return doclink('link-8', 'IndexMetadata', 'link-8');">IndexMetadata</a></tt><tt class="py-op">,</tt> <tt id="link-9" class="py-name" targets="Class grizzled.db.base.RDBMSMetadata=grizzled.db.base.RDBMSMetadata-class.html"><a title="grizzled.db.base.RDBMSMetadata" class="py-name" href="#" onclick="return doclink('link-9', 'RDBMSMetadata', 'link-9');">RDBMSMetadata</a></tt><tt class="py-op">)</tt> </tt>
 <a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"> </tt>
 <a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># Constants</tt> </tt>
-<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-comment"># Constants</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"> </tt>
 <a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt id="link-10" class="py-name" targets="Variable grizzled.db.mysql.VENDOR=grizzled.db.mysql-module.html#VENDOR,Variable grizzled.db.oracle.VENDOR=grizzled.db.oracle-module.html#VENDOR,Variable grizzled.db.postgresql.VENDOR=grizzled.db.postgresql-module.html#VENDOR"><a title="grizzled.db.mysql.VENDOR
 grizzled.db.oracle.VENDOR
 grizzled.db.postgresql.VENDOR" class="py-name" href="#" onclick="return doclink('link-10', 'VENDOR', 'link-10');">VENDOR</a></tt>  <tt class="py-op">=</tt> <tt class="py-string">'MySQL AB'</tt> </tt>
@@ -88,9 +88,9 @@ grizzled.db.oracle.PRODUCT
 grizzled.db.postgresql.PRODUCT" class="py-name" href="#" onclick="return doclink('link-11', 'PRODUCT', 'link-11');">PRODUCT</a></tt> <tt class="py-op">=</tt> <tt class="py-string">'MySQL'</tt> </tt>
 <a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"> </tt>
 <a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># Classes</tt> </tt>
-<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"><tt class="py-comment"># Classes</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"> </tt>
 <a name="MySQLDriver"></a><div id="MySQLDriver-def"><a name="L31"></a><tt class="py-lineno"> 31</tt> <a class="py-toggle" href="#" id="MySQLDriver-toggle" onclick="return toggle('MySQLDriver');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="grizzled.db.mysql.MySQLDriver-class.html">MySQLDriver</a><tt class="py-op">(</tt><tt class="py-base-class">DBDriver</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 </div><div id="MySQLDriver-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="MySQLDriver-expanded"><a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line">    <tt class="py-docstring">"""DB Driver for MySQL, using the MySQLdb DB API module."""</tt> </tt>
 <a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"> </tt>
@@ -239,7 +239,7 @@ grizzled.db.dummydb.DummyCursor.fetchone" class="py-name" href="#" onclick="retu
 <a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">            <tt class="py-name">columns</tt><tt class="py-op">[</tt><tt id="link-53" class="py-name"><a title="grizzled.file.includer.Includer.name" class="py-name" href="#" onclick="return doclink('link-53', 'name', 'link-50');">name</a></tt><tt class="py-op">]</tt> <tt class="py-op">+=</tt> <tt class="py-op">[</tt><tt class="py-name">rs</tt><tt class="py-op">[</tt><tt class="py-number">4</tt><tt class="py-op">]</tt><tt class="py-op">]</tt> </tt>
 <a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line"> </tt>
 <a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">            <tt class="py-comment"># Column 1 is a "non-unique" flag.</tt> </tt>
-<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line"> </tt>
 <a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-op">(</tt><tt class="py-keyword">not</tt> <tt class="py-name">rs</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> <tt class="py-keyword">or</tt> <tt class="py-op">(</tt><tt id="link-54" class="py-name"><a title="grizzled.file.includer.Includer.name" class="py-name" href="#" onclick="return doclink('link-54', 'name', 'link-50');">name</a></tt><tt class="py-op">.</tt><tt class="py-name">lower</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt class="py-string">'primary'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 <a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line">                <tt id="link-55" class="py-name" targets="Variable grizzled.db.base.Cursor.description=grizzled.db.base.Cursor-class.html#description,Variable grizzled.db.base.IndexMetadata.description=grizzled.db.base.IndexMetadata-class.html#description,Variable grizzled.db.dbgadfly.GadflyCursor.description=grizzled.db.dbgadfly.GadflyCursor-class.html#description"><a title="grizzled.db.base.Cursor.description
 grizzled.db.base.IndexMetadata.description
@@ -324,7 +324,7 @@ expandto(location.href);
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sat Oct 24 11:58:58 2009
+    Generated by Epydoc 3.0.1 on Sun Mar 13 09:46:09 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

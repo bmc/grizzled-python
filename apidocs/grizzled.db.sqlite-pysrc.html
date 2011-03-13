@@ -57,8 +57,8 @@
 </table>
 <h1 class="epydoc">Source Code for <a href="grizzled.db.sqlite-module.html" onclick="show_private();">Module grizzled.db.sqlite</a></h1>
 <pre class="py-src">
-<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment"># $Id: a619749fa4d80c458a3eefe2b419922edc0e16a8 $</tt> </tt>
-<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment"># $Id: 8066a5bbef6962141ae539bef06493250cbeab57 $</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"> </tt>
 <a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
 <a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-docstring">SQLite3 extended database driver.</tt> </tt>
 <a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
@@ -66,9 +66,9 @@
 <a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-name">__docformat__</tt> <tt class="py-op">=</tt> <tt class="py-string">"restructuredtext en"</tt> </tt>
 <a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"> </tt>
 <a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># Imports</tt> </tt>
-<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment"># Imports</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"> </tt>
 <a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module grizzled.os=grizzled.os-module.html"><a title="grizzled.os" class="py-name" href="#" onclick="return doclink('link-0', 'os', 'link-0');">os</a></tt> </tt>
 <a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">sys</tt> </tt>
 <a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">re</tt> </tt>
@@ -77,13 +77,13 @@
 <a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line">                              <tt id="link-8" class="py-name" targets="Class grizzled.db.base.IndexMetadata=grizzled.db.base.IndexMetadata-class.html"><a title="grizzled.db.base.IndexMetadata" class="py-name" href="#" onclick="return doclink('link-8', 'IndexMetadata', 'link-8');">IndexMetadata</a></tt><tt class="py-op">,</tt> <tt id="link-9" class="py-name" targets="Class grizzled.db.base.RDBMSMetadata=grizzled.db.base.RDBMSMetadata-class.html"><a title="grizzled.db.base.RDBMSMetadata" class="py-name" href="#" onclick="return doclink('link-9', 'RDBMSMetadata', 'link-9');">RDBMSMetadata</a></tt><tt class="py-op">)</tt> </tt>
 <a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"> </tt>
 <a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># Exports</tt> </tt>
-<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-comment"># Exports</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"> </tt>
 <a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># Classes</tt> </tt>
-<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-comment"># Classes</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"> </tt>
 <a name="SQLite3Driver"></a><div id="SQLite3Driver-def"><a name="L28"></a><tt class="py-lineno"> 28</tt> <a class="py-toggle" href="#" id="SQLite3Driver-toggle" onclick="return toggle('SQLite3Driver');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="grizzled.db.sqlite.SQLite3Driver-class.html">SQLite3Driver</a><tt class="py-op">(</tt><tt class="py-base-class">DBDriver</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 </div><div id="SQLite3Driver-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="SQLite3Driver-expanded"><a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line">    <tt class="py-docstring">"""DB Driver for SQLite, using the pysqlite DB API module."""</tt> </tt>
 <a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"> </tt>
@@ -143,18 +143,18 @@ grizzled.db.dbgadfly.GadflyDB.cursor
 grizzled.db.dummydb.DummyDB.cursor" class="py-name" href="#" onclick="return doclink('link-20', 'cursor', 'link-13');">cursor</a></tt><tt class="py-op">,</tt> <tt class="py-name">table</tt><tt class="py-op">)</tt> </tt>
 <a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line"> </tt>
 <a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">        <tt class="py-comment"># The table_info pragma returns results looking something like this:</tt> </tt>
-<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line"><tt class="py-comment"></tt>        <tt class="py-comment">#</tt> </tt>
-<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line"><tt class="py-comment"></tt>        <tt class="py-comment"># cid name            type              notnull dflt_value pk</tt> </tt>
-<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line"><tt class="py-comment"></tt>        <tt class="py-comment"># --- --------------- ----------------- ------- ---------- --</tt> </tt>
-<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line"><tt class="py-comment"></tt>        <tt class="py-comment"># 0   id              integer           99      NULL       1</tt> </tt>
-<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line"><tt class="py-comment"></tt>        <tt class="py-comment"># 1   action_time     datetime          99      NULL       0</tt> </tt>
-<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line"><tt class="py-comment"></tt>        <tt class="py-comment"># 2   user_id         integer           99      NULL       0</tt> </tt>
-<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line"><tt class="py-comment"></tt>        <tt class="py-comment"># 3   content_type_id integer           0       NULL       0</tt> </tt>
-<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line"><tt class="py-comment"></tt>        <tt class="py-comment"># 4   object_id       text              0       NULL       0</tt> </tt>
-<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line"><tt class="py-comment"></tt>        <tt class="py-comment"># 5   object_repr     varchar(200)      99      NULL       0</tt> </tt>
-<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line"><tt class="py-comment"></tt>        <tt class="py-comment"># 6   action_flag     smallint unsigned 99      NULL       0</tt> </tt>
-<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line"><tt class="py-comment"></tt>        <tt class="py-comment"># 7   change_message  text              99      NULL       0</tt> </tt>
-<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">        <tt class="py-comment">#</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">        <tt class="py-comment"># cid name            type              notnull dflt_value pk</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">        <tt class="py-comment"># --- --------------- ----------------- ------- ---------- --</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">        <tt class="py-comment"># 0   id              integer           99      NULL       1</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">        <tt class="py-comment"># 1   action_time     datetime          99      NULL       0</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line">        <tt class="py-comment"># 2   user_id         integer           99      NULL       0</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">        <tt class="py-comment"># 3   content_type_id integer           0       NULL       0</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">        <tt class="py-comment"># 4   object_id       text              0       NULL       0</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">        <tt class="py-comment"># 5   object_repr     varchar(200)      99      NULL       0</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">        <tt class="py-comment"># 6   action_flag     smallint unsigned 99      NULL       0</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">        <tt class="py-comment"># 7   change_message  text              99      NULL       0</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line"> </tt>
 <a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">        <tt id="link-21" class="py-name"><a title="grizzled.db.base.DB.cursor
 grizzled.db.dbgadfly.GadflyDB.cursor
 grizzled.db.dummydb.DummyDB.cursor" class="py-name" href="#" onclick="return doclink('link-21', 'cursor', 'link-13');">cursor</a></tt><tt class="py-op">.</tt><tt id="link-22" class="py-name"><a title="grizzled.db.base.Cursor.execute
@@ -205,14 +205,14 @@ grizzled.db.dbgadfly.GadflyDB.cursor
 grizzled.db.dummydb.DummyDB.cursor" class="py-name" href="#" onclick="return doclink('link-37', 'cursor', 'link-13');">cursor</a></tt><tt class="py-op">,</tt> <tt class="py-name">table</tt><tt class="py-op">)</tt> </tt>
 <a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line"> </tt>
 <a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">        <tt class="py-comment"># First, get the list of indexes for the table, using the appropriate</tt> </tt>
-<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line"><tt class="py-comment"></tt>        <tt class="py-comment"># pragma. The pragma returns output like this:</tt> </tt>
-<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line"><tt class="py-comment"></tt>        <tt class="py-comment">#</tt> </tt>
-<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line"><tt class="py-comment"></tt>        <tt class="py-comment"># seq name    unique</tt> </tt>
-<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line"><tt class="py-comment"></tt>        <tt class="py-comment"># --- ------- ------</tt> </tt>
-<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line"><tt class="py-comment"></tt>        <tt class="py-comment"># 0   id        0</tt> </tt>
-<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line"><tt class="py-comment"></tt>        <tt class="py-comment"># 1   name      0</tt> </tt>
-<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line"><tt class="py-comment"></tt>        <tt class="py-comment"># 2   address   0</tt> </tt>
-<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">        <tt class="py-comment"># pragma. The pragma returns output like this:</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">        <tt class="py-comment">#</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">        <tt class="py-comment"># seq name    unique</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">        <tt class="py-comment"># --- ------- ------</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">        <tt class="py-comment"># 0   id        0</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line">        <tt class="py-comment"># 1   name      0</tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">        <tt class="py-comment"># 2   address   0</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line"> </tt>
 <a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">        <tt class="py-name">result</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
 <a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line"> </tt>
 <a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">        <tt id="link-38" class="py-name"><a title="grizzled.db.base.DB.cursor
@@ -235,12 +235,12 @@ grizzled.db.dbgadfly.GadflyCursor.fetchone
 grizzled.db.dummydb.DummyCursor.fetchone" class="py-name" href="#" onclick="return doclink('link-43', 'fetchone', 'link-16');">fetchone</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
 <a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line"> </tt>
 <a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line">        <tt class="py-comment"># Now, get the data about each index, using another pragma. This</tt> </tt>
-<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line"><tt class="py-comment"></tt>        <tt class="py-comment"># pragma returns data like this:</tt> </tt>
-<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line"><tt class="py-comment"></tt>        <tt class="py-comment">#</tt> </tt>
-<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line"><tt class="py-comment"></tt>        <tt class="py-comment"># seqno cid name</tt> </tt>
-<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line"><tt class="py-comment"></tt>        <tt class="py-comment"># ----- --- ---------------</tt> </tt>
-<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line"><tt class="py-comment"></tt>        <tt class="py-comment"># 0     3   content_type_id</tt> </tt>
-<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">        <tt class="py-comment"># pragma returns data like this:</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">        <tt class="py-comment">#</tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">        <tt class="py-comment"># seqno cid name</tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">        <tt class="py-comment"># ----- --- ---------------</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">        <tt class="py-comment"># 0     3   content_type_id</tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line"> </tt>
 <a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt id="link-44" class="py-name"><a title="grizzled.file.includer.Includer.name" class="py-name" href="#" onclick="return doclink('link-44', 'name', 'link-25');">name</a></tt><tt class="py-op">,</tt> <tt class="py-name">unique</tt> <tt class="py-keyword">in</tt> <tt class="py-name">indexes</tt><tt class="py-op">:</tt> </tt>
 <a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">            <tt id="link-45" class="py-name"><a title="grizzled.db.base.DB.cursor
 grizzled.db.dbgadfly.GadflyDB.cursor
@@ -302,7 +302,7 @@ expandto(location.href);
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sat Oct 24 11:58:59 2009
+    Generated by Epydoc 3.0.1 on Sun Mar 13 09:46:09 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

@@ -55,23 +55,27 @@
 </table>
 <!-- ==================== PACKAGE DESCRIPTION ==================== -->
 <h1 class="epydoc">Package grizzled</h1><p class="nomargin-top"><span class="codelink"><a href="grizzled-pysrc.html">source&nbsp;code</a></span></p>
-<p>The *Grizzled Utility Library* is a general-purpose Python library 
-  with a variety of different modules and packages. It's roughly organized 
-  into subpackages that group different kinds of utility functions and 
-  classes.</p>
-  <p>See the `API documentation`_ for complete details.</p>
-  <p>.. _API documentation: 
-  http://software.clapper.org/python/grizzled/epydoc</p>
+<pre class="literalblock">
+
+The *Grizzled Utility Library* is a general-purpose Python library with
+a variety of different modules and packages. It's roughly organized into
+subpackages that group different kinds of utility functions and classes.
+
+See the `API documentation`_ for complete details.
+
+.. _API documentation: http://software.clapper.org/python/grizzled-python/epydoc
+
+</pre>
 
 <hr />
 <div class="fields">      <p><strong>Version:</strong>
-        0.9.3
+        0.9.4
       </p>
       <p><strong>Author:</strong>
         Brian M. Clapper
       </p>
       <p><strong>License:</strong>
-        BSD-style license
+        BSD license
       </p>
 </div><!-- ==================== SUBMODULES ==================== -->
 <a name="section-Submodules"></a>
@@ -92,18 +96,19 @@
 </tr>
   <tr><td class="summary">
   <ul class="nomargin">
-    <li> <strong class="uidlink"><a href="grizzled.cmdline-module.html">grizzled.cmdline</a></strong>: <em class="summary">Provides a front-end to the Python standard <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">optparse</span></tt> module.</em>    </li>
-    <li> <strong class="uidlink"><a href="grizzled.collections-module.html">grizzled.collections</a></strong>: <em class="summary"><tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">grizzled.collections</span></tt> provides some useful Python collection classes.</em>
+    <li> <strong class="uidlink"><a href="grizzled.cmdline-module.html">grizzled.cmdline</a></strong>: <em class="summary">Provides a front-end to the Python standard ``optparse`` module.</em>    </li>
+    <li> <strong class="uidlink"><a href="grizzled.collections-module.html">grizzled.collections</a></strong>: <em class="summary">``grizzled.collections`` provides some useful Python collection classes.</em>
     <ul>
-    <li class="private"> <strong class="uidlink"><a href="grizzled.collections.dict-module.html" onclick="show_private();">grizzled.collections.dict</a></strong>: <em class="summary"><tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">grizzled.collections.dict</span></tt> contains some useful dictionary classes
-that extend the behavior of the built-in Python <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">dict</span></tt> type.</em>    </li>
-    <li class="private"> <strong class="uidlink"><a href="grizzled.collections.tuple-module.html" onclick="show_private();">grizzled.collections.tuple</a></strong>: <em class="summary"><tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">grizzled.collections.tuple</span></tt> contains some useful tuple-related classes
+    <li class="private"> <strong class="uidlink"><a href="grizzled.collections.dict-module.html" onclick="show_private();">grizzled.collections.dict</a></strong>: <em class="summary">``grizzled.collections.dict`` contains some useful dictionary classes
+that extend the behavior of the built-in Python ``dict`` type.</em>    </li>
+    <li class="private"> <strong class="uidlink"><a href="grizzled.collections.tuple-module.html" onclick="show_private();">grizzled.collections.tuple</a></strong>: <em class="summary">``grizzled.collections.tuple`` contains some useful tuple-related classes
 and functions.</em>    </li>
     </ul>
     </li>
-    <li> <strong class="uidlink"><a href="grizzled.config-module.html">grizzled.config</a></strong>: <em class="summary">Based on the standard Python <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">ConfigParser</span></tt> module, this module provides an
-enhanced configuration parser capabilities.</em>    </li>
-    <li> <strong class="uidlink"><a href="grizzled.db-module.html">grizzled.db</a></strong>: <em class="summary">The <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">db</span></tt> module is a DB API wrapper.</em>
+    <li> <strong class="uidlink"><a href="grizzled.config-module.html">grizzled.config</a></strong>: <em class="summary">Introduction
+============</em>    </li>
+    <li> <strong class="uidlink"><a href="grizzled.db-module.html">grizzled.db</a></strong>: <em class="summary">Introduction
+============</em>
     <ul>
     <li class="private"> <strong class="uidlink"><a href="grizzled.db.base-module.html" onclick="show_private();">grizzled.db.base</a></strong>: <em class="summary">Base classes for enhanced DB drivers.</em>    </li>
     <li class="private"> <strong class="uidlink"><a href="grizzled.db.dbgadfly-module.html" onclick="show_private();">grizzled.db.dbgadfly</a></strong>: <em class="summary">Gadfly extended database driver.</em>    </li>
@@ -119,22 +124,22 @@ enhanced configuration parser capabilities.</em>    </li>
     <li> <strong class="uidlink"><a href="grizzled.exception-module.html">grizzled.exception</a></strong>: <em class="summary">Provides some base exception classes.</em>    </li>
     <li> <strong class="uidlink"><a href="grizzled.file-module.html">grizzled.file</a></strong>: <em class="summary">This module contains file- and path-related methods, classes, and modules.</em>
     <ul>
-    <li> <strong class="uidlink"><a href="grizzled.file.includer-module.html">grizzled.file.includer</a></strong>: <em class="summary">The <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">grizzled.file.includer</span></tt> module contains a class that can be used to
-process includes within a text file, returning a file-like object.</em>    </li>
+    <li> <strong class="uidlink"><a href="grizzled.file.includer-module.html">grizzled.file.includer</a></strong>: <em class="summary">Introduction
+============</em>    </li>
     </ul>
     </li>
-    <li> <strong class="uidlink"><a href="grizzled.history-module.html">grizzled.history</a></strong>: <em class="summary"><tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">grizzled.history</span></tt> provides a command line history capability that
+    <li> <strong class="uidlink"><a href="grizzled.history-module.html">grizzled.history</a></strong>: <em class="summary">``grizzled.history`` provides a command line history capability that
 provides the same interface across different history implementations.</em>    </li>
     <li> <strong class="uidlink"><a href="grizzled.io-module.html">grizzled.io</a></strong>: <em class="summary">Input/Output utility methods and classes.</em>
     <ul>
-    <li> <strong class="uidlink"><a href="grizzled.io.filelock-module.html">grizzled.io.filelock</a></strong>: <em class="summary">This module provides portable advisory file locking primitives that operate on
-file descriptors.</em>    </li>
+    <li> <strong class="uidlink"><a href="grizzled.io.filelock-module.html">grizzled.io.filelock</a></strong>: <em class="summary">File Locking
+============</em>    </li>
     </ul>
     </li>
     <li> <strong class="uidlink"><a href="grizzled.log-module.html">grizzled.log</a></strong>: <em class="summary">Provides some classes and functions for use with the standard Python
-<tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">logging</span></tt> module.</em>    </li>
-    <li> <strong class="uidlink"><a href="grizzled.misc-module.html">grizzled.misc</a></strong>: <em class="summary">The <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">grizzled.misc</span></tt> module contains miscellanous functions and classes that
-don't seem to fit well in other modules.</em>    </li>
+``logging`` module.</em>    </li>
+    <li> <strong class="uidlink"><a href="grizzled.misc-module.html">grizzled.misc</a></strong>: <em class="summary">Overview
+========</em>    </li>
     <li> <strong class="uidlink"><a href="grizzled.net-module.html">grizzled.net</a></strong>: <em class="summary">Network-related methods and classes.</em>
     <ul>
     <li> <strong class="uidlink"><a href="grizzled.net.ftp-module.html">grizzled.net.ftp</a></strong>: <em class="summary">FTP-related modules and classes.</em>
@@ -144,12 +149,11 @@ don't seem to fit well in other modules.</em>    </li>
     </li>
     </ul>
     </li>
-    <li> <strong class="uidlink"><a href="grizzled.os-module.html">grizzled.os</a></strong>: <em class="summary">The <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">grizzled.os</span></tt> module contains some operating system-related functions and
-classes.</em>    </li>
-    <li> <strong class="uidlink"><a href="grizzled.system-module.html">grizzled.system</a></strong>: <em class="summary">The <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">grizzled.system</span></tt> module contains some functions and classes that
-provide information about the Python system (the Python runtime, the language,
-etc.).</em>    </li>
-    <li> <strong class="uidlink"><a href="grizzled.text-module.html">grizzled.text</a></strong>: <em class="summary">The <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">grizzled.text</span></tt> package contains text-related classes and modules.</em>    </li>
+    <li> <strong class="uidlink"><a href="grizzled.os-module.html">grizzled.os</a></strong>: <em class="summary">Overview
+========</em>    </li>
+    <li> <strong class="uidlink"><a href="grizzled.system-module.html">grizzled.system</a></strong>: <em class="summary">Overview
+========</em>    </li>
+    <li> <strong class="uidlink"><a href="grizzled.text-module.html">grizzled.text</a></strong>: <em class="summary">The ``grizzled.text`` package contains text-related classes and modules.</em>    </li>
   </ul></td></tr>
 </table>
 
@@ -182,6 +186,14 @@ etc.).</em>    </li>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="None">None</code><br />
+      hash(x)
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
         <a name="__title__"></a><span class="summary-name">__title__</span> = <code title="'The Grizzled Python Utility Library'"><code class="variable-quote">'</code><code class="variable-string">The Grizzled Python Utility Library</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
@@ -189,7 +201,7 @@ etc.).</em>    </li>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="__url__"></a><span class="summary-name">__url__</span> = <code title="'http://software.clapper.org/python/grizzled/'"><code class="variable-quote">'</code><code class="variable-string">http://software.clapper.org/python/grizzled/</code><code class="variable-quote">'</code></code>
+        <a name="__url__"></a><span class="summary-name">__url__</span> = <code title="'http://software.clapper.org/grizzled-python/'"><code class="variable-quote">'</code><code class="variable-string">http://software.clapper.org/grizzled-python/</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 <tr>
@@ -210,7 +222,7 @@ etc.).</em>    </li>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="license"></a><span class="summary-name">license</span> = <code title="'BSD-style license'"><code class="variable-quote">'</code><code class="variable-string">BSD-style license</code><code class="variable-quote">'</code></code>
+        <a name="license"></a><span class="summary-name">license</span> = <code title="'BSD license'"><code class="variable-quote">'</code><code class="variable-string">BSD license</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 <tr>
@@ -224,14 +236,14 @@ etc.).</em>    </li>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="url"></a><span class="summary-name">url</span> = <code title="'http://software.clapper.org/python/grizzled/'"><code class="variable-quote">'</code><code class="variable-string">http://software.clapper.org/python/grizzled/</code><code class="variable-quote">'</code></code>
+        <a name="url"></a><span class="summary-name">url</span> = <code title="'http://software.clapper.org/grizzled-python/'"><code class="variable-quote">'</code><code class="variable-string">http://software.clapper.org/grizzled-python/</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="version"></a><span class="summary-name">version</span> = <code title="'0.9.3'"><code class="variable-quote">'</code><code class="variable-string">0.9.3</code><code class="variable-quote">'</code></code>
+        <a name="version"></a><span class="summary-name">version</span> = <code title="'0.9.4'"><code class="variable-quote">'</code><code class="variable-string">0.9.4</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 </table>
@@ -261,7 +273,7 @@ etc.).</em>    </li>
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sat Oct 24 11:58:55 2009
+    Generated by Epydoc 3.0.1 on Sun Mar 13 09:46:08 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

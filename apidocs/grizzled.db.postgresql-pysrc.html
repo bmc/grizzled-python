@@ -57,8 +57,8 @@
 </table>
 <h1 class="epydoc">Source Code for <a href="grizzled.db.postgresql-module.html" onclick="show_private();">Module grizzled.db.postgresql</a></h1>
 <pre class="py-src">
-<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment"># $Id: f39358a756fd212eac2acccfdc7142554cd352ed $</tt> </tt>
-<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment"># $Id: f485c4e2802f66973d04d5047ee9d3e5cfd249ce $</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"> </tt>
 <a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
 <a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-docstring">PostgreSQL extended database driver.</tt> </tt>
 <a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
@@ -66,9 +66,9 @@
 <a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-name">__docformat__</tt> <tt class="py-op">=</tt> <tt class="py-string">"restructuredtext en"</tt> </tt>
 <a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"> </tt>
 <a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># Imports</tt> </tt>
-<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment"># Imports</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"> </tt>
 <a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module grizzled.os=grizzled.os-module.html"><a title="grizzled.os" class="py-name" href="#" onclick="return doclink('link-0', 'os', 'link-0');">os</a></tt> </tt>
 <a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">sys</tt> </tt>
 <a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">re</tt> </tt>
@@ -77,9 +77,9 @@
 <a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line">                              <tt id="link-8" class="py-name" targets="Class grizzled.db.base.IndexMetadata=grizzled.db.base.IndexMetadata-class.html"><a title="grizzled.db.base.IndexMetadata" class="py-name" href="#" onclick="return doclink('link-8', 'IndexMetadata', 'link-8');">IndexMetadata</a></tt><tt class="py-op">,</tt> <tt id="link-9" class="py-name" targets="Class grizzled.db.base.RDBMSMetadata=grizzled.db.base.RDBMSMetadata-class.html"><a title="grizzled.db.base.RDBMSMetadata" class="py-name" href="#" onclick="return doclink('link-9', 'RDBMSMetadata', 'link-9');">RDBMSMetadata</a></tt><tt class="py-op">)</tt> </tt>
 <a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"> </tt>
 <a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># Constants</tt> </tt>
-<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-comment"># Constants</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"> </tt>
 <a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt id="link-10" class="py-name" targets="Variable grizzled.db.mysql.VENDOR=grizzled.db.mysql-module.html#VENDOR,Variable grizzled.db.oracle.VENDOR=grizzled.db.oracle-module.html#VENDOR,Variable grizzled.db.postgresql.VENDOR=grizzled.db.postgresql-module.html#VENDOR"><a title="grizzled.db.mysql.VENDOR
 grizzled.db.oracle.VENDOR
 grizzled.db.postgresql.VENDOR" class="py-name" href="#" onclick="return doclink('link-10', 'VENDOR', 'link-10');">VENDOR</a></tt>  <tt class="py-op">=</tt> <tt class="py-string">'PostgreSQL Global Development Group'</tt> </tt>
@@ -88,9 +88,9 @@ grizzled.db.oracle.PRODUCT
 grizzled.db.postgresql.PRODUCT" class="py-name" href="#" onclick="return doclink('link-11', 'PRODUCT', 'link-11');">PRODUCT</a></tt> <tt class="py-op">=</tt> <tt class="py-string">'PostgreSQL'</tt> </tt>
 <a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"> </tt>
 <a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># Classes</tt> </tt>
-<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"><tt class="py-comment"># Classes</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"> </tt>
 <a name="PostgreSQLDriver"></a><div id="PostgreSQLDriver-def"><a name="L31"></a><tt class="py-lineno"> 31</tt> <a class="py-toggle" href="#" id="PostgreSQLDriver-toggle" onclick="return toggle('PostgreSQLDriver');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="grizzled.db.postgresql.PostgreSQLDriver-class.html">PostgreSQLDriver</a><tt class="py-op">(</tt><tt class="py-base-class">DBDriver</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 </div><div id="PostgreSQLDriver-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="PostgreSQLDriver-expanded"><a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line">    <tt class="py-docstring">"""DB Driver for PostgreSQL, using the psycopg2 DB API module."""</tt> </tt>
 <a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"> </tt>
@@ -222,13 +222,13 @@ grizzled.db.dummydb.DummyCursor.fetchone" class="py-name" href="#" onclick="retu
 grizzled.db.dbgadfly.GadflyDB.cursor
 grizzled.db.dummydb.DummyDB.cursor" class="py-name" href="#" onclick="return doclink('link-42', 'cursor', 'link-15');">cursor</a></tt><tt class="py-op">,</tt> <tt class="py-name">table</tt><tt class="py-op">)</tt> </tt>
 <a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line">        <tt class="py-comment"># First, issue one query to get the list of indexes for the table.</tt> </tt>
-<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line"><tt class="py-comment"></tt>        <tt class="py-name">index_names</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-43" class="py-name" targets="Method grizzled.db.postgresql.PostgreSQLDriver.__get_index_names()=grizzled.db.postgresql.PostgreSQLDriver-class.html#__get_index_names"><a title="grizzled.db.postgresql.PostgreSQLDriver.__get_index_names" class="py-name" href="#" onclick="return doclink('link-43', '__get_index_names', 'link-43');">__get_index_names</a></tt><tt class="py-op">(</tt><tt class="py-name">table</tt><tt class="py-op">,</tt> <tt id="link-44" class="py-name"><a title="grizzled.db.base.DB.cursor
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line">        <tt class="py-name">index_names</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-43" class="py-name" targets="Method grizzled.db.postgresql.PostgreSQLDriver.__get_index_names()=grizzled.db.postgresql.PostgreSQLDriver-class.html#__get_index_names"><a title="grizzled.db.postgresql.PostgreSQLDriver.__get_index_names" class="py-name" href="#" onclick="return doclink('link-43', '__get_index_names', 'link-43');">__get_index_names</a></tt><tt class="py-op">(</tt><tt class="py-name">table</tt><tt class="py-op">,</tt> <tt id="link-44" class="py-name"><a title="grizzled.db.base.DB.cursor
 grizzled.db.dbgadfly.GadflyDB.cursor
 grizzled.db.dummydb.DummyDB.cursor" class="py-name" href="#" onclick="return doclink('link-44', 'cursor', 'link-15');">cursor</a></tt><tt class="py-op">)</tt> </tt>
 <a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line"> </tt>
 <a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">        <tt class="py-comment"># Now we need two more queries: One to get the columns in the</tt> </tt>
-<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line"><tt class="py-comment"></tt>        <tt class="py-comment"># index and another to get descriptive information.</tt> </tt>
-<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line"><tt class="py-comment"></tt>        <tt class="py-name">results</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line">        <tt class="py-comment"># index and another to get descriptive information.</tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">        <tt class="py-name">results</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
 <a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt id="link-45" class="py-name" targets="Variable grizzled.file.includer.Includer.name=grizzled.file.includer.Includer-class.html#name"><a title="grizzled.file.includer.Includer.name" class="py-name" href="#" onclick="return doclink('link-45', 'name', 'link-45');">name</a></tt> <tt class="py-keyword">in</tt> <tt class="py-name">index_names</tt><tt class="py-op">:</tt> </tt>
 <a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">            <tt class="py-name">columns</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-46" class="py-name" targets="Method grizzled.db.postgresql.PostgreSQLDriver.__get_index_columns()=grizzled.db.postgresql.PostgreSQLDriver-class.html#__get_index_columns"><a title="grizzled.db.postgresql.PostgreSQLDriver.__get_index_columns" class="py-name" href="#" onclick="return doclink('link-46', '__get_index_columns', 'link-46');">__get_index_columns</a></tt><tt class="py-op">(</tt><tt id="link-47" class="py-name"><a title="grizzled.file.includer.Includer.name" class="py-name" href="#" onclick="return doclink('link-47', 'name', 'link-45');">name</a></tt><tt class="py-op">,</tt> <tt id="link-48" class="py-name"><a title="grizzled.db.base.DB.cursor
 grizzled.db.dbgadfly.GadflyDB.cursor
@@ -267,8 +267,8 @@ grizzled.db.dummydb.DummyCursor.fetchone" class="py-name" href="#" onclick="retu
 </div><a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line"> </tt>
 <a name="PostgreSQLDriver.__get_index_names"></a><div id="PostgreSQLDriver.__get_index_names-def"><a name="L145"></a><tt class="py-lineno">145</tt> <a class="py-toggle" href="#" id="PostgreSQLDriver.__get_index_names-toggle" onclick="return toggle('PostgreSQLDriver.__get_index_names');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="grizzled.db.postgresql.PostgreSQLDriver-class.html#__get_index_names">__get_index_names</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">table</tt><tt class="py-op">,</tt> <tt class="py-param">cursor</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 </div><div id="PostgreSQLDriver.__get_index_names-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PostgreSQLDriver.__get_index_names-expanded"><a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line">        <tt class="py-comment"># Adapted from the pgsql command "\d indexname", PostgreSQL 8.</tt> </tt>
-<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line"><tt class="py-comment"></tt>        <tt class="py-comment"># (Invoking the pgsql command with -E shows the issued SQL.)</tt> </tt>
-<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line">        <tt class="py-comment"># (Invoking the pgsql command with -E shows the issued SQL.)</tt> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line"> </tt>
 <a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line">        <tt class="py-name">sel</tt> <tt class="py-op">=</tt> <tt class="py-string">"SELECT n.nspname, c.relname as \"IndexName\", c2.relname "</tt> \ </tt>
 <a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line">              <tt class="py-string">"FROM pg_catalog.pg_class c "</tt> \ </tt>
 <a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line">              <tt class="py-string">"JOIN pg_catalog.pg_index i ON i.indexrelid = c.oid "</tt> \ </tt>
@@ -303,8 +303,8 @@ grizzled.db.dummydb.DummyCursor.fetchone" class="py-name" href="#" onclick="retu
 </div><a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line"> </tt>
 <a name="PostgreSQLDriver.__get_index_columns"></a><div id="PostgreSQLDriver.__get_index_columns-def"><a name="L169"></a><tt class="py-lineno">169</tt> <a class="py-toggle" href="#" id="PostgreSQLDriver.__get_index_columns-toggle" onclick="return toggle('PostgreSQLDriver.__get_index_columns');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="grizzled.db.postgresql.PostgreSQLDriver-class.html#__get_index_columns">__get_index_columns</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">index_name</tt><tt class="py-op">,</tt> <tt class="py-param">cursor</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 </div><div id="PostgreSQLDriver.__get_index_columns-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="PostgreSQLDriver.__get_index_columns-expanded"><a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line">        <tt class="py-comment"># Adapted from the pgsql command "\d indexname", PostgreSQL 8.</tt> </tt>
-<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line"><tt class="py-comment"></tt>        <tt class="py-comment"># (Invoking the pgsql command with -E shows the issued SQL.)</tt> </tt>
-<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line">        <tt class="py-comment"># (Invoking the pgsql command with -E shows the issued SQL.)</tt> </tt>
+<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line"> </tt>
 <a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line">        <tt class="py-name">sel</tt> <tt class="py-op">=</tt> <tt class="py-string">"SELECT a.attname, "</tt> \ </tt>
 <a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line">              <tt class="py-string">"pg_catalog.format_type(a.atttypid, a.atttypmod), "</tt> \ </tt>
 <a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line">              <tt class="py-string">"a.attnotnull "</tt> \ </tt>
@@ -413,7 +413,7 @@ expandto(location.href);
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sat Oct 24 11:58:59 2009
+    Generated by Epydoc 3.0.1 on Sun Mar 13 09:46:09 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

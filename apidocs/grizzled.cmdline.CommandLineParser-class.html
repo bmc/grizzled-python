@@ -66,7 +66,10 @@ optparse.OptionContainer --+
 </pre>
 
 <hr />
+<pre class="literalblock">
 Custom version of command line option parser.
+
+</pre>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -111,28 +114,11 @@ Custom version of command line option parser.
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="grizzled.cmdline.CommandLineParser-class.html#print_help" class="summary-sig-name">print_help</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">out</span>=<span class="summary-sig-default">sys.stdout</span>)</span><br />
+        <span class="summary-sig-arg">out</span>=<span class="summary-sig-default">sys.stderr</span>)</span><br />
       Print the help message, followed by the epilogue (if set), to the
 specified output file.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="grizzled.cmdline-pysrc.html#CommandLineParser.print_help">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="grizzled.cmdline.CommandLineParser-class.html#show_usage" class="summary-sig-name">show_usage</a>(<span class="summary-sig-arg">*__args</span>,
-        <span class="summary-sig-arg">**__kw</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="grizzled.decorators-pysrc.html">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -167,7 +153,7 @@ specified output file.</td>
         <tr>
           <td><span class="summary-sig"><a href="grizzled.cmdline.CommandLineParser-class.html#error" class="summary-sig-name">error</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">msg</span>)</span><br />
-      Overrides parent <tt class="rst-docutils literal"><span class="pre">OptionParser</span></tt> class's <tt class="rst-docutils literal"><span class="pre">error()</span></tt> method and
+      Overrides parent ``OptionParser`` class's ``error()`` method and
 forces the full usage message on error.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="grizzled.cmdline-pysrc.html#CommandLineParser.error">source&nbsp;code</a></span>
@@ -297,7 +283,10 @@ forces the full usage message on error.</td>
     </td>
   </tr></table>
   
-  Create a new instance.
+  <pre class="literalblock">
+Create a new instance. 
+
+</pre>
   <dl class="fields">
     <dt>Overrides:
         optparse.OptionContainer.__init__
@@ -313,48 +302,28 @@ forces the full usage message on error.</td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">print_help</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">out</span>=<span class="sig-default">sys.stdout</span>)</span>
+        <span class="sig-arg">out</span>=<span class="sig-default">sys.stderr</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="grizzled.cmdline-pysrc.html#CommandLineParser.print_help">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
   
-  Print the help message, followed by the epilogue (if set), to the
+  <pre class="literalblock">
+
+Print the help message, followed by the epilogue (if set), to the
 specified output file. You can define an epilogue by setting the
-<tt class="rst-docutils literal"><span class="pre">epilogue</span></tt> field.
+``epilogue`` field.
+
+:Parameters:
+    out : file
+        where to write the usage message
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>out</code></strong> (file) - where to write the usage message</li>
-    </ul></dd>
     <dt>Overrides:
         optparse.OptionParser.print_help
     </dt>
-  </dl>
-</td></tr></table>
-</div>
-<a name="show_usage"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">show_usage</span>(<span class="sig-arg">*__args</span>,
-        <span class="sig-arg">**__kw</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="grizzled.decorators-pysrc.html">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  
-  <dl class="fields">
-    <dt>Decorators:</dt>
-    <dd><ul class="nomargin-top">
-        <li><code>@deprecated(since= '0.8.3', message= 'Use die_with_usage()')</code></li>
-    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -374,14 +343,20 @@ specified output file. You can define an epilogue by setting the
     </td>
   </tr></table>
   
-  Display a usage message and exit.
+  <pre class="literalblock">
+
+Display a usage message and exit.
+
+:Parameters:
+    msg : str
+        If not set to ``None`` (the default), this message will be
+        displayed before the usage message
+        
+    exit_code : int
+        The process exit code. Defaults to 2.
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>msg</code></strong> (str) - If not set to <tt class="rst-docutils literal"><span class="pre">None</span></tt> (the default), this message will be
-displayed before the usage message</li>
-        <li><strong class="pname"><code>exit_code</code></strong> (int) - The process exit code. Defaults to 2.</li>
-    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -400,8 +375,12 @@ displayed before the usage message</li>
     </td>
   </tr></table>
   
-  Overrides parent <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">OptionParser</span></tt> class's <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">error()</span></tt> method and
+  <pre class="literalblock">
+
+Overrides parent ``OptionParser`` class's ``error()`` method and
 forces the full usage message on error.
+
+</pre>
   <dl class="fields">
     <dt>Overrides:
         optparse.OptionParser.error
@@ -436,7 +415,7 @@ forces the full usage message on error.
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sat Oct 24 11:58:56 2009
+    Generated by Epydoc 3.0.1 on Sun Mar 13 09:46:08 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

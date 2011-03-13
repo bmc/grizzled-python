@@ -59,7 +59,7 @@
       <em class="summary">Formatter instances are used to convert a LogRecord to text.</em>
     <ul>
     <li> <strong class="uidlink"><a href="grizzled.log.WrappingLogFormatter-class.html">grizzled.log.WrappingLogFormatter</a></strong>:
-      <em class="summary">A <tt class="rst-docutils literal"><span class="pre">logging</span></tt> <tt class="rst-docutils literal"><span class="pre">Formatter</span></tt> class that writes each message wrapped on line
+      <em class="summary">A ``logging`` ``Formatter`` class that writes each message wrapped on line
 boundaries.</em>
     </li>
     </ul>
@@ -99,7 +99,7 @@ boundaries.</em>
       <em class="summary">Class with methods to open, read, write, close, list zip files.</em>
     <ul>
     <li> <strong class="uidlink"><a href="grizzled.io.Zip-class.html">grizzled.io.Zip</a></strong>:
-      <em class="summary"><tt class="rst-docutils literal"><span class="pre">Zip</span></tt> extends the standard <tt class="rst-docutils literal"><span class="pre">zipfile.ZipFile</span></tt> class and provides a
+      <em class="summary">``Zip`` extends the standard ``zipfile.ZipFile`` class and provides a
 method to extract the contents of a zip file into a directory.</em>
     </li>
     </ul>
@@ -108,8 +108,8 @@ method to extract the contents of a zip file into a directory.</em>
       <em class="summary">The most base type</em>
     <ul>
     <li> <strong class="uidlink"><a href="grizzled.io.AutoFlush-class.html">grizzled.io.AutoFlush</a></strong>:
-      <em class="summary">An <tt class="rst-docutils literal"><span class="pre">AutoFlush</span></tt> wraps a file-like object and flushes the output
-(via a call to <tt class="rst-docutils literal"><span class="pre">flush()</span></tt> after every write operation.</em>
+      <em class="summary">An ``AutoFlush`` wraps a file-like object and flushes the output
+(via a call to ``flush()`` after every write operation.</em>
     </li>
     <li> <strong class="uidlink">exceptions.BaseException</strong>:
       <em class="summary">Common base class for all exceptions</em>
@@ -136,10 +136,10 @@ argument.</em>
       <em class="summary">Base class for all DB exceptions.</em>
     <ul>
     <li> <strong class="uidlink"><a href="grizzled.db.base.Error-class.html">grizzled.db.base.Error</a></strong>:
-      <em class="summary">Thrown to indicate an error in the <tt class="rst-docutils literal"><span class="pre">db</span></tt> module.</em>
+      <em class="summary">Thrown to indicate an error in the ``db`` module.</em>
     </li>
     <li> <strong class="uidlink"><a href="grizzled.db.base.Warning-class.html">grizzled.db.base.Warning</a></strong>:
-      <em class="summary">Thrown to indicate an error in the <tt class="rst-docutils literal"><span class="pre">db</span></tt> module.</em>
+      <em class="summary">Thrown to indicate an error in the ``db`` module.</em>
     </li>
     </ul>
     </li>
@@ -147,15 +147,15 @@ argument.</em>
       <em class="summary">Thrown to indicate history errors, when another exception won't do.</em>
     </li>
     <li> <strong class="uidlink"><a href="grizzled.file.includer.IncludeError-class.html">grizzled.file.includer.IncludeError</a></strong>:
-      <em class="summary">Thrown by <tt class="rst-docutils literal"><span class="pre">Includer</span></tt> when an error occurs while processing the file.</em>
+      <em class="summary">Thrown by ``Includer`` when an error occurs while processing the file.</em>
     </li>
     <li> <strong class="uidlink"><a href="grizzled.config.NoVariableError-class.html">grizzled.config.NoVariableError</a></strong>:
       <em class="summary">Thrown when a configuration file attempts to substitute a nonexistent
-variable, and the <tt class="rst-docutils literal"><span class="pre">Configuration</span></tt> object was instantiated with
-<tt class="rst-docutils literal"><span class="pre">strict_substitution</span></tt> set to <tt class="rst-docutils literal"><span class="pre">True</span></tt>.</em>
+variable, and the ``Configuration`` object was instantiated with
+``strict_substitution`` set to ``True``.</em>
     </li>
     <li> <strong class="uidlink"><a href="grizzled.misc.ReadOnlyObjectError-class.html">grizzled.misc.ReadOnlyObjectError</a></strong>:
-      <em class="summary">Thrown by <tt class="rst-docutils literal"><span class="pre">ReadOnly</span></tt> to indicate an attempt to set a field.</em>
+      <em class="summary">Thrown by ``ReadOnly`` to indicate an attempt to set a field.</em>
     </li>
     </ul>
     </li>
@@ -170,7 +170,7 @@ variable, and the <tt class="rst-docutils literal"><span class="pre">Configurati
       <em class="summary">OS system call failed.</em>
     <ul>
     <li> <strong class="uidlink"><a href="grizzled.os.DaemonError-class.html">grizzled.os.DaemonError</a></strong>:
-      <em class="summary">Thrown by <tt class="rst-docutils literal"><span class="pre">daemonize()</span></tt> when an error occurs while attempting to create
+      <em class="summary">Thrown by ``daemonize()`` when an error occurs while attempting to create
 a daemon.</em>
     </li>
     </ul>
@@ -184,14 +184,14 @@ a daemon.</em>
     </ul>
     </li>
     <li> <strong class="uidlink"><a href="grizzled.db.base.Cursor-class.html">grizzled.db.base.Cursor</a></strong>:
-      <em class="summary">Class for DB cursors returned by the <tt class="rst-docutils literal"><span class="pre">DB.cursor()</span></tt> method.</em>
+      <em class="summary">Class for DB cursors returned by the ``DB.cursor()`` method.</em>
     <ul>
     <li> <strong class="uidlink"><a href="grizzled.db.dbgadfly.GadflyCursor-class.html">grizzled.db.dbgadfly.GadflyCursor</a></strong>
     </li>
     </ul>
     </li>
     <li> <strong class="uidlink"><a href="grizzled.db.base.DB-class.html">grizzled.db.base.DB</a></strong>:
-      <em class="summary">The object returned by a call to <tt class="rst-docutils literal"><span class="pre">DBDriver.connect()</span></tt>.</em>
+      <em class="summary">The object returned by a call to ``DBDriver.connect()``.</em>
     <ul>
     <li> <strong class="uidlink"><a href="grizzled.db.dbgadfly.GadflyDB-class.html">grizzled.db.dbgadfly.GadflyDB</a></strong>
     </li>
@@ -228,16 +228,16 @@ a daemon.</em>
     <li> <strong class="uidlink"><a href="grizzled.db.dummydb.DummyDB-class.html">grizzled.db.dummydb.DummyDB</a></strong>
     </li>
     <li> <strong class="uidlink"><a href="grizzled.net.ftp.parse.FTPListData-class.html">grizzled.net.ftp.parse.FTPListData</a></strong>:
-      <em class="summary">The <a href="grizzled.net.ftp.parse.FTPListDataParser-class.html" class="link">FTPListDataParser</a> class's <tt class="rst-docutils literal"><span class="pre">parse_line()</span></tt> method returns an
+      <em class="summary">The `FTPListDataParser` class's ``parse_line()`` method returns an
 instance of this class, capturing the parsed data.</em>
     </li>
     <li> <strong class="uidlink"><a href="grizzled.net.ftp.parse.FTPListDataParser-class.html">grizzled.net.ftp.parse.FTPListDataParser</a></strong>:
-      <em class="summary">An <tt class="rst-docutils literal"><span class="pre">FTPListDataParser</span></tt> object can be used to parse one or more lines
-that were retrieved by an FTP <tt class="rst-docutils literal"><span class="pre">LIST</span></tt> command that was sent to a remote
+      <em class="summary">An ``FTPListDataParser`` object can be used to parse one or more lines
+that were retrieved by an FTP ``LIST`` command that was sent to a remote
 server.</em>
     </li>
     <li> <strong class="uidlink"><a href="grizzled.io.filelock.FileLock-class.html">grizzled.io.filelock.FileLock</a></strong>:
-      <em class="summary">A <tt class="rst-docutils literal"><span class="pre">FileLock</span></tt> object models a file lock.</em>
+      <em class="summary">A ``FileLock`` object models a file lock.</em>
     </li>
     <li> <strong class="uidlink"><a href="grizzled.history.History-class.html">grizzled.history.History</a></strong>:
       <em class="summary">Base class for history implementations.</em>
@@ -253,7 +253,7 @@ server.</em>
     </ul>
     </li>
     <li> <strong class="uidlink"><a href="grizzled.file.includer.Includer-class.html">grizzled.file.includer.Includer</a></strong>:
-      <em class="summary">An <tt class="rst-docutils literal"><span class="pre">Includer</span></tt> object preprocesses a path or file-like object,
+      <em class="summary">An ``Includer`` object preprocesses a path or file-like object,
 expanding include references.</em>
     </li>
     <li> <strong class="uidlink"><a href="grizzled.collections.dict.LRUList-class.html" onclick="show_private();">grizzled.collections.dict.LRUList</a></strong>
@@ -267,7 +267,7 @@ expanding include references.</em>
       <em class="summary">A file-like wrapper object that permits pushback.</em>
     </li>
     <li> <strong class="uidlink"><a href="grizzled.misc.ReadOnly-class.html">grizzled.misc.ReadOnly</a></strong>:
-      <em class="summary">A <tt class="rst-docutils literal"><span class="pre">ReadOnly</span></tt> object wraps another object and prevents all the contained
+      <em class="summary">A ``ReadOnly`` object wraps another object and prevents all the contained
 object's fields from being written.</em>
     </li>
     <li> <strong class="uidlink">string.Template</strong>:
@@ -286,14 +286,22 @@ reference syntax.</em>
       <em class="summary">File lock implementation for Windows systems.</em>
     </li>
     <li> <strong class="uidlink">dict</strong>:
-      <em class="summary">dict() -&gt; new empty dictionary.</em>
+      <em class="summary">dict() -&gt; new empty dictionary
+dict(mapping) -&gt; new dictionary initialized from a mapping object's
+    (key, value) pairs
+dict(iterable) -&gt; new dictionary initialized as if via:
+    d = {}
+    for k, v in iterable:
+        d[k] = v
+dict(**kwargs) -&gt; new dictionary initialized with the name=value pairs
+    in the keyword argument list.</em>
     <ul>
     <li> <strong class="uidlink"><a href="grizzled.collections.dict.LRUDict-class.html">grizzled.collections.dict.LRUDict</a></strong>:
-      <em class="summary"><tt class="rst-docutils literal"><span class="pre">LRUDict</span></tt> is a dictionary of a fixed maximum size that enforces a least
+      <em class="summary">``LRUDict`` is a dictionary of a fixed maximum size that enforces a least
 recently used discard policy.</em>
     </li>
     <li> <strong class="uidlink"><a href="grizzled.collections.dict.OrderedDict-class.html">grizzled.collections.dict.OrderedDict</a></strong>:
-      <em class="summary"><tt class="rst-docutils literal"><span class="pre">OrderedDict</span></tt> is a simple ordered dictionary.</em>
+      <em class="summary">``OrderedDict`` is a simple ordered dictionary.</em>
     </li>
     <li> <strong class="uidlink"><a href="grizzled.config._ConfigDict-class.html" onclick="show_private();">grizzled.config._ConfigDict</a></strong>:
       <em class="summary">Dictionary that knows how to dereference variables within a parsed config.</em>
@@ -301,8 +309,8 @@ recently used discard policy.</em>
     </ul>
     </li>
     <li> <strong class="uidlink">tuple</strong>:
-      <em class="summary">tuple() -&gt; an empty tuple tuple(sequence) -&gt; tuple 
-        initialized from sequence's items</em>
+      <em class="summary">tuple() -&gt; empty tuple tuple(iterable) -&gt; tuple initialized 
+        from iterable's items</em>
     <ul>
     <li> <strong class="uidlink"><a href="grizzled.db.base.IndexMetadata-class.html">grizzled.db.base.IndexMetadata</a></strong>:
       <em class="summary">IndexMetadata(index_name, index_columns, description)</em>
@@ -352,7 +360,7 @@ recently used discard policy.</em>
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sat Oct 24 11:58:55 2009
+    Generated by Epydoc 3.0.1 on Sun Mar 13 09:46:08 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

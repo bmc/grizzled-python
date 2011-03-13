@@ -67,7 +67,10 @@ object --+
 </pre>
 
 <hr />
+<pre class="literalblock">
 TableMetadata(column_name, type_string, max_char_size, precision, scale, nullable)
+
+</pre>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -86,6 +89,22 @@ TableMetadata(column_name, type_string, max_char_size, precision, scale, nullabl
     </table>
   </td>
 </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.db.base.TableMetadata-class.html#__getnewargs__" class="summary-sig-name">__getnewargs__</a>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.collections.tuple-pysrc.html">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
@@ -126,7 +145,7 @@ TableMetadata(column_name, type_string, max_char_size, precision, scale, nullabl
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="_replace"></a><span class="summary-sig-name">_replace</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a name="_replace"></a><span class="summary-sig-name">_replace</span>(<span class="summary-sig-arg">_self</span>,
         <span class="summary-sig-arg">**kwds</span>)</span><br />
       Return a new TableMetadata object replacing specified fields with new values</td>
           <td align="right" valign="top">
@@ -147,7 +166,6 @@ TableMetadata(column_name, type_string, max_char_size, precision, scale, nullabl
       <code>__ge__</code>,
       <code>__getattribute__</code>,
       <code>__getitem__</code>,
-      <code>__getnewargs__</code>,
       <code>__getslice__</code>,
       <code>__gt__</code>,
       <code>__hash__</code>,
@@ -157,15 +175,20 @@ TableMetadata(column_name, type_string, max_char_size, precision, scale, nullabl
       <code>__lt__</code>,
       <code>__mul__</code>,
       <code>__ne__</code>,
-      <code>__rmul__</code>
+      <code>__rmul__</code>,
+      <code>__sizeof__</code>,
+      <code>count</code>,
+      <code>index</code>
       </p>
     <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
       <code>__delattr__</code>,
+      <code>__format__</code>,
       <code>__init__</code>,
       <code>__reduce__</code>,
       <code>__reduce_ex__</code>,
       <code>__setattr__</code>,
-      <code>__str__</code>
+      <code>__str__</code>,
+      <code>__subclasshook__</code>
       </p>
     </td>
   </tr>
@@ -195,7 +218,7 @@ TableMetadata(column_name, type_string, max_char_size, precision, scale, nullabl
         <tr>
           <td><span class="summary-sig"><a name="_make"></a><span class="summary-sig-name">_make</span>(<span class="summary-sig-arg">cls</span>,
         <span class="summary-sig-arg">iterable</span>,
-        <span class="summary-sig-arg">new</span>=<span class="summary-sig-default">&lt;built-in method __new__ of type object at 0x308420&gt;</span>,
+        <span class="summary-sig-arg">new</span>=<span class="summary-sig-default">&lt;built-in method __new__ of type object at 0x82df40&gt;</span>,
         <span class="summary-sig-arg">len</span>=<span class="summary-sig-default">&lt;built-in function len&gt;</span>)</span><br />
       Make a new TableMetadata object from a sequence or iterable</td>
           <td align="right" valign="top">
@@ -231,7 +254,7 @@ TableMetadata(column_name, type_string, max_char_size, precision, scale, nullabl
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="grizzled.db.base.TableMetadata-class.html#__new__" class="summary-sig-name">__new__</a>(<span class="summary-sig-arg">cls</span>,
+          <td><span class="summary-sig"><a href="grizzled.db.base.TableMetadata-class.html#__new__" class="summary-sig-name">__new__</a>(<span class="summary-sig-arg">_cls</span>,
         <span class="summary-sig-arg">column_name</span>,
         <span class="summary-sig-arg">type_string</span>,
         <span class="summary-sig-arg">max_char_size</span>,
@@ -369,6 +392,28 @@ TableMetadata(column_name, type_string, max_char_size, precision, scale, nullabl
   </td>
 </tr>
 </table>
+<a name="__getnewargs__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__getnewargs__</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.collections.tuple-pysrc.html">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Overrides:
+        tuple.__getnewargs__
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
 <a name="__new__"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -376,7 +421,7 @@ TableMetadata(column_name, type_string, max_char_size, precision, scale, nullabl
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">__new__</span>(<span class="sig-arg">cls</span>,
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__new__</span>(<span class="sig-arg">_cls</span>,
         <span class="sig-arg">column_name</span>,
         <span class="sig-arg">type_string</span>,
         <span class="sig-arg">max_char_size</span>,
@@ -491,14 +536,18 @@ TableMetadata(column_name, type_string, max_char_size, precision, scale, nullabl
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <h3 class="epydoc">column_name</h3>
-  <p>itemgetter(item, ...) --&gt; itemgetter object</p>
-<p>Return a callable object that fetches the given item(s) from its operand.
+  <pre class="literalblock">
+itemgetter(item, ...) --&gt; itemgetter object
+
+Return a callable object that fetches the given item(s) from its operand.
 After, f=itemgetter(2), the call f(r) returns r[2].
-After, g=itemgetter(2,5,3), the call g(r) returns (r[2], r[5], r[3])</p>
+After, g=itemgetter(2,5,3), the call g(r) returns (r[2], r[5], r[3])
+
+</pre>
   <dl class="fields">
     <dt>Get Method:</dt>
     <dd class="value"><table><tr><td><pre class="variable">
-&lt;operator.itemgetter object at 0x162af10&gt;
+&lt;operator.itemgetter object at 0x23aa350&gt;
 </pre></td></tr></table>
 
     </dd>
@@ -511,14 +560,18 @@ After, g=itemgetter(2,5,3), the call g(r) returns (r[2], r[5], r[3])</p>
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <h3 class="epydoc">max_char_size</h3>
-  <p>itemgetter(item, ...) --&gt; itemgetter object</p>
-<p>Return a callable object that fetches the given item(s) from its operand.
+  <pre class="literalblock">
+itemgetter(item, ...) --&gt; itemgetter object
+
+Return a callable object that fetches the given item(s) from its operand.
 After, f=itemgetter(2), the call f(r) returns r[2].
-After, g=itemgetter(2,5,3), the call g(r) returns (r[2], r[5], r[3])</p>
+After, g=itemgetter(2,5,3), the call g(r) returns (r[2], r[5], r[3])
+
+</pre>
   <dl class="fields">
     <dt>Get Method:</dt>
     <dd class="value"><table><tr><td><pre class="variable">
-&lt;operator.itemgetter object at 0x162af50&gt;
+&lt;operator.itemgetter object at 0x23aa3d0&gt;
 </pre></td></tr></table>
 
     </dd>
@@ -531,14 +584,18 @@ After, g=itemgetter(2,5,3), the call g(r) returns (r[2], r[5], r[3])</p>
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <h3 class="epydoc">nullable</h3>
-  <p>itemgetter(item, ...) --&gt; itemgetter object</p>
-<p>Return a callable object that fetches the given item(s) from its operand.
+  <pre class="literalblock">
+itemgetter(item, ...) --&gt; itemgetter object
+
+Return a callable object that fetches the given item(s) from its operand.
 After, f=itemgetter(2), the call f(r) returns r[2].
-After, g=itemgetter(2,5,3), the call g(r) returns (r[2], r[5], r[3])</p>
+After, g=itemgetter(2,5,3), the call g(r) returns (r[2], r[5], r[3])
+
+</pre>
   <dl class="fields">
     <dt>Get Method:</dt>
     <dd class="value"><table><tr><td><pre class="variable">
-&lt;operator.itemgetter object at 0x162afb0&gt;
+&lt;operator.itemgetter object at 0x23aa490&gt;
 </pre></td></tr></table>
 
     </dd>
@@ -551,14 +608,18 @@ After, g=itemgetter(2,5,3), the call g(r) returns (r[2], r[5], r[3])</p>
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <h3 class="epydoc">precision</h3>
-  <p>itemgetter(item, ...) --&gt; itemgetter object</p>
-<p>Return a callable object that fetches the given item(s) from its operand.
+  <pre class="literalblock">
+itemgetter(item, ...) --&gt; itemgetter object
+
+Return a callable object that fetches the given item(s) from its operand.
 After, f=itemgetter(2), the call f(r) returns r[2].
-After, g=itemgetter(2,5,3), the call g(r) returns (r[2], r[5], r[3])</p>
+After, g=itemgetter(2,5,3), the call g(r) returns (r[2], r[5], r[3])
+
+</pre>
   <dl class="fields">
     <dt>Get Method:</dt>
     <dd class="value"><table><tr><td><pre class="variable">
-&lt;operator.itemgetter object at 0x162af70&gt;
+&lt;operator.itemgetter object at 0x23aa410&gt;
 </pre></td></tr></table>
 
     </dd>
@@ -571,14 +632,18 @@ After, g=itemgetter(2,5,3), the call g(r) returns (r[2], r[5], r[3])</p>
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <h3 class="epydoc">scale</h3>
-  <p>itemgetter(item, ...) --&gt; itemgetter object</p>
-<p>Return a callable object that fetches the given item(s) from its operand.
+  <pre class="literalblock">
+itemgetter(item, ...) --&gt; itemgetter object
+
+Return a callable object that fetches the given item(s) from its operand.
 After, f=itemgetter(2), the call f(r) returns r[2].
-After, g=itemgetter(2,5,3), the call g(r) returns (r[2], r[5], r[3])</p>
+After, g=itemgetter(2,5,3), the call g(r) returns (r[2], r[5], r[3])
+
+</pre>
   <dl class="fields">
     <dt>Get Method:</dt>
     <dd class="value"><table><tr><td><pre class="variable">
-&lt;operator.itemgetter object at 0x162af90&gt;
+&lt;operator.itemgetter object at 0x23aa450&gt;
 </pre></td></tr></table>
 
     </dd>
@@ -591,14 +656,18 @@ After, g=itemgetter(2,5,3), the call g(r) returns (r[2], r[5], r[3])</p>
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <h3 class="epydoc">type_string</h3>
-  <p>itemgetter(item, ...) --&gt; itemgetter object</p>
-<p>Return a callable object that fetches the given item(s) from its operand.
+  <pre class="literalblock">
+itemgetter(item, ...) --&gt; itemgetter object
+
+Return a callable object that fetches the given item(s) from its operand.
 After, f=itemgetter(2), the call f(r) returns r[2].
-After, g=itemgetter(2,5,3), the call g(r) returns (r[2], r[5], r[3])</p>
+After, g=itemgetter(2,5,3), the call g(r) returns (r[2], r[5], r[3])
+
+</pre>
   <dl class="fields">
     <dt>Get Method:</dt>
     <dd class="value"><table><tr><td><pre class="variable">
-&lt;operator.itemgetter object at 0x162af30&gt;
+&lt;operator.itemgetter object at 0x23aa390&gt;
 </pre></td></tr></table>
 
     </dd>
@@ -632,7 +701,7 @@ After, g=itemgetter(2,5,3), the call g(r) returns (r[2], r[5], r[3])</p>
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sat Oct 24 11:58:56 2009
+    Generated by Epydoc 3.0.1 on Sun Mar 13 09:46:08 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

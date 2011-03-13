@@ -70,8 +70,12 @@ object --+
 </dd></dl>
 
 <hr />
+<pre class="literalblock">
+
 Base class for history implementations.  All concrete history
 implementations must extend this class.
+
+</pre>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -114,7 +118,7 @@ implementations must extend this class.
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="grizzled.history.History-class.html#show" class="summary-sig-name">show</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">out</span>=<span class="summary-sig-default">sys.stdout</span>)</span><br />
+        <span class="summary-sig-arg">out</span>=<span class="summary-sig-default">sys.stderr</span>)</span><br />
       Dump the history to a file-like object (defaulting to standard output).</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="grizzled.history-pysrc.html#History.show">source&nbsp;code</a></span>
@@ -127,13 +131,13 @@ implementations must extend this class.
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">str</span>
+      <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="grizzled.history.History-class.html#get_last_matching_item" class="summary-sig-name">get_last_matching_item</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">command_name</span>)</span><br />
-      Get the most recently entered item that matches <tt class="rst-docutils literal"><span class="pre">command_name</span></tt>
+      Get the most recently entered item that matches ``command_name``
 at the beginning.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="grizzled.history-pysrc.html#History.get_last_matching_item">source&nbsp;code</a></span>
@@ -146,7 +150,7 @@ at the beginning.</td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">str</span>
+      <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -163,7 +167,7 @@ at the beginning.</td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">str</span>
+      <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -200,7 +204,7 @@ that are eligible for completion.</td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">str</span>
+      <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -218,7 +222,7 @@ that are eligible for completion.</td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">int</span>
+      <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -268,7 +272,7 @@ that are eligible for completion.</td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">int</span>
+      <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -358,7 +362,7 @@ that are eligible for completion.</td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">list</span>
+      <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -469,6 +473,7 @@ replacing the in-memory history with the file's contents.</td>
     <td colspan="2" class="summary">
     <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
       <code>__delattr__</code>,
+      <code>__format__</code>,
       <code>__getattribute__</code>,
       <code>__hash__</code>,
       <code>__new__</code>,
@@ -476,7 +481,9 @@ replacing the in-memory history with the file's contents.</td>
       <code>__reduce_ex__</code>,
       <code>__repr__</code>,
       <code>__setattr__</code>,
-      <code>__str__</code>
+      <code>__sizeof__</code>,
+      <code>__str__</code>,
+      <code>__subclasshook__</code>
       </p>
     </td>
   </tr>
@@ -573,19 +580,23 @@ replacing the in-memory history with the file's contents.</td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">show</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">out</span>=<span class="sig-default">sys.stdout</span>)</span>
+        <span class="sig-arg">out</span>=<span class="sig-default">sys.stderr</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="grizzled.history-pysrc.html#History.show">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
   
-  Dump the history to a file-like object (defaulting to standard output).
+  <pre class="literalblock">
+
+Dump the history to a file-like object (defaulting to standard output).
+
+:Parameters:
+    out : file
+        Where to dump the history.
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>out</code></strong> (file) - Where to dump the history.</li>
-    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -604,15 +615,20 @@ replacing the in-memory history with the file's contents.</td>
     </td>
   </tr></table>
   
-  Get the most recently entered item that matches <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">command_name</span></tt>
+  <pre class="literalblock">
+
+Get the most recently entered item that matches ``command_name``
 at the beginning.
+
+:Parameters:
+    command_name : str
+        The string to match against the commands in the history
+
+:rtype: str
+:return: the matching string, or ``None``
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>command_name</code></strong> (str) - The string to match against the commands in the history</li>
-    </ul></dd>
-    <dt>Returns: str</dt>
-        <dd>the matching string, or <tt class="rst-docutils literal"><span class="pre">None</span></tt></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -630,10 +646,15 @@ at the beginning.
     </td>
   </tr></table>
   
-  Get the most recent item in the history.
+  <pre class="literalblock">
+
+Get the most recent item in the history.
+
+:rtype: str
+:return: The most recent command, or ``None``
+
+</pre>
   <dl class="fields">
-    <dt>Returns: str</dt>
-        <dd>The most recent command, or <tt class="rst-docutils literal"><span class="pre">None</span></tt></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -652,19 +673,22 @@ at the beginning.
     </td>
   </tr></table>
   
-  Get an item from the history.
+  <pre class="literalblock">
+
+Get an item from the history.
+
+:Parameters:
+    index : int
+        0-based index of the item to get. The larger the index
+        value, the more recent the entry
+
+:rtype: str
+:return: the item at that index
+
+:raise IndexError: Index out of range
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>index</code></strong> (int) - 0-based index of the item to get. The larger the index
-value, the more recent the entry</li>
-    </ul></dd>
-    <dt>Returns: str</dt>
-        <dd>the item at that index</dd>
-    <dt>Raises:</dt>
-    <dd><ul class="nomargin-top">
-        <li><code><strong class='fraise'>IndexError</strong></code> - Index out of range</li>
-    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -683,13 +707,17 @@ value, the more recent the entry</li>
     </td>
   </tr></table>
   
-  Set the completer delimiters--the characters that delimit tokens
+  <pre class="literalblock">
+
+Set the completer delimiters--the characters that delimit tokens
 that are eligible for completion.
+
+:Parameters:
+    s : str
+        The delimiters
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>s</code></strong> (str) - The delimiters</li>
-    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -707,11 +735,16 @@ that are eligible for completion.
     </td>
   </tr></table>
   
-  Get the completer delimiters--the characters that delimit tokens
+  <pre class="literalblock">
+
+Get the completer delimiters--the characters that delimit tokens
 that are eligible for completion.
+
+:rtype: str
+:return: the delimiters
+
+</pre>
   <dl class="fields">
-    <dt>Returns: str</dt>
-        <dd>the delimiters</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -729,11 +762,16 @@ that are eligible for completion.
     </td>
   </tr></table>
   
-  Get the total number number of commands in the history. Identical to
-the <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">total</span></tt> property.
+  <pre class="literalblock">
+
+Get the total number number of commands in the history. Identical to
+the ``total`` property.
+
+:rtype: int
+:return: the number of commands in the history
+
+</pre>
   <dl class="fields">
-    <dt>Returns: int</dt>
-        <dd>the number of commands in the history</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -752,13 +790,18 @@ the <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">
     </td>
   </tr></table>
   
-  Get the maximum length of the history. This isn't the maximum number
+  <pre class="literalblock">
+
+Get the maximum length of the history. This isn't the maximum number
 of entries in the in-memory history buffer; instead, it's the maximum
 number of entries that will be saved to the history file. Subclasses
-<em>must</em> provide an implementation of this method.
+*must* provide an implementation of this method.
+
+:rtype: int
+:return: the maximum saved size of the history
+
+</pre>
   <dl class="fields">
-    <dt>Returns: int</dt>
-        <dd>the maximum saved size of the history</dd>
     <dt>Decorators:</dt>
     <dd><ul class="nomargin-top">
         <li><code>@abstract</code></li>
@@ -781,15 +824,19 @@ number of entries that will be saved to the history file. Subclasses
     </td>
   </tr></table>
   
-  Set the maximum length of the history. This isn't the maximum number
+  <pre class="literalblock">
+
+Set the maximum length of the history. This isn't the maximum number
 of entries in the in-memory history buffer; instead, it's the maximum
 number of entries that will be saved to the history file.  Subclasses
-<em>must</em> provide an implementation of this method.
+*must* provide an implementation of this method.
+
+:Parameters:
+    n : int
+        the maximum saved size of the history
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>n</code></strong> (int) - the maximum saved size of the history</li>
-    </ul></dd>
     <dt>Decorators:</dt>
     <dd><ul class="nomargin-top">
         <li><code>@abstract</code></li>
@@ -812,13 +859,17 @@ number of entries that will be saved to the history file.  Subclasses
     </td>
   </tr></table>
   
-  Add (append) a line to the history buffer. Subclasses <em>must</em> provide
+  <pre class="literalblock">
+
+Add (append) a line to the history buffer. Subclasses *must* provide
 an implementation of this method.
+
+:Parameters:
+    line : str
+        the command to append to the history
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>line</code></strong> (str) - the command to append to the history</li>
-    </ul></dd>
     <dt>Decorators:</dt>
     <dd><ul class="nomargin-top">
         <li><code>@abstract</code></li>
@@ -841,13 +892,17 @@ an implementation of this method.
     </td>
   </tr></table>
   
-  Remove a line from the history buffer. Subclasses <em>must</em> provide an
+  <pre class="literalblock">
+
+Remove a line from the history buffer. Subclasses *must* provide an
 implementation of this method.
+
+:Parameters:
+    i : int
+        the 0-based index of the item to be removed
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>i</code></strong> (int) - the 0-based index of the item to be removed</li>
-    </ul></dd>
     <dt>Decorators:</dt>
     <dd><ul class="nomargin-top">
         <li><code>@abstract</code></li>
@@ -870,8 +925,12 @@ implementation of this method.
     </td>
   </tr></table>
   
-  Clear the history buffer. Subclasses <em>must</em> provide an
+  <pre class="literalblock">
+
+Clear the history buffer. Subclasses *must* provide an
 implementation of this method.
+
+</pre>
   <dl class="fields">
     <dt>Decorators:</dt>
     <dd><ul class="nomargin-top">
@@ -894,10 +953,15 @@ implementation of this method.
     </td>
   </tr></table>
   
-  Get a copy of the history buffer.
+  <pre class="literalblock">
+
+Get a copy of the history buffer.
+
+:rtype: list
+:return: a list of commands from the history
+
+</pre>
   <dl class="fields">
-    <dt>Returns: list</dt>
-        <dd>a list of commands from the history</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -916,16 +980,18 @@ implementation of this method.
     </td>
   </tr></table>
   
-  Remove all history items that match a regular expression.
+  <pre class="literalblock">
+
+Remove all history items that match a regular expression.
+
+:Parameters:
+    regexp_string : str
+        the uncompiled regular expression to match
+
+:raise HistoryError: bad regular expression
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>regexp_string</code></strong> (str) - the uncompiled regular expression to match</li>
-    </ul></dd>
-    <dt>Raises:</dt>
-    <dd><ul class="nomargin-top">
-        <li><code><strong class='fraise'><a href="grizzled.history.HistoryError-class.html">HistoryError</a></strong></code> - bad regular expression</li>
-    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -944,18 +1010,20 @@ implementation of this method.
     </td>
   </tr></table>
   
-  Cut the history back to the specified index, removing all entries
+  <pre class="literalblock">
+
+Cut the history back to the specified index, removing all entries
 more recent than that index.
+
+:Parameters:
+    index : int
+        the index of the command that should become the last command
+        in the history
+
+:raise IndexError: index out of range
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>index</code></strong> (int) - the index of the command that should become the last command
-in the history</li>
-    </ul></dd>
-    <dt>Raises:</dt>
-    <dd><ul class="nomargin-top">
-        <li><code><strong class='fraise'>IndexError</strong></code> - index out of range</li>
-    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -974,13 +1042,17 @@ in the history</li>
     </td>
   </tr></table>
   
-  Replace the entire contents of the history with another set of values
+  <pre class="literalblock">
+
+Replace the entire contents of the history with another set of values
+
+:Parameters:
+    commands : list
+        List of strings to put in the history after clearing it of any
+        existing entries
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>commands</code></strong> (list) - List of strings to put in the history after clearing it of any
-existing entries</li>
-    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -999,17 +1071,19 @@ existing entries</li>
     </td>
   </tr></table>
   
-  Save the history to a file. The file is overwritten with the contents
+  <pre class="literalblock">
+
+Save the history to a file. The file is overwritten with the contents
 of the history buffer.
+
+:Parameters:
+    path : str
+        Path to the history file to receive the output.
+
+:raise IOError: Unable to open file
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>path</code></strong> (str) - Path to the history file to receive the output.</li>
-    </ul></dd>
-    <dt>Raises:</dt>
-    <dd><ul class="nomargin-top">
-        <li><code><strong class='fraise'>IOError</strong></code> - Unable to open file</li>
-    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -1028,17 +1102,19 @@ of the history buffer.
     </td>
   </tr></table>
   
-  Load the history buffer with the contents of a file, completely
+  <pre class="literalblock">
+
+Load the history buffer with the contents of a file, completely
 replacing the in-memory history with the file's contents.
+
+:Parameters:
+    path : str
+        Path to the history file to read
+
+:raise IOError: Unable to open file
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>path</code></strong> (str) - Path to the history file to read</li>
-    </ul></dd>
-    <dt>Raises:</dt>
-    <dd><ul class="nomargin-top">
-        <li><code><strong class='fraise'>IOError</strong></code> - Unable to open file</li>
-    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -1067,8 +1143,12 @@ replacing the in-memory history with the file's contents.
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <h3 class="epydoc">total</h3>
-  The total number number of commands in the history. Identical to
-calling <tt class="rst-docutils literal"><span class="pre">get_total()</span></tt>.
+  <pre class="literalblock">
+
+The total number number of commands in the history. Identical to
+calling ``get_total()``.
+
+</pre>
   <dl class="fields">
     <dt>Get Method:</dt>
     <dd class="value"><span class="summary-sig"><i>unreachable</i>.total(<span class="summary-sig-arg">self</span>)</span>
@@ -1083,7 +1163,10 @@ calling <tt class="rst-docutils literal"><span class="pre">get_total()</span></t
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <h3 class="epydoc">maxLength</h3>
-  The maximum length of the history
+  <pre class="literalblock">
+The maximum length of the history
+
+</pre>
   <dl class="fields">
     <dt>Get Method:</dt>
     <dd class="value"><span class="summary-sig"><a href="grizzled.history.History-class.html#__get_max_length" class="summary-sig-name" onclick="show_private();">__get_max_length</a>(<span class="summary-sig-arg">self</span>)</span>
@@ -1122,7 +1205,7 @@ calling <tt class="rst-docutils literal"><span class="pre">get_total()</span></t
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sat Oct 24 11:58:57 2009
+    Generated by Epydoc 3.0.1 on Sun Mar 13 09:46:08 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

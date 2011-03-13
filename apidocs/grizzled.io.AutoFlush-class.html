@@ -64,15 +64,21 @@ object --+
 </pre>
 
 <hr />
-<p>An <tt class="rst-rst-rst-docutils literal rst-rst-docutils literal rst-docutils literal"><span class="pre">AutoFlush</span></tt> wraps a file-like object and flushes the output
-(via a call to <tt class="rst-rst-rst-docutils literal rst-rst-docutils literal rst-docutils literal"><span class="pre">flush()</span></tt> after every write operation. Here's how
-to use an <tt class="rst-docutils literal"><span class="pre">AutoFlush</span></tt> object to force standard output to flush after
-every write:</p>
-<pre class="py-doctest">
-<span class="py-keyword">import</span> sys
-<span class="py-keyword">from</span> grizzled.io <span class="py-keyword">import</span> AutoFlush
+<pre class="literalblock">
 
-sys.stdout = AutoFlush(sys.stdout)</pre>
+An ``AutoFlush`` wraps a file-like object and flushes the output
+(via a call to ``flush()`` after every write operation. Here's how
+to use an ``AutoFlush`` object to force standard output to flush after
+every write:
+
+.. python::
+
+    import sys
+    from grizzled.io import AutoFlush
+
+    sys.stdout = AutoFlush(sys.stdout)
+
+</pre>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -99,7 +105,7 @@ sys.stdout = AutoFlush(sys.stdout)</pre>
         <tr>
           <td><span class="summary-sig"><a href="grizzled.io.AutoFlush-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">f</span>)</span><br />
-      Create a new <tt class="rst-docutils literal"><span class="pre">AutoFlush</span></tt> object to wrap a file-like object.</td>
+      Create a new ``AutoFlush`` object to wrap a file-like object.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="grizzled.io-pysrc.html#AutoFlush.__init__">source&nbsp;code</a></span>
             
@@ -164,7 +170,7 @@ sys.stdout = AutoFlush(sys.stdout)</pre>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">int</span>
+      <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -200,7 +206,7 @@ sys.stdout = AutoFlush(sys.stdout)</pre>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">int</span>
+      <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -219,6 +225,7 @@ sys.stdout = AutoFlush(sys.stdout)</pre>
     <td colspan="2" class="summary">
     <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
       <code>__delattr__</code>,
+      <code>__format__</code>,
       <code>__getattribute__</code>,
       <code>__hash__</code>,
       <code>__new__</code>,
@@ -226,7 +233,9 @@ sys.stdout = AutoFlush(sys.stdout)</pre>
       <code>__reduce_ex__</code>,
       <code>__repr__</code>,
       <code>__setattr__</code>,
-      <code>__str__</code>
+      <code>__sizeof__</code>,
+      <code>__str__</code>,
+      <code>__subclasshook__</code>
       </p>
     </td>
   </tr>
@@ -290,13 +299,17 @@ sys.stdout = AutoFlush(sys.stdout)</pre>
     </td>
   </tr></table>
   
-  Create a new <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">AutoFlush</span></tt> object to wrap a file-like object.
+  <pre class="literalblock">
+
+Create a new ``AutoFlush`` object to wrap a file-like object.
+
+:Parameters:
+    f : file
+        A file-like object that contains both a ``write()`` method
+        and a ``flush()`` method.
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>f</code></strong> (file) - A file-like object that contains both a <tt class="rst-docutils literal"><span class="pre">write()</span></tt> method
-and a <tt class="rst-docutils literal"><span class="pre">flush()</span></tt> method.</li>
-    </ul></dd>
     <dt>Overrides:
         object.__init__
     </dt>
@@ -318,12 +331,16 @@ and a <tt class="rst-docutils literal"><span class="pre">flush()</span></tt> met
     </td>
   </tr></table>
   
-  Write the specified buffer to the file.
+  <pre class="literalblock">
+
+Write the specified buffer to the file.
+
+:Parameters:
+    buf : str or bytes
+        buffer to write
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>buf</code></strong> (str or bytes) - buffer to write</li>
-    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -342,13 +359,17 @@ and a <tt class="rst-docutils literal"><span class="pre">flush()</span></tt> met
     </td>
   </tr></table>
   
-  Truncate the underlying file. Might fail.
+  <pre class="literalblock">
+
+Truncate the underlying file. Might fail.
+
+:Parameters:
+    size : int
+        Where to truncate. If less than 0, then file's current position
+        is used.
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>size</code></strong> (int) - Where to truncate. If less than 0, then file's current position
-is used.</li>
-    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -366,10 +387,15 @@ is used.</li>
     </td>
   </tr></table>
   
-  Return the file's current position, if applicable.
+  <pre class="literalblock">
+
+Return the file's current position, if applicable.
+
+:rtype:  int
+:return: Current file position
+
+</pre>
   <dl class="fields">
-    <dt>Returns: int</dt>
-        <dd>Current file position</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -389,30 +415,34 @@ is used.</li>
     </td>
   </tr></table>
   
-  <p>Set the file's current position. The <tt class="rst-docutils literal"><span class="pre">whence</span></tt> argument is optional;
-legal values are:</p>
-<blockquote>
-<ul class="rst-simple">
-<li><tt class="rst-docutils literal"><span class="pre">os.SEEK_SET</span></tt> or 0: absolute file positioning (default)</li>
-<li><tt class="rst-docutils literal"><span class="pre">os.SEEK_CUR</span></tt> or 1: seek relative to the current position</li>
-<li><tt class="rst-docutils literal"><span class="pre">os.SEEK_END</span></tt> or 2: seek relative to the file's end</li>
-</ul>
-</blockquote>
-<p>There is no return value. Note that if the file is opened for
-appending (mode 'a' or 'a+'), any <tt class="rst-docutils literal"><span class="pre">seek()</span></tt> operations will be undone
+  <pre class="literalblock">
+
+Set the file's current position. The ``whence`` argument is optional;
+legal values are:
+
+ - ``os.SEEK_SET`` or 0: absolute file positioning (default)
+ - ``os.SEEK_CUR`` or 1: seek relative to the current position
+ - ``os.SEEK_END`` or 2: seek relative to the file's end
+
+There is no return value. Note that if the file is opened for
+appending (mode 'a' or 'a+'), any ``seek()`` operations will be undone
 at the next write. If the file is only opened for writing in append
 mode (mode 'a'), this method is essentially a no-op, but it remains
 useful for files opened in append mode with reading enabled (mode
 'a+'). If the file is opened in text mode (without 'b'), only offsets
-returned by <tt class="rst-docutils literal"><span class="pre">tell()</span></tt> are legal. Use of other offsets causes
-undefined behavior.</p>
-<p>Note that not all file objects are seekable.</p>
+returned by ``tell()`` are legal. Use of other offsets causes
+undefined behavior.
+
+Note that not all file objects are seekable.
+
+:Parameters:
+    offset : int
+        where to seek
+    whence : int
+        see above
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>offset</code></strong> (int) - where to seek</li>
-        <li><strong class="pname"><code>whence</code></strong> (int) - see above</li>
-    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -430,10 +460,15 @@ undefined behavior.</p>
     </td>
   </tr></table>
   
-  Return the integer file descriptor used by the underlying file.
+  <pre class="literalblock">
+
+Return the integer file descriptor used by the underlying file.
+
+:rtype:  int
+:return: the file descriptor
+
+</pre>
   <dl class="fields">
-    <dt>Returns: int</dt>
-        <dd>the file descriptor</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -464,7 +499,7 @@ undefined behavior.</p>
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sat Oct 24 11:58:57 2009
+    Generated by Epydoc 3.0.1 on Sun Mar 13 09:46:08 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

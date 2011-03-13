@@ -58,45 +58,46 @@
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
 <h1 class="epydoc">Module parse</h1><p class="nomargin-top"><span class="codelink"><a href="grizzled.net.ftp.parse-pysrc.html">source&nbsp;code</a></span></p>
-<p>Module for parsing FTP data.</p>
-<p>Currently, this module contains classes for parsing FTP <tt class="rst-docutils literal"><span class="pre">LIST</span></tt> command
+<pre class="literalblock">
+
+Module for parsing FTP data.
+
+Currently, this module contains classes for parsing FTP ``LIST`` command
 output from a variety of FTP servers. In the future, this module may be
-extended to handle other FTP parsing chores. (Or not.)</p>
-<p>The FTP <tt class="rst-docutils literal"><span class="pre">LIST</span></tt> parsing logic was adapted for Python from D. J. Bernstein's
-<tt class="rst-docutils literal"><span class="pre">ftpparse.c</span></tt> library. See <a class="rst-reference external" href="http://cr.yp.to/ftpparse.html" target="_top">http://cr.yp.to/ftpparse.html</a>. The logic in this
+extended to handle other FTP parsing chores. (Or not.)
+
+The FTP ``LIST`` parsing logic was adapted for Python from D. J. Bernstein's
+``ftpparse.c`` library. See http://cr.yp.to/ftpparse.html. The logic in this
 module is functionally similar to Bernstein's parser, with the following
-differences:</p>
-<blockquote>
-<ul class="rst-simple">
-<li>Bernstein's C-specific logic has been made more Python-like.</li>
-<li>The basic parser is encapsulated inside an <a href="grizzled.net.ftp.parse.FTPListDataParser-class.html" class="link">FTPListDataParser</a> class,
-instead of a function.</li>
-<li>The <tt class="rst-docutils literal"><span class="pre">ID_TYPE</span></tt> and <tt class="rst-docutils literal"><span class="pre">MTIME_TYPE</span></tt> values are enumerations.</li>
-<li><tt class="rst-docutils literal"><span class="pre">SIZE_TYPE</span></tt> is not supported (since it was always being set to the
-same value anyway).</li>
-</ul>
-</blockquote>
-<p>Currently covered formats:</p>
-<blockquote>
-<ul class="rst-simple">
-<li><a class="rst-reference external" href="http://cr.yp.to/ftp/list/eplf.html" target="_top">EPLF</a></li>
-<li>UNIX <em>ls</em>, with or without group ID</li>
-<li>Microsoft FTP Service</li>
-<li>Windows NT FTP Server</li>
-<li>VMS</li>
-<li>WFTPD</li>
-<li>NetPresenz (Mac)</li>
-<li>NetWare</li>
-<li>MSDOS</li>
-</ul>
-</blockquote>
-<p>Definitely not covered:</p>
-<blockquote>
-<ul class="rst-simple">
-<li>Long VMS filenames, with information split across two lines.</li>
-<li>NCSA Telnet FTP server. Has LIST = NLST (and bad NLST for directories).</li>
-</ul>
-</blockquote>
+differences:
+
+    - Bernstein's C-specific logic has been made more Python-like.
+    - The basic parser is encapsulated inside an `FTPListDataParser` class,
+      instead of a function.
+    - The ``ID_TYPE`` and ``MTIME_TYPE`` values are enumerations.
+    - ``SIZE_TYPE`` is not supported (since it was always being set to the
+      same value anyway).
+
+Currently covered formats:
+
+    - `EPLF`_
+    - UNIX *ls*, with or without group ID
+    - Microsoft FTP Service
+    - Windows NT FTP Server
+    - VMS
+    - WFTPD
+    - NetPresenz (Mac)
+    - NetWare
+    - MSDOS
+
+.. _EPLF: http://cr.yp.to/ftp/list/eplf.html
+
+Definitely not covered:
+
+    - Long VMS filenames, with information split across two lines.
+    - NCSA Telnet FTP server. Has LIST = NLST (and bad NLST for directories).
+
+</pre>
 
 <!-- ==================== CLASSES ==================== -->
 <a name="section-Classes"></a>
@@ -120,7 +121,7 @@ same value anyway).</li>
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="grizzled.net.ftp.parse.FTPListData-class.html" class="summary-name">FTPListData</a><br />
-      The <a href="grizzled.net.ftp.parse.FTPListDataParser-class.html" class="link">FTPListDataParser</a> class's <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">parse_line()</span></tt> method returns an
+      The `FTPListDataParser` class's ``parse_line()`` method returns an
 instance of this class, capturing the parsed data.
     </td>
   </tr>
@@ -129,8 +130,8 @@ instance of this class, capturing the parsed data.
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="grizzled.net.ftp.parse.FTPListDataParser-class.html" class="summary-name">FTPListDataParser</a><br />
-      An <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">FTPListDataParser</span></tt> object can be used to parse one or more lines
-that were retrieved by an FTP <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">LIST</span></tt> command that was sent to a remote
+      An ``FTPListDataParser`` object can be used to parse one or more lines
+that were retrieved by an FTP ``LIST`` command that was sent to a remote
 server.
     </td>
   </tr>
@@ -154,13 +155,13 @@ server.
 </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type"><a href="grizzled.net.ftp.parse.FTPListData-class.html" class="link">FTPListData</a></span>
+      <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="grizzled.net.ftp.parse-module.html#parse_ftp_list_line" class="summary-sig-name">parse_ftp_list_line</a>(<span class="summary-sig-arg">ftp_list_line</span>)</span><br />
-      Convenience function that instantiates an <a href="grizzled.net.ftp.parse.FTPListDataParser-class.html" class="link">FTPListDataParser</a> object
-and passes <tt class="rst-docutils literal"><span class="pre">ftp_list_line</span></tt> to the object's <tt class="rst-docutils literal"><span class="pre">parse_line()</span></tt> method,
+      Convenience function that instantiates an `FTPListDataParser` object
+and passes ``ftp_list_line`` to the object's ``parse_line()`` method,
 returning the result.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="grizzled.net.ftp.parse-pysrc.html#parse_ftp_list_line">source&nbsp;code</a></span>
@@ -227,7 +228,7 @@ returning the result.</td>
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="grizzled.net.ftp.parse-module.html#MTIME_TYPE" class="summary-name">MTIME_TYPE</a> = <code title="Enum('UNKNOWN', 'LOCAL', 'REMOTE_MINUTE', 'REMOTE_DAY')">Enum('UNKNOWN', 'LOCAL', 'REMOTE_MINUTE', 'REMOTE<code class="variable-ellipsis">...</code></code><br />
-      <tt class="rst-docutils literal"><span class="pre">MTIME_TYPE</span></tt> identifies how a modification time ought to be interpreted
+      ``MTIME_TYPE`` identifies how a modification time ought to be interpreted
 (assuming the caller cares).
     </td>
   </tr>
@@ -236,21 +237,28 @@ returning the result.</td>
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="grizzled.net.ftp.parse-module.html#ID_TYPE" class="summary-name">ID_TYPE</a> = <code title="Enum('UNKNOWN', 'FULL')">Enum('UNKNOWN', 'FULL')</code><br />
-      <tt class="rst-docutils literal"><span class="pre">ID_TYPE</span></tt> identifies how a file's identifier should be interpreted.
+      ``ID_TYPE`` identifies how a file's identifier should be interpreted.
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="now"></a><span class="summary-name">now</span> = <code title="1256399927.68">1256399927.68</code>
+        <a name="now"></a><span class="summary-name">now</span> = <code title="1300023967.54">1300023967.54</code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="current_year"></a><span class="summary-name">current_year</span> = <code title="2009">2009</code>
+        <a name="current_year"></a><span class="summary-name">current_year</span> = <code title="2011">2011</code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'grizzled.net.ftp'"><code class="variable-quote">'</code><code class="variable-string">grizzled.net.ftp</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 </table>
@@ -286,19 +294,24 @@ returning the result.</td>
     </td>
   </tr></table>
   
-  Convenience function that instantiates an <a href="grizzled.net.ftp.parse.FTPListDataParser-class.html" class="link">FTPListDataParser</a> object
-and passes <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">ftp_list_line</span></tt> to the object's <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">parse_line()</span></tt> method,
+  <pre class="literalblock">
+
+Convenience function that instantiates an `FTPListDataParser` object
+and passes ``ftp_list_line`` to the object's ``parse_line()`` method,
 returning the result.
+
+:Parameters:
+    ftp_list_line : str
+        The line of output
+
+:rtype: `FTPListData`
+:return: An `FTPListData` object describing the parsed line, or
+         ``None`` if the line could not be parsed. Note that it's
+         possible for this method to return a partially-filled
+         `FTPListData` object (e.g., one without a name).
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>ftp_list_line</code></strong> (str) - The line of output</li>
-    </ul></dd>
-    <dt>Returns: <a href="grizzled.net.ftp.parse.FTPListData-class.html" class="link">FTPListData</a></dt>
-        <dd>An <a href="grizzled.net.ftp.parse.FTPListData-class.html" class="link">FTPListData</a> object describing the parsed line, or
-<tt class="rst-docutils literal"><span class="pre">None</span></tt> if the line could not be parsed. Note that it's
-possible for this method to return a partially-filled
-<a href="grizzled.net.ftp.parse.FTPListData-class.html" class="link">FTPListData</a> object (e.g., one without a name).</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -353,16 +366,17 @@ possible for this method to return a partially-filled
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <h3 class="epydoc">MTIME_TYPE</h3>
-  <p><tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">MTIME_TYPE</span></tt> identifies how a modification time ought to be interpreted
-(assuming the caller cares).</p>
-<blockquote>
-<ul class="rst-simple">
-<li><tt class="rst-docutils literal"><span class="pre">LOCAL</span></tt>: Time is local to the client, granular to (at least) the minute</li>
-<li><tt class="rst-docutils literal"><span class="pre">REMOTE_MINUTE</span></tt>: Time is local to the server and granular to the minute</li>
-<li><tt class="rst-docutils literal"><span class="pre">REMOTE_DAY</span></tt>: Time is local to the server and granular to the day.</li>
-<li><tt class="rst-docutils literal"><span class="pre">UNKNOWN</span></tt>: Time's locale is unknown.</li>
-</ul>
-</blockquote>
+  <pre class="literalblock">
+
+``MTIME_TYPE`` identifies how a modification time ought to be interpreted
+(assuming the caller cares).
+
+    - ``LOCAL``: Time is local to the client, granular to (at least) the minute
+    - ``REMOTE_MINUTE``: Time is local to the server and granular to the minute
+    - ``REMOTE_DAY``: Time is local to the server and granular to the day.
+    - ``UNKNOWN``: Time's locale is unknown.
+
+</pre>
   <dl class="fields">
   </dl>
   <dl class="fields">
@@ -380,13 +394,14 @@ Enum('UNKNOWN', 'LOCAL', 'REMOTE_MINUTE', 'REMOTE_DAY')
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <h3 class="epydoc">ID_TYPE</h3>
-  <p><tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">ID_TYPE</span></tt> identifies how a file's identifier should be interpreted.</p>
-<blockquote>
-<ul class="rst-simple">
-<li><tt class="rst-docutils literal"><span class="pre">FULL</span></tt>: The ID is known to be complete.</li>
-<li><tt class="rst-docutils literal"><span class="pre">UNKNOWN</span></tt>: The ID is not set or its type is unknown.</li>
-</ul>
-</blockquote>
+  <pre class="literalblock">
+
+``ID_TYPE`` identifies how a file's identifier should be interpreted.
+
+    - ``FULL``: The ID is known to be complete.
+    - ``UNKNOWN``: The ID is not set or its type is unknown.
+
+</pre>
   <dl class="fields">
   </dl>
   <dl class="fields">
@@ -425,7 +440,7 @@ Enum('UNKNOWN', 'FULL')
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sat Oct 24 11:58:55 2009
+    Generated by Epydoc 3.0.1 on Sun Mar 13 09:46:08 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

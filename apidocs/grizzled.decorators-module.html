@@ -56,7 +56,11 @@
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
 <h1 class="epydoc">Module decorators</h1><p class="nomargin-top"><span class="codelink"><a href="grizzled.decorators-pysrc.html">source&nbsp;code</a></span></p>
+<pre class="literalblock">
+
 This module contains various Python decorators.
+
+</pre>
 
 <!-- ==================== FUNCTIONS ==================== -->
 <a name="section-Functions"></a>
@@ -128,6 +132,32 @@ This module contains various Python decorators.
     </td>
   </tr>
 </table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Variables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="None">None</code><br />
+      hash(x)
+    </td>
+  </tr>
+</table>
 <!-- ==================== FUNCTION DETAILS ==================== -->
 <a name="section-FunctionDetails"></a>
 <table class="details" border="1" cellpadding="3"
@@ -161,38 +191,52 @@ This module contains various Python decorators.
     </td>
   </tr></table>
   
-  <p>Decorator for marking a function deprecated. Generates a warning on
-standard output if the function is called.</p>
-<p>Usage:</p>
-<pre class="py-doctest">
-<span class="py-keyword">from</span> grizzled.decorators <span class="py-keyword">import</span> deprecated
+  <pre class="literalblock">
 
-<span class="py-keyword">class</span> <span class="py-defname">MyClass</span>(object):
+Decorator for marking a function deprecated. Generates a warning on
+standard output if the function is called.
 
-    @deprecated()
-    <span class="py-keyword">def</span> <span class="py-defname">oldMethod</span>(self):
-        <span class="py-keyword">pass</span></pre>
-<p>Given the above declaration, the following code will cause a
-warning to be printed (though the method call will otherwise succeed):</p>
-<pre class="py-doctest">
-obj = MyClass()
-obj.oldMethod()</pre>
-<p>You may also specify a <tt class="rst-docutils literal"><span class="pre">since</span></tt> argument, used to display a deprecation
-message with a version stamp (e.g., 'deprecated since ...'):</p>
-<pre class="py-doctest">
-<span class="py-keyword">from</span> grizzled.decorators <span class="py-keyword">import</span> deprecated
+Usage:
 
-<span class="py-keyword">class</span> <span class="py-defname">MyClass</span>(object):
+.. python::
 
-    @deprecated(since=<span class="py-string">'1.2'</span>)
-    <span class="py-keyword">def</span> <span class="py-defname">oldMethod</span>(self):
-        <span class="py-keyword">pass</span></pre>
+    from grizzled.decorators import deprecated
+
+    class MyClass(object):
+
+        @deprecated()
+        def oldMethod(self):
+            pass
+
+Given the above declaration, the following code will cause a
+warning to be printed (though the method call will otherwise succeed):
+
+.. python::
+
+    obj = MyClass()
+    obj.oldMethod()
+
+You may also specify a ``since`` argument, used to display a deprecation
+message with a version stamp (e.g., 'deprecated since ...'):
+
+.. python::
+
+    from grizzled.decorators import deprecated
+
+    class MyClass(object):
+
+        @deprecated(since='1.2')
+        def oldMethod(self):
+            pass
+
+:Parameters:
+    since : str
+        version stamp, or ``None`` for none
+    message : str
+        optional additional message to print
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>since</code></strong> (str) - version stamp, or <tt class="rst-docutils literal"><span class="pre">None</span></tt> for none</li>
-        <li><strong class="pname"><code>message</code></strong> (str) - optional additional message to print</li>
-    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -210,25 +254,35 @@ message with a version stamp (e.g., 'deprecated since ...'):</p>
     </td>
   </tr></table>
   
-  <p>Decorator for marking a method abstract. Throws a <tt class="rst-docutils literal"><span class="pre">NotImplementedError</span></tt>
-if an abstract method is called.</p>
-<p>Usage:</p>
-<pre class="py-doctest">
-<span class="py-keyword">from</span> grizzled.decorators <span class="py-keyword">import</span> abstract
+  <pre class="literalblock">
 
-<span class="py-keyword">class</span> <span class="py-defname">MyAbstractClass</span>(object):
+Decorator for marking a method abstract. Throws a ``NotImplementedError``
+if an abstract method is called.
 
-    @abstract
-    <span class="py-keyword">def</span> <span class="py-defname">abstractMethod</span>(self):
-        <span class="py-keyword">pass</span>
+Usage:
 
-<span class="py-keyword">class</span> <span class="py-defname">NotReallyConcrete</span>(MyAbstractClass):
-    <span class="py-comment"># Class doesn't define abstractMethod().</span></pre>
-<p>Given the above declaration, the following code will cause an
-<tt class="rst-docutils literal"><span class="pre">NotImplementedError</span></tt>:</p>
-<pre class="py-doctest">
-obj = NotReallyConcrete()
-obj.abstractMethod()</pre>
+.. python::
+
+    from grizzled.decorators import abstract
+
+    class MyAbstractClass(object):
+
+        @abstract
+        def abstractMethod(self):
+            pass
+
+    class NotReallyConcrete(MyAbstractClass):
+        # Class doesn't define abstractMethod().
+
+Given the above declaration, the following code will cause an
+``NotImplementedError``:
+
+.. python::
+
+    obj = NotReallyConcrete()
+    obj.abstractMethod()
+
+</pre>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -247,20 +301,27 @@ obj.abstractMethod()</pre>
     </td>
   </tr></table>
   
-  <p>Decorator for marking a function or method unimplemented. Throws a
-<tt class="rst-docutils literal"><span class="pre">NotImplementedError</span></tt> if called. Note that this decorator is
-conceptually different from <tt class="rst-docutils literal"><span class="pre">&#64;abstract</span></tt>. With <tt class="rst-docutils literal"><span class="pre">&#64;abstract</span></tt>, the method
-is intended to be implemented by a subclass. With <tt class="rst-docutils literal"><span class="pre">&#64;unimplemented</span></tt>, the
-method should never be implemented.</p>
-<p>Usage:</p>
-<pre class="py-doctest">
-<span class="py-keyword">from</span> grizzled.decorators <span class="py-keyword">import</span> unimplemented
+  <pre class="literalblock">
 
-<span class="py-keyword">class</span> <span class="py-defname">ReadOnlyDict</span>(dict):
+Decorator for marking a function or method unimplemented. Throws a
+``NotImplementedError`` if called. Note that this decorator is
+conceptually different from ``@abstract``. With ``@abstract``, the method
+is intended to be implemented by a subclass. With ``@unimplemented``, the
+method should never be implemented.
 
-    @unimplemented
-    <span class="py-keyword">def</span> <span class="py-defname">__setitem__</span>(self, key, value):
-        <span class="py-keyword">pass</span></pre>
+Usage:
+
+.. python::
+
+    from grizzled.decorators import unimplemented
+
+    class ReadOnlyDict(dict):
+
+        @unimplemented
+        def __setitem__(self, key, value):
+            pass
+
+</pre>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -292,7 +353,7 @@ method should never be implemented.</p>
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sat Oct 24 11:58:55 2009
+    Generated by Epydoc 3.0.1 on Sun Mar 13 09:46:08 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

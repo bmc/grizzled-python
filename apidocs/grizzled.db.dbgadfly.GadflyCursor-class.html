@@ -161,7 +161,7 @@ cursor.</td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">list of tuples</span>
+      <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -179,7 +179,7 @@ of tuples.</td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">tuple</span>
+      <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -197,7 +197,7 @@ of tuples.</td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">list of tuples</span>
+      <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -227,6 +227,7 @@ sequence of tuples.</td>
       </p>
     <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
       <code>__delattr__</code>,
+      <code>__format__</code>,
       <code>__getattribute__</code>,
       <code>__hash__</code>,
       <code>__new__</code>,
@@ -234,7 +235,9 @@ sequence of tuples.</td>
       <code>__reduce_ex__</code>,
       <code>__repr__</code>,
       <code>__setattr__</code>,
-      <code>__str__</code>
+      <code>__sizeof__</code>,
+      <code>__str__</code>,
+      <code>__subclasshook__</code>
       </p>
     </td>
   </tr>
@@ -258,20 +261,18 @@ sequence of tuples.</td>
 </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">int</span>
+      <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="grizzled.db.dbgadfly.GadflyCursor-class.html#rowcount" class="summary-name">rowcount</a><br />
-      A read-only attribute that specifies the number of rows
-fetched in the last query, or -1 if unknown.
+      Number of rows from last query, or -1
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">tuple</span>
+      <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="grizzled.db.dbgadfly.GadflyCursor-class.html#description" class="summary-name">description</a><br />
-      A read-only attribute that is a sequence of 7-item tuples, one per
-column, from the last query executed.
+      The description field.
     </td>
   </tr>
   <tr>
@@ -317,14 +318,19 @@ column, from the last query executed.
     </td>
   </tr></table>
   
-  Create a new Cursor object, wrapping the underlying real DB API
+  <pre class="literalblock">
+
+Create a new Cursor object, wrapping the underlying real DB API
 cursor.
+
+:Parameters:
+    cursor
+        the real DB API cursor object
+    driver
+        the driver that is creating this object
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>cursor</code></strong> - the real DB API cursor object</li>
-        <li><strong class="pname"><code>driver</code></strong> - the driver that is creating this object</li>
-    </ul></dd>
     <dt>Overrides:
         object.__init__
         <dd><em class="note">(inherited documentation)</em></dd>
@@ -346,13 +352,15 @@ cursor.
     </td>
   </tr></table>
   
-  Close the cursor.
+  <pre class="literalblock">
+
+Close the cursor.
+
+:raise Warning: Non-fatal warning
+:raise Error:   Error; unable to close
+
+</pre>
   <dl class="fields">
-    <dt>Raises:</dt>
-    <dd><ul class="nomargin-top">
-        <li><code><strong class='fraise'><a href="grizzled.db.base.Warning-class.html">Warning</a></strong></code> - Non-fatal warning</li>
-        <li><code><strong class='fraise'><a href="grizzled.db.base.Error-class.html">Error</a></strong></code> - Error; unable to close</li>
-    </ul></dd>
     <dt>Overrides:
         <a href="grizzled.db.base.Cursor-class.html#close">base.Cursor.close</a>
         <dd><em class="note">(inherited documentation)</em></dd>
@@ -376,21 +384,24 @@ cursor.
     </td>
   </tr></table>
   
-  Execute a SQL statement string with the given parameters.
+  <pre class="literalblock">
+
+Execute a SQL statement string with the given parameters.
 'parameters' is a sequence when the parameter style is
 'format', 'numeric' or 'qmark', and a dictionary when the
-style is 'pyformat' or 'named'. See <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">DB.paramstyle()</span></tt>.
+style is 'pyformat' or 'named'. See ``DB.paramstyle()``.
+
+:Parameters:
+    statement : str
+        the SQL statement to execute
+    parameters : list
+        parameters to use, if the statement is parameterized
+
+:raise Warning: Non-fatal warning
+:raise Error:   Error
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>statement</code></strong> - the SQL statement to execute</li>
-        <li><strong class="pname"><code>parameters</code></strong> - parameters to use, if the statement is parameterized</li>
-    </ul></dd>
-    <dt>Raises:</dt>
-    <dd><ul class="nomargin-top">
-        <li><code><strong class='fraise'><a href="grizzled.db.base.Warning-class.html">Warning</a></strong></code> - Non-fatal warning</li>
-        <li><code><strong class='fraise'><a href="grizzled.db.base.Error-class.html">Error</a></strong></code> - Error</li>
-    </ul></dd>
     <dt>Overrides:
         <a href="grizzled.db.base.Cursor-class.html#execute">base.Cursor.execute</a>
         <dd><em class="note">(inherited documentation)</em></dd>
@@ -414,21 +425,24 @@ style is 'pyformat' or 'named'. See <tt class="rst-rst-docutils literal rst-docu
     </td>
   </tr></table>
   
-  Execute a SQL statement once for each item in the given parameters.
+  <pre class="literalblock">
+
+Execute a SQL statement once for each item in the given parameters.
+
+:Parameters:
+    statement : str
+        the SQL statement to execute
+    parameters : sequence
+        a sequence of sequences when the parameter style
+        is 'format', 'numeric' or 'qmark', and a sequence
+        of dictionaries when the style is 'pyformat' or
+        'named'.
+
+:raise Warning: Non-fatal warning
+:raise Error:   Error
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>statement</code></strong> - the SQL statement to execute</li>
-        <li><strong class="pname"><code>parameters</code></strong> - a sequence of sequences when the parameter style
-is 'format', 'numeric' or 'qmark', and a sequence
-of dictionaries when the style is 'pyformat' or
-'named'.</li>
-    </ul></dd>
-    <dt>Raises:</dt>
-    <dd><ul class="nomargin-top">
-        <li><code><strong class='fraise'><a href="grizzled.db.base.Warning-class.html">Warning</a></strong></code> - Non-fatal warning</li>
-        <li><code><strong class='fraise'><a href="grizzled.db.base.Error-class.html">Error</a></strong></code> - Error</li>
-    </ul></dd>
     <dt>Overrides:
         <a href="grizzled.db.base.Cursor-class.html#executemany">base.Cursor.executemany</a>
         <dd><em class="note">(inherited documentation)</em></dd>
@@ -450,16 +464,19 @@ of dictionaries when the style is 'pyformat' or
     </td>
   </tr></table>
   
-  Returns all remaining result rows from the last query, as a sequence
+  <pre class="literalblock">
+
+Returns all remaining result rows from the last query, as a sequence
 of tuples. Raises an exception if the last statement was not a query.
+
+:rtype:  list of tuples
+:return: List of rows, each represented as a tuple
+
+:raise Warning: Non-fatal warning
+:raise Error:   Error
+
+</pre>
   <dl class="fields">
-    <dt>Returns: list of tuples</dt>
-        <dd>List of rows, each represented as a tuple</dd>
-    <dt>Raises:</dt>
-    <dd><ul class="nomargin-top">
-        <li><code><strong class='fraise'><a href="grizzled.db.base.Warning-class.html">Warning</a></strong></code> - Non-fatal warning</li>
-        <li><code><strong class='fraise'><a href="grizzled.db.base.Error-class.html">Error</a></strong></code> - Error</li>
-    </ul></dd>
     <dt>Overrides:
         <a href="grizzled.db.base.Cursor-class.html#fetchall">base.Cursor.fetchall</a>
         <dd><em class="note">(inherited documentation)</em></dd>
@@ -481,16 +498,19 @@ of tuples. Raises an exception if the last statement was not a query.
     </td>
   </tr></table>
   
-  Returns the next result set row from the last query, as a sequence
+  <pre class="literalblock">
+
+Returns the next result set row from the last query, as a sequence
 of tuples. Raises an exception if the last statement was not a query.
+
+:rtype:  tuple
+:return: Next result set row
+
+:raise Warning: Non-fatal warning
+:raise Error:   Error
+
+</pre>
   <dl class="fields">
-    <dt>Returns: tuple</dt>
-        <dd>Next result set row</dd>
-    <dt>Raises:</dt>
-    <dd><ul class="nomargin-top">
-        <li><code><strong class='fraise'><a href="grizzled.db.base.Warning-class.html">Warning</a></strong></code> - Non-fatal warning</li>
-        <li><code><strong class='fraise'><a href="grizzled.db.base.Error-class.html">Error</a></strong></code> - Error</li>
-    </ul></dd>
     <dt>Overrides:
         <a href="grizzled.db.base.Cursor-class.html#fetchone">base.Cursor.fetchone</a>
         <dd><em class="note">(inherited documentation)</em></dd>
@@ -513,21 +533,24 @@ of tuples. Raises an exception if the last statement was not a query.
     </td>
   </tr></table>
   
-  Returns up to n remaining result rows from the last query, as a
+  <pre class="literalblock">
+
+Returns up to n remaining result rows from the last query, as a
 sequence of tuples. Raises an exception if the last statement was
 not a query.
+
+:Parameters:
+    n : int
+        maximum number of result rows to get
+
+:rtype:  list of tuples
+:return: List of rows, each represented as a tuple
+
+:raise Warning: Non-fatal warning
+:raise Error:   Error
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>n</code></strong> - maximum number of result rows to get</li>
-    </ul></dd>
-    <dt>Returns: list of tuples</dt>
-        <dd>List of rows, each represented as a tuple</dd>
-    <dt>Raises:</dt>
-    <dd><ul class="nomargin-top">
-        <li><code><strong class='fraise'><a href="grizzled.db.base.Warning-class.html">Warning</a></strong></code> - Non-fatal warning</li>
-        <li><code><strong class='fraise'><a href="grizzled.db.base.Error-class.html">Error</a></strong></code> - Error</li>
-    </ul></dd>
     <dt>Overrides:
         <a href="grizzled.db.base.Cursor-class.html#fetchmany">base.Cursor.fetchmany</a>
         <dd><em class="note">(inherited documentation)</em></dd>
@@ -560,10 +583,10 @@ not a query.
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <h3 class="epydoc">rowcount</h3>
-  A read-only attribute that specifies the number of rows
-fetched in the last query, or -1 if unknown. <em>Note</em>: It's best
-not to rely on the row count, because some database drivers
-(such as SQLite) don't report valid row counts.
+  <pre class="literalblock">
+Number of rows from last query, or -1
+
+</pre>
   <dl class="fields">
     <dt>Get Method:</dt>
     <dd class="value"><span class="summary-sig"><i>unreachable</i>.rowcount(<span class="summary-sig-arg">self</span>)</span>
@@ -577,9 +600,10 @@ not to rely on the row count, because some database drivers
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <h3 class="epydoc">description</h3>
-  A read-only attribute that is a sequence of 7-item tuples, one per
-column, from the last query executed. The tuple values are:
-<em>(name, typecode, displaysize, internalsize, precision, scale)</em>
+  <pre class="literalblock">
+The description field. See class docs.
+
+</pre>
   <dl class="fields">
     <dt>Get Method:</dt>
     <dd class="value"><span class="summary-sig"><i>unreachable</i>.description(<span class="summary-sig-arg">self</span>)</span>
@@ -614,7 +638,7 @@ column, from the last query executed. The tuple values are:
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sat Oct 24 11:58:56 2009
+    Generated by Epydoc 3.0.1 on Sun Mar 13 09:46:08 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

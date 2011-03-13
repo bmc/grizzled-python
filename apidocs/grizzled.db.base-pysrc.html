@@ -57,8 +57,8 @@
 </table>
 <h1 class="epydoc">Source Code for <a href="grizzled.db.base-module.html" onclick="show_private();">Module grizzled.db.base</a></h1>
 <pre class="py-src">
-<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment"># $Id: 38c71003e81b9ea1df83aefcb90fb198cc8a44ef $</tt> </tt>
-<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment"># $Id: e296678a08966fbef72b1e15793f044de579f3eb $</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"> </tt>
 <a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
 <a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-docstring">Base classes for enhanced DB drivers.</tt> </tt>
 <a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
@@ -66,9 +66,9 @@
 <a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-name">__docformat__</tt> <tt class="py-op">=</tt> <tt class="py-string">"restructuredtext en"</tt> </tt>
 <a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"> </tt>
 <a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># Imports</tt> </tt>
-<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment"># Imports</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"> </tt>
 <a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">re</tt> </tt>
 <a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">time</tt> </tt>
 <a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module grizzled.os=grizzled.os-module.html"><a title="grizzled.os" class="py-name" href="#" onclick="return doclink('link-0', 'os', 'link-0');">os</a></tt> </tt>
@@ -80,20 +80,20 @@
 <a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-7" class="py-name"><a title="grizzled" class="py-name" href="#" onclick="return doclink('link-7', 'grizzled', 'link-1');">grizzled</a></tt><tt class="py-op">.</tt><tt id="link-8" class="py-name" targets="Package grizzled.collections=grizzled.collections-module.html"><a title="grizzled.collections" class="py-name" href="#" onclick="return doclink('link-8', 'collections', 'link-8');">collections</a></tt> <tt class="py-keyword">import</tt> <tt id="link-9" class="py-name" targets="Function grizzled.collections.tuple.namedtuple()=grizzled.collections.tuple-module.html#namedtuple"><a title="grizzled.collections.tuple.namedtuple" class="py-name" href="#" onclick="return doclink('link-9', 'namedtuple', 'link-9');">namedtuple</a></tt> </tt>
 <a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"> </tt>
 <a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># Exports</tt> </tt>
-<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-comment"># Exports</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"> </tt>
 <a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"><tt class="py-name">__all__</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-string">'DBDriver'</tt><tt class="py-op">,</tt> <tt class="py-string">'DB'</tt><tt class="py-op">,</tt> <tt class="py-string">'Cursor'</tt><tt class="py-op">,</tt> <tt class="py-string">'DBError'</tt><tt class="py-op">,</tt> <tt class="py-string">'Error'</tt><tt class="py-op">,</tt> <tt class="py-string">'Warning'</tt><tt class="py-op">,</tt> </tt>
 <a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line">           <tt class="py-string">'TableMetadata'</tt><tt class="py-op">,</tt> <tt class="py-string">'IndexMetadata'</tt><tt class="py-op">,</tt> <tt class="py-string">'RDBMSMetadata'</tt><tt class="py-op">]</tt> </tt>
 <a name="DBError"></a><div id="DBError-def"><a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"> </tt>
 <a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># Globals</tt> </tt>
-<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"><tt class="py-comment"># Globals</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"> </tt>
 <a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># Classes</tt> </tt>
-<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line"><tt class="py-comment"># Classes</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"> </tt>
 <a name="L38"></a><tt class="py-lineno"> 38</tt> <a class="py-toggle" href="#" id="DBError-toggle" onclick="return toggle('DBError');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="grizzled.db.base.DBError-class.html">DBError</a><tt class="py-op">(</tt><tt class="py-base-class">ExceptionWithMessage</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 </div><div id="DBError-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="DBError-expanded"><a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
 <a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line"><tt class="py-docstring">    Base class for all DB exceptions.</tt> </tt>
@@ -409,7 +409,7 @@ grizzled.db.dummydb.DummyCursor.fetchmany" class="py-name" href="#" onclick="ret
 <a name="L274"></a><tt class="py-lineno">274</tt>  <tt class="py-line"><tt class="py-docstring">        :return: the vendor information</tt> </tt>
 <a name="L275"></a><tt class="py-lineno">275</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
 <a name="L276"></a><tt class="py-lineno">276</tt>  <tt class="py-line">        <tt class="py-comment"># Default implementation</tt> </tt>
-<a name="L277"></a><tt class="py-lineno">277</tt>  <tt class="py-line"><tt class="py-comment"></tt>        <tt class="py-name">dbi</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__driver</tt><tt class="py-op">.</tt><tt id="link-66" class="py-name"><a title="grizzled.db.base.DBDriver.get_import
+<a name="L277"></a><tt class="py-lineno">277</tt>  <tt class="py-line">        <tt class="py-name">dbi</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__driver</tt><tt class="py-op">.</tt><tt id="link-66" class="py-name"><a title="grizzled.db.base.DBDriver.get_import
 grizzled.db.dbgadfly.GadflyDriver.get_import
 grizzled.db.dummydb.DummyDriver.get_import
 grizzled.db.mysql.MySQLDriver.get_import
@@ -467,7 +467,7 @@ grizzled.db.sqlserver.SQLServerDriver.get_rdbms_metadata" class="py-name" href="
 <a name="L318"></a><tt class="py-lineno">318</tt>  <tt class="py-line"><tt class="py-docstring">        :raise Error:   Error</tt> </tt>
 <a name="L319"></a><tt class="py-lineno">319</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
 <a name="L320"></a><tt class="py-lineno">320</tt>  <tt class="py-line">        <tt class="py-comment"># Default implementation</tt> </tt>
-<a name="L321"></a><tt class="py-lineno">321</tt>  <tt class="py-line"><tt class="py-comment"></tt>        <tt class="py-name">dbi</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__driver</tt><tt class="py-op">.</tt><tt id="link-72" class="py-name"><a title="grizzled.db.base.DBDriver.get_import
+<a name="L321"></a><tt class="py-lineno">321</tt>  <tt class="py-line">        <tt class="py-name">dbi</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__driver</tt><tt class="py-op">.</tt><tt id="link-72" class="py-name"><a title="grizzled.db.base.DBDriver.get_import
 grizzled.db.dbgadfly.GadflyDriver.get_import
 grizzled.db.dummydb.DummyDriver.get_import
 grizzled.db.mysql.MySQLDriver.get_import
@@ -1353,7 +1353,7 @@ expandto(location.href);
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sat Oct 24 11:59:00 2009
+    Generated by Epydoc 3.0.1 on Sun Mar 13 09:46:09 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

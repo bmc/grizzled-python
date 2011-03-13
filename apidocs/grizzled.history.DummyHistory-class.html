@@ -120,7 +120,7 @@ object --+
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">str</span>
+      <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -138,7 +138,7 @@ object --+
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">list</span>
+      <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -155,7 +155,7 @@ object --+
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">int</span>
+      <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -172,7 +172,7 @@ object --+
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">int</span>
+      <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -257,6 +257,7 @@ object --+
       </p>
     <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
       <code>__delattr__</code>,
+      <code>__format__</code>,
       <code>__getattribute__</code>,
       <code>__hash__</code>,
       <code>__new__</code>,
@@ -264,7 +265,9 @@ object --+
       <code>__reduce_ex__</code>,
       <code>__repr__</code>,
       <code>__setattr__</code>,
-      <code>__str__</code>
+      <code>__sizeof__</code>,
+      <code>__str__</code>,
+      <code>__subclasshook__</code>
       </p>
     </td>
   </tr>
@@ -356,13 +359,17 @@ object --+
     </td>
   </tr></table>
   
-  Remove a line from the history buffer. Subclasses <em>must</em> provide an
+  <pre class="literalblock">
+
+Remove a line from the history buffer. Subclasses *must* provide an
 implementation of this method.
+
+:Parameters:
+    i : int
+        the 0-based index of the item to be removed
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>i</code></strong> - the 0-based index of the item to be removed</li>
-    </ul></dd>
     <dt>Overrides:
         <a href="grizzled.history.History-class.html#remove_item">History.remove_item</a>
         <dd><em class="note">(inherited documentation)</em></dd>
@@ -385,19 +392,22 @@ implementation of this method.
     </td>
   </tr></table>
   
-  Get an item from the history.
+  <pre class="literalblock">
+
+Get an item from the history.
+
+:Parameters:
+    index : int
+        0-based index of the item to get. The larger the index
+        value, the more recent the entry
+
+:rtype: str
+:return: the item at that index
+
+:raise IndexError: Index out of range
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>index</code></strong> - 0-based index of the item to get. The larger the index
-value, the more recent the entry</li>
-    </ul></dd>
-    <dt>Returns: str</dt>
-        <dd>the item at that index</dd>
-    <dt>Raises:</dt>
-    <dd><ul class="nomargin-top">
-        <li><code><strong class='fraise'>IndexError</strong></code> - Index out of range</li>
-    </ul></dd>
     <dt>Overrides:
         <a href="grizzled.history.History-class.html#get_item">History.get_item</a>
         <dd><em class="note">(inherited documentation)</em></dd>
@@ -419,10 +429,15 @@ value, the more recent the entry</li>
     </td>
   </tr></table>
   
-  Get a copy of the history buffer.
+  <pre class="literalblock">
+
+Get a copy of the history buffer.
+
+:rtype: list
+:return: a list of commands from the history
+
+</pre>
   <dl class="fields">
-    <dt>Returns: list</dt>
-        <dd>a list of commands from the history</dd>
     <dt>Overrides:
         <a href="grizzled.history.History-class.html#get_history_list">History.get_history_list</a>
         <dd><em class="note">(inherited documentation)</em></dd>
@@ -444,11 +459,16 @@ value, the more recent the entry</li>
     </td>
   </tr></table>
   
-  Get the total number number of commands in the history. Identical to
-the <tt class="rst-docutils literal"><span class="pre">total</span></tt> property.
+  <pre class="literalblock">
+
+Get the total number number of commands in the history. Identical to
+the ``total`` property.
+
+:rtype: int
+:return: the number of commands in the history
+
+</pre>
   <dl class="fields">
-    <dt>Returns: int</dt>
-        <dd>the number of commands in the history</dd>
     <dt>Overrides:
         <a href="grizzled.history.History-class.html#get_total">History.get_total</a>
         <dd><em class="note">(inherited documentation)</em></dd>
@@ -470,13 +490,18 @@ the <tt class="rst-docutils literal"><span class="pre">total</span></tt> propert
     </td>
   </tr></table>
   
-  Get the maximum length of the history. This isn't the maximum number
+  <pre class="literalblock">
+
+Get the maximum length of the history. This isn't the maximum number
 of entries in the in-memory history buffer; instead, it's the maximum
 number of entries that will be saved to the history file. Subclasses
-<em>must</em> provide an implementation of this method.
+*must* provide an implementation of this method.
+
+:rtype: int
+:return: the maximum saved size of the history
+
+</pre>
   <dl class="fields">
-    <dt>Returns: int</dt>
-        <dd>the maximum saved size of the history</dd>
     <dt>Overrides:
         <a href="grizzled.history.History-class.html#get_max_length">History.get_max_length</a>
         <dd><em class="note">(inherited documentation)</em></dd>
@@ -499,15 +524,19 @@ number of entries that will be saved to the history file. Subclasses
     </td>
   </tr></table>
   
-  Set the maximum length of the history. This isn't the maximum number
+  <pre class="literalblock">
+
+Set the maximum length of the history. This isn't the maximum number
 of entries in the in-memory history buffer; instead, it's the maximum
 number of entries that will be saved to the history file.  Subclasses
-<em>must</em> provide an implementation of this method.
+*must* provide an implementation of this method.
+
+:Parameters:
+    n : int
+        the maximum saved size of the history
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>n</code></strong> - the maximum saved size of the history</li>
-    </ul></dd>
     <dt>Overrides:
         <a href="grizzled.history.History-class.html#set_max_length">History.set_max_length</a>
         <dd><em class="note">(inherited documentation)</em></dd>
@@ -529,8 +558,12 @@ number of entries that will be saved to the history file.  Subclasses
     </td>
   </tr></table>
   
-  Clear the history buffer. Subclasses <em>must</em> provide an
+  <pre class="literalblock">
+
+Clear the history buffer. Subclasses *must* provide an
 implementation of this method.
+
+</pre>
   <dl class="fields">
     <dt>Overrides:
         <a href="grizzled.history.History-class.html#clear_history">History.clear_history</a>
@@ -555,13 +588,17 @@ implementation of this method.
     </td>
   </tr></table>
   
-  Add (append) a line to the history buffer. Subclasses <em>must</em> provide
+  <pre class="literalblock">
+
+Add (append) a line to the history buffer. Subclasses *must* provide
 an implementation of this method.
+
+:Parameters:
+    line : str
+        the command to append to the history
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>line</code></strong> - the command to append to the history</li>
-    </ul></dd>
     <dt>Overrides:
         <a href="grizzled.history.History-class.html#add_item">History.add_item</a>
         <dd><em class="note">(inherited documentation)</em></dd>
@@ -596,7 +633,7 @@ an implementation of this method.
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sat Oct 24 11:58:57 2009
+    Generated by Epydoc 3.0.1 on Sun Mar 13 09:46:08 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

@@ -57,9 +57,9 @@
 </table>
 <h1 class="epydoc">Source Code for <a href="grizzled.db.dummydb-module.html" onclick="show_private();">Module grizzled.db.dummydb</a></h1>
 <pre class="py-src">
-<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment"># $Id: 87faaea2d73732a6c2e0e47cc657debc29f8268c $</tt> </tt>
-<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-comment"></tt>  </tt>
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment"># $Id: 5e4fe45ea4436e0dc7d3743bff9679e052071746 $</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line">  </tt>
 <a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
 <a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-docstring">A dummy database driver, useful for testing.</tt> </tt>
 <a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
@@ -67,15 +67,15 @@
 <a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-name">__docformat__</tt> <tt class="py-op">=</tt> <tt class="py-string">"restructuredtext en"</tt> </tt>
 <a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"> </tt>
 <a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># Imports</tt> </tt>
-<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-comment"># Imports</tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"> </tt>
 <a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package grizzled=grizzled-module.html"><a title="grizzled" class="py-name" href="#" onclick="return doclink('link-0', 'grizzled', 'link-0');">grizzled</a></tt><tt class="py-op">.</tt><tt id="link-1" class="py-name" targets="Package grizzled.db=grizzled.db-module.html"><a title="grizzled.db" class="py-name" href="#" onclick="return doclink('link-1', 'db', 'link-1');">db</a></tt><tt class="py-op">.</tt><tt id="link-2" class="py-name" targets="Module grizzled.db.base=grizzled.db.base-module.html"><a title="grizzled.db.base" class="py-name" href="#" onclick="return doclink('link-2', 'base', 'link-2');">base</a></tt> <tt class="py-keyword">import</tt> <tt id="link-3" class="py-name" targets="Class grizzled.db.base.DBDriver=grizzled.db.base.DBDriver-class.html"><a title="grizzled.db.base.DBDriver" class="py-name" href="#" onclick="return doclink('link-3', 'DBDriver', 'link-3');">DBDriver</a></tt> </tt>
 <a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"> </tt>
 <a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># Constants</tt> </tt>
-<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"><tt class="py-comment"># Constants</tt> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"> </tt>
 <a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"><tt id="link-4" class="py-name" targets="Variable grizzled.db.dummydb.BINARY=grizzled.db.dummydb-module.html#BINARY"><a title="grizzled.db.dummydb.BINARY" class="py-name" href="#" onclick="return doclink('link-4', 'BINARY', 'link-4');">BINARY</a></tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
 <a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"><tt id="link-5" class="py-name" targets="Variable grizzled.db.dummydb.NUMBER=grizzled.db.dummydb-module.html#NUMBER"><a title="grizzled.db.dummydb.NUMBER" class="py-name" href="#" onclick="return doclink('link-5', 'NUMBER', 'link-5');">NUMBER</a></tt> <tt class="py-op">=</tt> <tt class="py-number">1</tt> </tt>
 <a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"><tt id="link-6" class="py-name" targets="Variable grizzled.db.dummydb.STRING=grizzled.db.dummydb-module.html#STRING"><a title="grizzled.db.dummydb.STRING" class="py-name" href="#" onclick="return doclink('link-6', 'STRING', 'link-6');">STRING</a></tt> <tt class="py-op">=</tt> <tt class="py-number">2</tt> </tt>
@@ -83,9 +83,9 @@
 <a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line"><tt id="link-8" class="py-name" targets="Variable grizzled.db.dummydb.ROWID=grizzled.db.dummydb-module.html#ROWID"><a title="grizzled.db.dummydb.ROWID" class="py-name" href="#" onclick="return doclink('link-8', 'ROWID', 'link-8');">ROWID</a></tt> <tt class="py-op">=</tt> <tt class="py-number">4</tt> </tt>
 <a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line"> </tt>
 <a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># Classes</tt> </tt>
-<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
-<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line"><tt class="py-comment"># Classes</tt> </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
+<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line"> </tt>
 <a name="DummyCursor"></a><div id="DummyCursor-def"><a name="L30"></a><tt class="py-lineno">30</tt> <a class="py-toggle" href="#" id="DummyCursor-toggle" onclick="return toggle('DummyCursor');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="grizzled.db.dummydb.DummyCursor-class.html">DummyCursor</a><tt class="py-op">(</tt><tt class="py-base-class">object</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 </div><div id="DummyCursor-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="DummyCursor-expanded"><a name="DummyCursor.close"></a><div id="DummyCursor.close-def"><a name="L31"></a><tt class="py-lineno">31</tt> <a class="py-toggle" href="#" id="DummyCursor.close-toggle" onclick="return toggle('DummyCursor.close');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="grizzled.db.dummydb.DummyCursor-class.html#close">close</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 </div><div id="DummyCursor.close-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="DummyCursor.close-expanded"><a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line">        <tt class="py-keyword">pass</tt> </tt>
@@ -174,7 +174,7 @@ expandto(location.href);
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sat Oct 24 11:58:59 2009
+    Generated by Epydoc 3.0.1 on Sun Mar 13 09:46:09 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

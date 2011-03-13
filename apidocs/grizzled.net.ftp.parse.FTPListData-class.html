@@ -66,8 +66,38 @@ object --+
 </pre>
 
 <hr />
-The <a href="grizzled.net.ftp.parse.FTPListDataParser-class.html" class="link">FTPListDataParser</a> class's <tt class="rst-rst-rst-docutils literal rst-rst-docutils literal rst-docutils literal"><span class="pre">parse_line()</span></tt> method returns an
+<pre class="literalblock">
+
+The `FTPListDataParser` class's ``parse_line()`` method returns an
 instance of this class, capturing the parsed data.
+
+:IVariables:
+    name : str
+        The name of the file, if parsable
+    try_cwd : bool
+        ``True`` if the entry might be a directory (i.e., the caller
+        might want to try an FTP ``CWD`` command), ``False`` if it
+        cannot possibly be a directory.
+    try_retr : bool
+        ``True`` if the entry might be a retrievable file (i.e., the caller
+        might want to try an FTP ``RETR`` command), ``False`` if it
+        cannot possibly be a file.
+    size : long
+        The file's size, in bytes
+    mtime : long
+        The file's modification time, as a value that can be passed to
+        ``time.localtime()``.
+    mtime_type : `MTIME_TYPE`
+        How to interpret the modification time. See `MTIME_TYPE`.
+    id : str
+        A unique identifier for the file. The unique identifier is unique
+        on the *server*. On a Unix system, this identifier might be the
+        device number and the file's inode; on other system's, it might
+        be something else. It's also possible for this field to be ``None``.
+    id_type : `ID_TYPE`
+        How to interpret the identifier. See `ID_TYPE`.
+
+</pre>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -108,6 +138,7 @@ instance of this class, capturing the parsed data.
     <td colspan="2" class="summary">
     <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
       <code>__delattr__</code>,
+      <code>__format__</code>,
       <code>__getattribute__</code>,
       <code>__hash__</code>,
       <code>__new__</code>,
@@ -115,95 +146,10 @@ instance of this class, capturing the parsed data.
       <code>__reduce_ex__</code>,
       <code>__repr__</code>,
       <code>__setattr__</code>,
-      <code>__str__</code>
+      <code>__sizeof__</code>,
+      <code>__str__</code>,
+      <code>__subclasshook__</code>
       </p>
-    </td>
-  </tr>
-</table>
-<!-- ==================== INSTANCE VARIABLES ==================== -->
-<a name="section-InstanceVariables"></a>
-<table class="summary" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr bgcolor="#70b0f0" class="table-header">
-  <td colspan="2" class="table-header">
-    <table border="0" cellpadding="0" cellspacing="0" width="100%">
-      <tr valign="top">
-        <td align="left"><span class="table-header">Instance Variables</span></td>
-        <td align="right" valign="top"
-         ><span class="options">[<a href="#section-InstanceVariables"
-         class="privatelink" onclick="toggle_private();"
-         >hide private</a>]</span></td>
-      </tr>
-    </table>
-  </td>
-</tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">str</span>
-    </td><td class="summary">
-        <a href="grizzled.net.ftp.parse.FTPListData-class.html#id" class="summary-name">id</a><br />
-      A unique identifier for the file.
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type"><a href="grizzled.net.ftp.parse-module.html#ID_TYPE" class="link">ID_TYPE</a></span>
-    </td><td class="summary">
-        <a href="grizzled.net.ftp.parse.FTPListData-class.html#id_type" class="summary-name">id_type</a><br />
-      How to interpret the identifier.
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">long</span>
-    </td><td class="summary">
-        <a name="mtime"></a><span class="summary-name">mtime</span><br />
-      The file's modification time, as a value that can be passed to
-<tt class="rst-docutils literal"><span class="pre">time.localtime()</span></tt>.
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type"><a href="grizzled.net.ftp.parse-module.html#MTIME_TYPE" class="link">MTIME_TYPE</a></span>
-    </td><td class="summary">
-        <a href="grizzled.net.ftp.parse.FTPListData-class.html#mtime_type" class="summary-name">mtime_type</a><br />
-      How to interpret the modification time.
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">str</span>
-    </td><td class="summary">
-        <a name="name"></a><span class="summary-name">name</span><br />
-      The name of the file, if parsable
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">long</span>
-    </td><td class="summary">
-        <a name="size"></a><span class="summary-name">size</span><br />
-      The file's size, in bytes
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">bool</span>
-    </td><td class="summary">
-        <a name="try_cwd"></a><span class="summary-name">try_cwd</span><br />
-      <tt class="rst-docutils literal"><span class="pre">True</span></tt> if the entry might be a directory (i.e., the caller
-might want to try an FTP <tt class="rst-docutils literal"><span class="pre">CWD</span></tt> command), <tt class="rst-docutils literal"><span class="pre">False</span></tt> if it
-cannot possibly be a directory.
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">bool</span>
-    </td><td class="summary">
-        <a name="try_retr"></a><span class="summary-name">try_retr</span><br />
-      <tt class="rst-docutils literal"><span class="pre">True</span></tt> if the entry might be a retrievable file (i.e., the caller
-might want to try an FTP <tt class="rst-docutils literal"><span class="pre">RETR</span></tt> command), <tt class="rst-docutils literal"><span class="pre">False</span></tt> if it
-cannot possibly be a file.
     </td>
   </tr>
 </table>
@@ -277,67 +223,6 @@ cannot possibly be a file.
 </td></tr></table>
 </div>
 <br />
-<!-- ==================== INSTANCE VARIABLE DETAILS ==================== -->
-<a name="section-InstanceVariableDetails"></a>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr bgcolor="#70b0f0" class="table-header">
-  <td colspan="2" class="table-header">
-    <table border="0" cellpadding="0" cellspacing="0" width="100%">
-      <tr valign="top">
-        <td align="left"><span class="table-header">Instance Variable Details</span></td>
-        <td align="right" valign="top"
-         ><span class="options">[<a href="#section-InstanceVariableDetails"
-         class="privatelink" onclick="toggle_private();"
-         >hide private</a>]</span></td>
-      </tr>
-    </table>
-  </td>
-</tr>
-</table>
-<a name="id"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <h3 class="epydoc">id</h3>
-  A unique identifier for the file. The unique identifier is unique
-on the <em>server</em>. On a Unix system, this identifier might be the
-device number and the file's inode; on other system's, it might
-be something else. It's also possible for this field to be <tt class="rst-docutils literal"><span class="pre">None</span></tt>.
-  <dl class="fields">
-    <dt>Type:</dt>
-      <dd>str</dd>
-  </dl>
-</td></tr></table>
-</div>
-<a name="id_type"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <h3 class="epydoc">id_type</h3>
-  How to interpret the identifier. See <a href="grizzled.net.ftp.parse-module.html#ID_TYPE" class="link">ID_TYPE</a>.
-  <dl class="fields">
-    <dt>Type:</dt>
-      <dd><a href="grizzled.net.ftp.parse-module.html#ID_TYPE" class="link">ID_TYPE</a></dd>
-  </dl>
-</td></tr></table>
-</div>
-<a name="mtime_type"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <h3 class="epydoc">mtime_type</h3>
-  How to interpret the modification time. See <a href="grizzled.net.ftp.parse-module.html#MTIME_TYPE" class="link">MTIME_TYPE</a>.
-  <dl class="fields">
-    <dt>Type:</dt>
-      <dd><a href="grizzled.net.ftp.parse-module.html#MTIME_TYPE" class="link">MTIME_TYPE</a></dd>
-  </dl>
-</td></tr></table>
-</div>
-<br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">
@@ -364,7 +249,7 @@ be something else. It's also possible for this field to be <tt class="rst-docuti
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sat Oct 24 11:58:57 2009
+    Generated by Epydoc 3.0.1 on Sun Mar 13 09:46:08 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

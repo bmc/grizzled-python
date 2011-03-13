@@ -56,158 +56,178 @@
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
 <h1 class="epydoc">Module config</h1><p class="nomargin-top"><span class="codelink"><a href="grizzled.config-pysrc.html">source&nbsp;code</a></span></p>
-<div class="rst-section" id="rst-introduction">
-<h1 class="heading">Introduction</h1>
-<p>Based on the standard Python <tt class="rst-rst-rst-docutils literal rst-rst-docutils literal rst-docutils literal"><span class="pre">ConfigParser</span></tt> module, this module provides an
-enhanced configuration parser capabilities. <tt class="rst-docutils literal"><span class="pre">Configuration</span></tt> is a drop-in
-replacement for <tt class="rst-docutils literal"><span class="pre">ConfigParser</span></tt>.</p>
-<p>A configuration file is broken into sections, and each section is
-introduced by a section name in brackets. For example:</p>
-<pre class="rst-literal-block">
-[main]
-installationDirectory=/usr/local/foo
-programDirectory: /usr/local/foo/programs
+<pre class="literalblock">
 
-[search]
-searchCommand: find /usr/local/foo -type f -name &quot;*.class&quot;
+Introduction
+============
 
-[display]
-searchFailedMessage=Search failed, sorry.
-</pre>
-</div>
-<div class="rst-section" id="rst-section-name-syntax">
-<h1 class="heading">Section Name Syntax</h1>
-<p>A section name can consist of alphabetics, numerics, underscores and
+Based on the standard Python ``ConfigParser`` module, this module provides an
+enhanced configuration parser capabilities. ``Configuration`` is a drop-in
+replacement for ``ConfigParser``.
+
+A configuration file is broken into sections, and each section is
+introduced by a section name in brackets. For example::
+
+    [main]
+    installationDirectory=/usr/local/foo
+    programDirectory: /usr/local/foo/programs
+
+    [search]
+    searchCommand: find /usr/local/foo -type f -name &quot;*.class&quot;
+
+    [display]
+    searchFailedMessage=Search failed, sorry.
+
+
+Section Name Syntax
+===================
+
+A section name can consist of alphabetics, numerics, underscores and
 periods. There can be any amount of whitespace before and after the
-brackets in a section name; the whitespace is ignored.</p>
-</div>
-<div class="rst-section" id="rst-variable-syntax">
-<h1 class="heading">Variable Syntax</h1>
-<p>Each section contains zero or more variable settings.</p>
-<blockquote>
-<ul class="rst-simple">
-<li>Similar to a Java <tt class="rst-docutils literal"><span class="pre">Properties</span></tt> file, the variables are specified as
-name/value pairs, separated by an equal sign (&quot;=&quot;) or a colon (&quot;:&quot;).</li>
-<li>Variable names are case-sensitive and may contain alphabetics, numerics,
-underscores and periods (&quot;.&quot;).</li>
-<li>Variable values may contain anything at all. Leading whitespace in the
-value is skipped. The way to include leading whitespace in a value is
-escape the whitespace characters with backslashes.</li>
-</ul>
-</blockquote>
-</div>
-<div class="rst-section" id="rst-variable-substitution">
-<h1 class="heading">Variable Substitution</h1>
-<p>A variable value can interpolate the values of other variables, using a
+brackets in a section name; the whitespace is ignored.
+
+Variable Syntax
+===============
+
+Each section contains zero or more variable settings.
+
+ - Similar to a Java ``Properties`` file, the variables are specified as
+   name/value pairs, separated by an equal sign (&quot;=&quot;) or a colon (&quot;:&quot;).
+ - Variable names are case-sensitive and may contain alphabetics, numerics,
+   underscores and periods (&quot;.&quot;).
+ - Variable values may contain anything at all. Leading whitespace in the
+   value is skipped. The way to include leading whitespace in a value is
+   escape the whitespace characters with backslashes.
+
+Variable Substitution
+=====================
+
+A variable value can interpolate the values of other variables, using a
 variable substitution syntax. The general form of a variable reference is
-<tt class="rst-docutils literal"><span class="pre">${section_name:var_name}</span></tt>.</p>
-<blockquote>
-<ul class="rst-simple">
-<li><em>section_name</em> is the name of the section containing the variable to
-substitute; if omitted, it defaults to the current section.</li>
-<li><em>var_name</em> is the name of the variable to substitute.</li>
-</ul>
-</blockquote>
-<div class="rst-section" id="rst-default-values">
-<h2 class="heading">Default values</h2>
-<p>You can also specify a default value for a variable, using this syntax:</p>
-<pre class="rst-literal-block">
-${foo?default}
-${section:foo?default}
-</pre>
-<p>That is, the sequence <tt class="rst-docutils literal"><span class="pre">?default</span></tt> after a variable name specifies the
+``${section_name:var_name}``.
+
+  - *section_name* is the name of the section containing the variable to
+    substitute; if omitted, it defaults to the current section.
+  - *var_name* is the name of the variable to substitute.
+
+Default values
+--------------
+
+You can also specify a default value for a variable, using this syntax::
+
+    ${foo?default}
+    ${section:foo?default}
+
+That is, the sequence ``?default`` after a variable name specifies the
 default value if the variable has no value. (Normally, if a variable has
 no value, it is replaced with an empty string.) Defaults can be useful,
 for instance, to allow overrides from the environment. The following example
 defines a log file directory that defaults to &quot;/tmp&quot;, unless environment
-variable LOGDIR is set to a non-empty value:</p>
-<pre class="rst-literal-block">
-logDirectory: ${env:LOGDIR?/var/log}
-</pre>
-</div>
-<div class="rst-section" id="rst-special-section-names">
-<h2 class="heading">Special section names</h2>
-<p>The section names &quot;env&quot;, and &quot;program&quot; are reserved for special
-pseudosections.</p>
-<div class="rst-section" id="rst-the-env-pseudosection">
-<h3 class="heading">The <tt class="rst-docutils literal"><span class="pre">env</span></tt> pseudosection</h3>
-<p>The &quot;env&quot; pseudosection is used to interpolate values from the environment. On
-UNIX systems, for instance, <tt class="rst-docutils literal"><span class="pre">${env:HOME}</span></tt> substitutes home directory of the
-current user. On some versions of Windows, <tt class="rst-docutils literal"><span class="pre">${env:USERNAME}</span></tt> will substitute
-the name of the user.</p>
-<p>Note: On UNIX systems, environment variable names are typically
-case-sensitive; for instance, <tt class="rst-docutils literal"><span class="pre">${env:USER}</span></tt> and <tt class="rst-docutils literal"><span class="pre">${env:user}</span></tt> refer to
+variable LOGDIR is set to a non-empty value::
+
+    logDirectory: ${env:LOGDIR?/var/log}
+
+Special section names
+---------------------
+
+The section names &quot;env&quot;, and &quot;program&quot; are reserved for special
+pseudosections.
+
+The ``env`` pseudosection
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The &quot;env&quot; pseudosection is used to interpolate values from the environment. On
+UNIX systems, for instance, ``${env:HOME}`` substitutes home directory of the
+current user. On some versions of Windows, ``${env:USERNAME}`` will substitute
+the name of the user.
+
+Note: On UNIX systems, environment variable names are typically
+case-sensitive; for instance, ``${env:USER}`` and ``${env:user}`` refer to
 different environment variables. On Windows systems, environment variable
-names are typically case-insensitive; <tt class="rst-docutils literal"><span class="pre">${env:USERNAME}</span></tt> and
-<tt class="rst-docutils literal"><span class="pre">${env:username}</span></tt> are equivalent.</p>
-</div>
-<div class="rst-section" id="rst-the-program-pseudosection">
-<h3 class="heading">The <tt class="rst-docutils literal"><span class="pre">program</span></tt> pseudosection</h3>
-<p>The &quot;program&quot; pseudosection is a placeholder for various special variables
-provided by the Configuration class. Those variables are:</p>
-<dl class="rst-docutils">
-<dt><tt class="rst-docutils literal"><span class="pre">cwd</span></tt></dt>
-<dd>The current working directory. Thus, <tt class="rst-docutils literal"><span class="pre">${program:cwd}</span></tt> will substitute
-the working directory, using the appropriate system-specific
-file separator (e.g., &quot;/&quot; on Unix, &quot;&quot; on Windows).</dd>
-<dt><tt class="rst-docutils literal"><span class="pre">name</span></tt></dt>
-<dd>The calling program name. Equivalent to the Python expression
-<tt class="rst-docutils literal"><span class="pre">os.path.basename(sys.argv[0])</span></tt></dd>
-<dt><tt class="rst-docutils literal"><span class="pre">now</span></tt></dt>
-<dd>The current time, formatted using the <tt class="rst-docutils literal"><span class="pre">time.strftime()</span></tt> format
-<tt class="rst-docutils literal"><span class="pre">&quot;%Y-%m-%d</span> <span class="pre">%H:%M:%S&quot;</span></tt> (e.g., &quot;2008-03-03 16:15:27&quot;)</dd>
-</dl>
-</div>
-</div>
-<div class="rst-section" id="rst-includes">
-<h2 class="heading">Includes</h2>
-<p>A special include directive permits inline inclusion of another
-configuration file. The include directive takes two forms:</p>
-<pre class="rst-literal-block">
-%include &quot;path&quot;
-%include &quot;URL&quot;
-</pre>
-<p>For example:</p>
-<pre class="rst-literal-block">
-%include &quot;/home/bmc/mytools/common.cfg&quot;
-%include &quot;http://configs.example.com/mytools/common.cfg&quot;
-</pre>
-<p>The included file may contain any content that is valid for this parser. It
+names are typically case-insensitive; ``${env:USERNAME}`` and
+``${env:username}`` are equivalent.
+
+The ``program`` pseudosection
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The &quot;program&quot; pseudosection is a placeholder for various special variables
+provided by the Configuration class. Those variables are:
+
+``cwd``
+    The current working directory. Thus, ``${program:cwd}`` will substitute
+    the working directory, using the appropriate system-specific
+    file separator (e.g., &quot;/&quot; on Unix, &quot;\&quot; on Windows).
+
+``name``
+    The calling program name. Equivalent to the Python expression
+    ``os.path.basename(sys.argv[0])``
+
+``now``
+    The current time, formatted using the ``time.strftime()`` format
+    ``&quot;%Y-%m-%d %H:%M:%S&quot;`` (e.g., &quot;2008-03-03 16:15:27&quot;)
+
+Includes
+--------
+
+A special include directive permits inline inclusion of another
+configuration file. The include directive takes two forms::
+
+   %include &quot;path&quot;
+   %include &quot;URL&quot;
+
+For example::
+
+    %include &quot;/home/bmc/mytools/common.cfg&quot;
+    %include &quot;http://configs.example.com/mytools/common.cfg&quot;
+
+The included file may contain any content that is valid for this parser. It
 may contain just variable definitions (i.e., the contents of a section,
 without the section header), or it may contain a complete configuration
-file, with individual sections.</p>
-<p>Note: Attempting to include a file from itself, either directly or
-indirectly, will cause the parser to throw an exception.</p>
-</div>
-</div>
-<div class="rst-section" id="rst-replacing-configparser">
-<h1 class="heading">Replacing <tt class="rst-docutils literal"><span class="pre">ConfigParser</span></tt></h1>
-<p>You can use this class anywhere you would use the standard Python
-<tt class="rst-docutils literal"><span class="pre">ConfigParser</span></tt> class. Thus, to change a piece of code to use enhanced
-configuration, you might change this:</p>
-<pre class="py-doctest">
-<span class="py-keyword">import</span> ConfigParser
+file, with individual sections.
 
-config = ConfigParser.SafeConfigParser()
-config.read(configPath)</pre>
-<p>to this:</p>
-<pre class="py-doctest">
-<span class="py-keyword">from</span> grizzled.config <span class="py-keyword">import</span> Configuration
+Note: Attempting to include a file from itself, either directly or
+indirectly, will cause the parser to throw an exception.
 
-config = Configuration()
-config.read(configPath)</pre>
-<p>Sometimes, however, you have to use an API that expects a path to a
-configuration file that can <em>only</em> be parsed with the (unenhanced)
-<tt class="rst-docutils literal"><span class="pre">ConfigParser</span></tt> class. In that case, you simply use the <tt class="rst-docutils literal"><span class="pre">preprocess()</span></tt>
-method:</p>
-<pre class="py-doctest">
-<span class="py-keyword">import</span> logging
-<span class="py-keyword">from</span> grizzled <span class="py-keyword">import</span> config
+Replacing ``ConfigParser``
+==========================
 
-logging.config.fileConfig(config.preprocess(pathToConfig))</pre>
-<p>That will preprocess the enhanced configuration file, producing a file
-that is suitable for parsing by the standard Python <tt class="rst-docutils literal"><span class="pre">config</span></tt> module.</p>
-</div>
+You can use this class anywhere you would use the standard Python
+``ConfigParser`` class. Thus, to change a piece of code to use enhanced
+configuration, you might change this:
+
+.. python::
+
+    import ConfigParser
+
+    config = ConfigParser.SafeConfigParser()
+    config.read(configPath)
+
+to this:
+
+.. python::
+
+    from grizzled.config import Configuration
+
+    config = Configuration()
+    config.read(configPath)
+
+
+Sometimes, however, you have to use an API that expects a path to a
+configuration file that can *only* be parsed with the (unenhanced)
+``ConfigParser`` class. In that case, you simply use the ``preprocess()``
+method:
+
+.. python::
+
+    import logging
+    from grizzled import config
+
+    logging.config.fileConfig(config.preprocess(pathToConfig))
+
+That will preprocess the enhanced configuration file, producing a file
+that is suitable for parsing by the standard Python ``config`` module.
+
+</pre>
 
 <!-- ==================== CLASSES ==================== -->
 <a name="section-Classes"></a>
@@ -248,8 +268,8 @@ that is suitable for parsing by the standard Python <tt class="rst-docutils lite
     </td><td class="summary">
         <a href="grizzled.config.NoVariableError-class.html" class="summary-name">NoVariableError</a><br />
       Thrown when a configuration file attempts to substitute a nonexistent
-variable, and the <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">Configuration</span></tt> object was instantiated with
-<tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">strict_substitution</span></tt> set to <tt class="rst-rst-docutils literal rst-docutils literal"><span class="pre">True</span></tt>.
+variable, and the ``Configuration`` object was instantiated with
+``strict_substitution`` set to ``True``.
     </td>
   </tr>
 <tr>
@@ -297,7 +317,7 @@ reference syntax.
 </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">string</span>
+      <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -389,6 +409,14 @@ A-Z][_a-zA-Z0-9]+)(\\?[^}]+)?'"><code class="variable-quote">'</code><code class
         <a name="PROGRAM_SECTION"></a><span class="summary-name">PROGRAM_SECTION</span> = <code title="'program'"><code class="variable-quote">'</code><code class="variable-string">program</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="None">None</code><br />
+      hash(x)
+    </td>
+  </tr>
 </table>
 <!-- ==================== FUNCTION DETAILS ==================== -->
 <a name="section-FunctionDetails"></a>
@@ -423,30 +451,39 @@ A-Z][_a-zA-Z0-9]+)(\\?[^}]+)?'"><code class="variable-quote">'</code><code class
     </td>
   </tr></table>
   
-  <p>This function preprocesses a file or URL for a configuration file,
+  <pre class="literalblock">
+
+This function preprocesses a file or URL for a configuration file,
 processing all includes and substituting all variables. It writes a new
 configuration file to a temporary file (or specified output file). The
-new configuration file can be read by a standard <tt class="rst-docutils literal"><span class="pre">ConfigParser</span></tt>
+new configuration file can be read by a standard ``ConfigParser``
 object. Thus, this method is useful when you have an extended
 configuration file that must be passed to a function or object that can
-only read a standard <tt class="rst-docutils literal"><span class="pre">ConfigParser</span></tt> file.</p>
-<p>For example, here's how you might use the Python <tt class="rst-docutils literal"><span class="pre">logging</span></tt> API with an
-extended configuration file:</p>
-<pre class="py-doctest">
-<span class="py-keyword">from</span> grizzled.config <span class="py-keyword">import</span> Configuration
-<span class="py-keyword">import</span> logging
+only read a standard ``ConfigParser`` file.
 
-logging.config.fileConfig(Configuration.preprocess(<span class="py-string">'/path/to/config'</span>)</pre>
+For example, here's how you might use the Python ``logging`` API with an
+extended configuration file:
+
+.. python::
+
+    from grizzled.config import Configuration
+    import logging
+
+    logging.config.fileConfig(Configuration.preprocess('/path/to/config')
+
+:Parameters:
+    file_or_url :  str
+       file or URL to read and preprocess
+    defaults : dict
+        defaults to pass through to the config parser
+
+:rtype: string
+:return: Path to a temporary file containing the expanded configuration.
+         The file will be deleted when the program exits, though the caller
+         is free to delete it sooner.
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>file_or_url</code></strong> (str) - file or URL to read and preprocess</li>
-        <li><strong class="pname"><code>defaults</code></strong> (dict) - defaults to pass through to the config parser</li>
-    </ul></dd>
-    <dt>Returns: string</dt>
-        <dd>Path to a temporary file containing the expanded configuration.
-The file will be deleted when the program exits, though the caller
-is free to delete it sooner.</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -533,7 +570,7 @@ is free to delete it sooner.</dd>
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sat Oct 24 11:58:55 2009
+    Generated by Epydoc 3.0.1 on Sun Mar 13 09:46:08 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"
