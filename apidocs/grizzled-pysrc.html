@@ -56,34 +56,30 @@
 <h1 class="epydoc">Source Code for <a href="grizzled-module.html">Package grizzled</a></h1>
 <pre class="py-src">
 <a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
-<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-docstring">The *Grizzled Utility Library* is a general-purpose Python library with</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-docstring">The Grizzled Utility Library is a general-purpose Python library with</tt> </tt>
 <a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-docstring">a variety of different modules and packages. It's roughly organized into</tt> </tt>
 <a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-docstring">subpackages that group different kinds of utility functions and classes.</tt> </tt>
-<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
-<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-docstring">See the `API documentation`_ for complete details.</tt> </tt>
-<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
-<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-docstring">.. _API documentation: http://software.clapper.org/python/grizzled-python/epydoc</tt> </tt>
-<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
-<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"> </tt>
-<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-name">__docformat__</tt> <tt class="py-op">=</tt> <tt class="py-string">"restructuredtext en"</tt> </tt>
-<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"> </tt>
-<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"><tt class="py-name">__version__</tt> <tt class="py-op">=</tt> <tt class="py-string">'0.9.4'</tt> </tt>
-<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt class="py-name">__author__</tt>  <tt class="py-op">=</tt> <tt class="py-string">'Brian M. Clapper'</tt> </tt>
-<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"><tt id="link-0" class="py-name" targets="Variable grizzled.__email__=grizzled-module.html#__email__"><a title="grizzled.__email__" class="py-name" href="#" onclick="return doclink('link-0', '__email__', 'link-0');">__email__</a></tt>   <tt class="py-op">=</tt> <tt class="py-string">'bmc@clapper.org'</tt> </tt>
-<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"><tt id="link-1" class="py-name" targets="Variable grizzled.__url__=grizzled-module.html#__url__"><a title="grizzled.__url__" class="py-name" href="#" onclick="return doclink('link-1', '__url__', 'link-1');">__url__</a></tt>     <tt class="py-op">=</tt> <tt class="py-string">'http://software.clapper.org/grizzled-python/'</tt> </tt>
-<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"><tt class="py-name">__license__</tt> <tt class="py-op">=</tt> <tt class="py-string">'BSD license'</tt> </tt>
-<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"><tt id="link-2" class="py-name" targets="Variable grizzled.__title__=grizzled-module.html#__title__"><a title="grizzled.__title__" class="py-name" href="#" onclick="return doclink('link-2', '__title__', 'link-2');">__title__</a></tt>   <tt class="py-op">=</tt> <tt class="py-string">'The Grizzled Python Utility Library'</tt> </tt>
-<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"> </tt>
-<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"><tt class="py-comment"># Public stuff</tt> </tt>
-<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"> </tt>
-<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"><tt id="link-3" class="py-name" targets="Variable grizzled.db.base.RDBMSMetadata.version=grizzled.db.base.RDBMSMetadata-class.html#version,Variable grizzled.version=grizzled-module.html#version"><a title="grizzled.db.base.RDBMSMetadata.version
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-name">__docformat__</tt> <tt class="py-op">=</tt> <tt class="py-string">"restructuredtext en"</tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-name">__version__</tt> <tt class="py-op">=</tt> <tt class="py-string">'0.9.4'</tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-name">__author__</tt>  <tt class="py-op">=</tt> <tt class="py-string">'Brian M. Clapper'</tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt id="link-0" class="py-name" targets="Variable grizzled.__email__=grizzled-module.html#__email__"><a title="grizzled.__email__" class="py-name" href="#" onclick="return doclink('link-0', '__email__', 'link-0');">__email__</a></tt>   <tt class="py-op">=</tt> <tt class="py-string">'bmc@clapper.org'</tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt id="link-1" class="py-name" targets="Variable grizzled.__url__=grizzled-module.html#__url__"><a title="grizzled.__url__" class="py-name" href="#" onclick="return doclink('link-1', '__url__', 'link-1');">__url__</a></tt>     <tt class="py-op">=</tt> <tt class="py-string">'http://software.clapper.org/grizzled-python/'</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"><tt class="py-name">__license__</tt> <tt class="py-op">=</tt> <tt class="py-string">'BSD license'</tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt id="link-2" class="py-name" targets="Variable grizzled.__title__=grizzled-module.html#__title__"><a title="grizzled.__title__" class="py-name" href="#" onclick="return doclink('link-2', '__title__', 'link-2');">__title__</a></tt>   <tt class="py-op">=</tt> <tt class="py-string">'The Grizzled Python Utility Library'</tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"><tt class="py-comment"># Public stuff</tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"><tt id="link-3" class="py-name" targets="Variable grizzled.db.base.RDBMSMetadata.version=grizzled.db.base.RDBMSMetadata-class.html#version,Variable grizzled.version=grizzled-module.html#version"><a title="grizzled.db.base.RDBMSMetadata.version
 grizzled.version" class="py-name" href="#" onclick="return doclink('link-3', 'version', 'link-3');">version</a></tt> <tt class="py-op">=</tt> <tt class="py-name">__version__</tt> </tt>
-<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line"><tt id="link-4" class="py-name" targets="Variable grizzled.author=grizzled-module.html#author"><a title="grizzled.author" class="py-name" href="#" onclick="return doclink('link-4', 'author', 'link-4');">author</a></tt>  <tt class="py-op">=</tt> <tt class="py-name">__author__</tt> </tt>
-<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line"><tt id="link-5" class="py-name" targets="Variable grizzled.email=grizzled-module.html#email"><a title="grizzled.email" class="py-name" href="#" onclick="return doclink('link-5', 'email', 'link-5');">email</a></tt>   <tt class="py-op">=</tt> <tt id="link-6" class="py-name"><a title="grizzled.__email__" class="py-name" href="#" onclick="return doclink('link-6', '__email__', 'link-0');">__email__</a></tt> </tt>
-<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line"><tt id="link-7" class="py-name" targets="Variable grizzled.url=grizzled-module.html#url"><a title="grizzled.url" class="py-name" href="#" onclick="return doclink('link-7', 'url', 'link-7');">url</a></tt>     <tt class="py-op">=</tt> <tt id="link-8" class="py-name"><a title="grizzled.__url__" class="py-name" href="#" onclick="return doclink('link-8', '__url__', 'link-1');">__url__</a></tt> </tt>
-<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line"><tt id="link-9" class="py-name" targets="Variable grizzled.license=grizzled-module.html#license"><a title="grizzled.license" class="py-name" href="#" onclick="return doclink('link-9', 'license', 'link-9');">license</a></tt> <tt class="py-op">=</tt> <tt class="py-name">__license__</tt> </tt>
-<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line"><tt id="link-10" class="py-name" targets="Variable grizzled.title=grizzled-module.html#title"><a title="grizzled.title" class="py-name" href="#" onclick="return doclink('link-10', 'title', 'link-10');">title</a></tt>   <tt class="py-op">=</tt> <tt id="link-11" class="py-name"><a title="grizzled.__title__" class="py-name" href="#" onclick="return doclink('link-11', '__title__', 'link-2');">__title__</a></tt> </tt>
-<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"><tt id="link-4" class="py-name" targets="Variable grizzled.author=grizzled-module.html#author"><a title="grizzled.author" class="py-name" href="#" onclick="return doclink('link-4', 'author', 'link-4');">author</a></tt>  <tt class="py-op">=</tt> <tt class="py-name">__author__</tt> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"><tt id="link-5" class="py-name" targets="Variable grizzled.email=grizzled-module.html#email"><a title="grizzled.email" class="py-name" href="#" onclick="return doclink('link-5', 'email', 'link-5');">email</a></tt>   <tt class="py-op">=</tt> <tt id="link-6" class="py-name"><a title="grizzled.__email__" class="py-name" href="#" onclick="return doclink('link-6', '__email__', 'link-0');">__email__</a></tt> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"><tt id="link-7" class="py-name" targets="Variable grizzled.url=grizzled-module.html#url"><a title="grizzled.url" class="py-name" href="#" onclick="return doclink('link-7', 'url', 'link-7');">url</a></tt>     <tt class="py-op">=</tt> <tt id="link-8" class="py-name"><a title="grizzled.__url__" class="py-name" href="#" onclick="return doclink('link-8', '__url__', 'link-1');">__url__</a></tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"><tt id="link-9" class="py-name" targets="Variable grizzled.license=grizzled-module.html#license"><a title="grizzled.license" class="py-name" href="#" onclick="return doclink('link-9', 'license', 'link-9');">license</a></tt> <tt class="py-op">=</tt> <tt class="py-name">__license__</tt> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line"><tt id="link-10" class="py-name" targets="Variable grizzled.title=grizzled-module.html#title"><a title="grizzled.title" class="py-name" href="#" onclick="return doclink('link-10', 'title', 'link-10');">title</a></tt>   <tt class="py-op">=</tt> <tt id="link-11" class="py-name"><a title="grizzled.__title__" class="py-name" href="#" onclick="return doclink('link-11', '__title__', 'link-2');">__title__</a></tt> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line"> </tt><script type="text/javascript">
 <!--
 expandto(location.href);
 // -->
@@ -117,7 +113,7 @@ expandto(location.href);
   <tr>
     <td align="left" class="footer">
     Generated by Epydoc 3.0.1
-    on Sun Mar 13 09:59:16 2011
+    on Sun Mar 13 10:01:20 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"
