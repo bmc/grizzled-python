@@ -68,7 +68,7 @@ request. Along with any patch you send:
 [license]: license.html
 [*epydoc*]: http://epydoc.sourceforge.net/
 [Python]: http://www.python.org/
-[API Documentation]: apidocs/
+[API Documentation]: epydoc/
 [Brian M. Clapper]: mailto:bmc@clapper.org
 [EasyInstall]: http://peak.telecommunity.com/DevCenter/EasyInstall
 [PyPI]: http://pypi.python.org/pypi
