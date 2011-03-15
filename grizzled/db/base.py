@@ -3,6 +3,7 @@
 """
 Base classes for enhanced DB drivers.
 """
+from __future__ import absolute_import
 
 __docformat__ = "restructuredtext en"
 
@@ -15,10 +16,10 @@ import time
 import os
 import sys
 from datetime import date, datetime
+from collections import namedtuple
 
 from grizzled.exception import ExceptionWithMessage
 from grizzled.decorators import abstract
-from grizzled.collections import namedtuple
 
 # ---------------------------------------------------------------------------
 # Exports

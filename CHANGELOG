@@ -1,3 +1,12 @@
+Version 1.0 (14 March, 2011)
+
+- Added grizzled.proxy.Forwarder, a mixin that aids writing wrappers that
+  forward some, or all, unknown attributes to a wrapped object.
+- Graduated to 1.0. It's been around long enough.
+- Removed setup.py reliance on 'ez_setup' module.
+- Removed grizzled.collections.namedtuple.
+
+---------------------------------------------------------------------------
 Version 0.9.4 (10 June, 2010)
 
 - Fixed various incorrect docstrings.

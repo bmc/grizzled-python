@@ -5,8 +5,6 @@
 # $Id$
 # ---------------------------------------------------------------------------
 
-import ez_setup
-ez_setup.use_setuptools(download_delay=2)
 from setuptools import setup, find_packages
 import sys
 import os
@@ -19,12 +17,11 @@ module = imp.load_module('grizzled', open(module_file), module_file,
 
 # Now the setup stuff.
 
-setup (name             = 'grizzled',
+setup (name             = 'grizzled-python',
        version          = module.version,
        description      = module.title,
        long_description = module.__doc__,
        packages         = find_packages(),
-       py_modules       = ['ez_setup'],
        url              = module.url,
        license          = module.version,
        author           = module.author,

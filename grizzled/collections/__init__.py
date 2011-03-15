@@ -13,10 +13,9 @@ __docformat__ = "restructuredtext en"
 # ---------------------------------------------------------------------------
 
 from grizzled.collections.dict import OrderedDict, LRUDict
-from grizzled.collections.tuple import namedtuple
 
 # ---------------------------------------------------------------------------
 # Exports
 # ---------------------------------------------------------------------------
 
-__all__ = ['OrderedDict', 'LRUDict', 'namedtuple']
+__all__ = ['OrderedDict', 'LRUDict']
