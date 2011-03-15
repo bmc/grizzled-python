@@ -3,11 +3,6 @@ title: Change log for grizzled-python
 layout: default
 ---
 
-Version 1.0.1 (...)
-
-* Changed `setup.py` to copy stuff to the `gh-pages` directory.
-
----------------------------------------------------------------------------
 Version 1.0 (14 March, 2011)
 
 * Added `grizzled.proxy.Forwarder`, a mixin that aids writing wrappers that
