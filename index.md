@@ -33,6 +33,9 @@ commands:
     $ git clone git://github.com/bmc/grizzled-python.git
     $ git clone http://github.com/bmc/grizzled-python.git
 
+If you don't have [git][], you can download the source distribution, as a
+zipfile or a tarball, from the [Git repository][].
+
 Once you have a local `grizzled-python` source directory, change your
 working directory to the source directory, and type:
 
@@ -75,3 +78,4 @@ request. Along with any patch you send:
 [pip]: http://pip-installer.org/
 [PyPI]: http://pypi.python.org/pypi
 [GitHub repository]: http://github.com/bmc/grizzled-python
+[git]: http://git-scm.com/
