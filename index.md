@@ -49,6 +49,8 @@ Please see the [*epydoc*][]-generated [API documentation][] for
 documentation on the individual classes and modules in the Grizzled Python
 Utility Library.
 
+Also, feel free to peruse the [change log](CHANGELOG.html).
+
 ## Copyright and License
 
 The Grizzled Python Utility Library is copyright &copy; 2008-2011
