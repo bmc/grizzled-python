@@ -12,14 +12,9 @@ grizzled.title	grizzled-module.html#title
 grizzled.cmdline	grizzled.cmdline-module.html
 grizzled.cmdline.__package__	grizzled.cmdline-module.html#__package__
 grizzled.collections	grizzled.collections-module.html
-grizzled.collections.namedtuple	grizzled.collections-module.html#namedtuple
 grizzled.collections.__package__	grizzled.collections-module.html#__package__
 grizzled.collections.dict	grizzled.collections.dict-module.html
 grizzled.collections.dict.__package__	grizzled.collections.dict-module.html#__package__
-grizzled.collections.tuple	grizzled.collections.tuple-module.html
-grizzled.collections.tuple.namedtuple	grizzled.collections.tuple-module.html#namedtuple
-grizzled.collections.tuple.__package__	grizzled.collections.tuple-module.html#__package__
-grizzled.collections.tuple._local_namedtuple	grizzled.collections.tuple-module.html#_local_namedtuple
 grizzled.config	grizzled.config-module.html
 grizzled.config.SECTION_OPTION_DELIM	grizzled.config-module.html#SECTION_OPTION_DELIM
 grizzled.config.PROGRAM_SECTION	grizzled.config-module.html#PROGRAM_SECTION
@@ -43,7 +38,6 @@ grizzled.db.paramstyle	grizzled.db-module.html#paramstyle
 grizzled.db.get_driver	grizzled.db-module.html#get_driver
 grizzled.db.apilevel	grizzled.db-module.html#apilevel
 grizzled.db.base	grizzled.db.base-module.html
-grizzled.db.base.namedtuple	grizzled.collections.tuple-module.html#namedtuple
 grizzled.db.base.abstract	grizzled.decorators-module.html#abstract
 grizzled.db.base.__package__	grizzled.db.base-module.html#__package__
 grizzled.db.dbgadfly	grizzled.db.dbgadfly-module.html
@@ -151,6 +145,9 @@ grizzled.os.WORKDIR	grizzled.os-module.html#WORKDIR
 grizzled.os.deprecated	grizzled.decorators-module.html#deprecated
 grizzled.os.PATH_SEPARATOR	grizzled.os-module.html#PATH_SEPARATOR
 grizzled.os.daemonize	grizzled.os-module.html#daemonize
+grizzled.proxy	grizzled.proxy-module.html
+grizzled.proxy.log	grizzled.proxy-module.html#log
+grizzled.proxy.__package__	grizzled.proxy-module.html#__package__
 grizzled.system	grizzled.system-module.html
 grizzled.system.class_for_name	grizzled.system-module.html#class_for_name
 grizzled.system.log	grizzled.system-module.html#log
@@ -679,8 +676,8 @@ grizzled.io.filelock._WindowsFileLock.lock	grizzled.io.filelock._WindowsFileLock
 grizzled.io.filelock._WindowsFileLock.unlock	grizzled.io.filelock._WindowsFileLock-class.html#unlock
 grizzled.io.filelock._WindowsFileLock.__init__	grizzled.io.filelock._WindowsFileLock-class.html#__init__
 grizzled.log.WrappingLogFormatter	grizzled.log.WrappingLogFormatter-class.html
-grizzled.log.WrappingLogFormatter.__init__	grizzled.log.WrappingLogFormatter-class.html#__init__
 grizzled.log.WrappingLogFormatter.format	grizzled.log.WrappingLogFormatter-class.html#format
+grizzled.log.WrappingLogFormatter.__init__	grizzled.log.WrappingLogFormatter-class.html#__init__
 grizzled.misc.ReadOnly	grizzled.misc.ReadOnly-class.html
 grizzled.misc.ReadOnly.__setattr__	grizzled.misc.ReadOnly-class.html#__setattr__
 grizzled.misc.ReadOnly.__getattribute__	grizzled.misc.ReadOnly-class.html#__getattribute__
@@ -711,3 +708,6 @@ grizzled.net.ftp.parse.FTPListDataParser._parse_msdos	grizzled.net.ftp.parse.FTP
 grizzled.net.ftp.parse.FTPListDataParser._parse_multinet	grizzled.net.ftp.parse.FTPListDataParser-class.html#_parse_multinet
 grizzled.net.ftp.parse.FTPListDataParser.__init__	grizzled.net.ftp.parse.FTPListDataParser-class.html#__init__
 grizzled.os.DaemonError	grizzled.os.DaemonError-class.html
+grizzled.proxy.Forwarder	grizzled.proxy.Forwarder-class.html
+grizzled.proxy.Forwarder.__init__	grizzled.proxy.Forwarder-class.html#__init__
+grizzled.proxy.Forwarder.__getattr__	grizzled.proxy.Forwarder-class.html#__getattr__

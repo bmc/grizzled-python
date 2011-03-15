@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>grizzled.db.base.Error</title>
+  <title>grizzled.proxy</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -38,9 +38,7 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="grizzled-module.html">Package&nbsp;grizzled</a> ::
-        <a href="grizzled.db-module.html">Package&nbsp;db</a> ::
-        <a href="grizzled.db.base-module.html" onclick="show_private();">Module&nbsp;base</a> ::
-        Class&nbsp;Error
+        Module&nbsp;proxy
       </span>
     </td>
     <td>
@@ -50,96 +48,72 @@
     onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
-            >]&nbsp;|&nbsp;<a href="grizzled.db.base.Error-class.html"
+            >]&nbsp;|&nbsp;<a href="grizzled.proxy-module.html"
             target="_top">no&nbsp;frames</a>]</span></td></tr>
       </table>
     </td>
   </tr>
 </table>
-<!-- ==================== TYPE DESCRIPTION ==================== -->
-<h1 class="epydoc">type Error</h1><p class="nomargin-top"><span class="codelink"><a href="grizzled.db.base-pysrc.html#Error">source&nbsp;code</a></span></p>
-<pre class="base-tree">
-              object --+                
-                       |                
-exceptions.BaseException --+            
-                           |            
-        exceptions.Exception --+        
-                               |        
-  <a href="grizzled.exception.ExceptionWithMessage-class.html">exception.ExceptionWithMessage</a> --+    
-                                   |    
-                             <a href="grizzled.db.base.DBError-class.html">DBError</a> --+
-                                       |
-                                      <strong class="uidshort">Error</strong>
-</pre>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module proxy</h1><p class="nomargin-top"><span class="codelink"><a href="grizzled.proxy-pysrc.html">source&nbsp;code</a></span></p>
+<p>The <tt class="rst-rst-rst-docutils literal rst-rst-docutils literal rst-docutils literal">grizzled.forwarder</tt> module contain classes that make building proxies
+easier.</p>
 
-<hr />
-Thrown to indicate an error in the <tt class="rst-rst-rst-rst-docutils literal rst-rst-rst-docutils literal rst-rst-docutils literal rst-docutils literal">db</tt> module.
-
-<!-- ==================== INSTANCE METHODS ==================== -->
-<a name="section-InstanceMethods"></a>
+<!-- ==================== CLASSES ==================== -->
+<a name="section-Classes"></a>
 <table class="summary" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr bgcolor="#70b0f0" class="table-header">
   <td colspan="2" class="table-header">
     <table border="0" cellpadding="0" cellspacing="0" width="100%">
       <tr valign="top">
-        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="left"><span class="table-header">Classes</span></td>
         <td align="right" valign="top"
-         ><span class="options">[<a href="#section-InstanceMethods"
+         ><span class="options">[<a href="#section-Classes"
          class="privatelink" onclick="toggle_private();"
          >hide private</a>]</span></td>
       </tr>
     </table>
   </td>
 </tr>
-  <tr>
-    <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="grizzled.exception.ExceptionWithMessage-class.html">exception.ExceptionWithMessage</a></code></b>:
-      <code><a href="grizzled.exception.ExceptionWithMessage-class.html#__init__">__init__</a></code>,
-      <code><a href="grizzled.exception.ExceptionWithMessage-class.html#__str__">__str__</a></code>
-      </p>
-    <p class="indent-wrapped-lines"><b>Inherited from <code>exceptions.Exception</code></b>:
-      <code>__new__</code>
-      </p>
-    <p class="indent-wrapped-lines"><b>Inherited from <code>exceptions.BaseException</code></b>:
-      <code>__delattr__</code>,
-      <code>__getattribute__</code>,
-      <code>__getitem__</code>,
-      <code>__getslice__</code>,
-      <code>__reduce__</code>,
-      <code>__repr__</code>,
-      <code>__setattr__</code>,
-      <code>__setstate__</code>,
-      <code>__unicode__</code>
-      </p>
+<tr>
+    <td class="summary" colspan="2">
+        <a href="grizzled.proxy.Forwarder-class.html" class="summary-name">Forwarder</a><br />
+      The <tt class="rst-rst-docutils literal rst-docutils literal">grizzled.forwarder.Forwarder</tt> class is intended to be used as
+a mixin, to make it easier for classes to forward calls to another
+class.
     </td>
   </tr>
 </table>
-<!-- ==================== PROPERTIES ==================== -->
-<a name="section-Properties"></a>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
 <table class="summary" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr bgcolor="#70b0f0" class="table-header">
   <td colspan="2" class="table-header">
     <table border="0" cellpadding="0" cellspacing="0" width="100%">
       <tr valign="top">
-        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="left"><span class="table-header">Variables</span></td>
         <td align="right" valign="top"
-         ><span class="options">[<a href="#section-Properties"
+         ><span class="options">[<a href="#section-Variables"
          class="privatelink" onclick="toggle_private();"
          >hide private</a>]</span></td>
       </tr>
     </table>
   </td>
 </tr>
-  <tr>
-    <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="grizzled.exception.ExceptionWithMessage-class.html">exception.ExceptionWithMessage</a></code></b>:
-      <code><a href="grizzled.exception.ExceptionWithMessage-class.html#message">message</a></code>
-      </p>
-    <p class="indent-wrapped-lines"><b>Inherited from <code>exceptions.BaseException</code></b>:
-      <code>args</code>
-      </p>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="log"></a><span class="summary-name">log</span> = <code title="logging.getLogger('grizzled.proxy')">logging.getLogger('grizzled.proxy')</code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="None">None</code>
     </td>
   </tr>
 </table>

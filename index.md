@@ -14,13 +14,13 @@ Grizzled Python is under continual development, so check back regularly.
 
 ## Getting and installing Grizzled Python
 
-### Installing via EasyInstall
+### Installing via pip
 
 Because Grizzled Python is available via [PyPI][], if you have
-[EasyInstall][] installed on your system, installing the library is as easy
+[pip][] installed on your system, installing the library is as easy
 as running this command (usually as `root` or the system administrator):
 
-    easy_install grizzled
+    pip install grizzled-python
 
 ### Installing from source
 
@@ -51,7 +51,7 @@ Utility Library.
 
 ## Copyright and License
 
-The Grizzled Python Utility Library is copyright &copy; 2008-2010
+The Grizzled Python Utility Library is copyright &copy; 2008-2011
 [Brian M. Clapper][] is released under a [BSD license][license]. See the
 accompanying [license][] file.
 
@@ -70,6 +70,6 @@ request. Along with any patch you send:
 [Python]: http://www.python.org/
 [API Documentation]: epydoc/
 [Brian M. Clapper]: mailto:bmc@clapper.org
-[EasyInstall]: http://peak.telecommunity.com/DevCenter/EasyInstall
+[pip]: http://pip-installer.org/
 [PyPI]: http://pypi.python.org/pypi
 [GitHub repository]: http://github.com/bmc/grizzled-python

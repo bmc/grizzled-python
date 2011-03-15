@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>grizzled.io.filelock._WindowsFileLock</title>
+  <title>grizzled.proxy.Forwarder</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -38,9 +38,8 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="grizzled-module.html">Package&nbsp;grizzled</a> ::
-        <a href="grizzled.io-module.html">Package&nbsp;io</a> ::
-        <a href="grizzled.io.filelock-module.html" onclick="show_private();">Module&nbsp;filelock</a> ::
-        Class&nbsp;_WindowsFileLock
+        <a href="grizzled.proxy-module.html">Module&nbsp;proxy</a> ::
+        Class&nbsp;Forwarder
       </span>
     </td>
     <td>
@@ -50,22 +49,49 @@
     onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
-            >]&nbsp;|&nbsp;<a href="grizzled.io.filelock._WindowsFileLock-class.html"
+            >]&nbsp;|&nbsp;<a href="grizzled.proxy.Forwarder-class.html"
             target="_top">no&nbsp;frames</a>]</span></td></tr>
       </table>
     </td>
   </tr>
 </table>
 <!-- ==================== TYPE DESCRIPTION ==================== -->
-<h1 class="epydoc">type _WindowsFileLock</h1><p class="nomargin-top"><span class="codelink"><a href="grizzled.io.filelock-pysrc.html#_WindowsFileLock">source&nbsp;code</a></span></p>
+<h1 class="epydoc">type Forwarder</h1><p class="nomargin-top"><span class="codelink"><a href="grizzled.proxy-pysrc.html#Forwarder">source&nbsp;code</a></span></p>
 <pre class="base-tree">
 object --+
          |
-        <strong class="uidshort">_WindowsFileLock</strong>
+        <strong class="uidshort">Forwarder</strong>
 </pre>
 
 <hr />
-File lock implementation for Windows systems.
+<p>The <tt class="rst-rst-rst-docutils literal rst-rst-docutils literal rst-docutils literal">grizzled.forwarder.Forwarder</tt> class is intended to be used as
+a mixin, to make it easier for classes to forward calls to another
+class. The mix <tt class="rst-docutils literal">Forwarder</tt> into a class, simply include it as
+one of the base classes.</p>
+<p><strong>WARNING</strong>: <tt class="rst-docutils literal">Forwarder</tt> intercepts calls to <tt class="rst-docutils literal">__getattr__</tt>, so
+don't mix it in if your class is already overriding <tt class="rst-docutils literal">__getattr__</tt>.</p>
+<div class="rst-section" id="rst-examples">
+<h1 class="heading">Examples</h1>
+<p>Forward all unimplemented methods to a file:</p>
+<pre class="py-doctest">
+<span class="py-keyword">from</span> grizzled.forwarder <span class="py-keyword">import</span> Forwarder
+
+<span class="py-keyword">class</span> <span class="py-defname">MyFileWrapper</span>(Forwarder):
+    <span class="py-keyword">def</span> <span class="py-defname">__init__</span>(self, file):
+        Forwarder.__init__(self, file)
+
+w = MyFileWrapper(open(<span class="py-string">'/tmp/foo'</span>))
+<span class="py-keyword">for</span> line <span class="py-keyword">in</span> w.readlines():
+    <span class="py-keyword">print</span> line</pre>
+<p>Forward all unimplemented calls, <em>except</em> <tt class="rst-docutils literal">name</tt>, to the specified
+object. Calls to <tt class="rst-docutils literal">name</tt> will raise an <tt class="rst-docutils literal">AttributeError</tt>:</p>
+<pre class="py-doctest">
+<span class="py-keyword">from</span> grizzled.forwarder <span class="py-keyword">import</span> Forwarder
+
+<span class="py-keyword">class</span> <span class="py-defname">MyFileWrapper</span>(Forwarder):
+    <span class="py-keyword">def</span> <span class="py-defname">__init__</span>(self, file):
+        Forwarder.__init__(self, file, <span class="py-string">'name'</span>)</pre>
+</div>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -90,10 +116,13 @@ File lock implementation for Windows systems.
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="grizzled.io.filelock._WindowsFileLock-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">fd</span>)</span></td>
+          <td><span class="summary-sig"><a href="grizzled.proxy.Forwarder-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">wrapped</span>,
+        <span class="summary-sig-arg">*exceptions</span>)</span><br />
+      Initialize a new <tt class="rst-docutils literal">Forwarder</tt> that will pass unimplemented calls
+(method calls, attribute accesses, etc.) to the specified object.</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="grizzled.io.filelock-pysrc.html#_WindowsFileLock.__init__">source&nbsp;code</a></span>
+            <span class="codelink"><a href="grizzled.proxy-pysrc.html#Forwarder.__init__">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -107,26 +136,10 @@ File lock implementation for Windows systems.
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="lock"></a><span class="summary-sig-name">lock</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">no_wait</span>=<span class="summary-sig-default">False</span>)</span></td>
+          <td><span class="summary-sig"><a name="__getattr__"></a><span class="summary-sig-name">__getattr__</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>)</span></td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="grizzled.io.filelock-pysrc.html#_WindowsFileLock.lock">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="unlock"></a><span class="summary-sig-name">unlock</span>(<span class="summary-sig-arg">self</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="grizzled.io.filelock-pysrc.html#_WindowsFileLock.unlock">source&nbsp;code</a></span>
+            <span class="codelink"><a href="grizzled.proxy-pysrc.html#Forwarder.__getattr__">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -161,19 +174,28 @@ File lock implementation for Windows systems.
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">fd</span>)</span>
+        <span class="sig-arg">wrapped</span>,
+        <span class="sig-arg">*exceptions</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="grizzled.io.filelock-pysrc.html#_WindowsFileLock.__init__">source&nbsp;code</a></span>&nbsp;
+    ><span class="codelink"><a href="grizzled.proxy-pysrc.html#Forwarder.__init__">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
   
-  
+  Initialize a new <tt class="rst-rst-docutils literal rst-docutils literal">Forwarder</tt> that will pass unimplemented calls
+(method calls, attribute accesses, etc.) to the specified object.
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>wrapped</code></strong> (object) - the object to which to pass unknown attributes</li>
+        <li><strong class="pname"><code>exceptions</code></strong> (str) - one or more names (as separate arguments) of methods
+that should not be intercepted (and will, therefore,
+result in <tt class="rst-docutils literal">AttributeError</tt> exceptions if invoked,
+absent any other intervention).</li>
+    </ul></dd>
     <dt>Overrides:
         object.__init__
-        <dd><em class="note">(inherited documentation)</em></dd>
     </dt>
   </dl>
 </td></tr></table>

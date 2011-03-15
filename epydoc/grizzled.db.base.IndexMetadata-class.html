@@ -57,13 +57,13 @@
   </tr>
 </table>
 <!-- ==================== TYPE DESCRIPTION ==================== -->
-<h1 class="epydoc">type IndexMetadata</h1><p class="nomargin-top"><span class="codelink"><a href="grizzled.collections.tuple-pysrc.html">source&nbsp;code</a></span></p>
+<h1 class="epydoc">type IndexMetadata</h1><p class="nomargin-top"><span class="codelink"><a href="grizzled.db.base-pysrc.html#IndexMetadata">source&nbsp;code</a></span></p>
 <pre class="base-tree">
 object --+    
          |    
      tuple --+
              |
-            <strong class="uidshort">db.base.IndexMetadata</strong>
+            <strong class="uidshort">IndexMetadata</strong>
 </pre>
 
 <hr />
@@ -92,9 +92,10 @@ IndexMetadata(index_name, index_columns, description)
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="grizzled.db.base.IndexMetadata-class.html#__getnewargs__" class="summary-sig-name">__getnewargs__</a>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a href="grizzled.db.base.IndexMetadata-class.html#__getnewargs__" class="summary-sig-name">__getnewargs__</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Return self as a plain tuple.</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="grizzled.collections.tuple-pysrc.html">source&nbsp;code</a></span>
+            <span class="codelink"><a href="grizzled.db.base-pysrc.html#IndexMetadata.__getnewargs__">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -109,9 +110,9 @@ IndexMetadata(index_name, index_columns, description)
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="grizzled.db.base.IndexMetadata-class.html#__repr__" class="summary-sig-name">__repr__</a>(<span class="summary-sig-arg">self</span>)</span><br />
-      repr(x)</td>
+      Return a nicely formatted representation string</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="grizzled.collections.tuple-pysrc.html">source&nbsp;code</a></span>
+            <span class="codelink"><a href="grizzled.db.base-pysrc.html#IndexMetadata.__repr__">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -125,10 +126,10 @@ IndexMetadata(index_name, index_columns, description)
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="_asdict"></a><span class="summary-sig-name">_asdict</span>(<span class="summary-sig-arg">t</span>)</span><br />
-      Return a new dict which maps field names to their values</td>
+          <td><span class="summary-sig"><a name="_asdict"></a><span class="summary-sig-name">_asdict</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Return a new OrderedDict which maps field names to their values</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="grizzled.collections.tuple-pysrc.html">source&nbsp;code</a></span>
+            <span class="codelink"><a href="grizzled.db.base-pysrc.html#IndexMetadata._asdict">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -146,7 +147,7 @@ IndexMetadata(index_name, index_columns, description)
         <span class="summary-sig-arg">**kwds</span>)</span><br />
       Return a new IndexMetadata object replacing specified fields with new values</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="grizzled.collections.tuple-pysrc.html">source&nbsp;code</a></span>
+            <span class="codelink"><a href="grizzled.db.base-pysrc.html#IndexMetadata._replace">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -205,11 +206,11 @@ IndexMetadata(index_name, index_columns, description)
         <tr>
           <td><span class="summary-sig"><a name="_make"></a><span class="summary-sig-name">_make</span>(<span class="summary-sig-arg">cls</span>,
         <span class="summary-sig-arg">iterable</span>,
-        <span class="summary-sig-arg">new</span>=<span class="summary-sig-default">&lt;built-in method __new__ of type object at 0x82df40&gt;</span>,
+        <span class="summary-sig-arg">new</span>=<span class="summary-sig-default">&lt;built-in method __new__ of type object at 0x77f5a0&gt;</span>,
         <span class="summary-sig-arg">len</span>=<span class="summary-sig-default">&lt;built-in function len&gt;</span>)</span><br />
       Make a new IndexMetadata object from a sequence or iterable</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="grizzled.collections.tuple-pysrc.html">source&nbsp;code</a></span>
+            <span class="codelink"><a href="grizzled.db.base-pysrc.html#IndexMetadata._make">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -244,9 +245,10 @@ IndexMetadata(index_name, index_columns, description)
           <td><span class="summary-sig"><a href="grizzled.db.base.IndexMetadata-class.html#__new__" class="summary-sig-name">__new__</a>(<span class="summary-sig-arg">_cls</span>,
         <span class="summary-sig-arg">index_name</span>,
         <span class="summary-sig-arg">index_columns</span>,
-        <span class="summary-sig-arg">description</span>)</span></td>
+        <span class="summary-sig-arg">description</span>)</span><br />
+      Create new instance of IndexMetadata(index_name, index_columns, description)</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="grizzled.collections.tuple-pysrc.html">source&nbsp;code</a></span>
+            <span class="codelink"><a href="grizzled.db.base-pysrc.html#IndexMetadata.__new__">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -302,7 +304,7 @@ IndexMetadata(index_name, index_columns, description)
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="grizzled.db.base.IndexMetadata-class.html#description" class="summary-name">description</a><br />
-      itemgetter(item, ...) --&gt; itemgetter object
+      Alias for field number 2
     </td>
   </tr>
 <tr>
@@ -310,7 +312,7 @@ IndexMetadata(index_name, index_columns, description)
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="grizzled.db.base.IndexMetadata-class.html#index_columns" class="summary-name">index_columns</a><br />
-      itemgetter(item, ...) --&gt; itemgetter object
+      Alias for field number 1
     </td>
   </tr>
 <tr>
@@ -318,7 +320,7 @@ IndexMetadata(index_name, index_columns, description)
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="grizzled.db.base.IndexMetadata-class.html#index_name" class="summary-name">index_name</a><br />
-      itemgetter(item, ...) --&gt; itemgetter object
+      Alias for field number 0
     </td>
   </tr>
 </table>
@@ -350,11 +352,11 @@ IndexMetadata(index_name, index_columns, description)
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__getnewargs__</span>(<span class="sig-arg">self</span>)</span>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="grizzled.collections.tuple-pysrc.html">source&nbsp;code</a></span>&nbsp;
+    ><span class="codelink"><a href="grizzled.db.base-pysrc.html#IndexMetadata.__getnewargs__">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
   
-  
+  Return self as a plain tuple.  Used by copy and pickle.
   <dl class="fields">
     <dt>Overrides:
         tuple.__getnewargs__
@@ -376,16 +378,15 @@ IndexMetadata(index_name, index_columns, description)
     <br /><em class="fname">Static Method</em>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="grizzled.collections.tuple-pysrc.html">source&nbsp;code</a></span>&nbsp;
+    ><span class="codelink"><a href="grizzled.db.base-pysrc.html#IndexMetadata.__new__">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
   
-  
+  Create new instance of IndexMetadata(index_name, index_columns, description)
   <dl class="fields">
     <dt>Returns: a new object with type S, a subtype of T</dt>
     <dt>Overrides:
         tuple.__new__
-        <dd><em class="note">(inherited documentation)</em></dd>
     </dt>
   </dl>
 </td></tr></table>
@@ -401,15 +402,14 @@ IndexMetadata(index_name, index_columns, description)
     <br /><em class="fname">(Representation operator)</em>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="grizzled.collections.tuple-pysrc.html">source&nbsp;code</a></span>&nbsp;
+    ><span class="codelink"><a href="grizzled.db.base-pysrc.html#IndexMetadata.__repr__">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
   
-  <p>repr(x)</p>
+  Return a nicely formatted representation string
   <dl class="fields">
     <dt>Overrides:
         tuple.__repr__
-        <dd><em class="note">(inherited documentation)</em></dd>
     </dt>
   </dl>
 </td></tr></table>
@@ -439,10 +439,7 @@ IndexMetadata(index_name, index_columns, description)
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <h3 class="epydoc">description</h3>
-  <p>itemgetter(item, ...) --&gt; itemgetter object</p>
-<p>Return a callable object that fetches the given item(s) from its operand.
-After, f=itemgetter(2), the call f(r) returns r[2].
-After, g=itemgetter(2,5,3), the call g(r) returns (r[2], r[5], r[3])</p>
+  Alias for field number 2
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -453,10 +450,7 @@ After, g=itemgetter(2,5,3), the call g(r) returns (r[2], r[5], r[3])</p>
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <h3 class="epydoc">index_columns</h3>
-  <p>itemgetter(item, ...) --&gt; itemgetter object</p>
-<p>Return a callable object that fetches the given item(s) from its operand.
-After, f=itemgetter(2), the call f(r) returns r[2].
-After, g=itemgetter(2,5,3), the call g(r) returns (r[2], r[5], r[3])</p>
+  Alias for field number 1
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -467,10 +461,7 @@ After, g=itemgetter(2,5,3), the call g(r) returns (r[2], r[5], r[3])</p>
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <h3 class="epydoc">index_name</h3>
-  <p>itemgetter(item, ...) --&gt; itemgetter object</p>
-<p>Return a callable object that fetches the given item(s) from its operand.
-After, f=itemgetter(2), the call f(r) returns r[2].
-After, g=itemgetter(2,5,3), the call g(r) returns (r[2], r[5], r[3])</p>
+  Alias for field number 0
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -503,7 +494,7 @@ After, g=itemgetter(2,5,3), the call g(r) returns (r[2], r[5], r[3])</p>
   <tr>
     <td align="left" class="footer">
     Generated by Epydoc 3.0.1
-    on Sun Mar 13 10:04:38 2011
+    on Mon Mar 14 22:00:17 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

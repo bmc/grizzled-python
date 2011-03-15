@@ -121,13 +121,14 @@
 <a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line"><tt class="py-comment"># Logging</tt> </tt>
 <a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
 <a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line"> </tt>
-<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line"><tt id="link-11" class="py-name" targets="Variable grizzled.config.log=grizzled.config-module.html#log,Variable grizzled.file.includer.log=grizzled.file.includer-module.html#log,Variable grizzled.history.log=grizzled.history-module.html#log,Module grizzled.log=grizzled.log-module.html,Variable grizzled.misc.log=grizzled.misc-module.html#log,Variable grizzled.net.log=grizzled.net-module.html#log,Variable grizzled.os.log=grizzled.os-module.html#log,Variable grizzled.system.log=grizzled.system-module.html#log"><a title="grizzled.config.log
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line"><tt id="link-11" class="py-name" targets="Variable grizzled.config.log=grizzled.config-module.html#log,Variable grizzled.file.includer.log=grizzled.file.includer-module.html#log,Variable grizzled.history.log=grizzled.history-module.html#log,Module grizzled.log=grizzled.log-module.html,Variable grizzled.misc.log=grizzled.misc-module.html#log,Variable grizzled.net.log=grizzled.net-module.html#log,Variable grizzled.os.log=grizzled.os-module.html#log,Variable grizzled.proxy.log=grizzled.proxy-module.html#log,Variable grizzled.system.log=grizzled.system-module.html#log"><a title="grizzled.config.log
 grizzled.file.includer.log
 grizzled.history.log
 grizzled.log
 grizzled.misc.log
 grizzled.net.log
 grizzled.os.log
+grizzled.proxy.log
 grizzled.system.log" class="py-name" href="#" onclick="return doclink('link-11', 'log', 'link-11');">log</a></tt> <tt class="py-op">=</tt> <tt class="py-name">logging</tt><tt class="py-op">.</tt><tt class="py-name">getLogger</tt><tt class="py-op">(</tt><tt class="py-string">'grizzled.os'</tt><tt class="py-op">)</tt> </tt>
 <a name="DaemonError"></a><div id="DaemonError-def"><a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line"> </tt>
 <a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line"><tt class="py-comment"># ---------------------------------------------------------------------------</tt> </tt>
@@ -338,6 +339,7 @@ grizzled.log
 grizzled.misc.log
 grizzled.net.log
 grizzled.os.log
+grizzled.proxy.log
 grizzled.system.log" class="py-name" href="#" onclick="return doclink('link-21', 'log', 'link-11');">log</a></tt> <tt class="py-op">=</tt> <tt class="py-name">logging</tt><tt class="py-op">.</tt><tt class="py-name">getLogger</tt><tt class="py-op">(</tt><tt class="py-string">'grizzled.os.daemon'</tt><tt class="py-op">)</tt> </tt>
 <a name="L269"></a><tt class="py-lineno">269</tt>  <tt class="py-line"> </tt>
 <a name="L270"></a><tt class="py-lineno">270</tt>  <tt class="py-line">    <tt class="py-keyword">def</tt> <tt class="py-def-name">__fork</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
@@ -400,6 +402,7 @@ grizzled.log
 grizzled.misc.log
 grizzled.net.log
 grizzled.os.log
+grizzled.proxy.log
 grizzled.system.log" class="py-name" href="#" onclick="return doclink('link-28', 'log', 'link-11');">log</a></tt><tt class="py-op">.</tt><tt class="py-name">debug</tt><tt class="py-op">(</tt><tt class="py-string">'Forking first child.'</tt><tt class="py-op">)</tt> </tt>
 <a name="L317"></a><tt class="py-lineno">317</tt>  <tt class="py-line">        <tt class="py-name">pid</tt> <tt class="py-op">=</tt> <tt class="py-name">__fork</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
 <a name="L318"></a><tt class="py-lineno">318</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">pid</tt> <tt class="py-op">!=</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
@@ -417,6 +420,7 @@ grizzled.log
 grizzled.misc.log
 grizzled.net.log
 grizzled.os.log
+grizzled.proxy.log
 grizzled.system.log" class="py-name" href="#" onclick="return doclink('link-29', 'log', 'link-11');">log</a></tt><tt class="py-op">.</tt><tt class="py-name">debug</tt><tt class="py-op">(</tt><tt class="py-string">'Creating new session'</tt><tt class="py-op">)</tt> </tt>
 <a name="L327"></a><tt class="py-lineno">327</tt>  <tt class="py-line">        <tt class="py-name">_os</tt><tt class="py-op">.</tt><tt class="py-name">setsid</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
 <a name="L328"></a><tt class="py-lineno">328</tt>  <tt class="py-line"> </tt>
@@ -429,6 +433,7 @@ grizzled.log
 grizzled.misc.log
 grizzled.net.log
 grizzled.os.log
+grizzled.proxy.log
 grizzled.system.log" class="py-name" href="#" onclick="return doclink('link-30', 'log', 'link-11');">log</a></tt><tt class="py-op">.</tt><tt class="py-name">debug</tt><tt class="py-op">(</tt><tt class="py-string">'Forking second child.'</tt><tt class="py-op">)</tt> </tt>
 <a name="L332"></a><tt class="py-lineno">332</tt>  <tt class="py-line">        <tt class="py-name">pid</tt> <tt class="py-op">=</tt> <tt class="py-name">__fork</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
 <a name="L333"></a><tt class="py-lineno">333</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">pid</tt> <tt class="py-op">!=</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
@@ -443,6 +448,7 @@ grizzled.log
 grizzled.misc.log
 grizzled.net.log
 grizzled.os.log
+grizzled.proxy.log
 grizzled.system.log" class="py-name" href="#" onclick="return doclink('link-31', 'log', 'link-11');">log</a></tt><tt class="py-op">.</tt><tt class="py-name">debug</tt><tt class="py-op">(</tt><tt class="py-string">'Setting umask'</tt><tt class="py-op">)</tt> </tt>
 <a name="L339"></a><tt class="py-lineno">339</tt>  <tt class="py-line">        <tt class="py-name">_os</tt><tt class="py-op">.</tt><tt class="py-name">umask</tt><tt class="py-op">(</tt><tt id="link-32" class="py-name"><a title="grizzled.os.UMASK" class="py-name" href="#" onclick="return doclink('link-32', 'UMASK', 'link-4');">UMASK</a></tt><tt class="py-op">)</tt> </tt>
 <a name="L340"></a><tt class="py-lineno">340</tt>  <tt class="py-line"> </tt>
@@ -456,6 +462,7 @@ grizzled.log
 grizzled.misc.log
 grizzled.net.log
 grizzled.os.log
+grizzled.proxy.log
 grizzled.system.log" class="py-name" href="#" onclick="return doclink('link-33', 'log', 'link-11');">log</a></tt><tt class="py-op">.</tt><tt class="py-name">debug</tt><tt class="py-op">(</tt><tt class="py-string">'Changing working directory to "%s"'</tt> <tt class="py-op">%</tt> <tt id="link-34" class="py-name"><a title="grizzled.os.WORKDIR" class="py-name" href="#" onclick="return doclink('link-34', 'WORKDIR', 'link-5');">WORKDIR</a></tt><tt class="py-op">)</tt> </tt>
 <a name="L345"></a><tt class="py-lineno">345</tt>  <tt class="py-line">        <tt class="py-name">_os</tt><tt class="py-op">.</tt><tt class="py-name">chdir</tt><tt class="py-op">(</tt><tt id="link-35" class="py-name"><a title="grizzled.os.WORKDIR" class="py-name" href="#" onclick="return doclink('link-35', 'WORKDIR', 'link-5');">WORKDIR</a></tt><tt class="py-op">)</tt> </tt>
 <a name="L346"></a><tt class="py-lineno">346</tt>  <tt class="py-line"> </tt>
@@ -468,6 +475,7 @@ grizzled.log
 grizzled.misc.log
 grizzled.net.log
 grizzled.os.log
+grizzled.proxy.log
 grizzled.system.log" class="py-name" href="#" onclick="return doclink('link-36', 'log', 'link-11');">log</a></tt><tt class="py-op">.</tt><tt class="py-name">debug</tt><tt class="py-op">(</tt><tt class="py-string">'Redirecting file descriptors'</tt><tt class="py-op">)</tt> </tt>
 <a name="L350"></a><tt class="py-lineno">350</tt>  <tt class="py-line">            <tt class="py-name">__redirect_file_descriptors</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
 <a name="L351"></a><tt class="py-lineno">351</tt>  <tt class="py-line"> </tt>
@@ -500,6 +508,7 @@ grizzled.log
 grizzled.misc.log
 grizzled.net.log
 grizzled.os.log
+grizzled.proxy.log
 grizzled.system.log" class="py-name" href="#" onclick="return doclink('link-40', 'log', 'link-11');">log</a></tt> <tt class="py-op">=</tt> <tt class="py-name">logging</tt><tt class="py-op">.</tt><tt class="py-name">getLogger</tt><tt class="py-op">(</tt><tt class="py-string">'grizzled.os'</tt><tt class="py-op">)</tt> </tt>
 <a name="L371"></a><tt class="py-lineno">371</tt>  <tt class="py-line">    <tt class="py-name">hdlr</tt> <tt class="py-op">=</tt> <tt class="py-name">logging</tt><tt class="py-op">.</tt><tt class="py-name">StreamHandler</tt><tt class="py-op">(</tt><tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">stdout</tt><tt class="py-op">)</tt> </tt>
 <a name="L372"></a><tt class="py-lineno">372</tt>  <tt class="py-line">    <tt class="py-name">formatter</tt> <tt class="py-op">=</tt> <tt class="py-name">logging</tt><tt class="py-op">.</tt><tt class="py-name">Formatter</tt><tt class="py-op">(</tt><tt class="py-string">'%(asctime)s %(levelname)s %(message)s'</tt><tt class="py-op">,</tt> <tt class="py-string">'%T'</tt><tt class="py-op">)</tt> </tt>
@@ -511,6 +520,7 @@ grizzled.log
 grizzled.misc.log
 grizzled.net.log
 grizzled.os.log
+grizzled.proxy.log
 grizzled.system.log" class="py-name" href="#" onclick="return doclink('link-41', 'log', 'link-11');">log</a></tt><tt class="py-op">.</tt><tt class="py-name">addHandler</tt><tt class="py-op">(</tt><tt class="py-name">hdlr</tt><tt class="py-op">)</tt> </tt>
 <a name="L375"></a><tt class="py-lineno">375</tt>  <tt class="py-line">    <tt id="link-42" class="py-name"><a title="grizzled.config.log
 grizzled.file.includer.log
@@ -519,6 +529,7 @@ grizzled.log
 grizzled.misc.log
 grizzled.net.log
 grizzled.os.log
+grizzled.proxy.log
 grizzled.system.log" class="py-name" href="#" onclick="return doclink('link-42', 'log', 'link-11');">log</a></tt><tt class="py-op">.</tt><tt class="py-name">setLevel</tt><tt class="py-op">(</tt><tt class="py-name">logging</tt><tt class="py-op">.</tt><tt class="py-name">DEBUG</tt><tt class="py-op">)</tt> </tt>
 <a name="L376"></a><tt class="py-lineno">376</tt>  <tt class="py-line"> </tt>
 <a name="L377"></a><tt class="py-lineno">377</tt>  <tt class="py-line">    <tt id="link-43" class="py-name"><a title="grizzled.config.log
@@ -528,6 +539,7 @@ grizzled.log
 grizzled.misc.log
 grizzled.net.log
 grizzled.os.log
+grizzled.proxy.log
 grizzled.system.log" class="py-name" href="#" onclick="return doclink('link-43', 'log', 'link-11');">log</a></tt><tt class="py-op">.</tt><tt class="py-name">debug</tt><tt class="py-op">(</tt><tt class="py-string">'Before daemonizing, PID=%d'</tt> <tt class="py-op">%</tt> <tt class="py-name">_os</tt><tt class="py-op">.</tt><tt class="py-name">getpid</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
 <a name="L378"></a><tt class="py-lineno">378</tt>  <tt class="py-line">    <tt id="link-44" class="py-name"><a title="grizzled.os.daemonize" class="py-name" href="#" onclick="return doclink('link-44', 'daemonize', 'link-20');">daemonize</a></tt><tt class="py-op">(</tt><tt class="py-name">no_close</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
 <a name="L379"></a><tt class="py-lineno">379</tt>  <tt class="py-line">    <tt id="link-45" class="py-name"><a title="grizzled.config.log
@@ -537,6 +549,7 @@ grizzled.log
 grizzled.misc.log
 grizzled.net.log
 grizzled.os.log
+grizzled.proxy.log
 grizzled.system.log" class="py-name" href="#" onclick="return doclink('link-45', 'log', 'link-11');">log</a></tt><tt class="py-op">.</tt><tt class="py-name">debug</tt><tt class="py-op">(</tt><tt class="py-string">'After daemonizing, PID=%d'</tt> <tt class="py-op">%</tt> <tt class="py-name">_os</tt><tt class="py-op">.</tt><tt class="py-name">getpid</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
 <a name="L380"></a><tt class="py-lineno">380</tt>  <tt class="py-line">    <tt id="link-46" class="py-name"><a title="grizzled.config.log
 grizzled.file.includer.log
@@ -545,6 +558,7 @@ grizzled.log
 grizzled.misc.log
 grizzled.net.log
 grizzled.os.log
+grizzled.proxy.log
 grizzled.system.log" class="py-name" href="#" onclick="return doclink('link-46', 'log', 'link-11');">log</a></tt><tt class="py-op">.</tt><tt class="py-name">debug</tt><tt class="py-op">(</tt><tt class="py-string">'Daemon is sleeping for 10 seconds'</tt><tt class="py-op">)</tt> </tt>
 <a name="L381"></a><tt class="py-lineno">381</tt>  <tt class="py-line"> </tt>
 <a name="L382"></a><tt class="py-lineno">382</tt>  <tt class="py-line">    <tt class="py-keyword">import</tt> <tt class="py-name">time</tt> </tt>
@@ -557,6 +571,7 @@ grizzled.log
 grizzled.misc.log
 grizzled.net.log
 grizzled.os.log
+grizzled.proxy.log
 grizzled.system.log" class="py-name" href="#" onclick="return doclink('link-47', 'log', 'link-11');">log</a></tt><tt class="py-op">.</tt><tt class="py-name">debug</tt><tt class="py-op">(</tt><tt class="py-string">'Daemon exiting'</tt><tt class="py-op">)</tt> </tt>
 <a name="L386"></a><tt class="py-lineno">386</tt>  <tt class="py-line">    <tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">exit</tt><tt class="py-op">(</tt><tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
 <a name="L387"></a><tt class="py-lineno">387</tt>  <tt class="py-line"> </tt><script type="text/javascript">
@@ -593,7 +608,7 @@ expandto(location.href);
   <tr>
     <td align="left" class="footer">
     Generated by Epydoc 3.0.1
-    on Sun Mar 13 10:04:39 2011
+    on Mon Mar 14 22:00:18 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

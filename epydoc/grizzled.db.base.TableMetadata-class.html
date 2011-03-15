@@ -57,13 +57,13 @@
   </tr>
 </table>
 <!-- ==================== TYPE DESCRIPTION ==================== -->
-<h1 class="epydoc">type TableMetadata</h1><p class="nomargin-top"><span class="codelink"><a href="grizzled.collections.tuple-pysrc.html">source&nbsp;code</a></span></p>
+<h1 class="epydoc">type TableMetadata</h1><p class="nomargin-top"><span class="codelink"><a href="grizzled.db.base-pysrc.html#TableMetadata">source&nbsp;code</a></span></p>
 <pre class="base-tree">
 object --+    
          |    
      tuple --+
              |
-            <strong class="uidshort">db.base.TableMetadata</strong>
+            <strong class="uidshort">TableMetadata</strong>
 </pre>
 
 <hr />
@@ -92,9 +92,10 @@ TableMetadata(column_name, type_string, max_char_size, precision, scale, nullabl
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="grizzled.db.base.TableMetadata-class.html#__getnewargs__" class="summary-sig-name">__getnewargs__</a>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a href="grizzled.db.base.TableMetadata-class.html#__getnewargs__" class="summary-sig-name">__getnewargs__</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Return self as a plain tuple.</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="grizzled.collections.tuple-pysrc.html">source&nbsp;code</a></span>
+            <span class="codelink"><a href="grizzled.db.base-pysrc.html#TableMetadata.__getnewargs__">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -109,9 +110,9 @@ TableMetadata(column_name, type_string, max_char_size, precision, scale, nullabl
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="grizzled.db.base.TableMetadata-class.html#__repr__" class="summary-sig-name">__repr__</a>(<span class="summary-sig-arg">self</span>)</span><br />
-      repr(x)</td>
+      Return a nicely formatted representation string</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="grizzled.collections.tuple-pysrc.html">source&nbsp;code</a></span>
+            <span class="codelink"><a href="grizzled.db.base-pysrc.html#TableMetadata.__repr__">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -125,10 +126,10 @@ TableMetadata(column_name, type_string, max_char_size, precision, scale, nullabl
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="_asdict"></a><span class="summary-sig-name">_asdict</span>(<span class="summary-sig-arg">t</span>)</span><br />
-      Return a new dict which maps field names to their values</td>
+          <td><span class="summary-sig"><a name="_asdict"></a><span class="summary-sig-name">_asdict</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Return a new OrderedDict which maps field names to their values</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="grizzled.collections.tuple-pysrc.html">source&nbsp;code</a></span>
+            <span class="codelink"><a href="grizzled.db.base-pysrc.html#TableMetadata._asdict">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -146,7 +147,7 @@ TableMetadata(column_name, type_string, max_char_size, precision, scale, nullabl
         <span class="summary-sig-arg">**kwds</span>)</span><br />
       Return a new TableMetadata object replacing specified fields with new values</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="grizzled.collections.tuple-pysrc.html">source&nbsp;code</a></span>
+            <span class="codelink"><a href="grizzled.db.base-pysrc.html#TableMetadata._replace">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -205,11 +206,11 @@ TableMetadata(column_name, type_string, max_char_size, precision, scale, nullabl
         <tr>
           <td><span class="summary-sig"><a name="_make"></a><span class="summary-sig-name">_make</span>(<span class="summary-sig-arg">cls</span>,
         <span class="summary-sig-arg">iterable</span>,
-        <span class="summary-sig-arg">new</span>=<span class="summary-sig-default">&lt;built-in method __new__ of type object at 0x82df40&gt;</span>,
+        <span class="summary-sig-arg">new</span>=<span class="summary-sig-default">&lt;built-in method __new__ of type object at 0x77f5a0&gt;</span>,
         <span class="summary-sig-arg">len</span>=<span class="summary-sig-default">&lt;built-in function len&gt;</span>)</span><br />
       Make a new TableMetadata object from a sequence or iterable</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="grizzled.collections.tuple-pysrc.html">source&nbsp;code</a></span>
+            <span class="codelink"><a href="grizzled.db.base-pysrc.html#TableMetadata._make">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -247,9 +248,10 @@ TableMetadata(column_name, type_string, max_char_size, precision, scale, nullabl
         <span class="summary-sig-arg">max_char_size</span>,
         <span class="summary-sig-arg">precision</span>,
         <span class="summary-sig-arg">scale</span>,
-        <span class="summary-sig-arg">nullable</span>)</span></td>
+        <span class="summary-sig-arg">nullable</span>)</span><br />
+      Create new instance of TableMetadata(column_name, type_string, max_char_size, precision, scale, nullable)</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="grizzled.collections.tuple-pysrc.html">source&nbsp;code</a></span>
+            <span class="codelink"><a href="grizzled.db.base-pysrc.html#TableMetadata.__new__">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -310,7 +312,7 @@ TableMetadata(column_name, type_string, max_char_size, precision, scale, nullabl
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="grizzled.db.base.TableMetadata-class.html#column_name" class="summary-name">column_name</a><br />
-      itemgetter(item, ...) --&gt; itemgetter object
+      Alias for field number 0
     </td>
   </tr>
 <tr>
@@ -318,7 +320,7 @@ TableMetadata(column_name, type_string, max_char_size, precision, scale, nullabl
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="grizzled.db.base.TableMetadata-class.html#max_char_size" class="summary-name">max_char_size</a><br />
-      itemgetter(item, ...) --&gt; itemgetter object
+      Alias for field number 2
     </td>
   </tr>
 <tr>
@@ -326,7 +328,7 @@ TableMetadata(column_name, type_string, max_char_size, precision, scale, nullabl
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="grizzled.db.base.TableMetadata-class.html#nullable" class="summary-name">nullable</a><br />
-      itemgetter(item, ...) --&gt; itemgetter object
+      Alias for field number 5
     </td>
   </tr>
 <tr>
@@ -334,7 +336,7 @@ TableMetadata(column_name, type_string, max_char_size, precision, scale, nullabl
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="grizzled.db.base.TableMetadata-class.html#precision" class="summary-name">precision</a><br />
-      itemgetter(item, ...) --&gt; itemgetter object
+      Alias for field number 3
     </td>
   </tr>
 <tr>
@@ -342,7 +344,7 @@ TableMetadata(column_name, type_string, max_char_size, precision, scale, nullabl
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="grizzled.db.base.TableMetadata-class.html#scale" class="summary-name">scale</a><br />
-      itemgetter(item, ...) --&gt; itemgetter object
+      Alias for field number 4
     </td>
   </tr>
 <tr>
@@ -350,7 +352,7 @@ TableMetadata(column_name, type_string, max_char_size, precision, scale, nullabl
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="grizzled.db.base.TableMetadata-class.html#type_string" class="summary-name">type_string</a><br />
-      itemgetter(item, ...) --&gt; itemgetter object
+      Alias for field number 1
     </td>
   </tr>
 </table>
@@ -382,11 +384,11 @@ TableMetadata(column_name, type_string, max_char_size, precision, scale, nullabl
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__getnewargs__</span>(<span class="sig-arg">self</span>)</span>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="grizzled.collections.tuple-pysrc.html">source&nbsp;code</a></span>&nbsp;
+    ><span class="codelink"><a href="grizzled.db.base-pysrc.html#TableMetadata.__getnewargs__">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
   
-  
+  Return self as a plain tuple.  Used by copy and pickle.
   <dl class="fields">
     <dt>Overrides:
         tuple.__getnewargs__
@@ -411,16 +413,15 @@ TableMetadata(column_name, type_string, max_char_size, precision, scale, nullabl
     <br /><em class="fname">Static Method</em>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="grizzled.collections.tuple-pysrc.html">source&nbsp;code</a></span>&nbsp;
+    ><span class="codelink"><a href="grizzled.db.base-pysrc.html#TableMetadata.__new__">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
   
-  
+  Create new instance of TableMetadata(column_name, type_string, max_char_size, precision, scale, nullable)
   <dl class="fields">
     <dt>Returns: a new object with type S, a subtype of T</dt>
     <dt>Overrides:
         tuple.__new__
-        <dd><em class="note">(inherited documentation)</em></dd>
     </dt>
   </dl>
 </td></tr></table>
@@ -436,15 +437,14 @@ TableMetadata(column_name, type_string, max_char_size, precision, scale, nullabl
     <br /><em class="fname">(Representation operator)</em>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="grizzled.collections.tuple-pysrc.html">source&nbsp;code</a></span>&nbsp;
+    ><span class="codelink"><a href="grizzled.db.base-pysrc.html#TableMetadata.__repr__">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
   
-  <p>repr(x)</p>
+  Return a nicely formatted representation string
   <dl class="fields">
     <dt>Overrides:
         tuple.__repr__
-        <dd><em class="note">(inherited documentation)</em></dd>
     </dt>
   </dl>
 </td></tr></table>
@@ -516,10 +516,7 @@ TableMetadata(column_name, type_string, max_char_size, precision, scale, nullabl
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <h3 class="epydoc">column_name</h3>
-  <p>itemgetter(item, ...) --&gt; itemgetter object</p>
-<p>Return a callable object that fetches the given item(s) from its operand.
-After, f=itemgetter(2), the call f(r) returns r[2].
-After, g=itemgetter(2,5,3), the call g(r) returns (r[2], r[5], r[3])</p>
+  Alias for field number 0
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -530,10 +527,7 @@ After, g=itemgetter(2,5,3), the call g(r) returns (r[2], r[5], r[3])</p>
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <h3 class="epydoc">max_char_size</h3>
-  <p>itemgetter(item, ...) --&gt; itemgetter object</p>
-<p>Return a callable object that fetches the given item(s) from its operand.
-After, f=itemgetter(2), the call f(r) returns r[2].
-After, g=itemgetter(2,5,3), the call g(r) returns (r[2], r[5], r[3])</p>
+  Alias for field number 2
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -544,10 +538,7 @@ After, g=itemgetter(2,5,3), the call g(r) returns (r[2], r[5], r[3])</p>
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <h3 class="epydoc">nullable</h3>
-  <p>itemgetter(item, ...) --&gt; itemgetter object</p>
-<p>Return a callable object that fetches the given item(s) from its operand.
-After, f=itemgetter(2), the call f(r) returns r[2].
-After, g=itemgetter(2,5,3), the call g(r) returns (r[2], r[5], r[3])</p>
+  Alias for field number 5
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -558,10 +549,7 @@ After, g=itemgetter(2,5,3), the call g(r) returns (r[2], r[5], r[3])</p>
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <h3 class="epydoc">precision</h3>
-  <p>itemgetter(item, ...) --&gt; itemgetter object</p>
-<p>Return a callable object that fetches the given item(s) from its operand.
-After, f=itemgetter(2), the call f(r) returns r[2].
-After, g=itemgetter(2,5,3), the call g(r) returns (r[2], r[5], r[3])</p>
+  Alias for field number 3
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -572,10 +560,7 @@ After, g=itemgetter(2,5,3), the call g(r) returns (r[2], r[5], r[3])</p>
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <h3 class="epydoc">scale</h3>
-  <p>itemgetter(item, ...) --&gt; itemgetter object</p>
-<p>Return a callable object that fetches the given item(s) from its operand.
-After, f=itemgetter(2), the call f(r) returns r[2].
-After, g=itemgetter(2,5,3), the call g(r) returns (r[2], r[5], r[3])</p>
+  Alias for field number 4
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -586,10 +571,7 @@ After, g=itemgetter(2,5,3), the call g(r) returns (r[2], r[5], r[3])</p>
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <h3 class="epydoc">type_string</h3>
-  <p>itemgetter(item, ...) --&gt; itemgetter object</p>
-<p>Return a callable object that fetches the given item(s) from its operand.
-After, f=itemgetter(2), the call f(r) returns r[2].
-After, g=itemgetter(2,5,3), the call g(r) returns (r[2], r[5], r[3])</p>
+  Alias for field number 1
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -622,7 +604,7 @@ After, g=itemgetter(2,5,3), the call g(r) returns (r[2], r[5], r[3])</p>
   <tr>
     <td align="left" class="footer">
     Generated by Epydoc 3.0.1
-    on Sun Mar 13 10:04:38 2011
+    on Mon Mar 14 22:00:17 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"
