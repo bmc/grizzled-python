@@ -15,14 +15,19 @@ module_file = os.path.join(here, 'grizzled', '__init__.py')
 module = imp.load_module('grizzled', open(module_file), module_file,
                          ('__init__.py', 'r', imp.PY_SOURCE))
 
+NAME = 'grizzled-python'
+DOWNLOAD_URL = ('http://pypi.python.org/packages/source/g/%s/%s-%s.tar.gz' %
+                (NAME, NAME, module.version))
+
 # Now the setup stuff.
 
-setup (name             = 'grizzled-python',
+setup (name             = NAME,
        version          = module.version,
        description      = module.title,
        long_description = module.__doc__,
        packages         = find_packages(),
        url              = module.url,
+       download_url     = DOWNLOAD_URL,
        license          = module.version,
        author           = module.author,
        author_email     = module.email,
