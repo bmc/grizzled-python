@@ -3,6 +3,17 @@ title: Change log for grizzled-python
 layout: default
 ---
 
+Version 1.0.1 (29 May, 2011)
+
+* Changed `grizzled.net.ftp.parse` to support the FTP `MLST` command,
+  based on (largely unmodified) code contributed by Andrew Scheller
+  (*gcode /at/ loowis.durge.org*).
+* Added `java` to the list of operating system types in `grizzled.os`,
+  for Jython.
+* Changed `setup.py` to copy stuff to the `gh-pages` directory, via local
+  "gh" command.
+
+---------------------------------------------------------------------------
 Version 1.0 (14 March, 2011)
 
 * Added `grizzled.proxy.Forwarder`, a mixin that aids writing wrappers that

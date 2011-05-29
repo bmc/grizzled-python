@@ -39,7 +39,7 @@
       <span class="breadcrumbs">
         <a href="grizzled-module.html">Package&nbsp;grizzled</a> ::
         <a href="grizzled.io-module.html">Package&nbsp;io</a> ::
-        <a href="grizzled.io.filelock-module.html" onclick="show_private();">Module&nbsp;filelock</a> ::
+        <a href="grizzled.io.filelock-module.html">Module&nbsp;filelock</a> ::
         Class&nbsp;FileLock
       </span>
     </td>
@@ -56,8 +56,8 @@
     </td>
   </tr>
 </table>
-<!-- ==================== TYPE DESCRIPTION ==================== -->
-<h1 class="epydoc">type FileLock</h1><p class="nomargin-top"><span class="codelink"><a href="grizzled.io.filelock-pysrc.html#FileLock">source&nbsp;code</a></span></p>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class FileLock</h1><p class="nomargin-top"><span class="codelink"><a href="grizzled.io.filelock-pysrc.html#FileLock">source&nbsp;code</a></span></p>
 <pre class="base-tree">
 object --+
          |
@@ -65,13 +65,19 @@ object --+
 </pre>
 
 <hr />
-<p>A <tt class="rst-rst-rst-docutils literal rst-rst-docutils literal rst-docutils literal">FileLock</tt> object models a file lock. It wraps a file descriptor
-and contains methods to acquire and release a lock on the file.</p>
-<p>File lock implementations that implement this interface are guaranteed
+<pre class="literalblock">
+
+A ``FileLock`` object models a file lock. It wraps a file descriptor
+and contains methods to acquire and release a lock on the file.
+
+File lock implementations that implement this interface are guaranteed
 to be advisory, but not mandatory, file locks. (They may, in fact, also
-be mandatory file locks, but they are not guaranteed to be.)</p>
-<p>Currently, there are underlying implementations for both POSIX systems
-and Windows.</p>
+be mandatory file locks, but they are not guaranteed to be.)
+
+Currently, there are underlying implementations for both POSIX systems
+and Windows.
+
+</pre>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -144,6 +150,49 @@ descriptor.</td>
       
     </td>
   </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__format__</code>,
+      <code>__getattribute__</code>,
+      <code>__hash__</code>,
+      <code>__new__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
+      <code>__setattr__</code>,
+      <code>__sizeof__</code>,
+      <code>__str__</code>,
+      <code>__subclasshook__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
+    </td>
+  </tr>
 </table>
 <!-- ==================== METHOD DETAILS ==================== -->
 <a name="section-MethodDetails"></a>
@@ -179,14 +228,18 @@ descriptor.</td>
     </td>
   </tr></table>
   
-  Allocate a new file lock that operates on the specified file
+  <pre class="literalblock">
+
+Allocate a new file lock that operates on the specified file
 descriptor.
+
+:Parameters:
+    fd : int
+        Open file descriptor. The file must be opened for writing or
+        updating, not reading.
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>fd</code></strong> (int) - Open file descriptor. The file must be opened for writing or
-updating, not reading.</li>
-    </ul></dd>
     <dt>Overrides:
         object.__init__
     </dt>
@@ -208,21 +261,23 @@ updating, not reading.</li>
     </td>
   </tr></table>
   
-  Lock the associated file. If someone already has the file locked,
-this method will suspend the calling process, unless <tt class="rst-docutils literal">no_wait</tt> is
-<tt class="rst-docutils literal">True</tt>.
+  <pre class="literalblock">
+
+Lock the associated file. If someone already has the file locked,
+this method will suspend the calling process, unless ``no_wait`` is
+``True``.
+
+:Parameters:
+    no_wait : bool
+        If ``False``, then ``acquire()`` will suspend the calling
+        process if someone has the file locked. If ``True``, then
+        ``acquire()`` will raise an ``IOError`` if the file is
+        locked by someone else.
+
+:raise IOError: If the file cannot be locked for any reason.
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>no_wait</code></strong> (bool) - If <tt class="rst-docutils literal">False</tt>, then <tt class="rst-docutils literal">acquire()</tt> will suspend the calling
-process if someone has the file locked. If <tt class="rst-docutils literal">True</tt>, then
-<tt class="rst-docutils literal">acquire()</tt> will raise an <tt class="rst-docutils literal">IOError</tt> if the file is
-locked by someone else.</li>
-    </ul></dd>
-    <dt>Raises:</dt>
-    <dd><ul class="nomargin-top">
-        <li><code><strong class='fraise'>IOError</strong></code> - If the file cannot be locked for any reason.</li>
-    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -253,8 +308,7 @@ locked by someone else.</li>
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1
-    on Mon Mar 14 22:00:18 2011
+    Generated by Epydoc 3.0.1 on Sun May 29 10:27:21 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

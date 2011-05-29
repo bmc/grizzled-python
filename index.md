@@ -20,7 +20,11 @@ Because Grizzled Python is available via [PyPI][], if you have
 [pip][] installed on your system, installing the library is as easy
 as running this command (usually as `root` or the system administrator):
 
-    pip install grizzled-python
+    $ pip install grizzled-python
+
+To upgrade from a previous version of the package, use:
+
+    $ pip install --upgrade grizzled-python
 
 ### Installing from source
 
@@ -59,6 +63,9 @@ Also, feel free to peruse the [change log](CHANGELOG.html).
 The Grizzled Python Utility Library is copyright &copy; 2008-2011
 [Brian M. Clapper][] is released under a [BSD license][license]. See the
 accompanying [license][] file.
+
+The `FTPMlstDataParser` class in the `grizzled.ftp.net.parse` module is
+copyright &copy; 2011 Andrew Scheller and is released under a BSD license.
 
 ## Patches
 

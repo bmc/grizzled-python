@@ -39,7 +39,7 @@
       <span class="breadcrumbs">
         <a href="grizzled-module.html">Package&nbsp;grizzled</a> ::
         <a href="grizzled.file-module.html">Package&nbsp;file</a> ::
-        <a href="grizzled.file.includer-module.html" onclick="show_private();">Module&nbsp;includer</a> ::
+        <a href="grizzled.file.includer-module.html">Module&nbsp;includer</a> ::
         Class&nbsp;Includer
       </span>
     </td>
@@ -56,8 +56,8 @@
     </td>
   </tr>
 </table>
-<!-- ==================== TYPE DESCRIPTION ==================== -->
-<h1 class="epydoc">type Includer</h1><p class="nomargin-top"><span class="codelink"><a href="grizzled.file.includer-pysrc.html#Includer">source&nbsp;code</a></span></p>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class Includer</h1><p class="nomargin-top"><span class="codelink"><a href="grizzled.file.includer-pysrc.html#Includer">source&nbsp;code</a></span></p>
 <pre class="base-tree">
 object --+
          |
@@ -65,18 +65,24 @@ object --+
 </pre>
 
 <hr />
-<p>An <tt class="rst-rst-rst-docutils literal rst-rst-docutils literal rst-docutils literal">Includer</tt> object preprocesses a path or file-like object,
-expanding include references. The resulting <tt class="rst-docutils literal">Includer</tt> object is a
+<pre class="literalblock">
+
+An ``Includer`` object preprocesses a path or file-like object,
+expanding include references. The resulting ``Includer`` object is a
 file-like object, offering the same methods and capabilities as an open
-file.</p>
-<p>By default, <tt class="rst-docutils literal">Includer</tt> supports this include syntax:</p>
-<pre class="rst-literal-block">
-%include &quot;path&quot;
-%include &quot;url&quot;
+file.
+
+By default, ``Includer`` supports this include syntax::
+
+    %include &quot;path&quot;
+    %include &quot;url&quot;
+
+However, the include directive syntax is controlled by a regular
+expression, so it can be configured.
+
+See the module documentation for details.
+
 </pre>
-<p>However, the include directive syntax is controlled by a regular
-expression, so it can be configured.</p>
-<p>See the module documentation for details.</p>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -106,7 +112,7 @@ expression, so it can be configured.</p>
         <span class="summary-sig-arg">include_regex</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">^%include\\s&quot;([^&quot;]+)&quot;</code><code class="variable-quote">'</code></span>,
         <span class="summary-sig-arg">max_nest_level</span>=<span class="summary-sig-default">100</span>,
         <span class="summary-sig-arg">output</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Create a new <tt class="rst-docutils literal">Includer</tt> object.</td>
+      Create a new ``Includer`` object.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="grizzled.file.includer-pysrc.html#Includer.__init__">source&nbsp;code</a></span>
             
@@ -134,7 +140,7 @@ expression, so it can be configured.</p>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">string</span>
+      <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -168,7 +174,7 @@ expression, so it can be configured.</p>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">int</span>
+      <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -221,7 +227,7 @@ expression, so it can be configured.</p>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">int</span>
+      <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -244,7 +250,7 @@ expression, so it can be configured.</p>
         <tr>
           <td><span class="summary-sig"><a href="grizzled.file.includer.Includer-class.html#read" class="summary-sig-name">read</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">n</span>=<span class="summary-sig-default">-1</span>)</span><br />
-      Read <em>n</em> bytes from the open file.</td>
+      Read *n* bytes from the open file.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="grizzled.file.includer-pysrc.html#Includer.read">source&nbsp;code</a></span>
             
@@ -256,7 +262,7 @@ expression, so it can be configured.</p>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">str</span>
+      <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -274,7 +280,7 @@ expression, so it can be configured.</p>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">array</span>
+      <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -298,7 +304,7 @@ expression, so it can be configured.</p>
         <tr>
           <td><span class="summary-sig"><a name="truncate"></a><span class="summary-sig-name">truncate</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">size</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Not supported, since <tt class="rst-docutils literal">Includer</tt> objects are read-only.</td>
+      Not supported, since ``Includer`` objects are read-only.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="grizzled.file.includer-pysrc.html#Includer.truncate">source&nbsp;code</a></span>
             
@@ -316,7 +322,7 @@ expression, so it can be configured.</p>
         <tr>
           <td><span class="summary-sig"><a name="write"></a><span class="summary-sig-name">write</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">s</span>)</span><br />
-      Not supported, since <tt class="rst-docutils literal">Includer</tt> objects are read-only.</td>
+      Not supported, since ``Includer`` objects are read-only.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="grizzled.file.includer-pysrc.html#Includer.write">source&nbsp;code</a></span>
             
@@ -334,7 +340,7 @@ expression, so it can be configured.</p>
         <tr>
           <td><span class="summary-sig"><a name="writelines"></a><span class="summary-sig-name">writelines</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">iterable</span>)</span><br />
-      Not supported, since <tt class="rst-docutils literal">Includer</tt> objects are read-only.</td>
+      Not supported, since ``Includer`` objects are read-only.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="grizzled.file.includer-pysrc.html#Includer.writelines">source&nbsp;code</a></span>
             
@@ -363,13 +369,13 @@ expression, so it can be configured.</p>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">string</span>
+      <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="grizzled.file.includer.Includer-class.html#getvalue" class="summary-sig-name">getvalue</a>(<span class="summary-sig-arg">self</span>)</span><br />
       Retrieve the entire contents of the file, which includes expanded,
-at any time before the <tt class="rst-docutils literal">close()</tt> method is called.</td>
+at any time before the ``close()`` method is called.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="grizzled.file.includer-pysrc.html#Includer.getvalue">source&nbsp;code</a></span>
             
@@ -418,6 +424,24 @@ at any time before the <tt class="rst-docutils literal">close()</tt> method is c
       
     </td>
   </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__format__</code>,
+      <code>__getattribute__</code>,
+      <code>__hash__</code>,
+      <code>__new__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
+      <code>__setattr__</code>,
+      <code>__sizeof__</code>,
+      <code>__str__</code>,
+      <code>__subclasshook__</code>
+      </p>
+    </td>
+  </tr>
 </table>
 <!-- ==================== PROPERTIES ==================== -->
 <a name="section-Properties"></a>
@@ -442,6 +466,13 @@ at any time before the <tt class="rst-docutils literal">close()</tt> method is c
     </td><td class="summary">
         <a href="grizzled.file.includer.Includer-class.html#name" class="summary-name">name</a><br />
       Get the name of the file being processed.
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
     </td>
   </tr>
 </table>
@@ -482,24 +513,29 @@ at any time before the <tt class="rst-docutils literal">close()</tt> method is c
     </td>
   </tr></table>
   
-  Create a new <tt class="rst-rst-docutils literal rst-docutils literal">Includer</tt> object.
+  <pre class="literalblock">
+
+Create a new ``Includer`` object.
+
+:Parameters:
+    source : file or str
+        The source to be read and expanded. May be an open file-like
+        object, a path name, or a URL string.
+    include_regex : str
+        Regular expression defining the include syntax. Must contain a
+        single parenthetical group that can be used to extract the
+        included file or URL.
+    max_nest_level : int
+        Maximum include nesting level. Exceeding this level will cause
+        ``Includer`` to throw an ``IncludeError``.
+    output : str or file
+        A string (path name) or file-like object to which to save the
+        expanded output.
+
+:raise IncludeError: On error
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>source</code></strong> (file or str) - The source to be read and expanded. May be an open file-like
-object, a path name, or a URL string.</li>
-        <li><strong class="pname"><code>include_regex</code></strong> (str) - Regular expression defining the include syntax. Must contain a
-single parenthetical group that can be used to extract the
-included file or URL.</li>
-        <li><strong class="pname"><code>max_nest_level</code></strong> (int) - Maximum include nesting level. Exceeding this level will cause
-<tt class="rst-docutils literal">Includer</tt> to throw an <tt class="rst-docutils literal">IncludeError</tt>.</li>
-        <li><strong class="pname"><code>output</code></strong> (str or file) - A string (path name) or file-like object to which to save the
-expanded output.</li>
-    </ul></dd>
-    <dt>Raises:</dt>
-    <dd><ul class="nomargin-top">
-        <li><code><strong class='fraise'><a href="grizzled.file.includer.IncludeError-class.html">IncludeError</a></strong></code> - On error</li>
-    </ul></dd>
     <dt>Overrides:
         object.__init__
     </dt>
@@ -520,15 +556,17 @@ expanded output.</li>
     </td>
   </tr></table>
   
-  A file object is its own iterator.
+  <pre class="literalblock">
+A file object is its own iterator.
+
+:rtype: string
+:return: the next line from the file
+
+:raise StopIteration: end of file
+:raise IncludeError: on error
+
+</pre>
   <dl class="fields">
-    <dt>Returns: string</dt>
-        <dd>the next line from the file</dd>
-    <dt>Raises:</dt>
-    <dd><ul class="nomargin-top">
-        <li><code><strong class='fraise'>StopIteration</strong></code> - end of file</li>
-        <li><code><strong class='fraise'><a href="grizzled.file.includer.IncludeError-class.html">IncludeError</a></strong></code> - on error</li>
-    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -546,11 +584,16 @@ expanded output.</li>
     </td>
   </tr></table>
   
-  Get the file descriptor. Returns the descriptor of the file being
+  <pre class="literalblock">
+
+Get the file descriptor. Returns the descriptor of the file being
 read.
+
+:rtype:  int
+:return: the file descriptor of the file being read
+
+</pre>
   <dl class="fields">
-    <dt>Returns: int</dt>
-        <dd>the file descriptor of the file being read</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -568,10 +611,14 @@ read.
     </td>
   </tr></table>
   
-  Determine whether the file being processed is a TTY or not.
+  <pre class="literalblock">
+
+Determine whether the file being processed is a TTY or not.
+
+:return: ``True`` or ``False``
+
+</pre>
   <dl class="fields">
-    <dt>Returns:</dt>
-        <dd><tt class="rst-docutils literal">True</tt> or <tt class="rst-docutils literal">False</tt></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -591,14 +638,19 @@ read.
     </td>
   </tr></table>
   
-  Seek to the specified file offset in the include-processed file.
+  <pre class="literalblock">
+
+Seek to the specified file offset in the include-processed file.
+
+:Parameters:
+    pos : int
+        file offset
+    mode : int
+        the seek mode, as specified to a Python file's ``seek()``
+        method
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>pos</code></strong> (int) - file offset</li>
-        <li><strong class="pname"><code>mode</code></strong> (int) - the seek mode, as specified to a Python file's <tt class="rst-docutils literal">seek()</tt>
-method</li>
-    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -616,10 +668,15 @@ method</li>
     </td>
   </tr></table>
   
-  Get the current file offset.
+  <pre class="literalblock">
+
+Get the current file offset.
+
+:rtype:  int
+:return: current file offset
+
+</pre>
   <dl class="fields">
-    <dt>Returns: int</dt>
-        <dd>current file offset</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -638,15 +695,19 @@ method</li>
     </td>
   </tr></table>
   
-  Read <em>n</em> bytes from the open file.
+  <pre class="literalblock">
+
+Read *n* bytes from the open file.
+
+:Parameters:
+    n : int
+        Number of bytes to read. A negative number instructs
+        the method to read all remaining bytes.
+
+:return: the bytes read
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>n</code></strong> (int) - Number of bytes to read. A negative number instructs
-the method to read all remaining bytes.</li>
-    </ul></dd>
-    <dt>Returns:</dt>
-        <dd>the bytes read</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -665,14 +726,19 @@ the method to read all remaining bytes.</li>
     </td>
   </tr></table>
   
-  Read the next line from the file.
+  <pre class="literalblock">
+
+Read the next line from the file.
+
+:Parameters:
+    length : int
+        a length hint, or negative if you don't care
+        
+:rtype: str
+:return: the line read
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>length</code></strong> (int) - a length hint, or negative if you don't care</li>
-    </ul></dd>
-    <dt>Returns: str</dt>
-        <dd>the line read</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -691,10 +757,15 @@ the method to read all remaining bytes.</li>
     </td>
   </tr></table>
   
-  Read all remaining lines in the file.
+  <pre class="literalblock">
+
+Read all remaining lines in the file.
+
+:rtype:  array
+:return: array of lines
+
+</pre>
   <dl class="fields">
-    <dt>Returns: array</dt>
-        <dd>array of lines</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -712,11 +783,16 @@ the method to read all remaining bytes.</li>
     </td>
   </tr></table>
   
-  Retrieve the entire contents of the file, which includes expanded,
-at any time before the <tt class="rst-rst-docutils literal rst-docutils literal">close()</tt> method is called.
+  <pre class="literalblock">
+
+Retrieve the entire contents of the file, which includes expanded,
+at any time before the ``close()`` method is called.
+
+:rtype:  string
+:return: a single string containing the contents of the file
+
+</pre>
   <dl class="fields">
-    <dt>Returns: string</dt>
-        <dd>a single string containing the contents of the file</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -745,8 +821,16 @@ at any time before the <tt class="rst-rst-docutils literal rst-docutils literal"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <h3 class="epydoc">name</h3>
-  Get the name of the file being processed.
+  <pre class="literalblock">
+
+Get the name of the file being processed.
+
+</pre>
   <dl class="fields">
+    <dt>Get Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.name(<span class="summary-sig-arg">self</span>)</span>
+        - Get the name of the file being processed.
+    </dd>
   </dl>
 </td></tr></table>
 </div>
@@ -777,8 +861,7 @@ at any time before the <tt class="rst-rst-docutils literal rst-docutils literal"
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1
-    on Mon Mar 14 22:00:18 2011
+    Generated by Epydoc 3.0.1 on Sun May 29 10:27:21 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

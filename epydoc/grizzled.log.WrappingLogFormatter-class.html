@@ -55,8 +55,8 @@
     </td>
   </tr>
 </table>
-<!-- ==================== TYPE DESCRIPTION ==================== -->
-<h1 class="epydoc">type WrappingLogFormatter</h1><p class="nomargin-top"><span class="codelink"><a href="grizzled.log-pysrc.html#WrappingLogFormatter">source&nbsp;code</a></span></p>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class WrappingLogFormatter</h1><p class="nomargin-top"><span class="codelink"><a href="grizzled.log-pysrc.html#WrappingLogFormatter">source&nbsp;code</a></span></p>
 <pre class="base-tree">
        object --+    
                 |    
@@ -66,18 +66,24 @@ logging.Formatter --+
 </pre>
 
 <hr />
-<p>A <tt class="rst-rst-rst-docutils literal rst-rst-docutils literal rst-docutils literal">logging</tt> <tt class="rst-rst-rst-docutils literal rst-rst-docutils literal rst-docutils literal">Formatter</tt> class that writes each message wrapped on line
-boundaries. Here's a typical usage scenario:</p>
-<pre class="py-doctest">
-<span class="py-keyword">import</span> logging
-<span class="py-keyword">import</span> sys
-<span class="py-keyword">from</span> grizzled.log <span class="py-keyword">import</span> WrappingLogFormatter
+<pre class="literalblock">
 
-stderr_handler = logging.StreamHandler(sys.stderr)
-formatter = WrappingLogFormatter(format=<span class="py-string">'%(levelname)s %(message)s&quot;)</span>
-<span class="py-string">stderr_handler.setLevel(logging.WARNING)</span>
-<span class="py-string">stderr_handler.setFormatter(formatter)</span>
-<span class="py-string">logging.getLogger('</span>').handlers = [stderr_handler]</pre>
+A ``logging`` ``Formatter`` class that writes each message wrapped on line
+boundaries. Here's a typical usage scenario:
+
+.. python::
+
+    import logging
+    import sys
+    from grizzled.log import WrappingLogFormatter
+
+    stderr_handler = logging.StreamHandler(sys.stderr)
+    formatter = WrappingLogFormatter(format='%(levelname)s %(message)s&quot;)
+    stderr_handler.setLevel(logging.WARNING)
+    stderr_handler.setFormatter(formatter)
+    logging.getLogger('').handlers = [stderr_handler]
+
+</pre>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -106,7 +112,7 @@ formatter = WrappingLogFormatter(format=<span class="py-string">'%(levelname)s %
         <span class="summary-sig-arg">format</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">date_format</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">max_width</span>=<span class="summary-sig-default">79</span>)</span><br />
-      Initialize a new <tt class="rst-docutils literal">WrappingLogFormatter</tt>.</td>
+      Initialize a new ``WrappingLogFormatter``.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="grizzled.log-pysrc.html#WrappingLogFormatter.__init__">source&nbsp;code</a></span>
             
@@ -141,6 +147,45 @@ formatter = WrappingLogFormatter(format=<span class="py-string">'%(levelname)s %
       <code>formatException</code>,
       <code>formatTime</code>,
       <code>usesTime</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__format__</code>,
+      <code>__getattribute__</code>,
+      <code>__hash__</code>,
+      <code>__new__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
+      <code>__setattr__</code>,
+      <code>__sizeof__</code>,
+      <code>__str__</code>,
+      <code>__subclasshook__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
       </p>
     </td>
   </tr>
@@ -181,16 +226,24 @@ formatter = WrappingLogFormatter(format=<span class="py-string">'%(levelname)s %
     </td>
   </tr></table>
   
-  Initialize a new <tt class="rst-rst-docutils literal rst-docutils literal">WrappingLogFormatter</tt>.
+  <pre class="literalblock">
+
+Initialize a new ``WrappingLogFormatter``.
+
+:Parameters:
+    format : str
+        The format to use, or ``None`` for the logging default
+
+    date_format : str
+        Date format, or ``None`` for the logging default
+
+    max_width : int
+        Maximum line width, or ``None`` to default to 79./
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>format</code></strong> (str) - The format to use, or <tt class="rst-docutils literal">None</tt> for the logging default</li>
-        <li><strong class="pname"><code>date_format</code></strong> (str) - Date format, or <tt class="rst-docutils literal">None</tt> for the logging default</li>
-        <li><strong class="pname"><code>max_width</code></strong> (int) - Maximum line width, or <tt class="rst-docutils literal">None</tt> to default to 79./</li>
-    </ul></dd>
     <dt>Overrides:
-        logging.Formatter.__init__
+        object.__init__
     </dt>
   </dl>
 </td></tr></table>
@@ -254,8 +307,7 @@ formatter = WrappingLogFormatter(format=<span class="py-string">'%(levelname)s %
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1
-    on Mon Mar 14 22:00:18 2011
+    Generated by Epydoc 3.0.1 on Sun May 29 10:27:21 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

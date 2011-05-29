@@ -55,8 +55,8 @@
     </td>
   </tr>
 </table>
-<!-- ==================== TYPE DESCRIPTION ==================== -->
-<h1 class="epydoc">type Forwarder</h1><p class="nomargin-top"><span class="codelink"><a href="grizzled.proxy-pysrc.html#Forwarder">source&nbsp;code</a></span></p>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class Forwarder</h1><p class="nomargin-top"><span class="codelink"><a href="grizzled.proxy-pysrc.html#Forwarder">source&nbsp;code</a></span></p>
 <pre class="base-tree">
 object --+
          |
@@ -64,34 +64,46 @@ object --+
 </pre>
 
 <hr />
-<p>The <tt class="rst-rst-rst-docutils literal rst-rst-docutils literal rst-docutils literal">grizzled.forwarder.Forwarder</tt> class is intended to be used as
+<pre class="literalblock">
+
+The ``grizzled.forwarder.Forwarder`` class is intended to be used as
 a mixin, to make it easier for classes to forward calls to another
-class. The mix <tt class="rst-docutils literal">Forwarder</tt> into a class, simply include it as
-one of the base classes.</p>
-<p><strong>WARNING</strong>: <tt class="rst-docutils literal">Forwarder</tt> intercepts calls to <tt class="rst-docutils literal">__getattr__</tt>, so
-don't mix it in if your class is already overriding <tt class="rst-docutils literal">__getattr__</tt>.</p>
-<div class="rst-section" id="rst-examples">
-<h1 class="heading">Examples</h1>
-<p>Forward all unimplemented methods to a file:</p>
-<pre class="py-doctest">
-<span class="py-keyword">from</span> grizzled.forwarder <span class="py-keyword">import</span> Forwarder
+class. The mix ``Forwarder`` into a class, simply include it as
+one of the base classes.
 
-<span class="py-keyword">class</span> <span class="py-defname">MyFileWrapper</span>(Forwarder):
-    <span class="py-keyword">def</span> <span class="py-defname">__init__</span>(self, file):
-        Forwarder.__init__(self, file)
+**WARNING**: ``Forwarder`` intercepts calls to ``__getattr__``, so
+don't mix it in if your class is already overriding ``__getattr__``.
 
-w = MyFileWrapper(open(<span class="py-string">'/tmp/foo'</span>))
-<span class="py-keyword">for</span> line <span class="py-keyword">in</span> w.readlines():
-    <span class="py-keyword">print</span> line</pre>
-<p>Forward all unimplemented calls, <em>except</em> <tt class="rst-docutils literal">name</tt>, to the specified
-object. Calls to <tt class="rst-docutils literal">name</tt> will raise an <tt class="rst-docutils literal">AttributeError</tt>:</p>
-<pre class="py-doctest">
-<span class="py-keyword">from</span> grizzled.forwarder <span class="py-keyword">import</span> Forwarder
+Examples
+--------
 
-<span class="py-keyword">class</span> <span class="py-defname">MyFileWrapper</span>(Forwarder):
-    <span class="py-keyword">def</span> <span class="py-defname">__init__</span>(self, file):
-        Forwarder.__init__(self, file, <span class="py-string">'name'</span>)</pre>
-</div>
+Forward all unimplemented methods to a file:
+
+.. python::
+
+    from grizzled.forwarder import Forwarder
+
+    class MyFileWrapper(Forwarder):
+        def __init__(self, file):
+            Forwarder.__init__(self, file)
+
+    w = MyFileWrapper(open('/tmp/foo'))
+    for line in w.readlines():
+        print line
+
+Forward all unimplemented calls, *except* ``name``, to the specified
+object. Calls to ``name`` will raise an ``AttributeError``:
+
+    
+.. python::
+
+    from grizzled.forwarder import Forwarder
+
+    class MyFileWrapper(Forwarder):
+        def __init__(self, file):
+            Forwarder.__init__(self, file, 'name')
+
+</pre>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -119,7 +131,7 @@ object. Calls to <tt class="rst-docutils literal">name</tt> will raise an <tt cl
           <td><span class="summary-sig"><a href="grizzled.proxy.Forwarder-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">wrapped</span>,
         <span class="summary-sig-arg">*exceptions</span>)</span><br />
-      Initialize a new <tt class="rst-docutils literal">Forwarder</tt> that will pass unimplemented calls
+      Initialize a new ``Forwarder`` that will pass unimplemented calls
 (method calls, attribute accesses, etc.) to the specified object.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="grizzled.proxy-pysrc.html#Forwarder.__init__">source&nbsp;code</a></span>
@@ -145,6 +157,49 @@ object. Calls to <tt class="rst-docutils literal">name</tt> will raise an <tt cl
         </tr>
       </table>
       
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__format__</code>,
+      <code>__getattribute__</code>,
+      <code>__hash__</code>,
+      <code>__new__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
+      <code>__setattr__</code>,
+      <code>__sizeof__</code>,
+      <code>__str__</code>,
+      <code>__subclasshook__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
     </td>
   </tr>
 </table>
@@ -183,17 +238,22 @@ object. Calls to <tt class="rst-docutils literal">name</tt> will raise an <tt cl
     </td>
   </tr></table>
   
-  Initialize a new <tt class="rst-rst-docutils literal rst-docutils literal">Forwarder</tt> that will pass unimplemented calls
+  <pre class="literalblock">
+
+Initialize a new ``Forwarder`` that will pass unimplemented calls
 (method calls, attribute accesses, etc.) to the specified object.
+
+:Parameters:
+    wrapped : object
+        the object to which to pass unknown attributes
+    exceptions : str
+        one or more names (as separate arguments) of methods
+        that should not be intercepted (and will, therefore,
+        result in ``AttributeError`` exceptions if invoked,
+        absent any other intervention).
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>wrapped</code></strong> (object) - the object to which to pass unknown attributes</li>
-        <li><strong class="pname"><code>exceptions</code></strong> (str) - one or more names (as separate arguments) of methods
-that should not be intercepted (and will, therefore,
-result in <tt class="rst-docutils literal">AttributeError</tt> exceptions if invoked,
-absent any other intervention).</li>
-    </ul></dd>
     <dt>Overrides:
         object.__init__
     </dt>
@@ -227,8 +287,7 @@ absent any other intervention).</li>
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1
-    on Mon Mar 14 22:00:18 2011
+    Generated by Epydoc 3.0.1 on Sun May 29 10:27:21 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

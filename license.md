@@ -6,8 +6,11 @@ layout: default
 This software is released under a BSD license, adapted from
 <http://opensource.org/licenses/bsd-license.php>
 
-Copyright &copy; 2008-2010 Brian M. Clapper.
+Copyright &copy; 2008-2010 Brian M. Clapper, except where otherwise noted.
 All rights reserved.
+
+The `FTPMlstDataParser` class in the `grizzled.ftp.net.parse` module is
+copyright &copy; 2011 Andrew Scheller and is released under a BSD license.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:

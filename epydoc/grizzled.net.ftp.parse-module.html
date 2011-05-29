@@ -39,7 +39,7 @@
       <span class="breadcrumbs">
         <a href="grizzled-module.html">Package&nbsp;grizzled</a> ::
         <a href="grizzled.net-module.html">Package&nbsp;net</a> ::
-        <a href="grizzled.net.ftp-module.html" onclick="show_private();">Package&nbsp;ftp</a> ::
+        <a href="grizzled.net.ftp-module.html">Package&nbsp;ftp</a> ::
         Module&nbsp;parse
       </span>
     </td>
@@ -58,45 +58,46 @@
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
 <h1 class="epydoc">Module parse</h1><p class="nomargin-top"><span class="codelink"><a href="grizzled.net.ftp.parse-pysrc.html">source&nbsp;code</a></span></p>
-<p>Module for parsing FTP data.</p>
-<p>Currently, this module contains classes for parsing FTP <tt class="rst-docutils literal">LIST</tt> command
+<pre class="literalblock">
+
+Module for parsing FTP data.
+
+Currently, this module contains classes for parsing FTP ``LIST`` command
 output from a variety of FTP servers. In the future, this module may be
-extended to handle other FTP parsing chores. (Or not.)</p>
-<p>The FTP <tt class="rst-docutils literal">LIST</tt> parsing logic was adapted for Python from D. J. Bernstein's
-<tt class="rst-docutils literal">ftpparse.c</tt> library. See <a class="rst-reference external" href="http://cr.yp.to/ftpparse.html" target="_top">http://cr.yp.to/ftpparse.html</a>. The logic in this
+extended to handle other FTP parsing chores. (Or not.)
+
+The FTP ``LIST`` parsing logic was adapted for Python from D. J. Bernstein's
+``ftpparse.c`` library. See http://cr.yp.to/ftpparse.html. The logic in this
 module is functionally similar to Bernstein's parser, with the following
-differences:</p>
-<blockquote>
-<ul class="rst-simple">
-<li>Bernstein's C-specific logic has been made more Python-like.</li>
-<li>The basic parser is encapsulated inside an <a href="grizzled.net.ftp.parse.FTPListDataParser-class.html" class="link">FTPListDataParser</a> class,
-instead of a function.</li>
-<li>The <tt class="rst-docutils literal">ID_TYPE</tt> and <tt class="rst-docutils literal">MTIME_TYPE</tt> values are enumerations.</li>
-<li><tt class="rst-docutils literal">SIZE_TYPE</tt> is not supported (since it was always being set to the
-same value anyway).</li>
-</ul>
-</blockquote>
-<p>Currently covered formats:</p>
-<blockquote>
-<ul class="rst-simple">
-<li><a class="rst-reference external" href="http://cr.yp.to/ftp/list/eplf.html" target="_top">EPLF</a></li>
-<li>UNIX <em>ls</em>, with or without group ID</li>
-<li>Microsoft FTP Service</li>
-<li>Windows NT FTP Server</li>
-<li>VMS</li>
-<li>WFTPD</li>
-<li>NetPresenz (Mac)</li>
-<li>NetWare</li>
-<li>MSDOS</li>
-</ul>
-</blockquote>
-<p>Definitely not covered:</p>
-<blockquote>
-<ul class="rst-simple">
-<li>Long VMS filenames, with information split across two lines.</li>
-<li>NCSA Telnet FTP server. Has LIST = NLST (and bad NLST for directories).</li>
-</ul>
-</blockquote>
+differences:
+
+    - Bernstein's C-specific logic has been made more Python-like.
+    - The basic parser is encapsulated inside an `FTPListDataParser` class,
+      instead of a function.
+    - The ``ID_TYPE`` and ``MTIME_TYPE`` values are enumerations.
+    - ``SIZE_TYPE`` is not supported (since it was always being set to the
+      same value anyway).
+
+Currently covered formats:
+
+    - `EPLF`_
+    - UNIX *ls*, with or without group ID
+    - Microsoft FTP Service
+    - Windows NT FTP Server
+    - VMS
+    - WFTPD
+    - NetPresenz (Mac)
+    - NetWare
+    - MSDOS
+
+.. _EPLF: http://cr.yp.to/ftp/list/eplf.html
+
+Definitely not covered:
+
+    - Long VMS filenames, with information split across two lines.
+    - NCSA Telnet FTP server. Has LIST = NLST (and bad NLST for directories).
+
+</pre>
 
 <!-- ==================== CLASSES ==================== -->
 <a name="section-Classes"></a>
@@ -116,18 +117,32 @@ same value anyway).</li>
   </td>
 </tr>
 <tr>
-    <td class="summary" colspan="2">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
         <a href="grizzled.net.ftp.parse.FTPListData-class.html" class="summary-name">FTPListData</a><br />
-      The <a href="grizzled.net.ftp.parse.FTPListDataParser-class.html" class="link">FTPListDataParser</a> class's <tt class="rst-rst-docutils literal rst-docutils literal">parse_line()</tt> method returns an
+      The `FTPListDataParser` class's ``parse_line()`` method returns an
 instance of this class, capturing the parsed data.
     </td>
   </tr>
 <tr>
-    <td class="summary" colspan="2">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
         <a href="grizzled.net.ftp.parse.FTPListDataParser-class.html" class="summary-name">FTPListDataParser</a><br />
-      An <tt class="rst-rst-docutils literal rst-docutils literal">FTPListDataParser</tt> object can be used to parse one or more lines
-that were retrieved by an FTP <tt class="rst-rst-docutils literal rst-docutils literal">LIST</tt> command that was sent to a remote
+      An ``FTPListDataParser`` object can be used to parse one or more lines
+that were retrieved by an FTP ``LIST`` command that was sent to a remote
 server.
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="grizzled.net.ftp.parse.FTPMlstDataParser-class.html" class="summary-name" onclick="show_private();">FTPMlstDataParser</a><br />
+      An ``FTPMlstDataParser`` object can be used to parse one or more lines
+that were retrieved by an FTP ``MLST`` or ``MLSD`` command that was sent
+to a remote server.
     </td>
   </tr>
 </table>
@@ -150,16 +165,54 @@ server.
 </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type"><a href="grizzled.net.ftp.parse.FTPListData-class.html" class="link">FTPListData</a></span>
+      <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="grizzled.net.ftp.parse-module.html#parse_ftp_list_line" class="summary-sig-name">parse_ftp_list_line</a>(<span class="summary-sig-arg">ftp_list_line</span>)</span><br />
-      Convenience function that instantiates an <a href="grizzled.net.ftp.parse.FTPListDataParser-class.html" class="link">FTPListDataParser</a> object
-and passes <tt class="rst-docutils literal">ftp_list_line</tt> to the object's <tt class="rst-docutils literal">parse_line()</tt> method,
+          <td><span class="summary-sig"><a href="grizzled.net.ftp.parse-module.html#parse_ftp_list_line" class="summary-sig-name">parse_ftp_list_line</a>(<span class="summary-sig-arg">ftp_list_line</span>,
+        <span class="summary-sig-arg">is_mlst</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Convenience function that instantiates an `FTPListDataParser` object
+or `FTPMlstDataParser` (depending on the setting of `is_mlst`) and
+and passes ``ftp_list_line`` to the object's ``parse_line()`` method,
 returning the result.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="grizzled.net.ftp.parse-pysrc.html#parse_ftp_list_line">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.net.ftp.parse-module.html#ftp_FEAT" class="summary-sig-name" onclick="show_private();">ftp_FEAT</a>(<span class="summary-sig-arg">ftp</span>)</span><br />
+      Issue the FTP FEAT command to an FTP server, and return the resulting
+feature list as a dictionary.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.net.ftp.parse-pysrc.html#ftp_FEAT">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="grizzled.net.ftp.parse-module.html#supports_mlst" class="summary-sig-name" onclick="show_private();">supports_mlst</a>(<span class="summary-sig-arg">ftp</span>)</span><br />
+      Convenience function to determine whether a remote FTP server supports
+the MLST command or not.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="grizzled.net.ftp.parse-pysrc.html#supports_mlst">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -223,7 +276,7 @@ returning the result.</td>
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="grizzled.net.ftp.parse-module.html#MTIME_TYPE" class="summary-name">MTIME_TYPE</a> = <code title="Enum('UNKNOWN', 'LOCAL', 'REMOTE_MINUTE', 'REMOTE_DAY')">Enum('UNKNOWN', 'LOCAL', 'REMOTE_MINUTE', 'REMOTE<code class="variable-ellipsis">...</code></code><br />
-      <tt class="rst-docutils literal">MTIME_TYPE</tt> identifies how a modification time ought to be interpreted
+      ``MTIME_TYPE`` identifies how a modification time ought to be interpreted
 (assuming the caller cares).
     </td>
   </tr>
@@ -232,14 +285,14 @@ returning the result.</td>
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="grizzled.net.ftp.parse-module.html#ID_TYPE" class="summary-name">ID_TYPE</a> = <code title="Enum('UNKNOWN', 'FULL')">Enum('UNKNOWN', 'FULL')</code><br />
-      <tt class="rst-docutils literal">ID_TYPE</tt> identifies how a file's identifier should be interpreted.
+      ``ID_TYPE`` identifies how a file's identifier should be interpreted.
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="now"></a><span class="summary-name">now</span> = <code title="1300154413.1">1300154413.1</code>
+        <a name="now"></a><span class="summary-name">now</span> = <code title="1306679240.45">1306679240.45</code>
     </td>
   </tr>
 <tr class="private">
@@ -282,26 +335,103 @@ returning the result.</td>
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">parse_ftp_list_line</span>(<span class="sig-arg">ftp_list_line</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">parse_ftp_list_line</span>(<span class="sig-arg">ftp_list_line</span>,
+        <span class="sig-arg">is_mlst</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="grizzled.net.ftp.parse-pysrc.html#parse_ftp_list_line">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
   
-  Convenience function that instantiates an <a href="grizzled.net.ftp.parse.FTPListDataParser-class.html" class="link">FTPListDataParser</a> object
-and passes <tt class="rst-rst-docutils literal rst-docutils literal">ftp_list_line</tt> to the object's <tt class="rst-rst-docutils literal rst-docutils literal">parse_line()</tt> method,
+  <pre class="literalblock">
+
+Convenience function that instantiates an `FTPListDataParser` object
+or `FTPMlstDataParser` (depending on the setting of `is_mlst`) and
+and passes ``ftp_list_line`` to the object's ``parse_line()`` method,
 returning the result.
+
+:Parameters:
+    ftp_list_line : str
+        The line of output
+    is_mlst : bool
+        `true` if the server is known to support the FTP MLST command;
+        `false`, otherwise.
+
+:rtype: `FTPListData`
+:return: An `FTPListData` object describing the parsed line, or
+         ``None`` if the line could not be parsed. Note that it's
+         possible for this method to return a partially-filled
+         `FTPListData` object (e.g., one without a name).
+
+</pre>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>ftp_list_line</code></strong> (str) - The line of output</li>
-    </ul></dd>
-    <dt>Returns: <a href="grizzled.net.ftp.parse.FTPListData-class.html" class="link">FTPListData</a></dt>
-        <dd>An <a href="grizzled.net.ftp.parse.FTPListData-class.html" class="link">FTPListData</a> object describing the parsed line, or
-<tt class="rst-docutils literal">None</tt> if the line could not be parsed. Note that it's
-possible for this method to return a partially-filled
-<a href="grizzled.net.ftp.parse.FTPListData-class.html" class="link">FTPListData</a> object (e.g., one without a name).</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="ftp_FEAT"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">ftp_FEAT</span>(<span class="sig-arg">ftp</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.net.ftp.parse-pysrc.html#ftp_FEAT">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Issue the FTP FEAT command to an FTP server, and return the resulting
+feature list as a dictionary.
+
+Adapted from code by Andrew Scheller &lt;gcode@loowis.durge.org&gt;.
+
+:Parameters:
+    ftp : open `FTP` object from Python's `ftplib`.
+
+:rtype: `dict`
+:return: A dict of features, or an empty dict if either (a) the
+         remote server supports no extra features, or (b) doesn't
+         support the FTP FEAT command.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="supports_mlst"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">supports_mlst</span>(<span class="sig-arg">ftp</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="grizzled.net.ftp.parse-pysrc.html#supports_mlst">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Convenience function to determine whether a remote FTP server supports
+the MLST command or not. This method uses the FTP &quot;FEAT&quot; command to
+query the capabilities of the server.
+
+Adapted from code by Andrew Scheller &lt;gcode@loowis.durge.org&gt;.
+
+:Parameters:
+    ftp : open `FTP` object from Python's `ftplib`.
+
+:rtype: `bool`
+:return: `true` if the server supports MLST; `false`, otherwise.
+
+</pre>
+  <dl class="fields">
   </dl>
 </td></tr></table>
 </div>
@@ -356,16 +486,17 @@ possible for this method to return a partially-filled
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <h3 class="epydoc">MTIME_TYPE</h3>
-  <p><tt class="rst-rst-docutils literal rst-docutils literal">MTIME_TYPE</tt> identifies how a modification time ought to be interpreted
-(assuming the caller cares).</p>
-<blockquote>
-<ul class="rst-simple">
-<li><tt class="rst-docutils literal">LOCAL</tt>: Time is local to the client, granular to (at least) the minute</li>
-<li><tt class="rst-docutils literal">REMOTE_MINUTE</tt>: Time is local to the server and granular to the minute</li>
-<li><tt class="rst-docutils literal">REMOTE_DAY</tt>: Time is local to the server and granular to the day.</li>
-<li><tt class="rst-docutils literal">UNKNOWN</tt>: Time's locale is unknown.</li>
-</ul>
-</blockquote>
+  <pre class="literalblock">
+
+``MTIME_TYPE`` identifies how a modification time ought to be interpreted
+(assuming the caller cares).
+
+    - ``LOCAL``: Time is local to the client, granular to (at least) the minute
+    - ``REMOTE_MINUTE``: Time is local to the server and granular to the minute
+    - ``REMOTE_DAY``: Time is local to the server and granular to the day.
+    - ``UNKNOWN``: Time's locale is unknown.
+
+</pre>
   <dl class="fields">
   </dl>
   <dl class="fields">
@@ -383,13 +514,14 @@ Enum('UNKNOWN', 'LOCAL', 'REMOTE_MINUTE', 'REMOTE_DAY')
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <h3 class="epydoc">ID_TYPE</h3>
-  <p><tt class="rst-rst-docutils literal rst-docutils literal">ID_TYPE</tt> identifies how a file's identifier should be interpreted.</p>
-<blockquote>
-<ul class="rst-simple">
-<li><tt class="rst-docutils literal">FULL</tt>: The ID is known to be complete.</li>
-<li><tt class="rst-docutils literal">UNKNOWN</tt>: The ID is not set or its type is unknown.</li>
-</ul>
-</blockquote>
+  <pre class="literalblock">
+
+``ID_TYPE`` identifies how a file's identifier should be interpreted.
+
+    - ``FULL``: The ID is known to be complete.
+    - ``UNKNOWN``: The ID is not set or its type is unknown.
+
+</pre>
   <dl class="fields">
   </dl>
   <dl class="fields">
@@ -428,8 +560,7 @@ Enum('UNKNOWN', 'FULL')
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1
-    on Mon Mar 14 22:00:17 2011
+    Generated by Epydoc 3.0.1 on Sun May 29 10:27:21 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"
