@@ -65,7 +65,8 @@ The Grizzled Python Utility Library is copyright &copy; 2008-2011
 accompanying [license][] file.
 
 The `FTPMlstDataParser` class in the `grizzled.ftp.net.parse` module is
-copyright &copy; 2011 Andrew Scheller and is released under a BSD license.
+copyright &copy; 2011 Andrew Scheller (*gcode /at/ loowis.durge.org*)
+and is released under a [BSD license][license].
 
 ## Patches
 
