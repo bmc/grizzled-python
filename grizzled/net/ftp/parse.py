@@ -319,7 +319,7 @@ class FTPListDataParser(object):
                         result.mtime = self._guess_time(month, mday, hour, minute)
                     elif j - i >= 4:
                         year = long(buf[i:j])
-                        result.mtimetype = MTIME_TYPE.REMOTE_DAY
+                        result.mtime_type = MTIME_TYPE.REMOTE_DAY
                         result.mtime = self._get_mtime(year, month, mday)
                     else:
                         break
@@ -412,7 +412,7 @@ class FTPListDataParser(object):
 
             minute = long(buf[i:j])
 
-            result.mtimetype = MTIME_TYPE.REMOTE_MINUTE
+            result.mtime_type = MTIME_TYPE.REMOTE_MINUTE
             result.mtime = self._get_mtime(year, month, mday, hour, minute)
 
         except IndexError:
@@ -492,27 +492,99 @@ class FTPListDataParser(object):
             j = _skip(buf, j, ' ')
 
             result.name = buf[j:]
-            result.mtimetype = MTIME_TYPE.REMOTE_MINUTE
+            result.mtime_type = MTIME_TYPE.REMOTE_MINUTE
             result.mtime = self._get_mtime(year, month, mday, hour, minute)
         except IndexError:
             pass
 
         return result
 
+class FTPMlstDataParser(object):
+    """
+    An ``FTPMlstDataParser`` object can be used to parse one or more lines
+    that were retrieved by an FTP ``MLST`` or ``MLSD`` command that was sent
+    to a remote server.
+
+    Contributed by Andrew Scheller <gcode@loowis.durge.org>.
+    """
+    def __init__(self):
+        pass
+
+    def parse_line(self, ftp_list_line):
+        """
+        Parse a line from an FTP ``MLST`` or ``MLSD`` command.
+
+        :Parameters:
+            ftp_list_line : str
+                The line of output
+
+        :rtype: `FTPListData`
+        :return: An `FTPListData` object describing the parsed line, or
+                 ``None`` if the line could not be parsed. Note that it's
+                 possible for this method to return a partially-filled
+                 `FTPListData` object (e.g., one without a mtime).
+        """
+        result = FTPListData(ftp_list_line)
+        # pull out the name
+        parts = ftp_list_line.partition(' ')
+        result.name = parts[2]
+
+        # parse the facts
+        if parts[0][-1] == ';':
+            for fact in parts[0][:-1].split(';'):
+                parts = fact.partition('=')
+                factname = parts[0].lower()
+                factvalue = parts[2]
+                if factname == 'unique':
+                    if factvalue == "0g0" or factvalue == "0g1":
+                        # Matrix FTP server sometimes returns bogus
+                        # "unique" facts
+                        result.id_type = ID_TYPE.UNKNOWN
+                    else:
+                        result.id_type = ID_TYPE.FULL
+                    result.id = factvalue
+                elif factname == 'modify':
+                    result.mtime_type = MTIME_TYPE.LOCAL
+                    result.mtime = calendar.timegm((int(factvalue[0:4]),
+                                                     int(factvalue[4:6]),
+                                                     int(factvalue[6:8]),
+                                                     int(factvalue[8:10]),
+                                                     int(factvalue[10:12]),
+                                                     int(factvalue[12:14]),
+                                                     0, 0, 0))
+                elif factname == 'size':
+                    result.size = long(factvalue)
+                elif factname == 'sizd':
+                    # some FTP servers report directory size with sizd
+                    result.size = long(factvalue)
+                elif factname == 'type':
+                    if factvalue.lower() == 'file':
+                        result.try_retr = True
+                    elif factvalue.lower() in ['dir', 'cdir', 'pdir']:
+                        result.try_cwd = True
+                    else:
+                        # dunno if it's file or directory
+                        result.try_retr = True
+                        result.try_cwd = True
+        return result
 
 # ---------------------------------------------------------------------------
 # Public Functions
 # ---------------------------------------------------------------------------
 
-def parse_ftp_list_line(ftp_list_line):
+def parse_ftp_list_line(ftp_list_line, is_mlst=False):
     """
     Convenience function that instantiates an `FTPListDataParser` object
+    or `FTPMlstDataParser` (depending on the setting of `is_mlst`) and
     and passes ``ftp_list_line`` to the object's ``parse_line()`` method,
     returning the result.
 
     :Parameters:
         ftp_list_line : str
             The line of output
+        is_mlst : bool
+            `true` if the server is known to support the FTP MLST command;
+            `false`, otherwise.
 
     :rtype: `FTPListData`
     :return: An `FTPListData` object describing the parsed line, or
@@ -520,7 +592,58 @@ def parse_ftp_list_line(ftp_list_line):
              possible for this method to return a partially-filled
              `FTPListData` object (e.g., one without a name).
     """
-    return FTPListDataParser().parse_line(ftp_list_line)
+    if is_mlst:
+        return FTPMlstDataParser().parse_line(ftp_list_line)
+    else:
+        return FTPListDataParser().parse_line(ftp_list_line)
+
+def ftp_FEAT(ftp):
+    """
+    Issue the FTP FEAT command to an FTP server, and return the resulting
+    feature list as a dictionary.
+
+    Adapted from code by Andrew Scheller <gcode@loowis.durge.org>.
+
+    :Parameters:
+        ftp : open `FTP` object from Python's `ftplib`.
+
+    :rtype: `dict`
+    :return: A dict of features, or an empty dict if either (a) the
+             remote server supports no extra features, or (b) doesn't
+             support the FTP FEAT command.
+    """
+    features = dict()
+    try:
+        response = ftp.sendcmd("FEAT")
+        if response[:3] == "211":
+            for line in response.splitlines()[1:]:
+                if line[3] == "211":
+                    break
+                if line[0] != ' ':
+                    break
+                parts = line[1:].partition(' ')
+                features[parts[0].upper()] = parts[2]
+    except error_perm:
+        # some FTP servers may not support FEAT
+        pass
+
+    return features
+
+def supports_mlst(ftp):
+    """
+    Convenience function to determine whether a remote FTP server supports
+    the MLST command or not. This method uses the FTP "FEAT" command to
+    query the capabilities of the server.
+
+    Adapted from code by Andrew Scheller <gcode@loowis.durge.org>.
+
+    :Parameters:
+        ftp : open `FTP` object from Python's `ftplib`.
+
+    :rtype: `bool`
+    :return: `true` if the server supports MLST; `false`, otherwise.
+    """
+    return 'MLST' in ftp_FEAT(ftp)
 
 # ---------------------------------------------------------------------------
 # Private Functions

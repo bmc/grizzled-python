@@ -56,8 +56,8 @@ else:
 
 # The path separator for the operating system.
 
-PATH_SEPARATOR = {'nt' : ';', 'posix' : ':'}
-FILE_SEPARATOR = {'nt' : '\\', 'posix' : '/'}
+PATH_SEPARATOR = {'nt' : ';', 'posix' : ':', 'java' : ':'}
+FILE_SEPARATOR = {'nt' : '\\', 'posix' : '/', 'java' :'/'}
 
 # ---------------------------------------------------------------------------
 # Logging

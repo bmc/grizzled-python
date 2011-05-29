@@ -1,6 +1,12 @@
-Version 1.0.1 (...)
+Version 1.0.1 (29 May, 2011)
 
-* Changed `setup.py` to copy stuff to the `gh-pages` directory.
+* Changed `grizzled.net.ftp.parse` to support the FTP `MLST` command,
+  based on (largely unmodified) code contributed by Andrew Scheller
+  (*gcode /at/ loowis.durge.org*).
+* Added `java` to the list of operating system types in `grizzled.os`,
+  for Jython.
+* Changed `setup.py` to copy stuff to the `gh-pages` directory, via local
+  "gh" command.
 
 ---------------------------------------------------------------------------
 Version 1.0 (14 March, 2011)
