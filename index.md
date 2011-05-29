@@ -3,7 +3,7 @@ title: The Grizzled Python Utility Library
 layout: withTOC
 ---
 
-## Introduction
+# Introduction
 
 The Grizzled Python Utility Library is a general-purpose [Python][] library
 with a variety of different modules and packages. It's roughly organized
@@ -12,9 +12,12 @@ classes. For a sampling of what's available, see the API documentation.
 
 Grizzled Python is under continual development, so check back regularly.
 
-## Getting and installing Grizzled Python
+**NOTE**: As of version 1.0.1, Grizzled Python requires Python 2.5 or better.
+Python 2.4 and earlier versions are no longer supported.
 
-### Installing via pip
+# Getting and installing Grizzled Python
+
+## Installing via pip
 
 Because Grizzled Python is available via [PyPI][], if you have
 [pip][] installed on your system, installing the library is as easy
@@ -26,7 +29,7 @@ To upgrade from a previous version of the package, use:
 
     $ pip install --upgrade grizzled-python
 
-### Installing from source
+## Installing from source
 
 You can also install Grizzled Python from source. Either download the
 source (as a zip or tarball) from
@@ -50,7 +53,7 @@ home directory) type:
 
     python setup.py install --prefix=$HOME
 
-## Documentation
+# Documentation
 
 Please see the [*epydoc*][]-generated [API documentation][] for
 documentation on the individual classes and modules in the Grizzled Python
@@ -58,7 +61,7 @@ Utility Library.
 
 Also, feel free to peruse the [change log](CHANGELOG.html).
 
-## Copyright and License
+# Copyright and License
 
 The Grizzled Python Utility Library is copyright &copy; 2008-2011
 [Brian M. Clapper][] is released under a [BSD license][license]. See the
@@ -68,7 +71,7 @@ The `FTPMlstDataParser` class in the `grizzled.ftp.net.parse` module is
 copyright &copy; 2011 Andrew Scheller (*gcode /at/ loowis.durge.org*)
 and is released under a [BSD license][license].
 
-## Patches
+# Patches
 
 I gladly accept patches from their original authors. Feel free to email
 patches to me or to fork the [GitHub repository][] and send me a pull
