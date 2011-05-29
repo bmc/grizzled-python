@@ -28,6 +28,7 @@ Currently covered formats:
     - NetPresenz (Mac)
     - NetWare
     - MSDOS
+    - MLST
 
 .. _EPLF: http://cr.yp.to/ftp/list/eplf.html
 
@@ -46,6 +47,7 @@ __docformat__ = 'restructuredtext en'
 import time
 from enum import Enum
 import calendar
+from ftplib import error_perm
 
 # ---------------------------------------------------------------------------
 # Exports
