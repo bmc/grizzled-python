@@ -1,3 +1,8 @@
+Version 1.0.2 (29 May, 2011)
+
+* Added installation dependency on `enum` module.
+
+---------------------------------------------------------------------------
 Version 1.0.1 (29 May, 2011)
 
 * Changed `grizzled.net.ftp.parse` to support the FTP `MLST` command,
