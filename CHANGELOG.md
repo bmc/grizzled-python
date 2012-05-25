@@ -1,8 +1,10 @@
----
-title: Change log for grizzled-python
-layout: default
----
+Version 1.0.3 (25 May, 2012)
 
+- Merged pull request from github.com/cr33dog, which adds
+  `from __future__ import with_statement` imports to `setup.py` and
+  one unit test, to support older versions of Python.
+
+---------------------------------------------------------------------------
 Version 1.0.2 (29 May, 2011)
 
 * Added installation dependency on `enum` module.
