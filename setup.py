@@ -4,12 +4,13 @@
 #
 # $Id$
 # ---------------------------------------------------------------------------
-
+from __future__ import with_statement
 from setuptools import setup, find_packages
 import sys
 import os
 import imp
 from distutils.cmd import Command
+
 
 here = os.path.dirname(os.path.abspath(__file__))
 module_file = os.path.join(here, 'grizzled', '__init__.py')
