@@ -151,7 +151,7 @@ class _WindowsFileLock(object):
     def unlock(self):
         import msvcrt
         self.fd.seek(0)
-        msvcrt.locking(self.fd, LK_UNLCK, 1)
+        msvcrt.locking(self.fd, msvcrt.LK_UNLCK, 1)
 
 # ---------------------------------------------------------------------------
 # Functions
