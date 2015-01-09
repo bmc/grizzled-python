@@ -138,7 +138,7 @@ class _WindowsFileLock(object):
     def __init__(self, fd):
         self.fd = fd
 
-    def lock(self, no_wait=False):
+    def acquire(self, no_wait=False):
         import msvcrt
         if no_wait:
             op = msvcrt.LK_NBLCK
@@ -148,10 +148,10 @@ class _WindowsFileLock(object):
         self.fd.seek(0)
         msvcrt.locking(self.fd, op, 1)
 
-    def unlock(self):
+    def release(self):
         import msvcrt
         self.fd.seek(0)
-        msvcrt.locking(self.fd, LK_UNLCK, 1)
+        msvcrt.locking(self.fd, msvcrt.LK_UNLCK, 1)
 
 # ---------------------------------------------------------------------------
 # Functions
@@ -200,3 +200,35 @@ def locked_file(fd, no_wait=False):
     finally:
         if locked:
             lock.release()
+
+@contextmanager
+def locked_filename(filename, no_wait=False):
+    """
+    This function is a context manager very like ``locked_file()``, but more
+    abstract. It accepts a filename and yields ``None`` if the lock cannot be
+    acquired instead of rising an exception.
+
+    .. python::
+
+        with locked_filename("test", no_wait=True) as lock:
+            if lock:
+                do_something()
+            else:
+                do_nothing()
+
+    :Parameters:
+        filename : str
+            Path to lock file
+
+        no_wait : bool
+            If ``False`` (default) the process halts waiting for the lock, else
+            if ``True``, returns the ``lock`` object if successful, or ``None``
+            if unable to gain the lock.
+    """
+    try:
+        file = open(filename, "w+")
+        with locked_file(file, no_wait=no_wait) as lock:
+            yield lock
+    except IOError:
+        yield None
+
