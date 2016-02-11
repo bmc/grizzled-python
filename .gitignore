@@ -6,3 +6,5 @@ dist
 .semantic.cache
 epydoc
 *.egg-info
+*.iml
+/.idea
