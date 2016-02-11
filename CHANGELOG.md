@@ -1,3 +1,8 @@
+Version 1.0.4 (11 February, 2012)
+
+- Changed dependency on `enum` to dependency on `enum34`, for compatibility
+  between Python 2 and Python 3.
+
 Version 1.0.3 (25 May, 2012)
 
 - Merged pull request from github.com/cr33dog, which adds

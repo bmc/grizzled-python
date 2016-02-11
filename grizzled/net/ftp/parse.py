@@ -45,7 +45,6 @@ __docformat__ = 'restructuredtext en'
 # ---------------------------------------------------------------------------
 
 import time
-from enum import Enum
 import calendar
 from ftplib import error_perm
 
