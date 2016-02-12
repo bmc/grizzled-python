@@ -1,4 +1,8 @@
-Version 1.0.4 (11 February, 2012)
+Version 1.0.5 (12 February, 2016)
+
+- Additional changes to support Python 3.
+
+Version 1.0.4 (11 February, 2016)
 
 - Changed dependency on `enum` to dependency on `enum34`, for compatibility
   between Python 2 and Python 3.
