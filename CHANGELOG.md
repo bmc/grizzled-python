@@ -1,4 +1,4 @@
-Version 1.0.5 (12 February, 2016)
+Version 1.0.5 through 1.0.7 (12 February, 2016)
 
 - Additional changes to support Python 3.
 
