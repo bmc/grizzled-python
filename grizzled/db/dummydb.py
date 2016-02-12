@@ -37,13 +37,13 @@ class DummyCursor(object):
         return None
 
     def fetchone(self):
-        raise ValueError, "No results"
+        raise ValueError("No results")
 
     def fetchall(self):
-        raise ValueError, "No results"
+        raise ValueError("No results")
 
     def fetchmany(self, n):
-        raise ValueError, "No results"
+        raise ValueError("No results")
 
 class DummyDB(object):
 

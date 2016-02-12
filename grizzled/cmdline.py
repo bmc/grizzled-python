@@ -12,6 +12,8 @@ Provides a front-end to the Python standard ``optparse`` module. The
 It also provides a couple extra utility modules.
 """
 
+from __future__ import print_function
+
 __docformat__ = "restructuredtext en"
 
 # ---------------------------------------------------------------------------
@@ -60,7 +62,7 @@ class CommandLineParser(OptionParser):
         OptionParser.print_help(self, out)
         if self.epilogue:
             import textwrap
-            print('\n%s'.format(textwrap.fill(self.epilogue, 80)), file=out)
+            print('\n{0}'.format(textwrap.fill(self.epilogue, 80)), file=out)
             out.flush()
 
     def die_with_usage(self, msg=None, exit_code=2):

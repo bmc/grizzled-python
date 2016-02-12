@@ -79,7 +79,7 @@ def list_recursively(dir):
                        but is not a directory.
     """
     if not _os.path.isdir(dir):
-        raise ValueError, "%s is not a directory." % dir
+        raise ValueError("{0} is not a directory.".format(dir))
 
     for f in _os.listdir(dir):
         if _os.path.isdir(f):
@@ -135,7 +135,9 @@ def copy(files, target_dir, create_target=False):
             _os.mkdir(target_dir)
 
     if _os.path.exists(target_dir) and (not _os.path.isdir(target_dir)):
-        raise OSError, 'Cannot copy files to non-directory "%s"' % target_dir
+        raise OSError(
+	    'Cannot copy files to non-directory "{0}"'.format(target_dir)
+	)
 
     for f in files:
         targetFile = _os.path.join(target_dir, _os.path.basename(f))
@@ -167,7 +169,7 @@ def touch(files, times=None):
     for f in files:
         if _os.path.exists(f):
             if not _os.path.isfile(f):
-                raise OSError, "Can't touch non-file \"%s\"" % f
+                raise OSError('Cannot touch non-file "{0}"'.format(f))
             _os.utime(f, times)
 
         else:

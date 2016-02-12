@@ -88,8 +88,11 @@ class FileLock(object):
             self.lock = cls(fd)
 
         except KeyError:
-            raise NotImplementedError, \
-                  '''Don't know how to lock files on "%s" systems.''' % os.name
+            raise NotImplementedError(
+                      r'''Can't lock files on "{0}" systems.'''.format(
+                          os.name
+                      )
+                  )
 
     def acquire(self, no_wait=False):
         """

@@ -37,6 +37,7 @@ Definitely not covered:
     - Long VMS filenames, with information split across two lines.
     - NCSA Telnet FTP server. Has LIST = NLST (and bad NLST for directories).
 """
+from __future__ import print_function
 
 __docformat__ = 'restructuredtext en'
 
@@ -797,7 +798,7 @@ if __name__ == '__main__':
     for test in test_data:
         line = test['line']
         prefix = 'Test %d (%s)' % (i, test['type'])
-        print '%s: "%s"' % (prefix, test['name'])
+        print('{0}: "{1}"'.format(prefix, test['name']))
         result = parser.parse_line(line)
         assertEquals(result.raw_line, line, prefix)
         assertEquals(result.size, test['size'], prefix)
