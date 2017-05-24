@@ -1,6 +1,4 @@
-# $Id$
-#
-# Nose program for testing grizzled.file classes/functions
+# Nose program for testing (some) grizzled.file classes/functions
 
 # ---------------------------------------------------------------------------
 # Imports
@@ -10,10 +8,6 @@ from grizzled.file import *
 import os
 import tempfile
 import atexit
-
-# ---------------------------------------------------------------------------
-# Globals
-# ---------------------------------------------------------------------------
 
 # ---------------------------------------------------------------------------
 # Classes
@@ -35,7 +29,7 @@ class TestFilePackage(object):
 
     def testRecursivelyRemove(self):
         path = tempfile.mkdtemp()
-        print 'Created directory "%s"' % path
+        print('Created directory "{0}"'.format(path))
 
         # Create some files underneath
 
@@ -57,4 +51,3 @@ class TestFilePackage(object):
         assert not os.path.exists(f)
         touch(f)
         assert os.path.exists(f)
-
