@@ -206,7 +206,7 @@ def pathsplit(path):
 
     return result
 
-def __find_matches(pattern_pieces, directory):
+def _find_matches(pattern_pieces, directory):
     """
     Used by eglob.
     """
@@ -214,10 +214,11 @@ def __find_matches(pattern_pieces, directory):
 
     result = []
     if not _os.path.isdir(directory):
-        return []
+        return
 
     piece = pattern_pieces[0]
     last = len(pattern_pieces) == 1
+    remaining_pieces = []
     if piece == '**':
         if not last:
             remaining_pieces = pattern_pieces[1:]
@@ -226,13 +227,13 @@ def __find_matches(pattern_pieces, directory):
             if last:
                 # At the end of a pattern, "**" just recursively matches
                 # directories.
-                result += [root]
+                yield _os.path.normpath(root)
             else:
                 # Recurse downward, trying to match the rest of the
                 # pattern.
-                sub_result = __find_matches(remaining_pieces, root)
+                sub_result = _find_matches(remaining_pieces, root)
                 for partial_path in sub_result:
-                    result += [partial_path]
+                    yield _os.path.normpath(partial_path)
 
     else:
         # Regular glob pattern.
@@ -241,20 +242,13 @@ def __find_matches(pattern_pieces, directory):
         if len(matches) > 0:
             if last:
                 for match in matches:
-                    result += [match]
+                    yield _os.path.normpath(match)
             else:
                 remaining_pieces = pattern_pieces[1:]
                 for match in matches:
-                    sub_result = __find_matches(remaining_pieces, match)
+                    sub_result = _find_matches(remaining_pieces, match)
                     for partial_path in sub_result:
-                        result += [partial_path]
-
-    # Normalize the paths.
-
-    for i in range(len(result)):
-        result[i] = _os.path.normpath(result[i])
-
-    return result
+                        yield _os.path.normpath(partial_path)
 
 def eglob(pattern, directory='.'):
     """
@@ -279,7 +273,7 @@ def eglob(pattern, directory='.'):
     :return: A list of matched files, or an empty list for no match
     """
     pieces = pathsplit(pattern)
-    return __find_matches(pieces, directory)
+    return _find_matches(pieces, directory)
 
 def universal_path(path):
     """
