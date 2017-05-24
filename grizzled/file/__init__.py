@@ -11,7 +11,6 @@ __docformat__ = "restructuredtext en"
 # ---------------------------------------------------------------------------
 
 import os as _os
-import sys
 import shutil
 
 # ---------------------------------------------------------------------------
@@ -123,7 +122,7 @@ def copy(files, target_dir, create_target=False):
             If ``True``, ``copy()`` will attempt to create the target directory
             if it does not exist. If ``False``, ``copy()`` will throw an
             exception if the target directory does not exist.
-            
+
     :raise OSError: ``target_dir`` does not exist, and ``create_target`` is
                     ``False``
     """
@@ -262,7 +261,7 @@ def eglob(pattern, directory='.'):
     Extended glob function that supports the all the wildcards supported
     by the Python standard ``glob`` routine, as well as a special "**"
     wildcard that recursively matches any directory. Examples:
-    
+
       +--------------+--------------------------------------------------------+
       | \*\*/\*.py   | all files ending in '.py' under the current directory  |
       +--------------+--------------------------------------------------------+
