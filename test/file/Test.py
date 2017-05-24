@@ -7,7 +7,6 @@
 # ---------------------------------------------------------------------------
 
 from grizzled.file import *
-from cStringIO import StringIO
 import os
 import tempfile
 import atexit

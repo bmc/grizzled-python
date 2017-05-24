@@ -1,3 +1,7 @@
+Version 1.0.8 (24 May, 2017)
+
+- Updated `setup.py` and `setup.cfg` to support building a wheel.
+
 Version 1.0.5 through 1.0.7 (12 February, 2016)
 
 - Additional changes to support Python 3.

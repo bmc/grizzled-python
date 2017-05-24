@@ -1,16 +1,10 @@
 #!/usr/bin/env python
-#
-# EasyInstall setup script for The Grizzled Utility Library
-#
-# $Id$
-# ---------------------------------------------------------------------------
+
 from __future__ import with_statement
 from setuptools import setup, find_packages
-import sys
 import os
 import imp
 from distutils.cmd import Command
-
 
 here = os.path.dirname(os.path.abspath(__file__))
 module_file = os.path.join(here, 'grizzled', '__init__.py')
@@ -18,8 +12,6 @@ module = imp.load_module('grizzled', open(module_file), module_file,
                          ('__init__.py', 'r', imp.PY_SOURCE))
 
 NAME = 'grizzled-python'
-DOWNLOAD_URL = ('http://pypi.python.org/packages/source/g/%s/%s-%s.tar.gz' %
-                (NAME, NAME, module.version))
 
 # Custom commands
 
@@ -76,8 +68,7 @@ setup (name             = NAME,
        install_requires = ['enum34>=1.1.2', ],
        packages         = find_packages(),
        url              = module.url,
-       download_url     = DOWNLOAD_URL,
-       license          = module.version,
+       license          = module.license,
        author           = module.author,
        author_email     = module.email,
        test_suite       = 'nose.collector',
