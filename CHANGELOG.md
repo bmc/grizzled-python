@@ -1,10 +1,11 @@
-Version 1.0.8 (24 May, 2017)
+Version 1.1.0 (24 May, 2017)
 
 - Updated `setup.py` and `setup.cfg` to support building a wheel.
 - Updated README with instructions on building, installing, and running tests.
 - Removed dependency on `enum34` package.
 - Added dependency on `backports.tempfile` package, to allow using
   `with TemporaryDirectory()` on both Python 3 and Python 2.
+- `grizzled.file.eglob` is now lazy, returning a generator, rather than a list.  
 - Added tests for `grizzled.file.eglob`.  
 
 Version 1.0.5 through 1.0.7 (12 February, 2016)
