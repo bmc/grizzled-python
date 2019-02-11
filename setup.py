@@ -3,13 +3,35 @@
 from __future__ import with_statement
 from setuptools import setup, find_packages
 import os
-import imp
+import sys
 from distutils.cmd import Command
+from textwrap import TextWrapper
+import re
+
+columns = int(os.environ.get('COLUMNS', '80')) - 1
+wrap = TextWrapper(width=columns)
+
+if sys.version_info[0] < 3:
+    msg = ('As of version 1.2.0, grizzled-python is no longer supported on ' +
+           'Python 2. Either upgrade to Python 3, or use an older version ' +
+           'of grizzled-python.')
+    sys.stderr.write(wrap.fill(msg) + '\n')
+    raise Exception(msg)
 
 here = os.path.dirname(os.path.abspath(__file__))
 module_file = os.path.join(here, 'grizzled', '__init__.py')
-module = imp.load_module('grizzled', open(module_file), module_file,
-                         ('__init__.py', 'r', imp.PY_SOURCE))
+
+def import_from_file(file, name):
+    # See https://stackoverflow.com/a/19011259/53495
+    import importlib.machinery
+    import importlib.util
+    loader = importlib.machinery.SourceFileLoader(name, file)
+    spec = importlib.util.spec_from_loader(loader.name, loader)
+    mod = importlib.util.module_from_spec(spec)
+    loader.exec_module(mod)
+    return mod
+
+module = import_from_file(os.path.join('grizzled', '__init__.py'), 'grizzled')
 
 NAME = 'grizzled-python'
 
@@ -30,34 +52,20 @@ class GH(Command):
         pass
 
     def run(self):
-        module_file = os.path.join(here, 'grizzled', 'file', '__init__.py')
-        gf = imp.load_module('grizzled.file', open(module_file),
-                             module_file, ('__init__.py', 'r', imp.PY_SOURCE))
+
+        gh_pages = os.path.join('..', 'gh-pages')
 
         # Docs
 
-        gh_pages = os.path.join('..', 'gh-pages')
-        doc_dir = os.path.join(gh_pages, 'epydoc')
-        print('Removing %s' % doc_dir)
-        gf.recursively_remove(doc_dir)
-        print('Copying epydoc to %s...' % gh_pages)
-        gf.copy_recursively('epydoc', doc_dir)
+        API_DOCS = 'apidocs/grizzled'
+        API_DOCS_TARGET = os.path.join(gh_pages, 'apidocs')
+        module_file = os.path.join(here, 'grizzled', 'file', '__init__.py')
+        gf = import_from_file(module_file, 'gf')
 
-        # Changelog
-
-        changelog = 'CHANGELOG.md'
-        print('Copying %s to %s' % (changelog, gh_pages))
-        with open(changelog) as f:
-            lines = ''.join(f.readlines())
-
-        header = ['---',
-                  'title: Change log for %s' % NAME,
-                  'layout: default',
-                  '---']
-        with open(os.path.join(gh_pages, changelog), 'w') as f:
-            f.write('\n'.join(header))
-            f.write('\n\n')
-            f.write(lines)
+        print('Removing {}'.format(API_DOCS_TARGET))
+        gf.recursively_remove(API_DOCS_TARGET)
+        print('Copying {} to {}...'.format(API_DOCS, gh_pages))
+        gf.copy_recursively(API_DOCS, API_DOCS_TARGET)
 
 # Now the setup stuff.
 
