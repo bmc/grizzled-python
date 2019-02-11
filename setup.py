@@ -34,6 +34,8 @@ def import_from_file(file, name):
 module = import_from_file(os.path.join('grizzled', '__init__.py'), 'grizzled')
 
 NAME = 'grizzled-python'
+API_DOCS_BUILD = 'apidocs'
+GRIZZLED_FILE = os.path.join(here, 'grizzled', 'file', '__init__.py')
 
 # Custom commands
 
@@ -57,15 +59,39 @@ class GH(Command):
 
         # Docs
 
-        API_DOCS = 'apidocs/grizzled'
+        API_DOCS_SRC = os.path.join(API_DOCS_BUILD, 'grizzled')
         API_DOCS_TARGET = os.path.join(gh_pages, 'apidocs')
-        module_file = os.path.join(here, 'grizzled', 'file', '__init__.py')
-        gf = import_from_file(module_file, 'gf')
+        gf = import_from_file(GRIZZLED_FILE, 'gf')
 
         print('Removing {}'.format(API_DOCS_TARGET))
         gf.recursively_remove(API_DOCS_TARGET)
-        print('Copying {} to {}...'.format(API_DOCS, gh_pages))
-        gf.copy_recursively(API_DOCS, API_DOCS_TARGET)
+        print('Copying {} to {}...'.format(API_DOCS_SRC, gh_pages))
+        gf.copy_recursively(API_DOCS_SRC, API_DOCS_TARGET)
+
+class Doc(Command):
+    description = 'create the API docs'
+
+    user_options = []
+
+    def __init__(self, dist):
+        Command.__init__(self, dist)
+
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
+
+    def run(self):
+        gf = import_from_file(GRIZZLED_FILE, 'gf')
+        if os.path.exists(API_DOCS_BUILD):
+            gf.recursively_remove(API_DOCS_BUILD)
+
+        cmd = 'pdoc --html --html-dir {} grizzled'.format(API_DOCS_BUILD)
+        print('+ {}'.format(cmd))
+        rc = os.system(cmd)
+        if rc != 0:
+            raise Exception("Failed to run pdoc. rc={}".format(rc))
 
 # Now the setup stuff.
 
@@ -73,20 +99,24 @@ setup (name             = NAME,
        version          = module.version,
        description      = module.title,
        long_description = module.__doc__,
-       install_requires = ['backports.tempfile >= 1.0rc1',
-                          ],
+       install_requires = [
+           'backports.tempfile >= 1.0rc1',
+        ],
        packages         = find_packages(),
        url              = module.url,
        license          = module.license,
        author           = module.author,
        author_email     = module.email,
        test_suite       = 'nose.collector',
-       cmdclass         = {'gh' : GH },
+       cmdclass         = {
+           'gh':   GH,
+           'docs': Doc
+       },
        classifiers = [
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
         'Programming Language :: Python',
         'Topic :: Software Development :: Libraries',
         'Topic :: Software Development :: Libraries :: Python Modules'
-        ]
+      ]
 )
