@@ -14,6 +14,8 @@ Version 2.0.0 (...)
 - Removed entire `grizzled.net` package. There are better ways to handle
   HTTP downloads (e.g., the third-party `requests` package), and the `ftp`
   module is out of date.
+- Removed `grizzled.file.copy_recursively()`. It was just a single-line wrapper
+  around `shutil.copytree()`.  
 - Removed `python_version()`, `python_version_string()`, `ensure_version()`
   and `python_version_string()` from `grizzled.system`. They're pointless.
   Just use `sys.version_info` and tuple comparison.

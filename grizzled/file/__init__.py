@@ -80,8 +80,12 @@ def list_recursively(dir: str) -> Generator[None, str, None]:
 
     **Yields**
 
-    :raise ValueError: If `dir` does not exist, or if `dir` exists
-                       but is not a directory.
+    partial paths of all directories and files below the specified directory
+
+    **Raises**
+
+    `ValueError`: If `dir` does not exist, or if `dir` exists but is not a
+                  directory.
     """
     if not _os.path.isdir(dir):
         raise ValueError("{0} is not a directory.".format(dir))
@@ -95,27 +99,6 @@ def list_recursively(dir: str) -> Generator[None, str, None]:
             for f in filenames:
                 yield _os.path.normpath(_os.path.join(dirpath, f))
 
-
-def copy_recursively(source_dir, target_dir):
-    """
-    Recursively copy a source directory (and all its contents) to a target
-    directory.
-
-    :Parameters:
-        source_dir : str
-            Source directory to copy recursively. This path must
-            exist and must specify a directory; otherwise, this
-            function throws a `ValueError`
-
-        target_dir : str
-            Directory to which to copy the contents of `source_dir`.
-            This directory must not already exist.
-
-    :raise ValueError: If: `source_dir` does not exist; `source_dir` exists
-                       but is not a directory; or `target_dir` exists but is
-                       not a directory.
-    """
-    shutil.copytree(source_dir, target_dir)
 
 def copy(files : Union[Sequence[str], str],
          target_dir : str,
