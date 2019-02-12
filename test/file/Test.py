@@ -8,6 +8,7 @@ from grizzled.file import *
 import os
 import tempfile
 import atexit
+from tempfile import TemporaryDirectory
 
 # ---------------------------------------------------------------------------
 # Classes
@@ -15,7 +16,7 @@ import atexit
 
 class TestFilePackage(object):
 
-    def testUnlinkQuietly(self):
+    def test_unlink_quietly(self):
         fd, path = tempfile.mkstemp()
         os.unlink(path)
 
@@ -27,7 +28,7 @@ class TestFilePackage(object):
 
         unlink_quietly(path)
 
-    def testRecursivelyRemove(self):
+    def test_recursively_remove(self):
         path = tempfile.mkdtemp()
         print(('Created directory "{0}"'.format(path)))
 
@@ -44,10 +45,33 @@ class TestFilePackage(object):
 
         recursively_remove(path)
 
-    def testTouch(self):
-        path = tempfile.mkdtemp()
-        atexit.register(recursively_remove, path)
-        f = os.path.join(path, 'foo')
-        assert not os.path.exists(f)
-        touch(f)
-        assert os.path.exists(f)
+    def test_list_recursively(self):
+        # Code below uses "/" as a path separator, but paths are coerced
+        # to use the native path separator.
+        def fix_path(p):
+            return p.replace('/', os.path.sep)
+
+        with TemporaryDirectory() as path:
+            for d in ('one', 'two', 'three', 'four/five'):
+                os.makedirs(os.path.join(path, fix_path(d)))
+
+            for f in ('one/foo.txt', 'two/bar.txt', 'four/hello.c',
+                      'four/five/hello.py'):
+                with open(os.path.join(path, fix_path(f)), 'w'):
+                    pass
+
+            expected = set([fix_path(p) for p in (
+                'three', 'one', 'two', 'four', 'one/foo.txt', 'two/bar.txt',
+                'four/five', 'four/hello.c', 'four/five/hello.py'
+            )])
+
+            res = set(list_recursively(path))
+
+            assert(res == expected)
+
+    def test_touch(self):
+        with TemporaryDirectory() as path:
+            f = os.path.join(path, 'foo')
+            assert not os.path.exists(f)
+            touch(f)
+            assert os.path.exists(f)

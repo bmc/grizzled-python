@@ -20,6 +20,8 @@ Version 2.0.0 (...)
 - Removed `grizzled.system.class_for_name()`. It's not Pythonic.
 - Removed `./run-nose.sh` script in favor of a `setup` command
   (`python setup.py test`).
+- Fixed `grizzled.file.list_recursively()`. It was totally broken.
+- Added (some) type annotations.
 
 Version 1.1.0 (24 May, 2017)
 

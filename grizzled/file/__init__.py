@@ -2,6 +2,7 @@
 This module contains file- and path-related methods, classes, and modules.
 """
 
+__docformat__ = "markdown"
 
 # ---------------------------------------------------------------------------
 # Imports
@@ -9,7 +10,8 @@ This module contains file- and path-related methods, classes, and modules.
 
 import os as _os
 import shutil
-from typing import Sequence, Mapping, Any, Optional, Union
+from typing import (Sequence, Mapping, Any, Optional, Union, NoReturn,
+                    Generator)
 
 # ---------------------------------------------------------------------------
 # Exports
@@ -17,22 +19,22 @@ from typing import Sequence, Mapping, Any, Optional, Union
 
 __all__ = ['unlink_quietly', 'recursively_remove', 'copy_recursively',
            'copy', 'touch', 'pathsplit', 'eglob', 'universal_path',
-           'native_path']
+           'native_path', 'list_recursively']
 
 # ---------------------------------------------------------------------------
 # Functions
 # ---------------------------------------------------------------------------
 
-def unlink_quietly(*paths):
+def unlink_quietly(*paths: Union[str, Sequence[str]]) -> NoReturn:
     """
-    Like the standard ``os.unlink()`` function, this function attempts to
+    Like the standard `os.unlink()` function, this function attempts to
     delete a file. However, it swallows any exceptions that occur during the
     unlink operation, making it more suitable for certain uses (e.g.,
-    in ``atexit`` handlers).
+    in `atexit` handlers).
 
-    :Parameters:
-        paths : str or list
-            path(s) to unlink
+    **Parameters**
+
+    - `paths` (`str` or sequence of `str`): path(s) to unlink
     """
     def looper(*paths):
         for i in paths:
@@ -48,41 +50,51 @@ def unlink_quietly(*paths):
         except:
             pass
 
-def recursively_remove(dir):
+def recursively_remove(dir: str) -> NoReturn:
     """
     Recursively remove all files and directories below and including a
     specified directory.
 
-    :Parameters:
-        dir : str
-            path to directory to remove
+    **Parameters**
+
+    - `dir` (`str`): path to directory to remove
     """
     if not _os.path.exists(dir):
         return
 
     shutil.rmtree(dir)
 
-def list_recursively(dir):
+
+def list_recursively(dir: str) -> Generator[None, str, None]:
     """
     Recursively list the contents of a directory. Yields the contents of
     the directory and all subdirectories. This method returns a generator,
-    so it evaluates its recursive walk lazily.
+    so it evaluates its recursive walk lazily. This function is just a
+    simple wrapper around `os.walk`.
 
-    :Parameters:
-        dir : str
-            Path to directory to list
+    Each yielded value is a partial path, relative to the original directory.
 
-    :raise ValueError: If ``dir`` does not exist, or if ``dir`` exists
+    **Parameters**
+
+    - `dir` (`str`): Path to directory to list
+
+    **Yields**
+
+    :raise ValueError: If `dir` does not exist, or if `dir` exists
                        but is not a directory.
     """
     if not _os.path.isdir(dir):
         raise ValueError("{0} is not a directory.".format(dir))
 
-    for f in _os.listdir(dir):
-        if _os.path.isdir(f):
-            list_recursively(f)
-        else:
-            yield f
+    from grizzled.os import working_directory
+
+    with working_directory(dir):
+        for dirpath, dirnames, filenames in _os.walk('.'):
+            for d in dirnames:
+                yield _os.path.normpath(_os.path.join(dirpath, d))
+            for f in filenames:
+                yield _os.path.normpath(_os.path.join(dirpath, f))
+
 
 def copy_recursively(source_dir, target_dir):
     """
@@ -93,14 +105,14 @@ def copy_recursively(source_dir, target_dir):
         source_dir : str
             Source directory to copy recursively. This path must
             exist and must specify a directory; otherwise, this
-            function throws a ``ValueError``
+            function throws a `ValueError`
 
         target_dir : str
-            Directory to which to copy the contents of ``source_dir``.
+            Directory to which to copy the contents of `source_dir`.
             This directory must not already exist.
 
-    :raise ValueError: If: ``source_dir`` does not exist; ``source_dir`` exists
-                       but is not a directory; or ``target_dir`` exists but is
+    :raise ValueError: If: `source_dir` does not exist; `source_dir` exists
+                       but is not a directory; or `target_dir` exists but is
                        not a directory.
     """
     shutil.copytree(source_dir, target_dir)
@@ -157,8 +169,8 @@ def touch(files, times=None):
 
         times : tuple
             tuple of the form (*atime*, *mtime*), identical to
-            what is passed to the standard ``os.utime()`` function.
-            If this tuple is ``None``, then the current time is used.
+            what is passed to the standard `os.utime()` function.
+            If this tuple is `None`, then the current time is used.
     """
     if type(files) == str:
         files = [files]
@@ -251,7 +263,7 @@ def _find_matches(pattern_pieces, directory):
 def eglob(pattern, directory='.'):
     """
     Extended glob function that supports the all the wildcards supported
-    by the Python standard ``glob`` routine, as well as a special "**"
+    by the Python standard `glob` routine, as well as a special "**"
     wildcard that recursively matches any directory. Examples:
 
       +--------------+--------------------------------------------------------+
@@ -278,9 +290,9 @@ def universal_path(path):
     Converts a path name from its operating system-specific format to a
     universal path notation. Universal path notation always uses a Unix-style
     "/" to separate path elements. A universal path can be converted to a
-    native (operating system-specific) path via the ``native_path()``
+    native (operating system-specific) path via the `native_path()`
     function. Note that on POSIX-compliant systems, this function simply
-    returns the ``path`` parameter unmodified.
+    returns the `path` parameter unmodified.
 
     :Parameters:
         path : str
@@ -299,8 +311,8 @@ def native_path(path):
     Converts a path name from universal path notation to the operating
     system-specific format. Universal path notation always uses a Unix-style
     "/" to separate path elements. A native path can be converted to a
-    universal path via the ``universal_path()`` function. Note that on
-    POSIX-compliant systems, this function simply returns the ``path``
+    universal path via the `universal_path()` function. Note that on
+    POSIX-compliant systems, this function simply returns the `path`
     parameter unmodified.
 
     :Parameters:
