@@ -1,6 +1,6 @@
 # Change Log for grizzled-python
 
-Version 2.0.0 (...)
+Version 2.0.0 (12 February, 2019)
 
 - Updated to support Python 3 _only_. Indeed, it requires Python 3.6 or better.
 - Updated API docs to use [pdoc](https://github.com/mitmproxy/pdoc/), instead
