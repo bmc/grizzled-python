@@ -19,7 +19,7 @@ To get the appropriate History implementation for the current platform,
 simply call the ``get_history()`` factory method.
 """
 
-from __future__ import print_function
+
 
 __docformat__ = "restructuredtext en"
 

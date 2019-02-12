@@ -4,7 +4,7 @@
 Input/Output utility methods and classes.
 """
 
-from __future__ import absolute_import
+
 
 __docformat__ = "restructuredtext en"
 
@@ -271,7 +271,7 @@ class PushbackFile(object):
     def __iter__(self):
         return self
 
-    def next(self):
+    def __next__(self):
         """A file object is its own iterator.
 
         :rtype: str

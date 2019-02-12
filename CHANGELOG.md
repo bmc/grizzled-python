@@ -1,3 +1,26 @@
+# Change Log for grizzled-python
+
+Version 2.0.0 (...)
+
+- Updated to support Python 3 _only_. Indeed, it requires Python 3.6 or better.
+- Updated API docs to use [pdoc](https://github.com/mitmproxy/pdoc/), instead
+  of Epydoc
+- Removed `grizzled.collections.OrderedDict`. Use the standard Python
+  `collections.OrderedDict`, instead.  
+- Removed `grizzled.Configuration`. Use the standard `configparser` classes,
+  instead. (They lack support for include files, but you can preprocess the
+  file using `grizzled.file.includer`, if you need that.)
+- Removed entire `grizzled.db` package. It's woefully out of date.
+- Removed entire `grizzled.net` package. There are better ways to handle
+  HTTP downloads (e.g., the third-party `requests` package), and the `ftp`
+  module is out of date.
+- Removed `python_version()`, `python_version_string()`, `ensure_version()`
+  and `python_version_string()` from `grizzled.system`. They're pointless.
+  Just use `sys.version_info` and tuple comparison.
+- Removed `grizzled.system.class_for_name()`. It's not Pythonic.
+- Removed `./run-nose.sh` script in favor of a `setup` command
+  (`python setup.py test`).
+
 Version 1.1.0 (24 May, 2017)
 
 - Updated `setup.py` and `setup.cfg` to support building a wheel.

@@ -1,7 +1,5 @@
 # Nose program for testing grizzled.proxy class.
 
-from __future__ import absolute_import, with_statement
-
 # ---------------------------------------------------------------------------
 # Imports
 # ---------------------------------------------------------------------------
@@ -65,7 +63,11 @@ class TestProxyPackage(object):
 
     def _create_file(self):
         temp = tempfile.NamedTemporaryFile(prefix="fwdtest", delete=False)
-        temp.write(', '.join([str(x) for x in range(1, 81)]))
-        temp.write(', '.join([str(x) for x in range(1, 21)]))
-        temp.close
+        import random, string
+        chars = string.ascii_letters + string.digits
+        def random_string(length):
+            return ''.join(random.choice(chars) for i in range(length))
+
+        temp.write(bytearray(random_string(256), encoding='utf-8'))
+        temp.close()
         return temp.name

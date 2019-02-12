@@ -12,8 +12,6 @@ Provides a front-end to the Python standard ``optparse`` module. The
 It also provides a couple extra utility modules.
 """
 
-from __future__ import print_function
-
 __docformat__ = "restructuredtext en"
 
 # ---------------------------------------------------------------------------
@@ -46,7 +44,7 @@ class CommandLineParser(OptionParser):
         self.remove_option('-h')
         self.add_option('-h', '--help', action='help',
                         help='Show this message and exit.')
-        
+
         self.epilogue = None
 
     def print_help(self, out=sys.stderr):
@@ -54,7 +52,7 @@ class CommandLineParser(OptionParser):
         Print the help message, followed by the epilogue (if set), to the
         specified output file. You can define an epilogue by setting the
         ``epilogue`` field.
-        
+
         :Parameters:
             out : file
                 where to write the usage message
@@ -73,7 +71,7 @@ class CommandLineParser(OptionParser):
             msg : str
                 If not set to ``None`` (the default), this message will be
                 displayed before the usage message
-                
+
             exit_code : int
                 The process exit code. Defaults to 2.
         """

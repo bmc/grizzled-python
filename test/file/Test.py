@@ -29,7 +29,7 @@ class TestFilePackage(object):
 
     def testRecursivelyRemove(self):
         path = tempfile.mkdtemp()
-        print('Created directory "{0}"'.format(path))
+        print(('Created directory "{0}"'.format(path)))
 
         # Create some files underneath
 

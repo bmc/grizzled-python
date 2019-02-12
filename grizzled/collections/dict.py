@@ -1,127 +1,24 @@
-
 """
-``grizzled.collections.dict`` contains some useful dictionary classes
-that extend the behavior of the built-in Python ``dict`` type.
+`grizzled.collections.dict` contains some useful dictionary classes
+that extend the behavior of the built-in Python `dict` type.
 """
-__docformat__ = "restructuredtext en"
 
 # ---------------------------------------------------------------------------
 # Imports
 # ---------------------------------------------------------------------------
 
 import sys
+from typing import Sequence, Callable, Optional, Any, Tuple, Iterator
 
 # ---------------------------------------------------------------------------
 # Exports
 # ---------------------------------------------------------------------------
 
-__all__ = ['OrderedDict', 'LRUDict']
+__all__ = ['LRUDict']
 
 # ---------------------------------------------------------------------------
 # Public Classes
 # ---------------------------------------------------------------------------
-
-                         ##############################                         
-                         # OrderedDict implementation #                         
-                         ##############################                         
-
-class OrderedDict(dict):
-    """
-    ``OrderedDict`` is a simple ordered dictionary. The ``keys()``,
-    ``items()``, ``__iter__()``, and other methods all return the keys in the
-    order they were added to the dictionary. Note that re-adding a key (i.e.,
-    replacing a key with a new value) does not change the original order.
-
-    An ``OrderedDict`` object is instantiated with exactly the same parameters
-    as a ``dict`` object. The methods it provides are identical to those in
-    the ``dict`` type and are not documented here.
-    """
-    def __init__(self, *args, **kw):
-        dict.__init__(self, *args, **kw)
-        self.__orderedKeys = []
-        self.__keyPositions = {}
-
-    def __setitem__(self, key, value):
-        try:
-            index = self.__keyPositions[key]
-        except KeyError:
-            index = len(self.__orderedKeys)
-            self.__orderedKeys += [key]
-            self.__keyPositions[key] = index
-
-        dict.__setitem__(self, key, value)
-
-    def __delitem__(self, key):
-        index = self.__keyPositions[key]
-        del self.__orderedKeys[index]
-        del self.__keyPositions[key]
-        dict.__delitem__(self, key)
-
-    def __iter__(self):
-        for key in self.__orderedKeys:
-            yield key
-
-    def __str__(self):
-        s = '{'
-        sep = ''
-        for k, v in self.iteritems():
-            s += sep
-            if type(k) == str:
-                s += "'%s'" % k
-            else:
-                s += str(k)
-
-            s += ': '
-            if type(v) == str:
-                s += "'%s'" % v
-            else:
-                s += str(v)
-            sep = ', '
-        s += '}'
-        return s
-
-    def keys(self):
-        return self.__orderedKeys
-
-    def items(self):
-        return [(key, self[key]) for key in self.__orderedKeys]
-
-    def values(self):
-        return [self[key] for key in self.__orderedKeys]
-
-    def iteritems(self):
-        for key in self.__orderedKeys:
-            yield (key, self[key])
-
-    def iterkeys(self):
-        for key in self.__orderedKeys:
-            yield key
-
-    def update(self, d):
-        for key, value in d.iteritems():
-            self[key] = value
-
-    def pop(self, key, default=None):
-        try:
-            result = self[key]
-            del self[key]
-
-        except KeyError:
-            if not default:
-                raise
-
-            result = default
-
-        return result
-
-    def popitem(self):
-        key, value = dict.popitem(self)
-        del self[key]
-        return (key, value)
-
-                           ##########################                           
-                           # LRUDict Implementation #                           
-                           ##########################                           
 
 # Implementation note:
 #
@@ -148,7 +45,7 @@ class LRUListEntry(object):
 
     def __hash__(self):
         return self.key.__hash__()
-    
+
     def __str__(self):
         return '(%s, %s)' % (self.key, self.value)
 
@@ -165,8 +62,8 @@ class LRUList(object):
         self.clear()
 
     def __str__(self):
-        return '[' + ', '.join([str(tup) for tup in self.items()]) + ']'
-    
+        return '[' + ', '.join([str(tup) for tup in list(self.items())]) + ']'
+
     def __repr__(self):
         return self.__class__.__name__ + ':' + str(self)
 
@@ -190,7 +87,7 @@ class LRUList(object):
 
     def values(self):
         result = []
-        for key, value in self.iteritems():
+        for key, value in self.items():
             result.append(value)
         return result
 
@@ -269,7 +166,7 @@ class LRUList(object):
 
 class LRUDict(dict):
     """
-    ``LRUDict`` is a dictionary of a fixed maximum size that enforces a least
+    `LRUDict` is a dictionary of a fixed maximum size that enforces a least
     recently used discard policy. When the dictionary is full (i.e., contains
     the maximum number of entries), any attempt to insert a new entry causes
     one of the least recently used entries to be discarded.
@@ -285,61 +182,58 @@ class LRUDict(dict):
       dictionary's contents.
     - This implementation is *not* thread-safe.
 
-    An ``LRUDict`` also supports the concept of *removal listeners*. Removal
+    An `LRUDict` also supports the concept of *removal listeners*. Removal
     listeners are functions that are notified when objects are removed from
     the dictionary. Removal listeners can be:
 
-    - *eject only* listeners, meaning they're only notified when objects are
+    - _eject only_ listeners, meaning they're only notified when objects are
       ejected from the cache to make room for new objects, or
-    - *removal* listeners, meaning they're notified whenever an object is
-      removed for *any* reason, including via ``del``.
-
-    This implementation is based on a Java ``LRUMap`` class in the
-    ``org.clapper.util`` library. See http://software.clapper.org/java/util/
-    for details.
+    - _removal_ listeners, meaning they're notified whenever an object is
+      removed for *any* reason, including via `del`.
     """
     def __init__(self, *args, **kw):
         """
-        Initialize an ``LRUDict`` that will hold, at most, ``max_capacity``
-        items. Attempts to insert more than ``max_capacity`` items in the
+        Initialize an `LRUDict` that will hold, at most, `max_capacity`
+        items. Attempts to insert more than `max_capacity` items in the
         dictionary will cause the least-recently used entries to drop out of
         the dictionary.
 
-        :Keywords:
-            max_capacity : int
-                The maximum size of the dictionary
+        **Keywords**
+
+        - `max_capacity` (int): The maximum size of the dictionary
         """
-        if kw.has_key('max_capacity'):
+        if 'max_capacity' in kw:
             self.__max_capacity = kw['max_capacity']
             del kw['max_capacity']
         else:
-            self.__max_capacity = sys.maxint
-            
+            self.__max_capacity = sys.maxsize
+
         dict.__init__(self)
         self.__removal_listeners = {}
         self.__lru_queue = LRUList()
-        
+
     def __del__(self):
         self.clear()
 
-    def get_max_capacity(self):
+    def get_max_capacity(self) -> int:
         """
         Get the maximum capacity of the dictionary.
-        
-        :rtype: int
-        :return: the maximum capacity
+
+        **Returns**
+
+        The maximum capacity (an `int`)
         """
         return self.__max_capacity
 
-    def set_max_capacity(self, new_capacity):
+    def set_max_capacity(self, new_capacity: int) -> None:
         """
         Set or change the maximum capacity of the dictionary. Reducing
         the size of a dictionary with items already in it might result
         in items being evicted.
-        
-        :Parameters:
-            new_capacity : int
-                the new maximum capacity
+
+        **Parameters**
+
+        - `new_capacity` (`int`): the new maximum capacity
         """
         self.__max_capacity = new_capacity
         if len(self) > new_capacity:
@@ -348,7 +242,9 @@ class LRUDict(dict):
     max_capacity = property(get_max_capacity, set_max_capacity,
                             doc='The maximum capacity. Can be reset at will.')
 
-    def add_ejection_listener(self, listener, *args):
+    def add_ejection_listener(self,
+                              listener: Callable,
+                              *args: Sequence[Any]) -> None:
         """
         Add an ejection listener to the dictionary. The listener function
         should take at least two parameters: the key and value being removed.
@@ -360,16 +256,16 @@ class LRUDict(dict):
         listener is never notified when an object is removed from the cache
         manually, via use of the ``del`` operator.
 
-        :Parameters:
-            listener : function
-                Function to invoke
+        **Parameters**
 
-            args : iterable
-                Any additional parameters to pass to the function
+        - `listener` (function): function to invoke
+        - `args` (iterable): Any additional parameters to pass to the function
         """
         self.__removal_listeners[listener] = (True, args)
 
-    def add_removal_listener(self, listener, *args):
+    def add_removal_listener(self,
+                             listener: Callable,
+                             *args: Sequence[Any]) -> None:
         """
         Add a removal listener to the dictionary. The listener function should
         take at least two parameters: the key and value being removed. It can
@@ -379,44 +275,42 @@ class LRUDict(dict):
         to make room for new objects *and* when objects are manually deleted
         from the cache.
 
-        :Parameters:
-            listener : function
-                Function to invoke
+        **Parameters**
 
-            args : iterable
-                Any additional parameters to pass to the function
+        - `listener` (function): function to invoke
+        - `args` (iterable): Any additional parameters to pass to the function
         """
         self.__removal_listeners[listener] = (False, args)
 
-    def remove_listener(self, listener):
+    def remove_listener(self, listener: Callable):
         """
         Remove the specified removal or ejection listener from the list of
         listeners.
 
-        :Parameters:
-            listener : function
-                Function object to remove
+        **Parameters**
 
-        :rtype: bool
-        :return: ``True`` if the listener was found and removed; ``False``
-                 otherwise
+        - `listener` (`function`): Function object to remove
+
+        **Returns**
+
+        `True` if the function was found and removed, `False` otherwise
         """
         try:
             del self.__removal_listeners[listener]
             return True
         except KeyError:
             return False
-        
-    def clear_listeners(self):
+
+    def clear_listeners(self) -> None:
         """
         Clear all removal and ejection listeners from the list of listeners.
         """
-        for key in self.__removal_listeners.keys():
+        for key in list(self.__removal_listeners.keys()):
             del self.__removal_listeners[key]
 
     def __setitem__(self, key, value):
         self.__put(key, value)
-        
+
     def __getitem__(self, key):
         lru_entry = dict.__getitem__(self, key)
         self.__lru_queue.move_to_head(lru_entry)
@@ -431,7 +325,7 @@ class LRUDict(dict):
     def __str__(self):
         s = '{'
         sep = ''
-        for k, v in self.iteritems():
+        for k, v in self.items():
             s += sep
             if type(k) == str:
                 s += "'%s'" % k
@@ -461,50 +355,95 @@ class LRUDict(dict):
             value = default
         return value
 
-    def keys(self):
-        return self.__lru_queue.keys()
+    def keys(self) -> Sequence[Any]:
+        """Get the list of keys in the dictionary."""
+        return list(self.__lru_queue.keys())
 
-    def items(self):
-        return self.__lru_queue.items()
+    def items(self) -> Sequence[Tuple[Any, Any]]:
+        return list(self.__lru_queue.items())
 
-    def values(self):
-        return self.__lru_queue.values()
+    def values(self) -> Sequence[Any]:
+        return list(self.__lru_queue.values())
 
-    def iteritems(self):
-        return self.__lru_queue.iteritems()
+    def iteritems(self) -> Iterator[Tuple[Any, Any]]:
+        return iter(self.__lru_queue.items())
 
-    def iterkeys(self):
-        return self.__lru_queue.iterkeys()
+    def iterkeys(self) -> Iterator[Any]:
+        return iter(self.__lru_queue.keys())
 
-    def itervalues(self):
-        return self.__lru_queue.itervalues()
+    def itervalues(self) -> Iterator[Any]:
+        return iter(self.__lru_queue.values())
 
-    def update(self, d):
-        for key, value in d.iteritems():
+    def update(self, d, **kw):
+        """
+        Update the dictionary with the key/value pairs from `d`, overwriting
+        existing keys. Returns nothing.
+
+        `update()` accepts either another dictionary object or an iterable of
+        key/value pairs (as tuples or other iterables of length two).
+        If keyword arguments are specified, the dictionary is then updated with
+        those key/value pairs, e.g., `d.update(red=1, blue=2)`.
+
+        Keywords arguments take precedence. Thus, in:
+
+        ```
+        d.update({'red': 1}, red=2)
+        ```
+
+        the value `2` will be associated with key `red`.
+
+        """
+        if isinstance(d, dict):
+            pairs = d.items()
+        else:
+            pairs = d
+
+        for key, value in pairs:
+            self[key] = value
+
+        for key, value in kw.items():
             self[key] = value
 
     def pop(self, key, default=None):
+        """
+        "Pop" (i.e., retrieve and remove) the specified key from the
+        dictionary.
+
+        **Parameters**
+
+        - `key`:     The key to remove
+        - `default`: The default to apply if the key is not there. If `None`,
+                     then a `KeyError` is raised if the key isn't present.
+
+        **Returns**
+
+        The value associated with `key`. If there is no value associated
+        with the key, `default`. If `default` is `None`, raises a `KeyError`.
+        """
         try:
             result = self[key]
             del self[key]
 
         except KeyError:
-            if not default:
+            if default is None:
                 raise
 
             result = default
 
         return result
 
-    def popitem(self):
+    def popitem(self) -> Tuple[Any, Any]:
         """
         Pops the least recently used recent key/value pair from the
         dictionary.
-        
-        :rtype: tuple
-        :return: the least recent key/value pair, as a tuple
-        
-        :raise KeyError: empty dictionary
+
+        **Returns**
+
+        The least recently used `(key, value)` pair, as a tuple.
+
+        **Raises**
+
+        `KeyError` on empty dictionary
         """
         if len(self) == 0:
             raise KeyError('Attempted popitem() on empty dictionary')
@@ -553,7 +492,7 @@ class LRUDict(dict):
     def __notify_listeners(self, ejecting, key_value_pairs):
         if self.__removal_listeners:
             for key, value in key_value_pairs:
-                for func, func_data in self.__removal_listeners.items():
+                for func, func_data in list(self.__removal_listeners.items()):
                     on_eject_only, args = func_data
                     if (not on_eject_only) or ejecting:
                         func(key, value, *args)

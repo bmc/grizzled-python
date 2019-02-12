@@ -1,17 +1,12 @@
-# NOTE: Documentation is intended to be processed by epydoc and contains
-# epydoc markup.
-
 """
 Overview
 ========
 
-The ``grizzled.forwarder`` module contain classes that make building proxies
+The `grizzled.forwarder` module contains classes that make building proxies
 easier.
 """
 
-from __future__ import print_function
-
-__docformat__ = "restructuredtext en"
+__docformat__ = "markdown"
 
 # ---------------------------------------------------------------------------
 # Imports
@@ -42,57 +37,54 @@ log = logging.getLogger('grizzled.proxy')
 
 class Forwarder(object):
     """
-    The ``grizzled.forwarder.Forwarder`` class is intended to be used as
+    The `grizzled.forwarder.Forwarder` class is intended to be used as
     a mixin, to make it easier for classes to forward calls to another
-    class. The mix ``Forwarder`` into a class, simply include it as
-    one of the base classes.
+    class. T0 mix `Forwarder` into a class, simply include it as one of
+    the base classes.
 
-    **WARNING**: ``Forwarder`` intercepts calls to ``__getattr__``, so
-    don't mix it in if your class is already overriding ``__getattr__``.
+    **WARNING**: `Forwarder` intercepts calls to `__getattr__`, so
+    don't mix it in if your class is already overriding `__getattr__`.
 
-    Examples
-    --------
+    **Examples**
 
     Forward all unimplemented methods to a file:
 
-    .. python::
+    ```python
+    from grizzled.forwarder import Forwarder
 
-        from grizzled.forwarder import Forwarder
+    class MyFileWrapper(Forwarder):
+        def __init__(self, file):
+            Forwarder.__init__(self, file)
 
-        class MyFileWrapper(Forwarder):
-            def __init__(self, file):
-                Forwarder.__init__(self, file)
+    w = MyFileWrapper(open('/tmp/foo'))
+    for line in w.readlines():
+        print(line)
+    ```
 
-        w = MyFileWrapper(open('/tmp/foo'))
-        for line in w.readlines():
-            print(line)
+    Forward all unimplemented calls, *except* `name`, to the specified
+    object. Calls to `name` will raise an `AttributeError`:
 
-    Forward all unimplemented calls, *except* ``name``, to the specified
-    object. Calls to ``name`` will raise an ``AttributeError``:
+    ```python
+    from grizzled.forwarder import Forwarder
 
-        
-    .. python::
-
-        from grizzled.forwarder import Forwarder
-
-        class MyFileWrapper(Forwarder):
-            def __init__(self, file):
-                Forwarder.__init__(self, file, 'name')
+    class MyFileWrapper(Forwarder):
+        def __init__(self, file):
+            Forwarder.__init__(self, file, 'name')
+    ```
     """
 
     def __init__(self, wrapped, *exceptions):
         """
-        Initialize a new ``Forwarder`` that will pass unimplemented calls
+        Initialize a new `Forwarder` that will pass unimplemented calls
         (method calls, attribute accesses, etc.) to the specified object.
 
-        :Parameters:
-            wrapped : object
-                the object to which to pass unknown attributes
-            exceptions : str
-                one or more names (as separate arguments) of methods
-                that should not be intercepted (and will, therefore,
-                result in ``AttributeError`` exceptions if invoked,
-                absent any other intervention).
+        **Parameters**
+
+        - `wrapped` (`object`): the object to which to pass unknown attributes
+        - `exceptions` (`str` or sequence of `str`): one or more names (as
+          separate arguments) of methods that should not be intercepted (and
+          will, therefore, result in `AttributeError` exceptions if invoked,
+          absent any other intervention).
         """
         self._wrapped = wrapped
         self._exceptions = [e for e in exceptions[0]] # arg tuple to list
@@ -109,7 +101,7 @@ class Forwarder(object):
             try:
                 attr = getattr(obj, name)
                 if isinstance(obj, MethodType):
-                    return new.instancemethod(attr.im_func, self, obj.__class__)
+                    return new.instancemethod(attr.__func__, self, obj.__class__)
                 else:
                     return attr
             except AttributeError:

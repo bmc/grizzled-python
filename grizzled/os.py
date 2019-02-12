@@ -11,7 +11,7 @@ The ``grizzled.os`` module contains some operating system-related functions and
 classes. It is a conceptual extension of the standard Python ``os`` module.
 """
 
-from __future__ import absolute_import
+
 
 __docformat__ = "restructuredtext en"
 

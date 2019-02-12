@@ -1,5 +1,3 @@
-# $Id$
-
 """
 File Locking
 ============
@@ -38,7 +36,7 @@ You can also use the ``locked_file()`` function to simplify your code:
         ...
 """
 
-__docformat__ = "restructuredtext en"
+__docformat__ = "markdown"
 
 # ---------------------------------------------------------------------------
 # Imports
@@ -167,7 +165,7 @@ def locked_file(fd, no_wait=False):
     manager. It wraps a ``FileLock`` object so that the locking and unlocking
     of the file descriptor are automatic. With the ``locked_file()`` function,
     you can replace this code:
-    
+
     .. python::
 
         lock = FileLock(fd)
@@ -178,7 +176,7 @@ def locked_file(fd, no_wait=False):
             lock.release()
 
     with this code:
-    
+
     .. python::
 
         with locked_file(fd):

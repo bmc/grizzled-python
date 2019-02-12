@@ -3,7 +3,7 @@
 """
 The ``grizzled.text`` package contains text-related classes and modules.
 """
-from __future__ import print_function
+
 
 __docformat__ = "restructuredtext en"
 
@@ -11,7 +11,7 @@ __docformat__ = "restructuredtext en"
 # Imports
 # ---------------------------------------------------------------------------
 
-from StringIO import StringIO
+from io import StringIO
 
 # ---------------------------------------------------------------------------
 # Exports

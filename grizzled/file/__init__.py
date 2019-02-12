@@ -2,9 +2,6 @@
 This module contains file- and path-related methods, classes, and modules.
 """
 
-from __future__ import with_statement, absolute_import
-
-__docformat__ = "restructuredtext en"
 
 # ---------------------------------------------------------------------------
 # Imports
@@ -12,6 +9,7 @@ __docformat__ = "restructuredtext en"
 
 import os as _os
 import shutil
+from typing import Sequence, Mapping, Any, Optional, Union
 
 # ---------------------------------------------------------------------------
 # Exports
@@ -107,24 +105,24 @@ def copy_recursively(source_dir, target_dir):
     """
     shutil.copytree(source_dir, target_dir)
 
-def copy(files, target_dir, create_target=False):
+def copy(files : Union[Sequence[str], str],
+         target_dir : str,
+         create_target : bool = False) -> None:
     """
     Copy one or more files to a target directory.
 
-    :Parameters:
-        files : str or list
-            single file path or a list of file paths to be copied
+    **Parameters**
 
-        target_dir : str
-            path to target directory
+    - `files` (`str` or `list` of `str`): a string representing a single path,
+      or a list of strings representing multiple paths, to be copied
+    - `target_dir` (`str`): path to the target directory
+    - `create_target` (`bool`): whether or not to create the target
 
-        create_target : bool
-            If ``True``, ``copy()`` will attempt to create the target directory
-            if it does not exist. If ``False``, ``copy()`` will throw an
-            exception if the target directory does not exist.
+    **Returns** Nothing
 
-    :raise OSError: ``target_dir`` does not exist, and ``create_target`` is
-                    ``False``
+    **Raises**
+
+    - `OSError`: `target_dir` does not exist and `create_target` is `False`.
     """
     if type(files) == str:
         files = [files]

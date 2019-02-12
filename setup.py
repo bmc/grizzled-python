@@ -11,10 +11,10 @@ import re
 columns = int(os.environ.get('COLUMNS', '80')) - 1
 wrap = TextWrapper(width=columns)
 
-if sys.version_info[0] < 3:
+if sys.version_info[0:2] < (3, 5):
     msg = ('As of version 1.2.0, grizzled-python is no longer supported on ' +
-           'Python 2. Either upgrade to Python 3, or use an older version ' +
-           'of grizzled-python.')
+           'Python 2. Either upgrade to Python 3.5 or better, or use an older ' +
+           'version of grizzled-python.')
     sys.stderr.write(wrap.fill(msg) + '\n')
     raise Exception(msg)
 
@@ -36,6 +36,7 @@ module = import_from_file(os.path.join('grizzled', '__init__.py'), 'grizzled')
 NAME = 'grizzled-python'
 API_DOCS_BUILD = 'apidocs'
 GRIZZLED_FILE = os.path.join(here, 'grizzled', 'file', '__init__.py')
+GRIZZLED_OS = os.path.join(here, 'grizzled', 'os.py')
 
 # Custom commands
 
@@ -83,15 +84,34 @@ class Doc(Command):
         pass
 
     def run(self):
-        gf = import_from_file(GRIZZLED_FILE, 'gf')
-        if os.path.exists(API_DOCS_BUILD):
-            gf.recursively_remove(API_DOCS_BUILD)
-
-        cmd = 'pdoc --html --html-dir {} grizzled'.format(API_DOCS_BUILD)
+        os.environ['PYTHONPATH'] = '.'
+        cmd = 'pdoc --html --html-dir {} --overwrite --html-no-source grizzled'.format(
+            API_DOCS_BUILD
+        )
         print('+ {}'.format(cmd))
         rc = os.system(cmd)
         if rc != 0:
             raise Exception("Failed to run pdoc. rc={}".format(rc))
+
+class Test(Command):
+    description = 'run the Nose tests'
+
+    user_options = []
+
+    def __init__(self, dist):
+        Command.__init__(self, dist)
+
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
+
+    def run(self):
+        import nose
+        gos = import_from_file(GRIZZLED_OS, 'gos')
+        with gos.working_directory('test'):
+            nose.run()
 
 # Now the setup stuff.
 
@@ -110,7 +130,8 @@ setup (name             = NAME,
        test_suite       = 'nose.collector',
        cmdclass         = {
            'gh':   GH,
-           'docs': Doc
+           'docs': Doc,
+           'test': Test
        },
        classifiers = [
         'Intended Audience :: Developers',

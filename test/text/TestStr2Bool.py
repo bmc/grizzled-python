@@ -31,7 +31,7 @@ class TestStr2Bool(object):
                             ('1',     True,)):
             for s2 in (s, s.upper(), s.capitalize()):
                 val = str2bool(s2)
-                print '"%s" -> %s. Expected=%s' % (s2, expected, val)
+                print('"%s" -> %s. Expected=%s' % (s2, expected, val))
                 assert val == expected, \
                        '"%s" does not produce expected %s' % (s2, expected)
 

@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 
-# NOTE: Documentation is intended to be processed by epydoc and contains
-# epydoc markup.
-
-'''
+"""
 Introduction
 ============
 
@@ -74,10 +71,10 @@ Use an include-enabled file with the standard Python logging module:
 
     logging.fileConfig(includer.preprocess("mylog.cfg"))
 
-'''
-from __future__ import print_function
+"""
 
-__docformat__ = "restructuredtext en"
+__docformat__ = "markdown"
+
 __all__ = ['Includer', 'IncludeError', 'preprocess']
 
 # ---------------------------------------------------------------------------
@@ -90,8 +87,8 @@ import sys
 import re
 import tempfile
 import atexit
-import urllib2
-import urlparse
+import urllib.request, urllib.error, urllib.parse
+import urllib.parse
 
 import grizzled.exception
 from grizzled.file import unlink_quietly
@@ -180,7 +177,7 @@ class Includer(object):
         self.__name = name
 
         if output == None:
-            from cStringIO import StringIO
+            from io import StringIO
             output = StringIO()
 
         self.__maxnest = max_nest_level
@@ -199,7 +196,7 @@ class Includer(object):
     def __iter__(self):
         return self
 
-    def next(self):
+    def __next__(self):
         """A file object is its own iterator.
 
         :rtype: string
@@ -284,7 +281,7 @@ class Includer(object):
         :Parameters:
             length : int
                 a length hint, or negative if you don't care
-                
+
         :rtype: str
         :return: the line read
         """
@@ -355,12 +352,12 @@ class Includer(object):
         is_url = False
         openFunc = None
 
-        parsed_url = urlparse.urlparse(name_to_open)
+        parsed_url = urllib.parse.urlparse(name_to_open)
 
         # Account for Windows drive letters.
 
         if (parsed_url.scheme != '') and (len(parsed_url.scheme) > 1):
-            openFunc = urllib2.urlopen
+            openFunc = urllib.request.urlopen
             is_url = True
 
         else:
@@ -368,9 +365,9 @@ class Includer(object):
 
             if enclosing_file_is_url:
                 # Use the parent URL as the base URL.
-                
-                name_to_open = urlparse.urljoin(enclosing_file, name_to_open)
-                open_func = urllib2.urlopen
+
+                name_to_open = urllib.parse.urljoin(enclosing_file, name_to_open)
+                open_func = urllib.request.urlopen
                 is_url = True
 
             elif not os.path.isabs(name_to_open):
@@ -399,12 +396,15 @@ class Includer(object):
                 'Unable to open "{0}" as a file or a URL'.format(name_to_open)
             )
         return (f, is_url, name_to_open)
-    
+
 # ---------------------------------------------------------------------------
 # Public functions
 # ---------------------------------------------------------------------------
 
-def preprocess(file_or_url, output=None, temp_suffix='.txt', temp_prefix='inc'):
+def preprocess(file_or_url,
+               output=None,
+               temp_suffix='.txt',
+               temp_prefix='inc'):
     """
     Process all include directives in the specified file, returning a path
     to a temporary file that contains the results of the expansion. The
@@ -414,6 +414,8 @@ def preprocess(file_or_url, output=None, temp_suffix='.txt', temp_prefix='inc'):
     :Parameters:
         file_or_url : file or str
             URL or path to file to be expanded; or, a file-like object
+        encoding : str
+            String encoding for input file/URL. Defaults to UTF-8.
         output : file
             A file or file-like object to receive the output.
         temp_suffix : str
@@ -439,7 +441,7 @@ def preprocess(file_or_url, output=None, temp_suffix='.txt', temp_prefix='inc'):
     Includer(file_or_url, output=output)
     return result
 
-    
+
 # ---------------------------------------------------------------------------
 # Private functions
 # ---------------------------------------------------------------------------
@@ -458,10 +460,10 @@ if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG, format=format)
 
     for file in sys.argv[1:]:
-        import cStringIO as StringIO
+        import io as StringIO
         out = StringIO.StringIO()
         preprocess(file, output=out)
-        
+
         header = 'File: %s, via preprocess()'
         sep = '-' * len(header)
         print('\n{0}\n{1}\n{2}\n'.format(sep, header, sep))
