@@ -8,7 +8,8 @@ that extend the behavior of the built-in Python `dict` type.
 # ---------------------------------------------------------------------------
 
 import sys
-from typing import Sequence, Callable, Optional, Any, Tuple, Iterator
+from typing import (Sequence, Callable, Optional, Any, Tuple, Iterator, Mapping,
+                    Union)
 
 # ---------------------------------------------------------------------------
 # Exports
@@ -237,7 +238,7 @@ class LRUDict(dict):
         """
         self.__max_capacity = new_capacity
         if len(self) > new_capacity:
-            self.__clear_to(new_capacity)
+            self._clear_to(new_capacity)
 
     max_capacity = property(get_max_capacity, set_max_capacity,
                             doc='The maximum capacity. Can be reset at will.')
@@ -320,7 +321,7 @@ class LRUDict(dict):
         lru_entry = dict.__getitem__(self, key)
         self.__lru_queue.remove(lru_entry)
         dict.__delitem__(self, key)
-        self.__notify_listeners(False, [(lru_entry.key, lru_entry.value)])
+        self._notify_listeners(False, [(lru_entry.key, lru_entry.value)])
 
     def __str__(self):
         s = '{'
@@ -345,7 +346,7 @@ class LRUDict(dict):
         return self.__lru_queue.__iter__()
 
     def clear(self):
-        self.__clear_to(0)
+        self._clear_to(0)
 
     def get(self, key, default=None):
         try:
@@ -374,7 +375,9 @@ class LRUDict(dict):
     def itervalues(self) -> Iterator[Any]:
         return iter(self.__lru_queue.values())
 
-    def update(self, d, **kw):
+    def update(self,
+               d: Union[Mapping[Any, Any], Sequence[Tuple[Any, Any]]],
+               **kw):
         """
         Update the dictionary with the key/value pairs from `d`, overwriting
         existing keys. Returns nothing.
@@ -404,7 +407,7 @@ class LRUDict(dict):
         for key, value in kw.items():
             self[key] = value
 
-    def pop(self, key, default=None):
+    def pop(self, key: Any, default: Optional[Any] = None):
         """
         "Pop" (i.e., retrieve and remove) the specified key from the
         dictionary.
@@ -452,7 +455,7 @@ class LRUDict(dict):
         dict.__delitem__(self, lru_entry.key)
         return lru_entry.key, lru_entry.value
 
-    def __put(self, key, value):
+    def __put(self, key: Any, value: Any):
         try:
             lru_entry = dict.__getitem__(self, key)
 
@@ -467,7 +470,7 @@ class LRUDict(dict):
             # Preserve one of the entries we're clearing, to avoid
             # reallocation.
 
-            lru_entry = self.__clear_to(self.max_capacity - 1)
+            lru_entry = self._clear_to(self.max_capacity - 1)
             if lru_entry:
                 lru_entry.key, lru_entry.value = key, value
             else:
@@ -476,20 +479,20 @@ class LRUDict(dict):
 
         dict.__setitem__(self, key, lru_entry)
 
-    def __clear_to(self, size):
+    def _clear_to(self, size):
         old_tail = None
         while len(self.__lru_queue) > size:
             old_tail = self.__lru_queue.remove_tail()
             assert old_tail
             key = old_tail.key
             value = dict.__delitem__(self, key)
-            self.__notify_listeners(True, [(key, value)])
+            self._notify_listeners(True, [(key, value)])
 
         assert len(self.__lru_queue) <= size
         assert len(self) == len(self.__lru_queue)
         return old_tail
 
-    def __notify_listeners(self, ejecting, key_value_pairs):
+    def _notify_listeners(self, ejecting, key_value_pairs):
         if self.__removal_listeners:
             for key, value in key_value_pairs:
                 for func, func_data in list(self.__removal_listeners.items()):
