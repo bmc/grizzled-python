@@ -119,7 +119,7 @@ setup (name                          = NAME,
        version                       = module.version,
        description                   = module.title,
        long_description              = module.__doc__,
-       long_description_content_type = 'text/rst',
+       long_description_content_type = 'text/markdown',
        install_requires              = [
            'backports.tempfile >= 1.0rc1',
         ],
