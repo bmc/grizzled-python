@@ -1,12 +1,8 @@
-# $Id$
-
 """
 Input/Output utility methods and classes.
 """
 
-
-
-__docformat__ = "restructuredtext en"
+__docformat__ = "markdown"
 
 # ---------------------------------------------------------------------------
 # Imports
@@ -14,6 +10,7 @@ __docformat__ = "restructuredtext en"
 
 import os
 import zipfile
+from typing import IO, TextIO, Union, AnyStr, NoReturn, Sequence, Iterable
 
 # ---------------------------------------------------------------------------
 # Exports
@@ -27,130 +24,119 @@ __all__ = ['AutoFlush', 'MultiWriter', 'PushbackFile', 'Zip']
 
 class AutoFlush(object):
     """
-    An ``AutoFlush`` wraps a file-like object and flushes the output
-    (via a call to ``flush()`` after every write operation. Here's how
-    to use an ``AutoFlush`` object to force standard output to flush after
+    An `AutoFlush` wraps a file-like object and flushes the output
+    (via a call to `flush()` after every write operation. Here's how
+    to use an `AutoFlush` object to force standard output to flush after
     every write:
 
-    .. python::
+    ```python
+    import sys
+    from grizzled.io import AutoFlush
 
-        import sys
-        from grizzled.io import AutoFlush
-
-        sys.stdout = AutoFlush(sys.stdout)
+    sys.stdout = AutoFlush(sys.stdout)
+    ```
     """
-    def __init__(self, f):
+    def __init__(self, f: IO) -> NoReturn:
         """
-        Create a new ``AutoFlush`` object to wrap a file-like object.
+        Create a new `AutoFlush` object to wrap a file-like object.
 
-        :Parameters:
-            f : file
-                A file-like object that contains both a ``write()`` method
-                and a ``flush()`` method.
+        **Parameters**
+
+        - `f` (file-like object): A file-like object that contains both a
+          `write()` method and a `flush()` method.
         """
-        self.__file = f
+        self._file = f
 
-    def write(self, buf):
+    def write(self, buf: Union[bytes, bytearray, AnyStr]):
         """
         Write the specified buffer to the file.
 
-        :Parameters:
-            buf : str or bytes
-                buffer to write
-        """
-        self.__file.write(buf)
-        self.__file.flush()
+        **Parameters**
 
-    def flush(self):
+        - `buf` (`str` or `bytes`): buffer to write
+        """
+        self._file.write(buf)
+        self._file.flush()
+
+    def flush(self) -> NoReturn:
         """
         Force a flush.
         """
-        self.__file.flush()
+        self._file.flush()
 
-    def truncate(self, size=-1):
+    def truncate(self, size: int =-1) -> NoReturn:
         """
         Truncate the underlying file. Might fail.
 
-        :Parameters:
-            size : int
-                Where to truncate. If less than 0, then file's current position
-                is used.
+        **Parameters**
+
+        - `size` (`int`): Where to truncate. If less than 0, then file's
+          current position is used.
         """
         if size < 0:
-            size = self.__file.tell()
-        self.__file.truncate(size)
+            size = self._file.tell()
+        self._file.truncate(size)
 
-    def tell(self):
+    def tell(self) -> int:
         """
         Return the file's current position, if applicable.
-
-        :rtype:  int
-        :return: Current file position
         """
-        return self.__file.tell()
+        return self._file.tell()
 
-    def seek(self, offset, whence=os.SEEK_SET):
+    def seek(self, offset: int, whence: int = os.SEEK_SET) -> NoReturn:
         """
-        Set the file's current position. The ``whence`` argument is optional;
+        Set the file's current position. The `whence` argument is optional;
         legal values are:
 
-         - ``os.SEEK_SET`` or 0: absolute file positioning (default)
-         - ``os.SEEK_CUR`` or 1: seek relative to the current position
-         - ``os.SEEK_END`` or 2: seek relative to the file's end
+        - `os.SEEK_SET` or 0: absolute file positioning (default)
+        - `os.SEEK_CUR` or 1: seek relative to the current position
+        - `os.SEEK_END` or 2: seek relative to the file's end
 
         There is no return value. Note that if the file is opened for
-        appending (mode 'a' or 'a+'), any ``seek()`` operations will be undone
+        appending (mode 'a' or 'a+'), any `seek()` operations will be undone
         at the next write. If the file is only opened for writing in append
         mode (mode 'a'), this method is essentially a no-op, but it remains
         useful for files opened in append mode with reading enabled (mode
         'a+'). If the file is opened in text mode (without 'b'), only offsets
-        returned by ``tell()`` are legal. Use of other offsets causes
+        returned by `tell()` are legal. Use of other offsets causes
         undefined behavior.
 
         Note that not all file objects are seekable.
-
-        :Parameters:
-            offset : int
-                where to seek
-            whence : int
-                see above
         """
-        self.__file.seek(offset, whence)
+        self._file.seek(offset, whence)
 
-    def fileno(self):
+    def fileno(self) -> int:
         """
         Return the integer file descriptor used by the underlying file.
-
-        :rtype:  int
-        :return: the file descriptor
         """
-        return self.__file.fileno()
+        return self._file.fileno()
+
 
 class MultiWriter(object):
     """
     Wraps multiple file-like objects so that they all may be written at once.
     For example, the following code arranges to have anything written to
-    ``sys.stdout`` go to ``sys.stdout`` and to a temporary file:
+    `sys.stdout` go to `sys.stdout` and to a temporary file:
 
-    .. python::
+    ```python
+    import sys
+    from grizzled.io import MultiWriter
 
-        import sys
-        from grizzled.io import MultiWriter
-
-        sys.stdout = MultiWriter(sys.__stdout__, open('/tmp/log', 'w'))
+    sys.stdout = MultiWriter(sys.__stdout__, open('/tmp/log', 'w'))
+    ```
     """
-    def __init__(self, *args):
+    def __init__(self, *args: IO):
         """
-        Create a new ``MultiWriter`` object to wrap one or more file-like
+        Create a new `MultiWriter` object to wrap one or more file-like
         objects.
 
-        :Parameters:
-            args : iterable
-                One or more file-like objects to wrap
-        """
-        self.__files = args
+        **Parameters**
 
-    def write(self, buf):
+        - `args` (iterable): One or more file-like objects to wrap
+        """
+        self._files = list(args)
+
+    def write(self, buf: Union[bytes, bytearray, AnyStr]) -> NoReturn:
         """
         Write the specified buffer to the wrapped files.
 
@@ -158,73 +144,78 @@ class MultiWriter(object):
             buf : str or bytes
                 buffer to write
         """
-        for f in self.__files:
+        for f in self._files:
             f.write(buf)
 
-    def flush(self):
+    def flush(self) -> NoReturn:
         """
         Force a flush.
         """
-        for f in self.__files:
+        for f in self._files:
             f.flush()
 
-    def close(self):
+    def close(self) -> NoReturn:
         """
         Close all contained files.
         """
-        for f in self.__files:
+        for f in self._files:
             f.close()
+
 
 class PushbackFile(object):
     """
     A file-like wrapper object that permits pushback.
     """
-    def __init__(self, f):
+    def __init__(self, f: TextIO):
         """
-        Create a new ``PushbackFile`` object to wrap a file-like object.
+        Create a new `PushbackFile` object to wrap a file-like object.
 
-        :Parameters:
-            f : file
-                A file-like object that contains both a ``write()`` method
-                and a ``flush()`` method.
+        **Parameters**
+
+        - `f` (file-like object): A file-like object that contains both a
+          `write()` method and a `flush()` method.
         """
         self.__buf = [c for c in ''.join(f.readlines())]
 
-    def write(self, buf):
+    def write(self, buf: Union[bytes, bytearray, AnyStr]):
         """
         Write the specified buffer to the file. This method throws an
-        unconditional exception, since ``PushbackFile`` objects are read-only.
+        unconditional exception, since `PushbackFile` objects are read-only.
 
-        :Parameters:
-            buf : str or bytes
-                buffer to write
+        **Parameters**
 
-        :raise NotImplementedError: unconditionally
+        - `buf` (`str` or `bytes`): buffer to write
+
+        **Raises**
+
+        `NotImplementedError`: unconditionally
         """
         raise NotImplementedError('PushbackFile is read-only')
 
-    def pushback(self, s):
+    def pushback(self, s: str) -> NoReturn:
         """
         Push a character or string back onto the input stream.
 
-        :Parameters:
-            s : str
-                the string to push back onto the input stream
+        **Parameters**
+
+        `s` (`str`): the string to push back onto the input stream
         """
         self.__buf = [c for c in s] + self.__buf
 
     unread=pushback
 
-    def read(self, n=-1):
+    def read(self, n: int = -1) -> str:
         """
-        Read *n* bytes from the open file.
+        Read *n* bytes from the open file as a string.
 
-        :Parameters:
-            n : int
-                Number of bytes to read. A negative number instructs
-                ``read()`` to read all remaining bytes.
+        **Parameters**
 
-        :return: the bytes read
+        - `n` (`int`): Number of bytes to read. A negative number instructs
+          `read()` to read all remaining bytes.
+
+        **Returns**
+
+        the bytes read, joined into a string
         """
         resultBuf = None
         if n > len(self.__buf):
@@ -240,16 +231,9 @@ class PushbackFile(object):
 
         return ''.join(resultBuf)
 
-    def readline(self, length=-1):
+    def readline(self):
         """
         Read the next line from the file.
-
-        :Parameters:
-            length : int
-                a length hint, or negative if you don't care
-
-        :rtype:  str
-        :return: the line
         """
         i = 0
         while i < len(self.__buf) and (self.__buf[i] != '\n'):
@@ -259,12 +243,9 @@ class PushbackFile(object):
         self.__buf = self.__buf[i+1:]
         return ''.join(result)
 
-    def readlines(self, sizehint=0):
+    def readlines(self):
         """
         Read all remaining lines in the file.
-
-        :rtype:  list
-        :return: list of lines
         """
         return self.read(-1)
 
@@ -272,14 +253,6 @@ class PushbackFile(object):
         return self
 
     def __next__(self):
-        """A file object is its own iterator.
-
-        :rtype: str
-        :return: the next line from the file
-
-        :raise StopIteration: end of file
-        :raise IncludeError: on error
-        """
         line = self.readline()
         if (line == None) or (len(line) == 0):
             raise StopIteration
@@ -292,103 +265,98 @@ class PushbackFile(object):
     def flush(self):
         """
         Force a flush. This method throws an unconditional exception, since
-        ``PushbackFile`` objects are read-only.
+        `PushbackFile` objects are read-only.
 
-        :raise NotImplementedError: unconditionally
+        **Raises**
+
+        `NotImplementedError`: unconditionally
         """
         raise NotImplementedError('PushbackFile is read-only')
 
-    def truncate(self, size=-1):
+    def truncate(self, size: int =-1) -> NoReturn:
         """
-        Truncate the underlying file.  This method throws an unconditional exception, since
-        ``PushbackFile`` objects are read-only.
+        Truncate the underlying file. This method throws an unconditional
+        exception, since `PushbackFile` objects are read-only.
 
-        :Parameters:
-            size : int
-                Where to truncate. If less than 0, then file's current
-                position is used
+        **Parameters**
 
-        :raise NotImplementedError: unconditionally
+        - `size` (`int`): Where to truncate. If less than 0, then file's
+          current position is used.
+
+        **Raises**
+
+        `NotImplementedError`: unconditionally
         """
-        raise NotImplementedError('PushbackFile is read-only')
+        raise NotImplementedError()
 
-    def tell(self):
+    def tell(self) -> int:
         """
         Return the file's current position, if applicable. This method throws
-        an unconditional exception, since ``PushbackFile`` objects are
+        an unconditional exception, since `PushbackFile` objects are
         read-only.
 
-        :rtype:  int
-        :return: Current file position
+        **Raises**
 
-        :raise NotImplementedError: unconditionally
+        `NotImplementedError`: unconditionally
         """
-        raise NotImplementedError('PushbackFile is not seekable')
+        raise NotImplementedError()
 
     def seek(self, offset, whence=os.SEEK_SET):
         """
         Set the file's current position. This method throws an unconditional
-        exception, since ``PushbackFile`` objects are not seekable.
+        exception, since `PushbackFile` objects are not seekable.
 
-        :Parameters:
-            offset : int
-                where to seek
-            whence : int
-                see above
+        **Raises**
 
-        :raise NotImplementedError: unconditionally
+        `NotImplementedError`: unconditionally
         """
         raise NotImplementedError('PushbackFile is not seekable')
 
     def fileno(self):
         """
-        Return the integer file descriptor used by the underlying file.
-
-        :rtype:  int
-        :return: the file descriptor
+        Return the integer file descriptor used by the underlying file. This
+        method always returns -1.
         """
         return -1
 
+
 class Zip(zipfile.ZipFile):
     """
-    ``Zip`` extends the standard ``zipfile.ZipFile`` class and provides a
+    `Zip` extends the standard `zipfile.ZipFile` class and provides a
     method to extract the contents of a zip file into a directory. Adapted
     from http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/252508.
     """
-    def __init__(self, file, mode="r",
-                 compression=zipfile.ZIP_STORED,
-                 allow_zip64=False):
+    def __init__(self,
+                 file: str,
+                 mode: str = "r",
+                 compression: int = zipfile.ZIP_STORED,
+                 allow_zip64: bool = False):
         """
         Constructor. Initialize a new zip file.
 
-        :Parameters:
-            file : str
-                path to zip file
-            mode : str
-                open mode. Valid values are 'r' (read), 'w' (write), and
-                'a' (append)
-            compression : int
-                Compression type. Valid values: ``zipfile.ZIP_STORED`,
-                ``zipfile.ZIP_DEFLATED``
-            allow_zip64 : bool
-                Whether or not Zip64 extensions are to be used
+        **Parameters**
+
+        - `file` (`str`): path to zip file
+        - `mode` (`str`): open mode. Valid values are 'r' (read), 'w' (write),
+          and 'a' (append)
+        - `compression`: Compression type. Valid values are those accepted by
+          the standard `zipfile.ZipFile` class
+        - `allow_zip64` (`bool`): Whether or not Zip64 extensions are to be used
         """
         zipfile.ZipFile.__init__(self, file, mode, compression, allow_zip64)
         self.zipFile = file
 
-    def extract(self, output_dir):
+    def extract_into(self, output_dir: str) -> NoReturn:
         """
         Unpack the zip file into the specified output directory.
 
-        :Parameters:
-            output_dir : str
-                path to output directory. The directory is
-                created if it doesn't already exist.
+        **Parameters**
+
+        - `output_dir` (`str`): Path to output directory. The directory is
+          created if it doesn't already exist.
         """
         if not output_dir.endswith(':') and not os.path.exists(output_dir):
             os.mkdir(output_dir)
-
-        num_files = len(self.namelist())
 
         # extract files to directory structure
         for i, name in enumerate(self.namelist()):

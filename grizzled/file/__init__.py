@@ -65,7 +65,9 @@ def recursively_remove(dir: str) -> NoReturn:
     shutil.rmtree(dir)
 
 
-def list_recursively(dir: str) -> Generator[None, str, None]:
+def list_recursively(dir: str, *,
+                     include_files: bool = True,
+                     include_dirs: bool = True) -> Generator[None, str, None]:
     """
     Recursively list the contents of a directory. Yields the contents of
     the directory and all subdirectories. This method returns a generator,
@@ -77,10 +79,14 @@ def list_recursively(dir: str) -> Generator[None, str, None]:
     **Parameters**
 
     - `dir` (`str`): Path to directory to list
+    - `include_files` (`bool`): Whether or not to yield directories. `True`
+      by default.
+    - `include_dirs` (`bool`): Whether or not to yield files. `True` by
+      default.
 
     **Yields**
 
-    partial paths of all directories and files below the specified directory
+    partial paths of all directories and/or files below the specified directory
 
     **Raises**
 
@@ -94,10 +100,12 @@ def list_recursively(dir: str) -> Generator[None, str, None]:
 
     with working_directory(dir):
         for dirpath, dirnames, filenames in _os.walk('.'):
-            for d in dirnames:
-                yield _os.path.normpath(_os.path.join(dirpath, d))
-            for f in filenames:
-                yield _os.path.normpath(_os.path.join(dirpath, f))
+            if include_dirs:
+                for d in dirnames:
+                    yield _os.path.normpath(_os.path.join(dirpath, d))
+            if include_files:
+                for f in filenames:
+                    yield _os.path.normpath(_os.path.join(dirpath, f))
 
 
 def copy(files : Union[Sequence[str], str],

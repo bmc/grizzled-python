@@ -1,6 +1,4 @@
-# $Id$
-#
-# Nose program for testing grizzled.io classes/functions
+# Nose program for testing grizzled.io PushbackFile class
 
 # ---------------------------------------------------------------------------
 # Imports
