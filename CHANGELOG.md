@@ -14,6 +14,11 @@ Version 2.0.0 (...)
 - Removed entire `grizzled.net` package. There are better ways to handle
   HTTP downloads (e.g., the third-party `requests` package), and the `ftp`
   module is out of date.
+- Removed `grizzled.io.Zip`. Its sole reason for existence was to allow
+  extracting the zip into a specified directory, a feature the standard
+  `zipfile.ZipFile` class didn't support when `Zip` was originally written.
+  `zipfile.ZipFile.extractall()` now provides that functionality, so
+  `grizzled.io.Zip` is no longer of any use.
 - Removed `grizzled.file.copy_recursively()`. It was just a single-line wrapper
   around `shutil.copytree()`.  
 - Removed `python_version()`, `python_version_string()`, `ensure_version()`

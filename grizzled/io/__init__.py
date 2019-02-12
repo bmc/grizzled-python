@@ -16,7 +16,7 @@ from typing import IO, TextIO, Union, AnyStr, NoReturn, Sequence, Iterable
 # Exports
 # ---------------------------------------------------------------------------
 
-__all__ = ['AutoFlush', 'MultiWriter', 'PushbackFile', 'Zip']
+__all__ = ['AutoFlush', 'MultiWriter', 'PushbackFile']
 
 # ---------------------------------------------------------------------------
 # Classes
@@ -320,33 +320,7 @@ class PushbackFile(object):
         return -1
 
 
-class Zip(zipfile.ZipFile):
-    """
-    `Zip` extends the standard `zipfile.ZipFile` class and provides a
-    method to extract the contents of a zip file into a directory. Adapted
-    from http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/252508.
-    """
-    def __init__(self,
-                 file: str,
-                 mode: str = "r",
-                 compression: int = zipfile.ZIP_STORED,
-                 allow_zip64: bool = False):
-        """
-        Constructor. Initialize a new zip file.
-
-        **Parameters**
-
-        - `file` (`str`): path to zip file
-        - `mode` (`str`): open mode. Valid values are 'r' (read), 'w' (write),
-          and 'a' (append)
-        - `compression`: Compression type. Valid values are those accepted by
-          the standard `zipfile.ZipFile` class
-        - `allow_zip64` (`bool`): Whether or not Zip64 extensions are to be used
-        """
-        zipfile.ZipFile.__init__(self, file, mode, compression, allow_zip64)
-        self.zipFile = file
-
-    def extract_into(self, output_dir: str) -> NoReturn:
+def extract_into(self, output_dir: str) -> NoReturn:
         """
         Unpack the zip file into the specified output directory.
 

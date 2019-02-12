@@ -1,39 +1,38 @@
 """
-File Locking
-============
-
 This module provides portable advisory file locking primitives that operate on
 file descriptors. POSIX-like systems and Windows systems use different
 primitives to perform file locking, and these different primitives are modeled
 by incompatible (and different) modules in the Python standard library. This
-module provides an abstract ``FileLock`` class, and underlying
+module provides an abstract `FileLock` class, and underlying
 implementations, to hide the operating system dependencies behind a simple
 portable interface.
 
-To create a file lock, simply instantiate the ``FileLock`` class with an open
+To create a file lock, simply instantiate the `FileLock` class with an open
 file descriptor. It handles the rest:
 
-.. python::
+```python
+from grizzled.io.filelock import FileLock
 
-    from grizzled.io.filelock import FileLock
+fd = open('/tmp/lockfile', 'r+')
+lock = FileLock(fd)
+lock.acquire()
 
-    fd = open('/tmp/lockfile', 'r+')
-    lock = FileLock(fd)
-    lock.acquire()
+...
 
-    ...
+lock.release()
+```
 
-    lock.release()
+You can also use the `locked_file()` context manager to simplify your code:
 
-You can also use the ``locked_file()`` function to simplify your code:
+```python
 
-.. python::
+from grizzled.io.filelock import locked_file
 
-    from grizzled.io.filelock import locked_file
+fd = open('/tmp/lockfile', 'r+')
+with locked_file(fd):
+    pass
 
-    fd = open('/tmp/lockfile', 'r+')
-    with locked_file(fd):
-        ...
+# Automatically unlocked once you get here
 """
 
 __docformat__ = "markdown"
@@ -44,6 +43,7 @@ __docformat__ = "markdown"
 
 import os
 from contextlib import contextmanager
+from typing import NoReturn
 
 # ---------------------------------------------------------------------------
 # Exports
@@ -60,7 +60,7 @@ LOCK_CLASSES = {'posix' : '_PosixFileLock',
 
 class FileLock(object):
     """
-    A ``FileLock`` object models a file lock. It wraps a file descriptor
+    A `FileLock` object models a file lock. It wraps a file descriptor
     and contains methods to acquire and release a lock on the file.
 
     File lock implementations that implement this interface are guaranteed
@@ -71,15 +71,15 @@ class FileLock(object):
     and Windows.
     """
 
-    def __init__(self, fd):
+    def __init__(self, fd: int) -> NoReturn:
         """
         Allocate a new file lock that operates on the specified file
         descriptor.
 
-        :Parameters:
-            fd : int
-                Open file descriptor. The file must be opened for writing or
-                updating, not reading.
+        **Parameters**
+
+        - `fd` (`int`): Open file descriptor. The file must be opened for
+          writing or updating, not reading.
         """
         try:
             cls = eval(LOCK_CLASSES[os.name])
@@ -92,20 +92,22 @@ class FileLock(object):
                       )
                   )
 
-    def acquire(self, no_wait=False):
+    def acquire(self, no_wait: bool = False):
         """
         Lock the associated file. If someone already has the file locked,
-        this method will suspend the calling process, unless ``no_wait`` is
-        ``True``.
+        this method will suspend the calling process, unless `no_wait` is
+        `True`.
 
-        :Parameters:
-            no_wait : bool
-                If ``False``, then ``acquire()`` will suspend the calling
-                process if someone has the file locked. If ``True``, then
-                ``acquire()`` will raise an ``IOError`` if the file is
-                locked by someone else.
+        **Parameters**
 
-        :raise IOError: If the file cannot be locked for any reason.
+        - `no_wait` (`bool`): If `False`, then `acquire()` will suspend the
+          calling process if someone has the file locked. If `True`, then
+          `acquire()` will raise an `IOError` if the file is locked by someone
+          else.
+
+        **Raises**
+
+        `IOError`: If the file cannot be locked for any reason.
         """
         self.lock.acquire(no_wait)
 
@@ -115,13 +117,14 @@ class FileLock(object):
         """
         self.lock.release()
 
+
 class _PosixFileLock(object):
     """File lock implementation for POSIX-compliant systems."""
 
-    def __init__(self, fd):
+    def __init__(self, fd: int):
         self.fd = fd
 
-    def acquire(self, no_wait=False):
+    def acquire(self, no_wait: bool = False):
         import fcntl
         flags = fcntl.LOCK_EX
         if no_wait:
@@ -133,13 +136,14 @@ class _PosixFileLock(object):
         import fcntl
         fcntl.lockf(self.fd, fcntl.LOCK_UN)
 
+
 class _WindowsFileLock(object):
     """File lock implementation for Windows systems."""
 
-    def __init__(self, fd):
+    def __init__(self, fd: int):
         self.fd = fd
 
-    def lock(self, no_wait=False):
+    def lock(self, no_wait: bool = False):
         import msvcrt
         if no_wait:
             op = msvcrt.LK_NBLCK
@@ -159,45 +163,45 @@ class _WindowsFileLock(object):
 # ---------------------------------------------------------------------------
 
 @contextmanager
-def locked_file(fd, no_wait=False):
+def locked_file(fd: int, no_wait: bool = False):
     """
-    This function is intended to be used as a ``with`` statement context
-    manager. It wraps a ``FileLock`` object so that the locking and unlocking
-    of the file descriptor are automatic. With the ``locked_file()`` function,
+    This function is intended to be used as a `with` statement context
+    manager. It wraps a `FileLock` object so that the locking and unlocking
+    of the file descriptor are automatic. With the `locked_file()` function,
     you can replace this code:
 
-    .. python::
-
-        lock = FileLock(fd)
-        lock.acquire()
-        try:
-            do_something()
-        finally:
-            lock.release()
+    ```python
+    lock = FileLock(fd)
+    lock.acquire()
+    try:
+        do_something()
+    finally:
+        lock.release()
+    ```
 
     with this code:
 
-    .. python::
+    ```python
+    with locked_file(fd):
+        do_something()
+    ```
 
-        with locked_file(fd):
-            do_something()
+    **Parameters**
 
-    :Parameters:
-        fd : int
-            Open file descriptor. The file must be opened for writing
-            or updating, not reading.
-        no_wait : bool
-            If ``False``, then ``locked_file()`` will suspend the calling
-            process if someone has the file locked. If ``True``, then
-            ``locked_file()`` will raise an ``IOError`` if the file is
-            locked by someone else.
+    - `fd` (`int`): Open file descriptor. The file must be opened for writing
+      or updating, not reading.
+    - `no_wait` (`bool`): If `False` (the default), then `locked_file()` will
+      suspend the calling process if someone has the file locked. If `True`,
+      then `locked_file()` will raise an `IOError` if the file is already
+      locked by someone else.
     """
     locked = False
+    lock = None
     try:
         lock = FileLock(fd)
         lock.acquire(no_wait)
         locked = True
         yield lock
     finally:
-        if locked:
+        if locked and lock:
             lock.release()
