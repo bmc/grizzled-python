@@ -115,25 +115,29 @@ class Test(Command):
 
 # Now the setup stuff.
 
-setup (name             = NAME,
-       version          = module.version,
-       description      = module.title,
-       long_description = module.__doc__,
-       install_requires = [
+setup (name                          = NAME,
+       version                       = module.version,
+       description                   = module.title,
+       long_description              = module.__doc__,
+       long_description_content_type = 'text/rst',
+       install_requires              = [
            'backports.tempfile >= 1.0rc1',
         ],
-       packages         = find_packages(),
-       url              = module.url,
-       license          = module.license,
-       author           = module.author,
-       author_email     = module.email,
-       test_suite       = 'nose.collector',
-       cmdclass         = {
+       packages                      = find_packages(),
+       url                           = module.url,
+       license                       = module.license,
+       author                        = module.author,
+       author_email                  = module.email,
+       test_suite                    = 'nose.collector',
+       cmdclass                      = {
            'gh':   GH,
            'docs': Doc,
+           'doc':  Doc,
+           'apidoc': Doc,
+           'apidocs': Doc,
            'test': Test
        },
-       classifiers = [
+       classifiers                   = [
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
         'Programming Language :: Python',

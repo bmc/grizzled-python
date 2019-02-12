@@ -1,24 +1,18 @@
-
-# NOTE: Documentation is intended to be processed by epydoc and contains
-# epydoc markup.
-
 """
 Overview
 ========
 
-The ``grizzled.misc`` module contains miscellanous functions and classes that
+The `grizzled.misc` module contains miscellanous functions and classes that
 don't seem to fit well in other modules.
 """
 
-__docformat__ = "restructuredtext en"
+__docformat__ = "markdown"
 
 # ---------------------------------------------------------------------------
 # Imports
 # ---------------------------------------------------------------------------
 
-import logging
-
-from grizzled.exception import ExceptionWithMessage
+from typing import Any
 
 # ---------------------------------------------------------------------------
 # Exports
@@ -27,66 +21,50 @@ from grizzled.exception import ExceptionWithMessage
 __all__ = ['ReadOnly', 'ReadOnlyObjectError']
 
 # ---------------------------------------------------------------------------
-# Constants
-# ---------------------------------------------------------------------------
-
-# ---------------------------------------------------------------------------
-# Logging
-# ---------------------------------------------------------------------------
-
-log = logging.getLogger('grizzled.misc')
-
-# ---------------------------------------------------------------------------
 # Public classes
 # ---------------------------------------------------------------------------
 
-class ReadOnlyObjectError(ExceptionWithMessage):
+class ReadOnlyObjectError(Exception):
     """
-    Thrown by ``ReadOnly`` to indicate an attempt to set a field.
-
-    :IVariables:
-        field_name : str
-            name of the read-only field that could not be set
-
-        message : str
-            message to associated with the exception
+    Thrown by `ReadOnly` to indicate an attempt to set a field.
     """
-    def __init__(self, field_name, message):
-        ExceptionWithMessage.__init__(self, message)
+    def __init__(self, field_name: str, message: str):
+        """
+        **Parameters**
+
+        - `field_name` (`str`): Name of the field
+        - `message` (`str`): Exception message
+        """
+        Exception.__init__(self, message)
         self.field_name = field_name
+
 
 class ReadOnly(object):
     """
-    A ``ReadOnly`` object wraps another object and prevents all the contained
+    A `ReadOnly` object wraps another object and prevents all the contained
     object's fields from being written. Example use:
 
-    .. python::
-
         from grizzled.misc import ReadOnly
-        from grizzled.config import Configuration
+        from configparser import ConfigParser
 
-        config = Configuration()
-        config.read('/path/to/some/file')
+        config = ConfigParser()
+        config.read('/path/to/some/file', encoding='UTF-8')
         roConfig = ReadOnly(config)
 
-    Any attempt to set fields within ``roConfig`` will cause a
-    ``ReadOnlyObjectError`` to be raised.
+    Any attempt to set fields within `roConfig` will cause a
+    `ReadOnlyObjectError` to be raised.
 
-    The ``__class__`` member of the instantiate ``ReadOnly`` class will be the
-    class of the contained object, rather than ``ReadOnly``
-    (``Configuration`` in the example). Similarly, the ``isinstance()``
+    The `__class__` member of the instantiate `ReadOnly` class will be the
+    class of the contained object, rather than `ReadOnly`
+    (`ConfigParser` in the example). Similarly, the `isinstance()`
     built-in function will compare against the contained object's class.
-    However, the ``type()`` built-in will return the ``ReadOnly`` class
+    However, the `type()` built-in will return the `ReadOnly` class
     object.
     """
-    def __init__(self, wrapped):
+    def __init__(self, wrapped: Any):
         """
-        Create a new ``ReadOnly`` object that wraps the ``wrapped`` object
+        Create a new `ReadOnly` object that wraps the `wrapped` object
         and enforces read-only access to it.
-
-        :Parameters:
-            wrapped : object
-                the object to wrap
         """
         self.wrapped = wrapped
 
@@ -115,10 +93,7 @@ class ReadOnly(object):
 # Public functions
 # ---------------------------------------------------------------------------
 
-# backward compatibality
-from grizzled.text import str2bool
-
-def bitcount(num):
+def bitcount(num: int) -> int:
     """
     Count the number of bits in a numeric (integer or long) value. This
     method is adapted from the Hamming Weight algorithm, described (among
@@ -126,12 +101,13 @@ def bitcount(num):
 
     Works for up to 64 bits.
 
-    :Parameters:
-        num : int
-            The numeric value
+    **Parameters**
 
-    :rtype: int
-    :return: The number of 1 bits in the binary representation of ``num``
+    - `num` (`int`): The numeric value
+
+    **Returns**:
+
+    The number of 1 bits in the binary representation of `num`
     """
     # Put count of each 2 bits into those 2 bits.
     num = num - ((num >> 1) & 0x5555555555555555)
@@ -145,4 +121,4 @@ def bitcount(num):
     # Left-most bits.
     return int((num * 0x0101010101010101) >> 56)
 
-    
+

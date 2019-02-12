@@ -1,19 +1,12 @@
-#!/usr/bin/env python
-
-# NOTE: Documentation is intended to be processed by epydoc and contains
-# epydoc markup.
-
 """
 Overview
 ========
 
-The ``grizzled.os`` module contains some operating system-related functions and
-classes. It is a conceptual extension of the standard Python ``os`` module.
+The `grizzled.os` module contains some operating system-related functions and
+classes. It is a conceptual extension of the standard Python `os` module.
 """
 
-
-
-__docformat__ = "restructuredtext en"
+__docformat__ = "markdown"
 
 # ---------------------------------------------------------------------------
 # Imports
@@ -24,15 +17,15 @@ import os as _os
 import sys
 import glob
 from contextlib import contextmanager
-
-from grizzled.decorators import deprecated
+from typing import Sequence, Optional, Union, NoReturn
 
 # ---------------------------------------------------------------------------
 # Exports
 # ---------------------------------------------------------------------------
 
-__all__ = ['daemonize', 'DaemonError', 'working_directory',
-           'file_separator', 'path_separator']
+__all__ = ['daemonize', 'DaemonError', 'working_directory', 'path_separator',
+           'find_command', 'spawnd']
+
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -71,7 +64,7 @@ log = logging.getLogger('grizzled.os')
 
 class DaemonError(OSError):
     """
-    Thrown by ``daemonize()`` when an error occurs while attempting to create
+    Thrown by `daemonize()` when an error occurs while attempting to create
     a daemon.
     """
     pass
@@ -80,7 +73,7 @@ class DaemonError(OSError):
 # Public functions
 # ---------------------------------------------------------------------------
 
-def path_separator():
+def path_separator() -> str:
     """
     Get the path separator for the current operating system. The path
     separator is used to separate elements of a path string, such as
@@ -92,63 +85,46 @@ def path_separator():
     """
     return PATH_SEPARATOR[_os.name]
 
-@deprecated(since='0.7', message='Use os.path.sep, instead.')
-def file_separator():
-    """
-    Get the file separator for the current operating system. The file
-    separator is used to separate file elements in a pathname. (It's
-    "/" on Unix-like systems and a "\\\\" on Windows.)
-    
-    **Deprecated**. Use the standard Python ``os.path.sep`` variable,
-    instead.
 
-    :rtype: str
-    :return: the file separator
-    """
-    return FILE_SEPARATOR[_os.name]
-
-def path_elements(path):
+def path_elements(path: str) -> Sequence[str]:
     """
     Given a path string value (e.g., the value of the environment variable
-    ``PATH``), this generator function yields each item in the path.
+    `PATH`), this function returns each item in the path.
 
-    :Parameters:
-        path
-            the path to break up
+    **Parameters**
+
+    - `path` (`str`): the path to break up
+
+    **Returns**
+
+    list of pieces of the path
     """
-    for p in path.split(path_separator()):
-        yield p
+    return path.split(path_separator())
+
 
 @contextmanager
-def working_directory(directory):
+def working_directory(directory: str):
     """
-    This function is intended to be used as a ``with`` statement context
+    This function is intended to be used as a `with` statement context
     manager. It allows you to replace code like this:
-
-    .. python::
 
         original_directory = _os.getcwd()
         try:
             _os.chdir(some_dir)
-            ... bunch of code ...
+            what_you_want_to_do()
         finally:
             _os.chdir(original_directory)
 
     with something simpler:
 
-    .. python ::
-
-        from __future__ import with_statement
         from grizzled.os import working_directory
 
         with working_directory(some_dir):
-            ... bunch of code ...
+            what_you_want_to_do()
 
-    :Parameters:
-        directory : str
-            directory in which to execute
+    **Parameters**
 
-    :return: yields the ``directory`` parameter
+    - `directory` (`str`): directory in which to execute your code
     """
     original_directory = _os.getcwd()
     try:
@@ -158,35 +134,31 @@ def working_directory(directory):
     finally:
         _os.chdir(original_directory)
 
-def find_command(command_name, path=None):
+def find_command(command_name: str,
+                 path: Optional[Union[str, Sequence[str]]] = None) -> str:
     """
     Determine whether the specified system command exists in the specified
     path.
 
-    :Parameters:
-        command_name
-            The (simple) filename of the command to find. May be a glob
-            string.
+    **Parameters**
 
-        path
-            The path to search, as a list or a string. If this parameter
-            is a string, then it is split using the operating system-specific
-            path separator. If this parameter is missing, then the ``PATH``
-            environment variable is used
+    - `command_name` (`str`): (simple) file name of command to find
+    - `path` (`str` or sequence): Path string (or sequence of path elements)
+      to use. Defaults to environment `PATH`.
 
-    :rtype: str
-    :return: The path to the first command that matches ``command_name``, or 
-             ``None`` if not found
+    **Returns**
+
+    Full path to the command, or `None` if not found.
     """
     if not path:
         path = _os.environ.get('PATH', '.')
 
     if type(path) == str:
         path = path.split(path_separator())
-    elif type(path) == list:
+    elif (type(path) == list) or (type(path) == tuple):
         pass
     else:
-        assert False, 'path parameter must be a list or a string'
+        assert False, 'path parameter must be a list, tuple or a string'
 
     found = None
     for p in path:
@@ -201,79 +173,77 @@ def find_command(command_name, path=None):
 
     return found
 
-def spawnd(path, args, pidfile=None):
+
+def spawnd(path: str,
+           args: Sequence[str],
+           pidfile: Optional[str] = None) -> NoReturn:
     """
     Run a command as a daemon. This method is really just shorthand for the
     following code:
-    
-    .. python::
-    
-        daemonize(pidfile=pidfile)
-        _os.execv(path, args)
 
-    :Parameters:
-        path : str
-            Full path to program to run
-            
-        args : list
-            List of command arguments. The first element in this list must
-            be the command name (i.e., arg0).
-            
-        pidfile : str
-            Path to file to which to write daemon's process ID. The string may
-            contain a ``${pid}`` token, which is replaced with the process ID
-            of the daemon. e.g.: ``/var/run/myserver-${pid}``
+        from grizzled.os import daemonize
+        import os
+
+        daemonize(pidfile=pidfile)
+        os.execv(path, args)
+
+    **Parameters**
+
+    - `path` (`str`): Full path to program to run
+    - `args` (list of `str`): List of command arguments. The first element in
+      this list must be the command name (i.e., arg0).
+    - `pidfile` (`str`): Path to file to which to write daemon's process ID.
+      The string may contain a `${pid}` token, which is replaced with the
+      process ID of the daemon. e.g.: `"/var/run/myserver-${pid}"`
     """
     daemonize(no_close=True, pidfile=pidfile)
     _os.execv(path, args)
 
-def daemonize(no_close=False, pidfile=None):
+
+def daemonize(no_close: bool = False, pidfile: Optional[str] = None):
     """
     Convert the calling process into a daemon. To make the current Python
     process into a daemon process, you need two lines of code:
 
-    .. python::
-
         from grizzled.os import daemonize
         daemonize.daemonize()
 
-    If ``daemonize()`` fails for any reason, it throws a ``DaemonError``,
-    which is a subclass of the standard ``OSError`` exception. also logs debug
-    messages, using the standard Python ``logging`` package, to channel
+    If `daemonize()` fails for any reason, it throws a `DaemonError`,
+    which is a subclass of the standard `OSError` exception. also logs debug
+    messages, using the standard Python `logging` package, to channel
     "grizzled.os.daemon".
 
-    **Adapted from:** http://software.clapper.org/daemonize/
+    **Adapted from:** <http://software.clapper.org/daemonize/>
 
     **See Also:**
 
-    - Stevens, W. Richard. *Unix Network Programming* (Addison-Wesley, 1990).
+    - Stevens, W. Richard. _Unix Network Programming_ (Addison-Wesley, 1990).
 
-    :Parameters:
-        no_close : bool
-            If ``True``, don't close the file descriptors. Useful if the
-            calling process has already redirected file descriptors to an
-            output file. **Warning**: Only set this parameter to ``True`` if
-            you're *sure* there are no open file descriptors to the calling
-            terminal. Otherwise, you'll risk having the daemon re-acquire a
-            control terminal, which can cause it to be killed if someone logs
-            off that terminal.
+    **Parameters**
 
-        pidfile : str
-            Path to file to which to write daemon's process ID. The string may
-            contain a ``${pid}`` token, which is replaced with the process ID
-            of the daemon. e.g.: ``/var/run/myserver-${pid}``
+    - `no_close` (`bool`): If `True`, don't close the file descriptors. Useful
+      if the calling process has already redirected file descriptors to an
+      output file. **Warning**: Only set this parameter to `True` if you're
+      _sure_ there are no open file descriptors to the calling terminal.
+      Otherwise, you'll risk having the daemon re-acquire a control terminal,
+      which can cause it to be killed if someone logs off that terminal.
+    - `pidfile` (`str`): Path to file to which to write daemon's process ID.
+      The string may contain a `${pid}` token, which is replaced with the
+      process ID of the daemon. e.g.: `"/var/run/myserver-${pid}"`
 
-    :raise DaemonError: Error during daemonizing
+    **Raises**
+
+    `DaemonError`: Error during daemonizing
     """
     log = logging.getLogger('grizzled.os.daemon')
 
-    def __fork():
+    def _fork():
         try:
             return _os.fork()
         except OSError as e:
             raise DaemonError(('Cannot fork', e.errno, e.strerror))
 
-    def __redirect_file_descriptors():
+    def _redirect_file_descriptors():
         import resource  # POSIX resource information
         maxfd = resource.getrlimit(resource.RLIMIT_NOFILE)[1]
         if maxfd == resource.RLIM_INFINITY:
@@ -308,14 +278,14 @@ def daemonize(no_close=False, pidfile=None):
         import errno
         raise DaemonError(
             ('daemonize() is only supported on Posix-compliant systems.',
-            errno.ENOSYS, _os.strerror(errno.ENOSYS))
+             errno.ENOSYS, _os.strerror(errno.ENOSYS))
         )
 
     try:
         # Fork once to go into the background.
 
         log.debug('Forking first child.')
-        pid = __fork()
+        pid = _fork()
         if pid != 0:
             # Parent. Exit using os._exit(), which doesn't fire any atexit
             # functions.
@@ -330,7 +300,7 @@ def daemonize(no_close=False, pidfile=None):
         # Fork a second child to ensure that the daemon never reacquires
         # a control terminal.
         log.debug('Forking second child.')
-        pid = __fork()
+        pid = _fork()
         if pid != 0:
             # Original child. Exit.
             _os._exit(0)
@@ -348,7 +318,7 @@ def daemonize(no_close=False, pidfile=None):
         # Unless no_close was specified, close all file descriptors.
         if not no_close:
             log.debug('Redirecting file descriptors')
-            __redirect_file_descriptors()
+            _redirect_file_descriptors()
 
         if pidfile:
             from string import Template
@@ -361,27 +331,3 @@ def daemonize(no_close=False, pidfile=None):
 
     except OSError as e:
         raise DaemonError(('Unable to daemonize()', e.errno, e.strerror))
-
-# ---------------------------------------------------------------------------
-# Main program (for testing)
-# ---------------------------------------------------------------------------
-
-if __name__ == '__main__':
-
-    log = logging.getLogger('grizzled.os')
-    hdlr = logging.StreamHandler(sys.stdout)
-    formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s', '%T')
-    hdlr.setFormatter(formatter)
-    log.addHandler(hdlr)
-    log.setLevel(logging.DEBUG)
-
-    log.debug('Before daemonizing, PID=%d' % _os.getpid())
-    daemonize(no_close=True)
-    log.debug('After daemonizing, PID=%d' % _os.getpid())
-    log.debug('Daemon is sleeping for 10 seconds')
-
-    import time
-    time.sleep(10)
-
-    log.debug('Daemon exiting')
-    sys.exit(0)

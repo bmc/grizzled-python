@@ -1,5 +1,3 @@
-# $Id$
-#
 # Nose program for testing grizzled.file classes/functions
 
 # ---------------------------------------------------------------------------

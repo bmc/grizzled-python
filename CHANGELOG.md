@@ -19,8 +19,16 @@ Version 2.0.0 (...)
   `zipfile.ZipFile` class didn't support when `Zip` was originally written.
   `zipfile.ZipFile.extractall()` now provides that functionality, so
   `grizzled.io.Zip` is no longer of any use.
+- Removed `grizzled.cmdline` module (a front-end to `optparse`). There are
+  far better solutions out there now 
+  (such as [click](https://click.palletsprojects.com/en/7.x/)).
+- Removed `grizzled.exception` module. It's become obsolete.
+- Removed `grizzled.history`. Just use the standard `readline` module.
+- Removed `grizzled.decorators.abstract`. Use the facilities in the 
+  standard `abc` package.
 - Removed `grizzled.file.copy_recursively()`. It was just a single-line wrapper
   around `shutil.copytree()`.  
+- Removed `grizzled.os.file_separator()`. Use standard `os.path.sep`, instead.  
 - Removed `python_version()`, `python_version_string()`, `ensure_version()`
   and `python_version_string()` from `grizzled.system`. They're pointless.
   Just use `sys.version_info` and tuple comparison.
