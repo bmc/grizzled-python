@@ -8,12 +8,13 @@ layout: withTOC
 The Grizzled Python Utility Library is a general-purpose [Python][] library
 with a variety of different modules and packages. It's roughly organized
 into subpackages that group different kinds of utility functions and
-classes. For a sampling of what's available, see the API documentation.
+classes. For a sampling of what's available, see the [API documentation][].
 
 Grizzled Python is under continual development, so check back regularly.
 
-**NOTE**: As of version 1.0.1, Grizzled Python requires Python 2.5 or better.
-Python 2.4 and earlier versions are no longer supported.
+**NOTE**: As of version 2.0.0, Grizzled Python does _not_ support Python 2.
+If you want to use this library with Python 2, install the legacy 1.1.0
+version.
 
 # Getting and installing Grizzled Python
 
@@ -55,36 +56,30 @@ home directory) type:
 
 # Documentation
 
-Please see the [*epydoc*][]-generated [API documentation][] for
-documentation on the individual classes and modules in the Grizzled Python
-Utility Library.
+Please see the [API documentation][] for documentation on the individual
+classes and modules in the Grizzled Python Utility Library.
 
-Also, feel free to peruse the [change log](CHANGELOG.html).
+Also, feel free to peruse the [change log][].
 
 # Copyright and License
 
-The Grizzled Python Utility Library is copyright &copy; 2008-2011
+The Grizzled Python Utility Library is copyright &copy; 2008-2019
 [Brian M. Clapper][] is released under a [BSD license][license]. See the
 accompanying [license][] file.
 
-The `FTPMlstDataParser` class in the `grizzled.ftp.net.parse` module is
-copyright &copy; 2011 Andrew Scheller (*gcode /at/ loowis.durge.org*)
-and is released under a [BSD license][license].
-
 # Patches
 
-I gladly accept patches from their original authors. Feel free to email
-patches to me or to fork the [GitHub repository][] and send me a pull
-request. Along with any patch you send:
+I gladly accept patches from their original authors. Feel free to fork
+the [GitHub repository][] and send me a pull request. Along with any PR:
 
 * Please state that the patch is your original work.
 * Please indicate that you license the work to the Grizzled Python Library
   project under a [BSD License][license].
 
-[license]: license.html
-[*epydoc*]: http://epydoc.sourceforge.net/
+[license]: https://github.com/bmc/grizzled-python/blob/master/LICENSE.md
+[change log]: https://github.com/bmc/grizzled-python/blob/master/CHANGELOG.md
 [Python]: http://www.python.org/
-[API Documentation]: epydoc/
+[API Documentation]: apidocs/
 [Brian M. Clapper]: mailto:bmc@clapper.org
 [pip]: http://pip-installer.org/
 [PyPI]: http://pypi.python.org/pypi
