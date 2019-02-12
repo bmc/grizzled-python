@@ -11,15 +11,15 @@ __docformat__ = "markdown"
 import os as _os
 import shutil
 from typing import (Sequence, Mapping, Any, Optional, Union, NoReturn,
-                    Generator)
+                    Generator, Tuple)
 
 # ---------------------------------------------------------------------------
 # Exports
 # ---------------------------------------------------------------------------
 
-__all__ = ['unlink_quietly', 'recursively_remove', 'copy_recursively',
-           'copy', 'touch', 'pathsplit', 'eglob', 'universal_path',
-           'native_path', 'list_recursively']
+__all__ = ['unlink_quietly', 'recursively_remove', 'copy', 'touch',
+           'pathsplit', 'eglob', 'universal_path', 'native_path',
+           'list_recursively']
 
 # ---------------------------------------------------------------------------
 # Functions
@@ -135,7 +135,9 @@ def copy(files : Union[Sequence[str], str],
         targetFile = _os.path.join(target_dir, _os.path.basename(f))
         open(targetFile, 'wb').write(open(f, 'rb').read())
 
-def touch(files, times=None):
+def touch(files: Union[str, Sequence[str]], *,
+          times: Optional[Tuple[int, int]] = None,
+          ns: Optional[Tuple[int, int]] = None) -> NoReturn:
     """
     Similar to the Unix *touch* command, this function:
 
@@ -143,46 +145,56 @@ def touch(files, times=None):
       in a list of files
     - creates any non-existent files in the list of files
 
+    `files` can be a single string or a sequence of strings.
+
     If any file in the list is a directory, this function will throw an
     exception.
 
-    :Parameters:
-        files : list or str
-            pathname or list of pathnames of files to be created or updated
-
-        times : tuple
-            tuple of the form (*atime*, *mtime*), identical to
-            what is passed to the standard `os.utime()` function.
-            If this tuple is `None`, then the current time is used.
+    - If `ns` is not `None`, it must be a 2-tuple of the form
+     `(atime_ns, mtime_ns)` where each member is an `int` expressing
+     nanoseconds.
+    - If `times` is not `None`, it must be a 2-tuple of the form
+      `(atime, mtime)` where each member is an `int` or `float` expressing
+      seconds.
+    - If `times` is `None` and `ns` is `None`, this is equivalent to
+      specifying `ns=(atime_ns, mtime_ns)` where both times are the current
+      time.
+    - If both are specified, `ValueError` is raised.
     """
     if type(files) == str:
         files = [files]
+
+    if (times is not None) and (ns is not None):
+        raise ValueError("Can't specify both ns and times.")
 
     for f in files:
         if _os.path.exists(f):
             if not _os.path.isfile(f):
                 raise OSError('Cannot touch non-file "{0}"'.format(f))
-            _os.utime(f, times)
+            if ns:
+                _os.utime(f, times=None, ns=ns)
+            else:
+                _os.utime(f, times)
 
         else:
             # Doesn't exist. Create it.
             open(f, 'wb').close()
 
 
-def pathsplit(path):
+def pathsplit(path: str) -> Sequence[str]:
     """
     Split a path into an array of path components, using the file separator
-    ('/' on POSIX systems, '\' on Windows) that's appropriate for the
-    underlying operating system. Does not take drive letters into account.
-    If there's a Windows drive letter in the path, it'll end up with the
-    first component.
+    (e.g., '/' on POSIX systems) that's appropriate for the underlying operating
+    system. Does not take drive letters into account. If there's a Windows
+    drive letter in the path, it'll end up with the first component.
 
-    :Parameters:
-        path : str
-            path to split. Can be relative or absolute
+    **Parameters**
 
-    :rtype:  list
-    :return: a list of path components
+    - `path` (`str`): path to split. Can be relative or absolute
+
+    **Returns**
+
+    a list of path components
     """
     result = []
     (head, tail) = _os.path.split(path)
@@ -199,13 +211,13 @@ def pathsplit(path):
 
     return result
 
-def _find_matches(pattern_pieces, directory):
+def _find_matches(pattern_pieces: Sequence[str],
+                  directory: str) -> Generator[str, str, None]:
     """
     Used by eglob.
     """
     import glob
 
-    result = []
     if not _os.path.isdir(directory):
         return
 
@@ -243,32 +255,26 @@ def _find_matches(pattern_pieces, directory):
                     for partial_path in sub_result:
                         yield _os.path.normpath(partial_path)
 
-def eglob(pattern, directory='.'):
+def eglob(pattern: str, directory: str = '.') -> Generator[str, str, None]:
     """
     Extended glob function that supports the all the wildcards supported
-    by the Python standard `glob` routine, as well as a special "**"
-    wildcard that recursively matches any directory. Examples:
+    by the Python standard `glob` routine, as well as a special `**`
+    wildcard that recursively matches any directory.
 
-      +--------------+--------------------------------------------------------+
-      | \*\*/\*.py   | all files ending in '.py' under the current directory  |
-      +--------------+--------------------------------------------------------+
-      | foo/\*\*/bar | all files name 'bar' anywhere under subdirectory 'foo' |
-      +--------------+--------------------------------------------------------+
+    **Parameters**
 
-    :Parameters:
-        pattern : str
-            The wildcard pattern. Must be a simple pattern with no directories.
+    - `pattern` (`str`): The wildcard pattern.
+    - `directory` (`str`): The directory in which to do the globbing. Defaults
+      to `.`
 
-        directory : str
-            The directory in which to do the globbing.
+    **Yields**
 
-    :rtype:  list
-    :return: A list of matched files, or an empty list for no match
+    The matched paths.
     """
     pieces = pathsplit(pattern)
     return _find_matches(pieces, directory)
 
-def universal_path(path):
+def universal_path(path: str) -> str:
     """
     Converts a path name from its operating system-specific format to a
     universal path notation. Universal path notation always uses a Unix-style
@@ -277,19 +283,20 @@ def universal_path(path):
     function. Note that on POSIX-compliant systems, this function simply
     returns the `path` parameter unmodified.
 
-    :Parameters:
-        path : str
-            the path to convert to universal path notation
+    **Parameters**
 
-    :rtype:  str
-    :return: the universal path.
+    - `path` (`str`): the path to convert to universal path notation
+
+    **Returns**
+
+    The path in universal path notation.
     """
     if _os.name != 'posix':
         path = path.replace(_os.path.sep, '/')
 
     return path
 
-def native_path(path):
+def native_path(path: str) -> str:
     """
     Converts a path name from universal path notation to the operating
     system-specific format. Universal path notation always uses a Unix-style
@@ -298,12 +305,13 @@ def native_path(path):
     POSIX-compliant systems, this function simply returns the `path`
     parameter unmodified.
 
-    :Parameters:
-        path : str
-            the path to convert to native path notation
+    **Parameters**
 
-    :rtype:  str
-    :return: the native path.
+    - `path` (`str`): the universal path to convert to native path notation
+
+    **Returns**
+
+    The path in native path notation.
     """
     if _os.name != 'posix':
         path = path.replace('/', _os.path.sep)

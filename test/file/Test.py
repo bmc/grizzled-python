@@ -48,19 +48,17 @@ class TestFilePackage(object):
     def test_list_recursively(self):
         # Code below uses "/" as a path separator, but paths are coerced
         # to use the native path separator.
-        def fix_path(p):
-            return p.replace('/', os.path.sep)
 
         with TemporaryDirectory() as path:
             for d in ('one', 'two', 'three', 'four/five'):
-                os.makedirs(os.path.join(path, fix_path(d)))
+                os.makedirs(os.path.join(path, self.fix_path(d)))
 
             for f in ('one/foo.txt', 'two/bar.txt', 'four/hello.c',
                       'four/five/hello.py'):
-                with open(os.path.join(path, fix_path(f)), 'w'):
+                with open(os.path.join(path, self.fix_path(f)), 'w'):
                     pass
 
-            expected = set([fix_path(p) for p in (
+            expected = set([self.fix_path(p) for p in (
                 'three', 'one', 'two', 'four', 'one/foo.txt', 'two/bar.txt',
                 'four/five', 'four/hello.c', 'four/five/hello.py'
             )])
@@ -75,3 +73,25 @@ class TestFilePackage(object):
             assert not os.path.exists(f)
             touch(f)
             assert os.path.exists(f)
+
+    def test_eglob(self):
+        with TemporaryDirectory() as path:
+            for d in ('one', 'two', 'three', 'four/five', 'six/seven/eight'):
+                os.makedirs(os.path.join(path, self.fix_path(d)))
+            for f in ('one/foo.py', 'one/foo.txt', 'two/bar.c',
+                      'four/test.py', 'four/test2.py', 'four/me.txt',
+                      'four/five/x.py', 'six/seven/test.py'):
+                with open(os.path.join(path, self.fix_path(f)), 'w'):
+                    pass
+
+            from grizzled.os import working_directory
+            with working_directory(path):
+                expected = {
+                    'one/foo.py', 'four/test.py', 'four/test2.py',
+                    'four/five/x.py', 'six/seven/test.py'
+                }
+                res = set(eglob('**/*.py'))
+                assert(res == expected)
+
+    def fix_path(self, p: str) -> str:
+        return p.replace('/', os.path.sep)
