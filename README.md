@@ -42,7 +42,7 @@ pip install nose
 Then, from the top-level directory, just run:
 
 ```
-nosetests
+python setup.py test
 ```
 
 [Grizzled Python Utility Library]: http://software.clapper.org/grizzled-python/
