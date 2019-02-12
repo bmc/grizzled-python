@@ -1,3 +1,2 @@
-exclude: run-markdown.sh
-pygments: false
-codeurl: http://software.clapper.org/thing
+highlighter: rouge
+markdown: kramdown
