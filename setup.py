@@ -12,7 +12,7 @@ columns = int(os.environ.get('COLUMNS', '80')) - 1
 wrap = TextWrapper(width=columns)
 
 if sys.version_info[0:2] < (3, 5):
-    msg = ('As of version 1.2.0, grizzled-python is no longer supported on ' +
+    msg = ('As of version 2.0.0, grizzled-python is no longer supported on ' +
            'Python 2. Either upgrade to Python 3.5 or better, or use an older ' +
            'version of grizzled-python.')
     sys.stderr.write(wrap.fill(msg) + '\n')
