@@ -40,35 +40,6 @@ GRIZZLED_OS = os.path.join(here, 'grizzled', 'os.py')
 
 # Custom commands
 
-class GH(Command):
-    description = 'copy stuff to ../gh-pages'
-
-    user_options = []
-
-    def __init__(self, dist):
-        Command.__init__(self, dist)
-
-    def initialize_options(self):
-        pass
-
-    def finalize_options(self):
-        pass
-
-    def run(self):
-
-        gh_pages = os.path.join('..', 'gh-pages')
-
-        # Docs
-
-        API_DOCS_SRC = os.path.join(API_DOCS_BUILD, 'grizzled')
-        API_DOCS_TARGET = os.path.join(gh_pages, 'apidocs')
-        gf = import_from_file(GRIZZLED_FILE, 'gf')
-
-        print('Removing {}'.format(API_DOCS_TARGET))
-        gf.recursively_remove(API_DOCS_TARGET)
-        print('Copying {} to {}...'.format(API_DOCS_SRC, gh_pages))
-        gf.copy_recursively(API_DOCS_SRC, API_DOCS_TARGET)
-
 class Doc(Command):
     description = 'create the API docs'
 
@@ -130,7 +101,6 @@ setup (name                          = NAME,
        author_email                  = module.email,
        test_suite                    = 'nose.collector',
        cmdclass                      = {
-           'gh':   GH,
            'docs': Doc,
            'doc':  Doc,
            'apidoc': Doc,
