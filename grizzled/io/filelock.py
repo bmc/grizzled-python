@@ -10,29 +10,25 @@ portable interface.
 To create a file lock, simply instantiate the `FileLock` class with an open
 file descriptor. It handles the rest:
 
-```python
-from grizzled.io.filelock import FileLock
+    from grizzled.io.filelock import FileLock
 
-fd = open('/tmp/lockfile', 'r+')
-lock = FileLock(fd)
-lock.acquire()
+    fd = open('/tmp/lockfile', 'r+')
+    lock = FileLock(fd)
+    lock.acquire()
 
-...
+    ...
 
-lock.release()
-```
+    lock.release()
 
 You can also use the `locked_file()` context manager to simplify your code:
 
-```python
+    from grizzled.io.filelock import locked_file
 
-from grizzled.io.filelock import locked_file
+    fd = open('/tmp/lockfile', 'r+')
+    with locked_file(fd):
+        pass
 
-fd = open('/tmp/lockfile', 'r+')
-with locked_file(fd):
-    pass
-
-# Automatically unlocked once you get here
+    # Automatically unlocked once you get here
 """
 
 __docformat__ = "markdown"
@@ -170,21 +166,21 @@ def locked_file(fd: int, no_wait: bool = False):
     of the file descriptor are automatic. With the `locked_file()` function,
     you can replace this code:
 
-    ```python
-    lock = FileLock(fd)
-    lock.acquire()
-    try:
-        do_something()
-    finally:
-        lock.release()
-    ```
+        from grizzled.io.filelock import FileLock
+
+        lock = FileLock(fd)
+        lock.acquire()
+        try:
+            do_something()
+        finally:
+            lock.release()
 
     with this code:
 
-    ```python
-    with locked_file(fd):
-        do_something()
-    ```
+        from grizzled.io.filelock import locked_file
+
+        with locked_file(fd):
+            do_something()
 
     **Parameters**
 

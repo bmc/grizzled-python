@@ -9,14 +9,14 @@ __docformat__ = "markdown"
 # ---------------------------------------------------------------------------
 
 import os
-import zipfile
 from typing import IO, TextIO, Union, AnyStr, NoReturn, Sequence, Iterable
+from . import filelock
 
 # ---------------------------------------------------------------------------
 # Exports
 # ---------------------------------------------------------------------------
 
-__all__ = ['AutoFlush', 'MultiWriter', 'PushbackFile']
+__all__ = ['AutoFlush', 'MultiWriter', 'PushbackFile', 'filelock']
 
 # ---------------------------------------------------------------------------
 # Classes
@@ -29,12 +29,10 @@ class AutoFlush(object):
     to use an `AutoFlush` object to force standard output to flush after
     every write:
 
-    ```python
-    import sys
-    from grizzled.io import AutoFlush
+        import sys
+        from grizzled.io import AutoFlush
 
-    sys.stdout = AutoFlush(sys.stdout)
-    ```
+        sys.stdout = AutoFlush(sys.stdout)
     """
     def __init__(self, f: IO) -> NoReturn:
         """
@@ -118,12 +116,10 @@ class MultiWriter(object):
     For example, the following code arranges to have anything written to
     `sys.stdout` go to `sys.stdout` and to a temporary file:
 
-    ```python
-    import sys
-    from grizzled.io import MultiWriter
+        import sys
+        from grizzled.io import MultiWriter
 
-    sys.stdout = MultiWriter(sys.__stdout__, open('/tmp/log', 'w'))
-    ```
+        sys.stdout = MultiWriter(sys.__stdout__, open('/tmp/log', 'w'))
     """
     def __init__(self, *args: IO):
         """

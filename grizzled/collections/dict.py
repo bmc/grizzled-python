@@ -389,9 +389,7 @@ class LRUDict(dict):
 
         Keywords arguments take precedence. Thus, in:
 
-        ```
-        d.update({'red': 1}, red=2)
-        ```
+            d.update({'red': 1}, red=2)
 
         the value `2` will be associated with key `red`.
 

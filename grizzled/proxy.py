@@ -49,28 +49,24 @@ class Forwarder(object):
 
     Forward all unimplemented methods to a file:
 
-    ```python
-    from grizzled.forwarder import Forwarder
+        from grizzled.forwarder import Forwarder
 
-    class MyFileWrapper(Forwarder):
-        def __init__(self, file):
-            Forwarder.__init__(self, file)
+        class MyFileWrapper(Forwarder):
+            def __init__(self, file):
+                Forwarder.__init__(self, file)
 
-    w = MyFileWrapper(open('/tmp/foo'))
-    for line in w.readlines():
-        print(line)
-    ```
+        w = MyFileWrapper(open('/tmp/foo'))
+        for line in w.readlines():
+            print(line)
 
     Forward all unimplemented calls, *except* `name`, to the specified
     object. Calls to `name` will raise an `AttributeError`:
 
-    ```python
-    from grizzled.forwarder import Forwarder
+        from grizzled.forwarder import Forwarder
 
-    class MyFileWrapper(Forwarder):
-        def __init__(self, file):
-            Forwarder.__init__(self, file, 'name')
-    ```
+        class MyFileWrapper(Forwarder):
+            def __init__(self, file):
+                Forwarder.__init__(self, file, 'name')
     """
 
     def __init__(self, wrapped, *exceptions):
