@@ -5,10 +5,11 @@ with a variety of different modules and packages. It's roughly organized
 into subpackages that group different kinds of utility functions and
 classes.
 
-Grizzled is copyright &copy; 2008-2017 by Brian M. Clapper and is released
-under a BSD license.
+Grizzled Python is copyright &copy; 2008-2019 by Brian M. Clapper and 
+is released under a BSD license.
 
-**NOTE**: This package does not yet work on Python 3.
+**NOTE**: As of version 2.0.0, Grizzled Python no longer supports Python 2.
+Use an older version (e.g., 1.1.0) if you want to use it on Python 2.
 
 ## Installing
 
