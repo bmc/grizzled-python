@@ -1,5 +1,10 @@
 # Change Log for grizzled-python
 
+Version 2.1.0 (5 March, 2019)
+
+- Added tests for `grizzled.file.includer.Includer`.
+- Removed URL support in `grizzled.file.includer.Includer`.
+
 Version 2.0.0 (12 February, 2019)
 
 - Updated to support Python 3 _only_. Indeed, it requires Python 3.6 or better.

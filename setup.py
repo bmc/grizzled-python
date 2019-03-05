@@ -82,6 +82,7 @@ class Test(Command):
         import nose
         gos = import_from_file(GRIZZLED_OS, 'gos')
         with gos.working_directory('test'):
+            os.environ['PYTHONPATH'] = '..'
             nose.run()
 
 # Now the setup stuff.
@@ -92,8 +93,7 @@ setup (name                          = NAME,
        long_description              = module.__doc__,
        long_description_content_type = 'text/markdown',
        install_requires              = [
-           'backports.tempfile >= 1.0rc1',
-        ],
+       ],
        packages                      = find_packages(),
        url                           = module.url,
        license                       = module.license,

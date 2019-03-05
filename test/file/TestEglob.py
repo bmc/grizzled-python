@@ -2,7 +2,7 @@
 from grizzled.file import eglob, touch
 import os
 from os import path
-from backports.tempfile import TemporaryDirectory
+from tempfile import TemporaryDirectory
 
 class TestEglob(object):
 
