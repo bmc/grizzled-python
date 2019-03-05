@@ -3,8 +3,12 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 
-    <title>grizzled.file API documentation</title>
-    <meta name="description" content="This module contains file- and path-related methods, classes, and modules." />
+    <title>grizzled.file.includer API documentation</title>
+    <meta name="description" content="Introduction
+============
+
+The `grizzled.file.includer` module contains a class that can be used to
+..." />
 
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300' rel='stylesheet' type='text/css'>
   
@@ -1044,25 +1048,56 @@ table {
     <li class="set"><h3><a href="#header-functions">Functions</a></h3>
       
   <ul>
-    <li class="mono"><a href="#grizzled.file.copy">copy</a></li>
-    <li class="mono"><a href="#grizzled.file.eglob">eglob</a></li>
-    <li class="mono"><a href="#grizzled.file.list_recursively">list_recursively</a></li>
-    <li class="mono"><a href="#grizzled.file.native_path">native_path</a></li>
-    <li class="mono"><a href="#grizzled.file.pathsplit">pathsplit</a></li>
-    <li class="mono"><a href="#grizzled.file.recursively_remove">recursively_remove</a></li>
-    <li class="mono"><a href="#grizzled.file.touch">touch</a></li>
-    <li class="mono"><a href="#grizzled.file.universal_path">universal_path</a></li>
-    <li class="mono"><a href="#grizzled.file.unlink_quietly">unlink_quietly</a></li>
+    <li class="mono"><a href="#grizzled.file.includer.preprocess">preprocess</a></li>
   </ul>
 
     </li>
 
-
-    <li class="set"><h3><a href="#header-submodules">Sub-modules</a></h3>
+    <li class="set"><h3><a href="#header-classes">Classes</a></h3>
       <ul>
-        <li class="mono"><a href="includer.m.html">grizzled.file.includer</a></li>
+        <li class="mono">
+        <span class="class_name"><a href="#grizzled.file.includer.IncludeError">IncludeError</a></span>
+        
+          
+  <ul>
+    <li class="mono"><a href="#grizzled.file.includer.IncludeError.__init__">__init__</a></li>
+  </ul>
+
+        </li>
+        <li class="mono">
+        <span class="class_name"><a href="#grizzled.file.includer.Includer">Includer</a></span>
+        
+          
+  <ul>
+    <li class="mono"><a href="#grizzled.file.includer.Includer.__init__">__init__</a></li>
+    <li class="mono"><a href="#grizzled.file.includer.Includer.close">close</a></li>
+    <li class="mono"><a href="#grizzled.file.includer.Includer.fileno">fileno</a></li>
+    <li class="mono"><a href="#grizzled.file.includer.Includer.flush">flush</a></li>
+    <li class="mono"><a href="#grizzled.file.includer.Includer.getvalue">getvalue</a></li>
+    <li class="mono"><a href="#grizzled.file.includer.Includer.isatty">isatty</a></li>
+    <li class="mono"><a href="#grizzled.file.includer.Includer.read">read</a></li>
+    <li class="mono"><a href="#grizzled.file.includer.Includer.readline">readline</a></li>
+    <li class="mono"><a href="#grizzled.file.includer.Includer.readlines">readlines</a></li>
+    <li class="mono"><a href="#grizzled.file.includer.Includer.seek">seek</a></li>
+    <li class="mono"><a href="#grizzled.file.includer.Includer.tell">tell</a></li>
+    <li class="mono"><a href="#grizzled.file.includer.Includer.truncate">truncate</a></li>
+    <li class="mono"><a href="#grizzled.file.includer.Includer.write">write</a></li>
+    <li class="mono"><a href="#grizzled.file.includer.Includer.writelines">writelines</a></li>
+  </ul>
+
+        </li>
+        <li class="mono">
+        <span class="class_name"><a href="#grizzled.file.includer.MaxNestingExceededError">MaxNestingExceededError</a></span>
+        
+          
+  <ul>
+    <li class="mono"><a href="#grizzled.file.includer.MaxNestingExceededError.__init__">__init__</a></li>
+  </ul>
+
+        </li>
       </ul>
     </li>
+
     </ul>
   </div>
 
@@ -1074,8 +1109,54 @@ table {
 
 
   <header id="section-intro">
-  <h1 class="title"><span class="name">grizzled.file</span> module</h1>
-  <p>This module contains file- and path-related methods, classes, and modules.</p>
+  <h1 class="title"><span class="name">grizzled.file.includer</span> module</h1>
+  <h1>Introduction</h1>
+<p>The <code>grizzled.file.includer</code> module contains a class that can be used to
+process includes within a text file, returning a file-like object. It also
+contains some utility functions that permit using include-enabled files in
+other contexts.</p>
+<h1>Include Syntax</h1>
+<p>The <em>include</em> syntax is defined by a regular expression; any line that matches
+the regular expression is treated as an <em>include</em> directive. The default
+regular expression matches include directives like this::</p>
+<div class="codehilite"><pre><span></span><span class="nf">%include</span> <span class="s">&quot;/absolute/path/to/file&quot;</span>
+<span class="nf">%include</span> <span class="s">&quot;../relative/path/to/file&quot;</span>
+<span class="nf">%include</span> <span class="s">&quot;local_reference&quot;</span>
+</pre></div>
+
+
+<p>Relative and local file references are relative to the including file. That
+That is, if an <code>Includer</code> is processing file "/home/bmc/foo.txt" and encounters
+an attempt to include file "bar.txt", it will assume "bar.txt" is to be found
+in "/home/bmc".</p>
+<p>Nested includes are permitted; that is, an included file may, itself, include
+other files. The maximum recursion level is configurable and defaults to 100.</p>
+<p>The include syntax can be changed by passing a different regular expression to
+the <code>Includer</code> class constructor.</p>
+<h1>Usage</h1>
+<p>This module provides an <code>Includer</code> class, which processes include directives
+in a file and behaves like a file-like object. See the class documentation for
+more details.</p>
+<p>The module also provides a <code>preprocess()</code> convenience function that can be
+used to preprocess a file; it returns the path to the resulting preprocessed
+file.</p>
+<h1>Examples</h1>
+<p>Preprocess a file containing include directives, then read the result:</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">includer</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">inc</span> <span class="o">=</span> <span class="n">includer</span><span class="o">.</span><span class="n">Includer</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">inc</span><span class="p">:</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Use an include-enabled file with the standard Python logging module:</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">includer</span>
+
+<span class="n">logging</span><span class="o">.</span><span class="n">fileConfig</span><span class="p">(</span><span class="n">includer</span><span class="o">.</span><span class="n">preprocess</span><span class="p">(</span><span class="s2">&quot;mylog.cfg&quot;</span><span class="p">))</span>
+</pre></div>
   
 
   </header>
@@ -1085,257 +1166,463 @@ table {
     <h2 class="section-title" id="header-functions">Functions</h2>
       
   <div class="item">
-    <div class="name def" id="grizzled.file.copy">
-    <p>def <span class="ident">copy</span>(</p><p>files, target_dir, create_target=False)</p>
+    <div class="name def" id="grizzled.file.includer.preprocess">
+    <p>def <span class="ident">preprocess</span>(</p><p>file, encoding=&#39;utf8&#39;, output=None, temp_suffix=&#39;.txt&#39;, temp_prefix=&#39;inc&#39;)</p>
     </div>
     
 
     
   
-    <div class="desc"><p>Copy one or more files to a target directory.</p>
+    <div class="desc"><p>Process all include directives in the specified file, returning a path
+to a temporary file that contains the results of the expansion. The
+temporary file is automatically removed when the program exits, though
+the caller is free to remove it whenever it is no longer needed.</p>
 <p><strong>Parameters</strong></p>
 <ul>
-<li><code>files</code> (<code>str</code> or <code>list</code> of <code>str</code>): a string representing a single path,
-  or a list of strings representing multiple paths, to be copied</li>
-<li><code>target_dir</code> (<code>str</code>): path to the target directory</li>
-<li><code>create_target</code> (<code>bool</code>): whether or not to create the target</li>
-</ul>
-<p><strong>Returns</strong> Nothing</p>
-<p><strong>Raises</strong></p>
-<ul>
-<li><code>OSError</code>: <code>target_dir</code> does not exist and <code>create_target</code> is <code>False</code>.</li>
-</ul></div>
-  <div class="source_cont">
-</div>
-
-  </div>
-  
-      
-  <div class="item">
-    <div class="name def" id="grizzled.file.eglob">
-    <p>def <span class="ident">eglob</span>(</p><p>pattern, directory=&#39;.&#39;)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Extended glob function that supports the all the wildcards supported
-by the Python standard <code>glob</code> routine, as well as a special <code>**</code>
-wildcard that recursively matches any directory.</p>
-<p><strong>Parameters</strong></p>
-<ul>
-<li><code>pattern</code> (<code>str</code>): The wildcard pattern.</li>
-<li><code>directory</code> (<code>str</code>): The directory in which to do the globbing. Defaults
-  to <code>.</code></li>
-</ul>
-<p><strong>Yields</strong></p>
-<p>The matched paths.</p></div>
-  <div class="source_cont">
-</div>
-
-  </div>
-  
-      
-  <div class="item">
-    <div class="name def" id="grizzled.file.list_recursively">
-    <p>def <span class="ident">list_recursively</span>(</p><p>dir)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Recursively list the contents of a directory. Yields the contents of
-the directory and all subdirectories. This method returns a generator,
-so it evaluates its recursive walk lazily. This function is just a
-simple wrapper around <code>os.walk</code>.</p>
-<p>Each yielded value is a partial path, relative to the original directory.</p>
-<p><strong>Parameters</strong></p>
-<ul>
-<li><code>dir</code> (<code>str</code>): Path to directory to list</li>
-<li><code>include_files</code> (<code>bool</code>): Whether or not to yield directories. <code>True</code>
-  by default.</li>
-<li><code>include_dirs</code> (<code>bool</code>): Whether or not to yield files. <code>True</code> by
-  default.</li>
-</ul>
-<p><strong>Yields</strong></p>
-<p>partial paths of all directories and/or files below the specified directory</p>
-<p><strong>Raises</strong></p>
-<p><code>ValueError</code>: If <code>dir</code> does not exist, or if <code>dir</code> exists but is not a
-              directory.</p></div>
-  <div class="source_cont">
-</div>
-
-  </div>
-  
-      
-  <div class="item">
-    <div class="name def" id="grizzled.file.native_path">
-    <p>def <span class="ident">native_path</span>(</p><p>path)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Converts a path name from universal path notation to the operating
-system-specific format. Universal path notation always uses a Unix-style
-"/" to separate path elements. A native path can be converted to a
-universal path via the <code>universal_path()</code> function. Note that on
-POSIX-compliant systems, this function simply returns the <code>path</code>
-parameter unmodified.</p>
-<p><strong>Parameters</strong></p>
-<ul>
-<li><code>path</code> (<code>str</code>): the universal path to convert to native path notation</li>
+<li><code>file</code> (<code>file</code> or <code>str</code>): path to file to be expanded, or file-like object</li>
+<li><code>encoding</code> (<code>str</code>): String encoding for input file. Defaults to UTF-8.</li>
+<li><code>output</code> (<code>file</code>): A file or file-like object to receive the output.</li>
+<li><code>temp_suffix</code> (<code>str</code>): suffix to use with temporary file that holds
+  preprocessed output</li>
+<li><code>temp_prefix</code> (<code>str</code>): prefix to use with temporary file that holds
+  preprocessed output</li>
 </ul>
 <p><strong>Returns</strong></p>
-<p>The path in native path notation.</p></div>
+<p><code>output</code>, if <code>output</code> is not <code>None</code>; otherwise, the path to temporary file
+containing expanded content</p></div>
   <div class="source_cont">
 </div>
 
   </div>
   
+
+    <h2 class="section-title" id="header-classes">Classes</h2>
       
-  <div class="item">
-    <div class="name def" id="grizzled.file.pathsplit">
-    <p>def <span class="ident">pathsplit</span>(</p><p>path)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Split a path into an array of path components, using the file separator
-(e.g., '/' on POSIX systems) that's appropriate for the underlying operating
-system. Does not take drive letters into account. If there's a Windows
-drive letter in the path, it'll end up with the first component.</p>
-<p><strong>Parameters</strong></p>
-<ul>
-<li><code>path</code> (<code>str</code>): path to split. Can be relative or absolute</li>
-</ul>
-<p><strong>Returns</strong></p>
-<p>a list of path components</p></div>
-  <div class="source_cont">
-</div>
-
-  </div>
-  
-      
-  <div class="item">
-    <div class="name def" id="grizzled.file.recursively_remove">
-    <p>def <span class="ident">recursively_remove</span>(</p><p>dir)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Recursively remove all files and directories below and including a
-specified directory.</p>
-<p><strong>Parameters</strong></p>
-<ul>
-<li><code>dir</code> (<code>str</code>): path to directory to remove</li>
-</ul></div>
-  <div class="source_cont">
-</div>
-
-  </div>
-  
-      
-  <div class="item">
-    <div class="name def" id="grizzled.file.touch">
-    <p>def <span class="ident">touch</span>(</p><p>files)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Similar to the Unix <em>touch</em> command, this function:</p>
-<ul>
-<li>updates the access and modification times for any existing files
-  in a list of files</li>
-<li>creates any non-existent files in the list of files</li>
-</ul>
-<p><code>files</code> can be a single string or a sequence of strings.</p>
-<p>If any file in the list is a directory, this function will throw an
-exception.</p>
-<ul>
-<li>If <code>ns</code> is not <code>None</code>, it must be a 2-tuple of the form
- <code>(atime_ns, mtime_ns)</code> where each member is an <code>int</code> expressing
- nanoseconds.</li>
-<li>If <code>times</code> is not <code>None</code>, it must be a 2-tuple of the form
-  <code>(atime, mtime)</code> where each member is an <code>int</code> or <code>float</code> expressing
-  seconds.</li>
-<li>If <code>times</code> is <code>None</code> and <code>ns</code> is <code>None</code>, this is equivalent to
-  specifying <code>ns=(atime_ns, mtime_ns)</code> where both times are the current
-  time.</li>
-<li>If both are specified, <code>ValueError</code> is raised.</li>
-</ul></div>
-  <div class="source_cont">
-</div>
-
-  </div>
-  
-      
-  <div class="item">
-    <div class="name def" id="grizzled.file.universal_path">
-    <p>def <span class="ident">universal_path</span>(</p><p>path)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Converts a path name from its operating system-specific format to a
-universal path notation. Universal path notation always uses a Unix-style
-"/" to separate path elements. A universal path can be converted to a
-native (operating system-specific) path via the <code>native_path()</code>
-function. Note that on POSIX-compliant systems, this function simply
-returns the <code>path</code> parameter unmodified.</p>
-<p><strong>Parameters</strong></p>
-<ul>
-<li><code>path</code> (<code>str</code>): the path to convert to universal path notation</li>
-</ul>
-<p><strong>Returns</strong></p>
-<p>The path in universal path notation.</p></div>
-  <div class="source_cont">
-</div>
-
-  </div>
-  
-      
-  <div class="item">
-    <div class="name def" id="grizzled.file.unlink_quietly">
-    <p>def <span class="ident">unlink_quietly</span>(</p><p>*paths)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Like the standard <code>os.unlink()</code> function, this function attempts to
-delete a file. However, it swallows any exceptions that occur during the
-unlink operation, making it more suitable for certain uses (e.g.,
-in <code>atexit</code> handlers).</p>
-<p><strong>Parameters</strong></p>
-<ul>
-<li><code>paths</code> (<code>str</code> or sequence of <code>str</code>): path(s) to unlink</li>
-</ul></div>
-  <div class="source_cont">
-</div>
-
-  </div>
-  
-
-
-    <h2 class="section-title" id="header-submodules">Sub-modules</h2>
       <div class="item">
-      <p class="name"><a href="includer.m.html">grizzled.file.includer</a></p>
+      <p id="grizzled.file.includer.IncludeError" class="name">class <span class="ident">IncludeError</span></p>
       
   
-    <div class="desc"><h1>Introduction</h1>
-<p>The <a href="includer.m.html"><code>grizzled.file.includer</code></a> module contains a class that can be used to
-process includes within a text file, returning a file-like object. It also
-contains some utility functions that permit using include-enabled files in
-other contexts.</p>
-<h1>Include Syntax</h1>
-<p>Th...</p></div>
+    <div class="desc"><p>Thrown by <code>Includer</code> when an error occurs while processing the file.
+An <code>IncludeError</code> object always contains a single string value that
+contains an error message describing the problem.</p></div>
+  <div class="source_cont">
+</div>
 
+
+      <div class="class">
+          <h3>Ancestors (in MRO)</h3>
+          <ul class="class_list">
+          <li><a href="#grizzled.file.includer.IncludeError">IncludeError</a></li>
+          <li>builtins.Exception</li>
+          <li>builtins.BaseException</li>
+          <li>builtins.object</li>
+          </ul>
+          <h3>Class variables</h3>
+            <div class="item">
+            <p id="grizzled.file.includer.IncludeError.args" class="name">var <span class="ident">args</span></p>
+            
+
+            
+  
+  <div class="source_cont">
+</div>
+
+            </div>
+          <h3>Static methods</h3>
+            
+  <div class="item">
+    <div class="name def" id="grizzled.file.includer.IncludeError.__init__">
+    <p>def <span class="ident">__init__</span>(</p><p>self, message)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Initialize self.  See help(type(self)) for accurate signature.</p></div>
+  <div class="source_cont">
+</div>
+
+  </div>
+  
+          <h3>Instance variables</h3>
+            <div class="item">
+            <p id="grizzled.file.includer.IncludeError.message" class="name">var <span class="ident">message</span></p>
+            
+
+            
+  
+  <div class="source_cont">
+</div>
+
+            </div>
       </div>
+      </div>
+      
+      <div class="item">
+      <p id="grizzled.file.includer.Includer" class="name">class <span class="ident">Includer</span></p>
+      
+  
+    <div class="desc"><p>An <code>Includer</code> object preprocesses a path or file-like object,
+expanding include references. The resulting <code>Includer</code> object is a
+file-like object, offering the same methods and capabilities as an open
+file.</p>
+<p>By default, <code>Includer</code> supports this include syntax:</p>
+<div class="codehilite"><pre><span></span><span class="nf">%include</span> <span class="s">&quot;path&quot;</span>
+<span class="nf">%include</span> <span class="s">&quot;url&quot;</span>
+</pre></div>
+
+
+<p>However, the include directive syntax is controlled by a regular
+expression, so it can be configured.</p>
+<p>See the module documentation for details.</p></div>
+  <div class="source_cont">
+</div>
+
+
+      <div class="class">
+          <h3>Ancestors (in MRO)</h3>
+          <ul class="class_list">
+          <li><a href="#grizzled.file.includer.Includer">Includer</a></li>
+          <li>builtins.object</li>
+          </ul>
+          <h3>Static methods</h3>
+            
+  <div class="item">
+    <div class="name def" id="grizzled.file.includer.Includer.__init__">
+    <p>def <span class="ident">__init__</span>(</p><p>self, source, include_regex=&#39;^%include\\s&#34;([^&#34;]+)&#34;&#39;, max_nest_level=100, output=None, encoding=&#39;utf-8&#39;)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Create a new <code>Includer</code> object.</p>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><code>source</code> (<code>file</code> or <code>str</code>): The source to be read and expanded. May
+  be an open file-like object or a path name.</li>
+<li><code>include_regex</code> (<code>str</code>):  Regular expression defining the include
+  syntax. Must contain a single parenthetical group that can be used
+  to extract the included file.</li>
+<li><code>max_nest_level</code> (<code>int</code>): Maximum include nesting level. Exceeding
+  this level will cause <code>Includer</code> to throw an <code>IncludeError</code>.</li>
+<li><code>output</code> (<code>str</code> or <code>file</code>): A string (path name) or file-like object
+  to which to save the expanded output.</li>
+<li><code>encoding</code> (<code>str</code>): The encoding to use to open the files. Defaults
+  to "utf-8".</li>
+</ul>
+<p><strong>Raises</strong></p>
+<p><code>IncludeError</code> on error</p></div>
+  <div class="source_cont">
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="grizzled.file.includer.Includer.close">
+    <p>def <span class="ident">close</span>(</p><p>self)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Close the includer, preventing any further I/O operations.</p></div>
+  <div class="source_cont">
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="grizzled.file.includer.Includer.fileno">
+    <p>def <span class="ident">fileno</span>(</p><p>self)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Get the file descriptor. Returns the descriptor of the file being
+read.</p></div>
+  <div class="source_cont">
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="grizzled.file.includer.Includer.flush">
+    <p>def <span class="ident">flush</span>(</p><p>self)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>No-op.</p></div>
+  <div class="source_cont">
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="grizzled.file.includer.Includer.getvalue">
+    <p>def <span class="ident">getvalue</span>(</p><p>self)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Retrieve the entire contents of the file, as a string, with includes
+expanded, at any time before the <code>close()</code> method is called.</p></div>
+  <div class="source_cont">
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="grizzled.file.includer.Includer.isatty">
+    <p>def <span class="ident">isatty</span>(</p><p>self)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Determine whether the file being processed is a TTY or not.</p></div>
+  <div class="source_cont">
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="grizzled.file.includer.Includer.read">
+    <p>def <span class="ident">read</span>(</p><p>self, n=-1)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Read <em>n</em> bytes from the open file.</p>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><code>n</code> (<code>int</code>): Number of bytes to read. A negative number instructs
+  the method to read all remaining bytes.</li>
+</ul>
+<p><strong>Returns</strong></p>
+<p>the bytes read</p></div>
+  <div class="source_cont">
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="grizzled.file.includer.Includer.readline">
+    <p>def <span class="ident">readline</span>(</p><p>self, length=-1)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Read the next line from the file.</p>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><code>length</code> (<code>int</code>): a length hint, or negative if you don't care</li>
+</ul>
+<p><strong>Returns</strong></p>
+<p>the line read</p></div>
+  <div class="source_cont">
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="grizzled.file.includer.Includer.readlines">
+    <p>def <span class="ident">readlines</span>(</p><p>self, sizehint=0)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Read all remaining lines in the file.</p></div>
+  <div class="source_cont">
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="grizzled.file.includer.Includer.seek">
+    <p>def <span class="ident">seek</span>(</p><p>self, pos, mode=0)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Seek to the specified file offset in the include-processed file.</p>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><code>pos</code> (<code>int</code>): file offset</li>
+<li><code>mode</code> (<code>int</code>): the seek mode, as specified to a Python file's
+  <code>seek()</code> method</li>
+</ul></div>
+  <div class="source_cont">
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="grizzled.file.includer.Includer.tell">
+    <p>def <span class="ident">tell</span>(</p><p>self)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Get the current file offset.</p>
+<p><strong>Returns</strong></p>
+<p>the current file offset</p></div>
+  <div class="source_cont">
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="grizzled.file.includer.Includer.truncate">
+    <p>def <span class="ident">truncate</span>(</p><p>self, size=None)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Not supported, since <code>Includer</code> objects are read-only.</p></div>
+  <div class="source_cont">
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="grizzled.file.includer.Includer.write">
+    <p>def <span class="ident">write</span>(</p><p>self, s)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Not supported, since <code>Includer</code> objects are read-only.</p></div>
+  <div class="source_cont">
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="grizzled.file.includer.Includer.writelines">
+    <p>def <span class="ident">writelines</span>(</p><p>self, iterable)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Not supported, since <code>Includer</code> objects are read-only.</p></div>
+  <div class="source_cont">
+</div>
+
+  </div>
+  
+          <h3>Instance variables</h3>
+            <div class="item">
+            <p id="grizzled.file.includer.Includer.closed" class="name">var <span class="ident">closed</span></p>
+            
+
+            
+  
+  <div class="source_cont">
+</div>
+
+            </div>
+            <div class="item">
+            <p id="grizzled.file.includer.Includer.mode" class="name">var <span class="ident">mode</span></p>
+            
+
+            
+  
+  <div class="source_cont">
+</div>
+
+            </div>
+            <div class="item">
+            <p id="grizzled.file.includer.Includer.name" class="name">var <span class="ident">name</span></p>
+            
+
+            
+  
+    <div class="desc"><p>Get the name of the file being processed.</p></div>
+  <div class="source_cont">
+</div>
+
+            </div>
+      </div>
+      </div>
+      
+      <div class="item">
+      <p id="grizzled.file.includer.MaxNestingExceededError" class="name">class <span class="ident">MaxNestingExceededError</span></p>
+      
+  
+    <div class="desc"><p>Thrown by <code>Includer</code> when the maximum include file nesting level is
+exceeded.</p></div>
+  <div class="source_cont">
+</div>
+
+
+      <div class="class">
+          <h3>Ancestors (in MRO)</h3>
+          <ul class="class_list">
+          <li><a href="#grizzled.file.includer.MaxNestingExceededError">MaxNestingExceededError</a></li>
+          <li><a href="#grizzled.file.includer.IncludeError">IncludeError</a></li>
+          <li>builtins.Exception</li>
+          <li>builtins.BaseException</li>
+          <li>builtins.object</li>
+          </ul>
+          <h3>Class variables</h3>
+            <div class="item">
+            <p id="grizzled.file.includer.MaxNestingExceededError.args" class="name">var <span class="ident">args</span></p>
+            
+
+            
+  
+  <div class="source_cont">
+</div>
+
+            </div>
+          <h3>Static methods</h3>
+            
+  <div class="item">
+    <div class="name def" id="grizzled.file.includer.MaxNestingExceededError.__init__">
+    <p>def <span class="ident">__init__</span>(</p><p>self, message)</p>
+    </div>
+    
+    <p class="inheritance">
+     <strong>Inheritance:</strong>
+       <code><a href="#grizzled.file.includer.IncludeError">IncludeError</a></code>.<code><a href="#grizzled.file.includer.IncludeError.__init__">__init__</a></code>
+    </p>
+
+    
+  
+    <div class="desc inherited"><p>Initialize self.  See help(type(self)) for accurate signature.</p></div>
+  <div class="source_cont">
+</div>
+
+  </div>
+  
+      </div>
+      </div>
+
   </section>
 
     </article>
