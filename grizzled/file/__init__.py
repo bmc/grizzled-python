@@ -19,7 +19,7 @@ from typing import (Sequence, Mapping, Any, Optional, Union, NoReturn,
 
 __all__ = ['unlink_quietly', 'recursively_remove', 'copy', 'touch',
            'pathsplit', 'eglob', 'universal_path', 'native_path',
-           'list_recursively']
+           'list_recursively', 'includer']
 
 # ---------------------------------------------------------------------------
 # Functions
