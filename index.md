@@ -5,6 +5,8 @@ layout: withTOC
 
 # Introduction
 
+![Travis CI](https://api.travis-ci.org/bmc/grizzled-python.svg?branch=master)
+
 The Grizzled Python Utility Library is a general-purpose [Python][] library
 with a variety of different modules and packages. It's roughly organized
 into subpackages that group different kinds of utility functions and
