@@ -79,11 +79,11 @@ class Test(Command):
         pass
 
     def run(self):
-        import nose
-        gos = import_from_file(GRIZZLED_OS, 'gos')
-        with gos.working_directory('test'):
-            os.environ['PYTHONPATH'] = '..'
-            nose.run()
+        import pytest
+        os.environ['PYTHONPATH'] = '.'
+        rc = pytest.main(['-W', 'ignore', '-ra', '--cache-clear', 'test', '.'])
+        if rc != 0:
+            raise Exception('*** Tests failed.')
 
 # Now the setup stuff.
 
