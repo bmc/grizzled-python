@@ -1,12 +1,10 @@
-# Travis CI configuration file. 
-
-sudo: false
-
 language: python
-
 python:
-  - "2.7"
-
-install: "pip install -r requirements.txt"
-
-script: run-nose.sh
+  - "3.5"
+  - "3.6"
+  - "3.7"
+install:
+  - python setup.py install
+  - pip install nose
+script: nosetests -w test
+dist: xenial
