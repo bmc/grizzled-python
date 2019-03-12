@@ -66,8 +66,6 @@ Use an include-enabled file with the standard Python logging module:
 # Imports
 # ---------------------------------------------------------------------------
 
-from __future__ import annotations # PEP 563 (allows annotation forward refs)
-
 import logging
 import os
 import sys
@@ -192,7 +190,7 @@ class Includer(object):
         """
         return self._name
 
-    def __iter__(self) -> Iterable[line]:
+    def __iter__(self) -> Iterable[str]:
         return self
 
     def __next__(self) -> str:
