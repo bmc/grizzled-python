@@ -1,6 +1,8 @@
 # Grizzled Python Utility Library
 
-![Travis CI](https://api.travis-ci.org/bmc/grizzled-python.svg?branch=master)
+<a href="https://travis-ci.org/bmc/grizzled-python">
+<img src="https://api.travis-ci.org/bmc/grizzled-python.svg?branch=master">
+</a>
 
 The [Grizzled Python Utility Library][] is a general-purpose Python library
 with a variety of different modules and packages. It's roughly organized
@@ -34,12 +36,12 @@ python setup.py install
 
 ## Running unit tests
 
-Unit tests are written with [Nose](http://pythontesting.net/framework/nose/nose-introduction/).
+Unit tests are written with [pytest](https://docs.pytest.org/en/latest/).
 
-Install Nose:
+Install pytest:
 
 ```
-pip install nose
+pip install pytest
 ```
 
 Then, from the top-level directory, just run:
