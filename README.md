@@ -10,6 +10,7 @@ is released under a BSD license.
 
 **NOTE**: As of version 2.0.0, Grizzled Python no longer supports Python 2.
 Use an older version (e.g., 1.1.0) if you want to use it on Python 2.
+Grizzled Python now supports Python 3.6 or better.
 
 ## Installing
 
