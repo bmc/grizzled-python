@@ -1,5 +1,10 @@
 # Change Log for grizzled-python
 
+Version 2.2.0 (12 March, 2019)
+
+- Added `grizzled.text.stripmargin()` function.
+- Converted test framework to `pytest`.
+
 Version 2.1.0 (5 March, 2019)
 
 - Added tests for `grizzled.file.includer.Includer`.

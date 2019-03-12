@@ -136,9 +136,9 @@ class MultiWriter(object):
         """
         Write the specified buffer to the wrapped files.
 
-        :Parameters:
-            buf : str or bytes
-                buffer to write
+        **Parameters**
+
+        - `buf` (`str` or bytes): buffer to write
         """
         for f in self._files:
             f.write(buf)

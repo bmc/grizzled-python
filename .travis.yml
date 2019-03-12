@@ -4,6 +4,6 @@ python:
   - "3.7"
 install:
   - python setup.py install
-  - pip install nose
-script: nosetests -w test
+  - pip install pytest
+script: pytest -W ignore -ra --cache-clear test
 dist: xenial

@@ -8,3 +8,5 @@ apidocs
 *.egg-info
 *.iml
 /.idea
+__pycache__
+.pytest_cache

@@ -20,7 +20,7 @@ from grizzled.collections import LRUDict
 
 class TestLRUDict(object):
 
-    def test1(self):
+    def test_1(self):
         lru = LRUDict(max_capacity=5)
 
         print("Adding 'a' and 'b'")
@@ -62,7 +62,7 @@ class TestLRUDict(object):
         print(lru)
         print(list(lru.keys()))
         assert list(lru.keys()) == ['f', 'b', 'e', 'd', 'a']
-        
+
         def on_remove(key, value, the_list):
             print('on_remove("%s")' % key)
             the_list.append(key)
@@ -76,7 +76,7 @@ class TestLRUDict(object):
         assert ejected == ['a', 'd']
         print(list(lru.keys()))
         assert list(lru.keys()) == ['f', 'b', 'e']
-        
+
         print('Testing popitem()')
         key, value = lru.popitem()
         print(lru)
@@ -92,7 +92,7 @@ class TestLRUDict(object):
     def add_one(self, lru, key):
         lru[key] = key
 
-    def testBig(self):
+    def test_big(self):
         print('Putting 10000 entries in a new LRU cache')
         lru = LRUDict(max_capacity=10000)
         for i in range(0, lru.max_capacity):

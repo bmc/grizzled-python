@@ -1,5 +1,5 @@
 """
-The ``grizzled.text`` package contains text-related classes and modules.
+The `grizzled.text` package contains text-related classes and modules.
 """
 
 
@@ -10,6 +10,8 @@ __docformat__ = "restructuredtext en"
 # ---------------------------------------------------------------------------
 
 from io import StringIO
+import itertools
+from typing import Union, TextIO, Optional
 
 # ---------------------------------------------------------------------------
 # Exports
@@ -27,7 +29,51 @@ REPEAT_FORMAT = '*** Repeated %d times'
 # Functions
 # ---------------------------------------------------------------------------
 
-def hexdump(source, out, width=16, start=0, limit=None, show_repeats=False):
+def strip_margin(s: str, margin_char: str = '|') -> str:
+    """
+    Akin to Scala's stripMargin() method on string, this function takes a
+    multiline string and strips leading white space up to a margin character.
+    It allows you to express multiline strings like this:
+
+        s = '''|line 1
+               |line 2
+               |line 3
+            '''
+
+    Then, calling strip_margin on the string results in:
+
+        '''line 1
+        line 2
+        line 3
+        '''
+
+    **Parameters**
+
+    - `s` (`str`): the multiline string
+    - `margin_char` (`str`): the margin character, defaulting to '|'. Must
+      be a single characters
+
+    **Returns**:
+
+    the stripped string
+    """
+    assert len(margin_char) == 1
+    def fix_line(line: str) -> str:
+        adj = ''.join(itertools.dropwhile(lambda c: c in [' ', '\t'], line))
+        if (len(adj) > 0) and (adj[0] == margin_char):
+            return adj[1:]
+        else:
+            return adj
+
+    return '\n'.join(map(fix_line, s.split('\n')))
+
+
+def hexdump(source: Union[str, TextIO],
+            out: TextIO,
+            width: int = 16,
+            start: int = 0,
+            limit: Optional[int] = None,
+            show_repeats: bool = False) -> None:
     """
     Produce a "standard" hexdump of the specified string or file-like
     object. The output consists of a series of lines like this::
@@ -42,7 +88,7 @@ def hexdump(source, out, width=16, start=0, limit=None, show_repeats=False):
         000046: 6e 2e 0a 0a 54  68 69 73 20 65  n...This e
 
     The output width (i.e., the number of decoded characters shown on a
-    line) can be controlled with the ``width`` parameter.
+    line) can be controlled with the `width` parameter.
 
     Adjacent repeated lines are collapsed by default. For example::
 
@@ -50,29 +96,19 @@ def hexdump(source, out, width=16, start=0, limit=None, show_repeats=False):
         *** Repeated 203 times
         0007f8: 72 22 22 22 4f  53 20 72 6f 75  r'''OS rou
 
-    This behavior can be disabled via the ``show_repeats`` parameter.
+    This behavior can be disabled via the `show_repeats` parameter.
 
-    :Parameters:
-        source : str or file
-            The object whose contents are to be dumped in hex. The
-            object can be a string or a file-like object.
+    **Parameters**
 
-        out : file
-            Where to dump the hex output
-
-        width : int
-            The number of dumped characters per line
-
-        start : int
-            Offset within ``input`` where reading should begin
-
-        limit : int
-            Total number of bytes to dump. Defaults to everything from
-            ``start`` to the end.
-
-        show_repeats : bool
-            ``False`` to collapse repeated output lines, ``True`` to
-            dump all lines, even if they're repeats.
+    - `source` (`str` or `file`-like): The object whose contents are to be
+      dumped in hex. The object can be a string or a file-like object.
+    - `out` (`file`-like): Where to dump the hex output
+    - `width` (`int`): The number of dumped characters per line
+    - `start` (`int`): Offset within `input` where reading should begin
+    - `limit` (`int`): Total number of bytes to dump. Defaults to everything
+      from `start` to the end.
+    - `show_repeats`: (`bool`): `False` to collapse repeated output lines,
+      `True` to dump all lines, even if they're repeats.
     """
 
     def ascii(b):
@@ -154,50 +190,39 @@ def hexdump(source, out, width=16, start=0, limit=None, show_repeats=False):
             lastbuf = buf
             lastline = line
 
+
 def str2bool(s):
     """
     Convert a string to a boolean value. The supported conversions are:
 
-        +--------------+---------------+
-        | String       | Boolean value |
-        +==============+===============+
-        | "false"      | False         |
-        +--------------+---------------+
-        | "true"       | True          |
-        +--------------+---------------+
-        | "f"          | False         |
-        +--------------+---------------+
-        | "t"          + True          |
-        +--------------+---------------+
-        | "0"          | False         |
-        +--------------+---------------+
-        | "1"          + True          |
-        +--------------+---------------+
-        | "n"          | False         |
-        +--------------+---------------+
-        | "y"          + True          |
-        +--------------+---------------+
-        | "no"         | False         |
-        +--------------+---------------+
-        | "yes"        + True          |
-        +--------------+---------------+
-        | "off"        | False         |
-        +--------------+---------------+
-        | "on"         + True          |
-        +--------------+---------------+
+    - `"false"` -> `False`
+    - `"true"` -> `True`
+    - `"f"` -> `False`
+    - `"t"` -> `True`
+    - `"0"` -> `False`
+    - `"1"` -> `True`
+    - `"n"` -> `False`
+    - `"y"` -> `True`
+    - `"no"` -> `False`
+    - `"yes"` -> `True`
+    - `"off"` -> `False`
+    - `"on"` -> `True`
 
     Strings are compared in a case-blind fashion.
 
     **Note**: This function is not currently localizable.
 
-    :Parameters:
-        s : str
-            The string to convert to boolean
+    **Parameters**
 
-    :rtype: bool
-    :return: the corresponding boolean value
+    `s` (`str`): The string to convert to boolean
 
-    :raise ValueError: unrecognized boolean string
+    **Returns**
+
+    the corresponding boolean value
+
+    **Raises**
+
+    `ValueError`: unrecognized boolean string
     """
     try:
         return {'false' : False,
