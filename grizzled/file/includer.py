@@ -19,7 +19,7 @@ regular expression matches include directives like this::
     %include "local_reference"
 
 Relative and local file references are relative to the including file. That
-That is, if an `Includer` is processing file "/home/bmc/foo.txt" and encounters
+is, if an `Includer` is processing file "/home/bmc/foo.txt" and encounters
 an attempt to include file "bar.txt", it will assume "bar.txt" is to be found
 in "/home/bmc".
 
