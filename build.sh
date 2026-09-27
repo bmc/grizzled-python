@@ -66,6 +66,8 @@ do
       ;;
 
     build)
+      cd test && pytest || exit 1
+      cd ..
       run "python -m build" || exit 1
       ;;
   esac
