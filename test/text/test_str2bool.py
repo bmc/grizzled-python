@@ -4,8 +4,10 @@
 # Imports
 # ---------------------------------------------------------------------------
 
-from grizzled.text import str2bool
 import pytest
+
+from grizzled.text import str2bool
+
 
 def test_good_strings():
     for s, expected in (('false', False,),

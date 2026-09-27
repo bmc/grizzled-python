@@ -1,22 +1,22 @@
 """
-Introduction
-============
+# Introduction
 
 The `grizzled.file.includer` module contains a class that can be used to
 process includes within a text file, returning a file-like object. It also
 contains some utility functions that permit using include-enabled files in
 other contexts.
 
-Include Syntax
-==============
+# Include Syntax
 
 The *include* syntax is defined by a regular expression; any line that matches
 the regular expression is treated as an *include* directive. The default
 regular expression matches include directives like this::
 
-    %include "/absolute/path/to/file"
-    %include "../relative/path/to/file"
-    %include "local_reference"
+```
+%include "/absolute/path/to/file"
+%include "../relative/path/to/file"
+%include "local_reference"
+```
 
 Relative and local file references are relative to the including file. That
 is, if an `Includer` is processing file "/home/bmc/foo.txt" and encounters
@@ -29,36 +29,52 @@ other files. The maximum recursion level is configurable and defaults to 100.
 The include syntax can be changed by passing a different regular expression to
 the `Includer` class constructor.
 
-Usage
-=====
+# Usage
 
 This module provides an `Includer` class, which processes include directives
 in a file and behaves like a file-like object. See the class documentation for
 more details.
 
-The module also provides a `preprocess()` convenience function that can be
-used to preprocess a file; it returns the path to the resulting preprocessed
-file.
+The module also provides a `preprocess()` convenience function that expands
+an open file into a caller-supplied output object.
 
-Examples
-========
+An `Includer` reads from an open file-like object, and `preprocess()` reads
+from an open file-like object and writes the expanded output to a second
+file-like object. Neither one opens or closes the caller's objects on the
+caller's behalf; the included files, however, are opened and closed by
+`Includer`.
 
-Preprocess a file containing include directives, then read the result:
+# Examples
 
-    import includer
-    import sys
+Expand a file containing include directives, then read the result:
 
-    inc = includer.Includer(path)
+```python
+import sys
+
+from grizzled.file import includer
+
+with open(path, encoding='utf-8') as f:
+    inc = includer.Includer(f)
     for line in inc:
         sys.stdout.write(line)
+```
 
 
-Use an include-enabled file with the standard Python logging module:
+Use an include-enabled file with the standard Python `logging` module:
 
-    import logging
-    import includer
+```python
+from io import StringIO
+import logging.config
 
-    logging.fileConfig(includer.preprocess("mylog.cfg"))
+from grizzled.file import includer
+
+expanded = StringIO()
+with open("mylog.cfg", encoding='utf-8') as f:
+    includer.preprocess(f, expanded)
+
+expanded.seek(0)
+logging.config.fileConfig(expanded)
+```
 
 """
 
@@ -68,31 +84,24 @@ Use an include-enabled file with the standard Python logging module:
 
 import logging
 import os
-import sys
 import re
-import tempfile
-import atexit
-import codecs
-
-from grizzled.file import unlink_quietly
-
-from typing import (Union, Sequence, AnyStr, TextIO, Optional, Iterable, List,
-                    Tuple, Any)
-
+from io import TextIOBase, UnsupportedOperation
+from typing import BinaryIO, Iterable, Iterator, TextIO
 
 __docformat__ = "markdown"
 
-__all__ = ['Includer', 'IncludeError', 'preprocess', 'MaxNestingExceededError']
+__all__ = ["Includer", "IncludeError", "preprocess", "MaxNestingExceededError"]
 
 # ---------------------------------------------------------------------------
 # Logging
 # ---------------------------------------------------------------------------
 
-log = logging.getLogger('includer')
+log = logging.getLogger("includer")
 
 # ---------------------------------------------------------------------------
 # Public classes
 # ---------------------------------------------------------------------------
+
 
 class IncludeError(Exception):
     """
@@ -100,8 +109,9 @@ class IncludeError(Exception):
     An `IncludeError` object always contains a single string value that
     contains an error message describing the problem.
     """
-    def __init__(self, message):
-        Exception.__init__(self, message)
+
+    def __init__(self, message: str):
+        super().__init__(message)
         self.message = message
 
 
@@ -112,323 +122,327 @@ class MaxNestingExceededError(IncludeError):
     """
 
 
-class Includer(object):
+class Includer(TextIOBase):
     """
-    An `Includer` object preprocesses a path or file-like object,
-    expanding include references. The resulting `Includer` object is a
-    file-like object, offering the same methods and capabilities as an open
-    file.
+    An `Includer` object reads an open file-like object, expanding include
+    references into a second file-like object. The resulting `Includer`
+    object is, itself, a read-only file-like object, offering the same
+    methods and capabilities as a file opened for reading.
 
     By default, `Includer` supports this include syntax:
 
-        %include "path"
-        %include "url"
+    ```
+    %include "path"
+    ```
 
     However, the include directive syntax is controlled by a regular
     expression, so it can be configured.
 
     See the module documentation for details.
     """
-    def __init__(self,
-                 source: Union[TextIO, AnyStr],
-                 include_regex: AnyStr = '^%include\s"([^"]+)"',
-                 max_nest_level: int = 100,
-                 output: Optional[Union[TextIO, AnyStr]] = None,
-                 encoding: str = 'utf-8'):
+
+    def __init__(
+        self,
+        source: TextIO,
+        include_regex: str = r'^%include\s"([^"]+)"',
+        max_nest_level: int = 100,
+        encoding: str = "utf-8",
+    ):
         """
         Create a new `Includer` object.
 
-        **Parameters**
-
-        - `source` (`file` or `str`): The source to be read and expanded. May
-          be an open file-like object or a path name.
-        - `include_regex` (`str`):  Regular expression defining the include
-          syntax. Must contain a single parenthetical group that can be used
-          to extract the included file.
-        - `max_nest_level` (`int`): Maximum include nesting level. Exceeding
-          this level will cause `Includer` to throw an `IncludeError`.
-        - `output` (`str` or `file`): A string (path name) or file-like object
-          to which to save the expanded output.
-        - `encoding` (`str`): The encoding to use to open the files. Defaults
-          to "utf-8".
-
-        **Raises**
-
-        `IncludeError` on error
+        :param source: The source to be read and expanded. Must be an open
+            file-like object (`StringIO` is permitted).
+        :param include_regex: Regular expression defining the include syntax.
+            Must contain a single parenthetical group that can be used to
+            extract the included file.
+        :param max_nest_level: Maximum include nesting level. Exceeding this
+            level will cause `Includer` to throw an `IncludeError`.
+        :param encoding: The encoding to use when opening included files.
+            Defaults to "utf-8".
+        :raises IncludeError: If an error occurs while processing includes.
         """
+        super().__init__()
 
         self._encoding = encoding
-        if isinstance(source, str):
-            f, name = self._open(source, None)
-        else:
-            # Assume file-like object.
-            f = source
-            try:
-                name = source.name
-            except AttributeError:
-                name = None
-
-        self.closed = False
-        self.mode = None
         self._include_pattern = re.compile(include_regex)
-        self._name = name
+        self._max_nest_level = max_nest_level
+        self._name = getattr(source, "name", None)
 
-        if output == None:
-            from io import StringIO
-            output = StringIO()
+        buf: list[str] = []
+        self._process_includes(source, self._name, buf, 1)
+        self._text = "".join(buf)
+        self._pos = 0
 
-        self._maxnest = max_nest_level
-        self._nested = 0
-        self._process_includes(f, name, output)
-        self._f = output
-        self._f.seek(0)
+    # -----------------------------------------------------------------
+    # Properties
+    # -----------------------------------------------------------------
 
     @property
-    def name(self) -> str:
+    def name(self) -> str | None:
         """
-        Get the name of the file being processed.
+        The name of the source being processed, or `None` if the source
+        has no name (e.g., it's a `StringIO` object).
         """
         return self._name
 
-    def __iter__(self) -> Iterable[str]:
+    # typeshed declares _TextIOBase.encoding as a mutable "str" field,
+    # but at runtime it's a read-only descriptor (it returns None), so a
+    # property is the only way to override it. Hence the suppression.
+    @property
+    def encoding(self) -> str:  # pyright: ignore
+        """
+        The encoding used when opening included files.
+        """
+        return self._encoding
+
+    # -----------------------------------------------------------------
+    # Capabilities
+    # -----------------------------------------------------------------
+
+    def readable(self) -> bool:
+        """An `Includer` is always readable."""
+        return True
+
+    def seekable(self) -> bool:
+        """An `Includer` is always seekable."""
+        return True
+
+    def writable(self) -> bool:
+        """An `Includer` is never writable."""
+        return False
+
+    # -----------------------------------------------------------------
+    # Reading
+    # -----------------------------------------------------------------
+
+    def read(self, size: int | None = -1) -> str:
+        """
+        Read characters from the expanded content.
+
+        :param size: Number of characters to read. A negative number or `None`
+            reads all remaining characters.
+        :return: The characters read, as a string. An empty string signals end
+            of file.
+        :raises ValueError: If the `Includer` is closed.
+        """
+        self._check_open()
+        if (size is None) or (size < 0):
+            end = len(self._text)
+        else:
+            end = min(self._pos + size, len(self._text))
+
+        result = self._text[self._pos : end]
+        self._pos = end
+        return result
+
+    def readline(self, size: int | None = -1) -> str:
+        """
+        Read the next line from the expanded content.
+
+        :param size: Maximum number of characters to read, or a negative number
+            (or `None`) for no limit
+        :return: The line read, including its trailing newline, if any. An
+            empty string signals end of file.
+        :raises ValueError: If the `Includer` is closed.
+        """
+        self._check_open()
+        i = self._text.find("\n", self._pos)
+        end = len(self._text) if i < 0 else i + 1
+        if (size is not None) and (size >= 0):
+            end = min(end, self._pos + size)
+
+        line = self._text[self._pos : end]
+        self._pos = end
+        return line
+
+    def readlines(self, hint: int = -1) -> list[str]:
+        """
+        Read all remaining lines from the expanded content.
+
+        :param hint: Stop once this many characters have been read, without
+            truncating the last line. A negative number (or `None`) means "read
+            everything".
+        :return: A list of the lines read.
+        :raises ValueError: If the `Includer` is closed.
+        """
+        self._check_open()
+        lines: list[str] = []
+        total = 0
+        while True:
+            line = self.readline()
+            if len(line) == 0:
+                break
+
+            lines.append(line)
+            total += len(line)
+            if (hint is not None) and (hint >= 0) and (total >= hint):
+                break
+
+        return lines
+
+    def __iter__(self) -> Iterator[str]:
+        """An `Includer` is its own iterator."""
         return self
 
     def __next__(self) -> str:
-        """A file object is its own iterator."""
+        """
+        Return the next line of expanded content, throwing
+        `StopIteration` at end of file.
+        """
         line = self.readline()
-        if (line == None) or (len(line) == 0):
+        if len(line) == 0:
             raise StopIteration
+
         return line
-
-    def close(self) -> None:
-        """Close the includer, preventing any further I/O operations."""
-        if not self.closed:
-            self.closed = True
-            self._f.close()
-            del self._f
-
-    def fileno(self) -> int:
-        """
-        Get the file descriptor. Returns the descriptor of the file being
-        read.
-        """
-        _complain_if_closed(self.closed)
-        return self._f.fileno()
-
-    def isatty(self) -> bool:
-        """
-        Determine whether the file being processed is a TTY or not.
-        """
-        _complain_if_closed(self.closed)
-        return self._f.isatty()
-
-    def seek(self, pos: int, mode: int = 0) -> None:
-        """
-        Seek to the specified file offset in the include-processed file.
-
-        **Parameters**
-
-        - `pos` (`int`): file offset
-        - `mode` (`int`): the seek mode, as specified to a Python file's
-          `seek()` method
-        """
-        self._f.seek(pos, mode)
-
-    def tell(self) -> int:
-        """
-        Get the current file offset.
-
-        **Returns**
-
-        the current file offset
-        """
-        _complain_if_closed(self.closed)
-        return self._f.tell()
-
-    def read(self, n: int = -1) -> Sequence[int]:
-        """
-        Read *n* bytes from the open file.
-
-        **Parameters**
-
-        - `n` (`int`): Number of bytes to read. A negative number instructs
-          the method to read all remaining bytes.
-
-        **Returns**
-
-        the bytes read
-        """
-        _complain_if_closed(self.closed)
-        return self._f.read(n)
-
-    def readline(self, length: int = -1) -> str:
-        """
-        Read the next line from the file.
-
-        **Parameters**
-
-        - `length` (`int`): a length hint, or negative if you don't care
-
-        **Returns**
-
-        the line read
-        """
-        _complain_if_closed(self.closed)
-        return self._f.readline(length)
-
-    def readlines(self, sizehint: int = 0) -> List[str]:
-        """
-        Read all remaining lines in the file.
-        """
-        _complain_if_closed(self.closed)
-        return self._f.readlines(sizehint)
-
-    def truncate(self, size: Optional[int] = None) -> None:
-        """Not supported, since `Includer` objects are read-only."""
-        raise IncludeError('Includers are read-only file objects.')
-
-    def write(self, s: str) -> None:
-        """Not supported, since `Includer` objects are read-only."""
-        raise IncludeError('Includers are read-only file objects.')
-
-    def writelines(self, iterable: Iterable[str]):
-        """Not supported, since `Includer` objects are read-only."""
-        raise IncludeError('Includers are read-only file objects.')
-
-    def flush(self) -> None:
-        """No-op."""
-        pass
 
     def getvalue(self) -> str:
         """
-        Retrieve the entire contents of the file, as a string, with includes
-        expanded, at any time before the `close()` method is called.
-        """
-        return ''.join(self.readlines())
+        Retrieve the entire expanded content, as a single string. The
+        current file offset is neither used nor changed.
 
-    def _process_includes(self,
-                          file_in: TextIO,
-                          filename: str,
-                          file_out: TextIO) -> None:
+        :return: The entire expanded content as a single string.
+        :raises ValueError: If the `Includer` is closed.
+        """
+        self._check_open()
+        return self._text
+
+    # -----------------------------------------------------------------
+    # Positioning
+    # -----------------------------------------------------------------
+
+    def seek(self, offset: int, whence: int = 0) -> int:
+        """
+        Change the current offset within the expanded content.
+
+        :param offset: The new offset, interpreted according to `whence`.
+        :param whence: `0` (the default) to seek relative to the beginning of
+            the content, `1` to seek relative to the current offset, `2` to
+            seek relative to the end of the content.
+        :return: The new absolute offset.
+        :raises ValueError: If the `Includer` is closed, or if `whence` is
+            invalid, or if the resulting offset is negative.
+        """
+        self._check_open()
+        if whence == 0:
+            new_pos = offset
+        elif whence == 1:
+            new_pos = self._pos + offset
+        elif whence == 2:
+            new_pos = len(self._text) + offset
+        else:
+            raise ValueError(f"Invalid whence value: {whence}")
+
+        if new_pos < 0:
+            raise ValueError(f"Negative seek position: {new_pos}")
+
+        self._pos = min(new_pos, len(self._text))
+        return self._pos
+
+    def tell(self) -> int:
+        """
+        Get the current offset within the expanded content.
+
+        :return: The current offset.
+        :raises ValueError: If the `Includer` is closed.
+        """
+        self._check_open()
+        return self._pos
+
+    # -----------------------------------------------------------------
+    # Unsupported operations
+    # -----------------------------------------------------------------
+
+    def write(self, s: str) -> int:
+        """Not supported: `Includer` objects are read-only."""
+        raise UnsupportedOperation("Includers are read-only file objects.")
+
+    def writelines(self, lines: Iterable[str]) -> None:
+        """Not supported: `Includer` objects are read-only."""
+        raise UnsupportedOperation("Includers are read-only file objects.")
+
+    def truncate(self, size: int | None = None) -> int:
+        """Not supported: `Includer` objects are read-only."""
+        raise UnsupportedOperation("Includers are read-only file objects.")
+
+    def detach(self) -> BinaryIO:
+        """Not supported: there's no underlying binary buffer."""
+        raise UnsupportedOperation("Includers have no underlying buffer.")
+
+    # -----------------------------------------------------------------
+    # Private methods
+    # -----------------------------------------------------------------
+
+    def _check_open(self) -> None:
+        if self.closed:
+            raise ValueError("I/O operation on closed file.")
+
+    def _process_includes(
+        self, file_in: TextIO, filename: str | None, buf: list[str], level: int
+    ) -> None:
         log.debug(f'Processing includes in "{filename}"')
 
         for line in file_in:
             match = self._include_pattern.search(line)
-            if match:
-                if self._nested >= self._maxnest:
-                    raise MaxNestingExceededError(
-                        f'Exceeded maximum include depth of {self._maxnest}'
-                    )
+            if not match:
+                buf.append(line)
+                continue
 
-                inc_name = match.group(1)
-                log.debug(f'Found include directive: {line[:-1]}')
-                f, included_name = self._open(inc_name, filename)
-                self._nested += 1
-                self._process_includes(f, filename, file_out)
-                self._nested -= 1
-            else:
-                file_out.write(line)
+            if level >= self._max_nest_level:
+                raise MaxNestingExceededError(
+                    f"Exceeded maximum include depth of "
+                    f"{self._max_nest_level}"
+                )
 
-    def _open(self,
-              name_to_open: str,
-              enclosing_file: Optional[str]) -> Tuple[TextIO, str]:
+            log.debug(f"Found include directive: {line.rstrip()}")
+            f, included_name = self._open(match.group(1), filename)
+            with f:
+                self._process_includes(f, included_name, buf, level + 1)
 
+    def _open(
+        self, name_to_open: str, enclosing_file: str | None
+    ) -> tuple[TextIO, str]:
         if not os.path.isabs(name_to_open):
-            # Not an absolute file. Base it on the parent.
-            if enclosing_file == None:
+            # Not an absolute path. Base it on the enclosing file's
+            # directory, or on the current directory, if the enclosing
+            # file has no name.
+            if enclosing_file is None:
                 enclosing_dir = os.getcwd()
             else:
                 enclosing_dir = os.path.dirname(enclosing_file)
 
             name_to_open = os.path.join(enclosing_dir, name_to_open)
 
+        log.debug(
+            f'Opening "{name_to_open}" with encoding ' f"{self._encoding}"
+        )
+
+        # NOTE: The caller owns the returned handle and is responsible for
+        # closing it; opening it in a "with" block here would hand back an
+        # already-closed file.
         try:
-            log.debug(f'Opening "{name_to_open}" with encoding {self._encoding}')
-            f = codecs.open(name_to_open, mode='r', encoding=self._encoding)
-        except:
-            raise IncludeError(
-                f'Unable to open "{name_to_open}".'
-            )
-        return (f, name_to_open)
+            return (open(name_to_open, encoding=self._encoding), name_to_open)
+        except OSError as e:
+            raise IncludeError(f'Unable to open "{name_to_open}": {e}') from e
+
 
 # ---------------------------------------------------------------------------
 # Public functions
 # ---------------------------------------------------------------------------
 
-def preprocess(file: Union[TextIO, str],
-               encoding: str = 'utf8',
-               output: Optional[TextIO] = None,
-               temp_suffix: str = '.txt',
-               temp_prefix: str = 'inc'):
+
+def preprocess(file: TextIO, output: TextIO, encoding: str = "utf-8") -> None:
     """
-    Process all include directives in the specified file, returning a path
-    to a temporary file that contains the results of the expansion. The
-    temporary file is automatically removed when the program exits, though
-    the caller is free to remove it whenever it is no longer needed.
+    Process all include directives in the specified file, writing the
+    expanded result to `output`.
 
     **Parameters**
 
-    - `file` (`file` or `str`): path to file to be expanded, or file-like object
-    - `encoding` (`str`): String encoding for input file. Defaults to UTF-8.
+    - `file`: File-like object to expand.
     - `output` (`file`): A file or file-like object to receive the output.
-    - `temp_suffix` (`str`): suffix to use with temporary file that holds
-      preprocessed output
-    - `temp_prefix` (`str`): prefix to use with temporary file that holds
-      preprocessed output
-
-    **Returns**
-
-    `output`, if `output` is not `None`; otherwise, the path to temporary file
-    containing expanded content
+    - `encoding` (`str`): String encoding for included files. Defaults to
+      UTF-8.
     """
-    result = None
-    path = None
-    if not output:
-        fd, path = tempfile.mkstemp(suffix=temp_suffix, prefix=temp_prefix)
-        output = open(path, 'w')
-        atexit.register(unlink_quietly, path)
-        os.close(fd)
-        result = path
-    else:
-        result = output
-
-    Includer(file, output=output, encoding=encoding)
-    return result
-
-
-# ---------------------------------------------------------------------------
-# Private functions
-# ---------------------------------------------------------------------------
-
-def _complain_if_closed(closed: bool) -> None:
-    if closed:
-        raise IncludeError("I/O operation on closed file")
-
-# ---------------------------------------------------------------------------
-# Main program (for testing)
-# ---------------------------------------------------------------------------
-
-if __name__ == '__main__':
-
-    format = '%(asctime)s %(name)s %(levelname)s %(message)s'
-    logging.basicConfig(level=logging.DEBUG, format=format)
-
-    for file in sys.argv[1:]:
-        import io as StringIO
-        out = StringIO.StringIO()
-        preprocess(file, output=out)
-
-        header = 'File: %s, via preprocess()'
-        sep = '-' * len(header)
-        print('\n{0}\n{1}\n{2}\n'.format(sep, header, sep))
-        for line in out.readlines():
-            sys.stdout.write(line)
-        print(sep)
-
-        inc = Includer(file)
-        header = 'File: %s, via Includer'
-        sep = '-' * len(header)
-        print('\n{0}\n{1}\n{2}\n'.format(sep, header, sep))
-        for line in inc:
-            sys.stdout.write(line)
-        print(sep)
+    with Includer(file, encoding=encoding) as f:
+        for line in f:
+            output.write(line)

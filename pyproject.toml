@@ -1,0 +1,109 @@
+[project]
+name = "grizzled-python"
+# Version is resolved from the __version__ constant. README is also
+# dynamically discovered. See [tool.setuptools.dynamic], below.
+dynamic = ["version", "readme"]
+license = "Apache-2.0"
+license-files = ["LICENSE.md"]
+dependencies = [
+]
+description = "Miscellaneous functions and classes"
+requires-python = ">= 3.10"
+authors = [
+  {name = "Brian Clapper", email = "bmc@clapper.org"}
+]
+maintainers = [
+  {name = "Brian Clapper", email = "bmc@clapper.org"}
+]
+classifiers = [
+  # How mature is this project? Common values are
+  #   3 - Alpha
+  #   4 - Beta
+  #   5 - Production/Stable
+  "Development Status :: 5 - Production/Stable",
+
+  "Intended Audience :: End Users/Desktop",
+  "Topic :: Text Processing :: Filters",
+
+  # Specify the Python versions you support here.
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+]
+
+[project.urls]
+Homepage = "https://github.com/bmc/grizzled-python"
+
+# -----------------------------------------------------------------------------
+# Build configuration
+# -----------------------------------------------------------------------------
+
+[build-system]
+# Use https://github.com/pypa/build
+# (python -m build)
+# See https://packaging.python.org/en/latest/glossary/#term-Build-Frontend
+# and https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html
+# setuptools 77 or better is required for PEP 639 (SPDX)
+# "license" and "license-files" support.
+requires = ["setuptools>=77.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+# Only ship the library itself; "test" is not part of the distribution.
+include = ["grizzled*"]
+
+[tool.setuptools.dynamic]
+version = {attr = "grizzled.__version__"}
+# content-type must be explicit; setuptools otherwise assumes
+# text/x-rst, which breaks rendering on PyPI.
+readme = {file = ["README.md"], content-type = "text/markdown"}
+
+# -----------------------------------------------------------------------------
+# Tool-specific configurations
+# -----------------------------------------------------------------------------
+
+[tool.black]
+line-length = 79
+target-version = ['py311']
+extend-exclude = '''
+^/dist
+^/man
+^/*.egg-info
+^/tmp
+^/build
+'''
+
+[tool.isort]
+profile = "black"
+
+[tool.pytest.ini_options]
+pythonpath = ["grizzled"]
+
+[tool.pyright]
+#venvPath = "venv"
+include = ["grizzled/*.py"]
+
+[tool.ruff]
+target-version = "py313"
+
+[tool.ruff.lint]
+select = [
+    # pycodestyle
+    "E",
+    # Pyflakes
+    "F",
+    # pyupgrade
+    "UP",
+    # flake8-bugbear
+    "B",
+    # flake8-simplify
+    "SIM",
+    # isort
+    "I",
+]
+ignore = [
+     # ignore ruff's insistence in importing Sequence from collections.abc
+    "UP035",
+    "E731"
+]

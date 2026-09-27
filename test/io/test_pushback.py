@@ -4,11 +4,10 @@
 # Imports
 # ---------------------------------------------------------------------------
 
-from grizzled.io import *
 from io import StringIO
-import os
-import tempfile
-import atexit
+
+from grizzled.io import PushbackFile
+
 
 def test_pushback():
     inputString = """abc

@@ -10,77 +10,86 @@ __docformat__ = "markdown"
 # ---------------------------------------------------------------------------
 
 import logging
-import sys
 import os
+import sys
 import textwrap
-from typing import Optional, TextIO, Sequence
+from typing import Sequence, TextIO
 
 # ---------------------------------------------------------------------------
 # Exports
 # ---------------------------------------------------------------------------
 
-__all__ = ['WrappingLogFormatter', 'init_simple_stream_logging']
+__all__ = ["WrappingLogFormatter", "init_simple_stream_logging"]
 
 # ---------------------------------------------------------------------------
 # Classes
 # ---------------------------------------------------------------------------
+
 
 class WrappingLogFormatter(logging.Formatter):
     """
     A `logging` `Formatter` class that writes each message wrapped on line
     boundaries. Here's a typical usage scenario:
 
-        import logging
-        import sys
-        from grizzled.log import WrappingLogFormatter
+    ```python
+    import logging
+    import sys
+    from grizzled.log import WrappingLogFormatter
 
-        stderr_handler = logging.StreamHandler(sys.stderr)
-        formatter = WrappingLogFormatter(format='%(levelname)s %(message)s")
-        stderr_handler.setLevel(logging.WARNING)
-        stderr_handler.setFormatter(formatter)
-        logging.getLogger('').handlers = [stderr_handler]
+    stderr_handler = logging.StreamHandler(sys.stderr)
+    formatter = WrappingLogFormatter(format='%(levelname)s %(message)s")
+    stderr_handler.setLevel(logging.WARNING)
+    stderr_handler.setFormatter(formatter)
+    logging.getLogger('').handlers = [stderr_handler]
+    ```
     """
-    def __init__(self,
-                 format: Optional[str] = None,
-                 date_format: Optional[str] = None,
-                 max_width: Optional[int] = None):
+
+    def __init__(
+        self,
+        format: str | None = None,
+        date_format: str | None = None,
+        max_width: int | None = None,
+    ):
         """
         Initialize a new `WrappingLogFormatter`.
 
-        **Parameters**
-
-        - `format` (`str`): The format to use, or `None` for the logging default
-        - `date_format` (`str`): Date format, or `None` for the logging default
-        - `max_width` (`int`): Maximum line width, or `None` to default. The
-          default is the value of the environment variable "COLUMNS" (minus 1),
-          or 79 if the environment variable is not set.
+        :param format: The format to use, or `None` for the logging default
+        :param date_format: Date format, or `None` for the logging default
+        :param max_width: Maximum line width, or `None` to default. The default
+            is the value of the environment variable "COLUMNS" (minus 1), or 79
+            if the environment variable is not set.
         """
         if max_width is None:
             try:
-                max_width = int(os.environ.get('COLUMNS', '80')) - 1
+                max_width = int(os.environ.get("COLUMNS", "80")) - 1
             except ValueError:
                 max_width = 79
 
-        self.wrapper = textwrap.TextWrapper(width=max_width,
-                                            subsequent_indent='    ')
+        self.wrapper = textwrap.TextWrapper(
+            width=max_width, subsequent_indent="    "
+        )
         logging.Formatter.__init__(self, format, date_format)
 
     def format(self, record: logging.LogRecord):
         s = logging.Formatter.format(self, record)
         result = []
-        for line in s.split('\n'):
+        for line in s.split("\n"):
             result += [self.wrapper.fill(line)]
 
-        return '\n'.join(result)
+        return "\n".join(result)
+
 
 # ---------------------------------------------------------------------------
 # Functions
 # ---------------------------------------------------------------------------
 
-def init_simple_stream_logging(level: int = logging.INFO,
-                               streams: Optional[Sequence[TextIO]] = None,
-                               format: Optional[str] = None,
-                               date_format: Optional[str] = None):
+
+def init_simple_stream_logging(
+    level: int = logging.INFO,
+    streams: Sequence[TextIO] | None = None,
+    format: str | None = None,
+    date_format: str | None = None,
+):
     """
     Useful for simple command-line tools, this method configures the Python
     logging API to:
@@ -88,24 +97,21 @@ def init_simple_stream_logging(level: int = logging.INFO,
     - log to one or more open streams (defaulting to standard output) and
     - use a `WrappingLogFormatter`
 
-    **Parameters**
-
-    - `level` (`int`): Desired log level
-    - `streams` (`list` of file like objects): List of files or file-like
-      objects to which to log, or `None` to log to standard output.
-    - `format` (`str`): A log format to use, or none for
-      `"%(asctime)s %(message)s"`
-    - `date_format` (`str`): `strftime` date format to use in log messages, or
-      `None` for `"%H:%M:%S"`
+    :param level: Desired log level
+    :param streams: List of files or file-like objects to which to log, or
+        `None` to log to standard output.
+    :param format: A log format to use, or `None` for the default.
+    :param date_format: `strftime` date format to use in log messages, or
+        `None` for the default.
     """
     if not streams:
         streams = [sys.stdout]
 
     if not format:
-        format = '%(asctime)s %(message)s'
+        format = "%(asctime)s %(message)s"
 
     if not date_format:
-        date_format = '%H:%M:%S'
+        date_format = "%H:%M:%S"
 
     logging.basicConfig(level=level)
     handlers = []
@@ -118,4 +124,4 @@ def init_simple_stream_logging(level: int = logging.INFO,
 
         handlers += [log_handler]
 
-    logging.getLogger('').handlers = handlers
+    logging.getLogger("").handlers = handlers

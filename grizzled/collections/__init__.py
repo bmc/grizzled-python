@@ -12,4 +12,4 @@ from grizzled.collections.dict import LRUDict
 # Exports
 # ---------------------------------------------------------------------------
 
-__all__ = ['LRUDict']
+__all__ = ["LRUDict"]

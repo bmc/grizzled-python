@@ -3,15 +3,15 @@ The `grizzled.text` package contains text-related classes and modules.
 """
 
 
-__docformat__ = "restructuredtext en"
+__docformat__ = "markdown"
 
 # ---------------------------------------------------------------------------
 # Imports
 # ---------------------------------------------------------------------------
 
-from io import StringIO
 import itertools
-from typing import Union, TextIO, Optional
+from io import StringIO
+from typing import TextIO
 
 # ---------------------------------------------------------------------------
 # Exports
@@ -35,27 +35,26 @@ def strip_margin(s: str, margin_char: str = '|') -> str:
     multiline string and strips leading white space up to a margin character.
     It allows you to express multiline strings like this:
 
-        s = '''|line 1
-               |line 2
-               |line 3
-            '''
+    ```python
+    s = '''|line 1
+           |line 2
+            |line 3
+        '''
+    ```
 
     Then, calling strip_margin on the string results in:
 
-        '''line 1
-        line 2
-        line 3
-        '''
+    ```python
+    '''line 1
+    line 2
+    line 3
+    '''
+    ```
 
-    **Parameters**
-
-    - `s` (`str`): the multiline string
-    - `margin_char` (`str`): the margin character, defaulting to '|'. Must
-      be a single characters
-
-    **Returns**:
-
-    the stripped string
+    :param s: The multiline string to strip.
+    :param margin_char: The margin character, defaulting to '|'. Must be a
+        single character.
+    :return: The stripped string.
     """
     assert len(margin_char) == 1
     def fix_line(line: str) -> str:
@@ -68,11 +67,11 @@ def strip_margin(s: str, margin_char: str = '|') -> str:
     return '\n'.join(map(fix_line, s.split('\n')))
 
 
-def hexdump(source: Union[str, TextIO],
+def hexdump(source: str | TextIO,
             out: TextIO,
             width: int = 16,
             start: int = 0,
-            limit: Optional[int] = None,
+            limit: int | None = None,
             show_repeats: bool = False) -> None:
     """
     Produce a "standard" hexdump of the specified string or file-like
@@ -98,17 +97,15 @@ def hexdump(source: Union[str, TextIO],
 
     This behavior can be disabled via the `show_repeats` parameter.
 
-    **Parameters**
-
-    - `source` (`str` or `file`-like): The object whose contents are to be
-      dumped in hex. The object can be a string or a file-like object.
-    - `out` (`file`-like): Where to dump the hex output
-    - `width` (`int`): The number of dumped characters per line
-    - `start` (`int`): Offset within `input` where reading should begin
-    - `limit` (`int`): Total number of bytes to dump. Defaults to everything
-      from `start` to the end.
-    - `show_repeats`: (`bool`): `False` to collapse repeated output lines,
-      `True` to dump all lines, even if they're repeats.
+    :param source: The object whose contents are to be dumped in hex. The
+        object can be a string or a file-like object.
+    :param out: Where to dump the hex output
+    :param width: The number of dumped characters per line
+    :param start: Offset within `input` where reading should begin
+    :param limit: Total number of bytes to dump. Defaults to everything from
+        `start` to the end.
+    :param show_repeats: `False` to collapse repeated output lines, `True` to
+        dump all lines, even if they're repeats.
     """
 
     def ascii(b):
@@ -125,14 +122,12 @@ def hexdump(source: Union[str, TextIO],
     lastline = ''
     repeat_count = 0
 
-    if width > 4:
-        space_col = width/2
-    else:
-        space_col = -1
+    space_col = width // 2 if width > 4 else -1
 
-    if type(source) == str:
+    if type(source) is str:
         source = StringIO(source)
 
+    assert isinstance(source, TextIO)
     if start:
         source.seek(start)
         pos = start
@@ -141,10 +136,7 @@ def hexdump(source: Union[str, TextIO],
 
     total_read = 0
     while True:
-        if limit:
-            to_read = min(limit - total_read, width)
-        else:
-            to_read = width
+        to_read = min(limit - total_read, width) if limit else width
 
         buf = source.read(to_read)
         length = len(buf)
@@ -179,9 +171,10 @@ def hexdump(source: Union[str, TextIO],
                 c = buf[i]
                 if i == space_col:
                     hex = hex + " "
-                hex = hex + ("%02x" % ord(c)) + " "
+                hex = f"{hex}{ord(c):02x} "
                 asc = asc + ascii_map[ord(c)]
-            line = "%06x: %-*s %s" % (pos, hex_field_width, hex, asc)
+
+            line = f"{pos:06x}: {hex:<{hex_field_width}} {asc}"
 
             if show_buf:
                 print(line, file=out)
@@ -191,7 +184,7 @@ def hexdump(source: Union[str, TextIO],
             lastline = line
 
 
-def str2bool(s):
+def str2bool(s: str) -> bool:
     """
     Convert a string to a boolean value. The supported conversions are:
 
@@ -212,17 +205,9 @@ def str2bool(s):
 
     **Note**: This function is not currently localizable.
 
-    **Parameters**
-
-    `s` (`str`): The string to convert to boolean
-
-    **Returns**
-
-    the corresponding boolean value
-
-    **Raises**
-
-    `ValueError`: unrecognized boolean string
+    :param s: The string to convert to boolean
+    :return: The corresponding boolean value
+    :raises ValueError: unrecognized boolean string
     """
     try:
         return {'false' : False,
@@ -238,4 +223,4 @@ def str2bool(s):
                 'off'   : False,
                 'on'    : True}[s.lower()]
     except KeyError:
-        raise ValueError('Unrecognized boolean string: "{0}"'.format(s))
+        raise ValueError(f'Unrecognized boolean string: "{s}"') from None

@@ -1,5 +1,6 @@
 from grizzled.misc import bitcount
 
+
 def test_bitcount():
     data = [
     # value      expected
@@ -12,4 +13,4 @@ def test_bitcount():
     ]
     for n, expected in data:
         v = bitcount(n)
-        assert v == expected, 'Expected {}, got {}'.format(expected, v)
+        assert v == expected, f'Expected {expected}, got {v}'

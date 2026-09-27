@@ -10,3 +10,5 @@ apidocs
 /.idea
 __pycache__
 .pytest_cache
+.venv
+uv.lock

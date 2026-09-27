@@ -1,5 +1,6 @@
 from grizzled.text import strip_margin
 
+
 def test_strip_margin():
     assert strip_margin('''|abc
                            |def

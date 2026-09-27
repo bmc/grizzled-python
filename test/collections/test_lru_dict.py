@@ -6,7 +6,7 @@ Tester.
 # Imports
 # ---------------------------------------------------------------------------
 
-from timeit import Timer
+import pytest
 
 from grizzled.collections import LRUDict
 
@@ -18,7 +18,7 @@ from grizzled.collections import LRUDict
 # Classes
 # ---------------------------------------------------------------------------
 
-class TestLRUDict(object):
+class TestLRUDict:
 
     def test_1(self):
         lru = LRUDict(max_capacity=5)
@@ -64,7 +64,7 @@ class TestLRUDict(object):
         assert list(lru.keys()) == ['f', 'b', 'e', 'd', 'a']
 
         def on_remove(key, value, the_list):
-            print('on_remove("%s")' % key)
+            print(f'on_remove("{key}")')
             the_list.append(key)
 
         print('Reducing capacity. Should result in eviction.')
@@ -72,7 +72,7 @@ class TestLRUDict(object):
         lru.add_ejection_listener(on_remove, ejected)
         lru.max_capacity = 3
         ejected.sort()
-        print('ejected=%s' % ejected)
+        print(f'ejected={ejected}')
         assert ejected == ['a', 'd']
         print(list(lru.keys()))
         assert list(lru.keys()) == ['f', 'b', 'e']
@@ -102,3 +102,172 @@ class TestLRUDict(object):
         print('Adding one more')
         assert len(lru) == lru.max_capacity
         print(next(iter(lru)))
+
+    def test_views(self):
+        lru = LRUDict(max_capacity=3)
+        lru['a'] = 'A'
+        lru['b'] = 'B'
+
+        # keys(), values() and items() return dict views, in most recently
+        # used to least recently used order.
+        assert list(lru.keys()) == ['b', 'a']
+        assert list(lru.values()) == ['B', 'A']
+        assert list(lru.items()) == [('b', 'B'), ('a', 'A')]
+        assert len(lru.keys()) == 2
+        assert 'a' in lru
+        assert (lru.keys() | {'c'}) == {'a', 'b', 'c'}
+
+        # Iterating doesn't change recency.
+        assert list(lru) == ['b', 'a']
+        assert list(reversed(lru)) == ['a', 'b']
+        assert list(lru.keys()) == ['b', 'a']
+
+        assert str(lru) == "{'b': 'B', 'a': 'A'}"
+        assert repr(lru) == str(lru)
+
+    def test_constructor_contents(self):
+        lru = LRUDict({'a': 1, 'b': 2}, max_capacity=5)
+        assert list(lru.keys()) == ['b', 'a']
+        assert lru.max_capacity == 5
+
+        lru = LRUDict([('a', 1), ('b', 2)], c=3)
+        assert list(lru.keys()) == ['c', 'b', 'a']
+
+        # Initial contents are subject to the capacity limit, too.
+        lru = LRUDict({'a': 1, 'b': 2, 'c': 3}, max_capacity=2)
+        assert list(lru.keys()) == ['c', 'b']
+
+    def test_get(self):
+        lru = LRUDict(max_capacity=3)
+        lru['a'] = 'A'
+        lru['b'] = 'B'
+
+        # get() returns the value, and it refreshes the entry.
+        assert lru.get('a') == 'A'
+        assert list(lru.keys()) == ['a', 'b']
+        assert lru.get('nonexistent') is None
+        assert lru.get('nonexistent', 'default') == 'default'
+
+    def test_setdefault(self):
+        lru = LRUDict(max_capacity=2)
+        lru['a'] = 1
+
+        assert lru.setdefault('b', 2) == 2
+        assert lru.setdefault('a', 999) == 1
+        assert list(lru.keys()) == ['a', 'b']
+
+        # Inserting via setdefault() honors the capacity limit.
+        assert lru.setdefault('c', 3) == 3
+        assert list(lru.keys()) == ['c', 'a']
+        assert len(lru) == 2
+
+    def test_copy_and_equality(self):
+        lru = LRUDict(max_capacity=3)
+        lru['a'] = 1
+        lru['b'] = 2
+
+        assert lru == {'a': 1, 'b': 2}
+        assert lru == {'a': 1, 'b': 2}
+        assert lru != {'a': 1}
+
+        copy = lru.copy()
+        assert copy == lru
+        assert copy.max_capacity == lru.max_capacity
+        assert list(copy.keys()) == list(lru.keys())
+
+        copy['c'] = 3
+        assert 'c' not in lru
+
+    def test_or(self):
+        lru = LRUDict({'a': 1}, max_capacity=5)
+
+        merged = lru | {'b': 2}
+        assert isinstance(merged, LRUDict)
+        assert merged == {'a': 1, 'b': 2}
+        assert merged.max_capacity == 5
+        assert lru == {'a': 1}
+
+        merged = {'b': 2} | lru
+        assert merged == {'a': 1, 'b': 2}
+
+        lru |= {'b': 2}
+        assert lru == {'a': 1, 'b': 2}
+        assert list(lru.keys()) == ['b', 'a']
+
+    def test_update(self):
+        lru = LRUDict(max_capacity=2)
+
+        # A mapping, an iterable of pairs, and keywords all work, and all of
+        # them honor the capacity limit.
+        lru.update({'a': 1, 'b': 2, 'c': 3})
+        assert list(lru.keys()) == ['c', 'b']
+
+        lru.update([('d', 4)])
+        assert list(lru.keys()) == ['d', 'c']
+
+        lru.update({'e': 5}, e=6)
+        assert lru['e'] == 6
+        assert list(lru.keys()) == ['e', 'd']
+
+        # Anything with keys() and __getitem__() is acceptable.
+        class Mappingish:
+            def keys(self):
+                return ['x', 'y']
+
+            def __getitem__(self, key):
+                return key.upper()
+
+        lru = LRUDict()
+        lru.update(Mappingish())
+        assert lru == {'x': 'X', 'y': 'Y'}
+
+    def test_listeners_get_values(self):
+        removed = []
+
+        def on_remove(key, value, accumulator):
+            accumulator.append((key, value))
+
+        lru = LRUDict(max_capacity=2)
+        lru.add_removal_listener(on_remove, removed)
+        lru['a'] = 'A'
+        lru['b'] = 'B'
+
+        # Ejecting 'a' to make room for 'c' notifies the listener with the
+        # ejected value, not None.
+        lru['c'] = 'C'
+        assert removed == [('a', 'A')]
+
+        del lru['b']
+        assert removed == [('a', 'A'), ('b', 'B')]
+
+        assert lru.remove_listener(on_remove)
+        assert not lru.remove_listener(on_remove)
+
+    def test_pop(self):
+        lru = LRUDict(max_capacity=5)
+        lru.update({'a': 1, 'b': 2})
+
+        assert lru.pop('a') == 1
+        assert lru == {'b': 2}
+        assert lru.pop('a', 'default') == 'default'
+
+        with pytest.raises(KeyError):
+            lru.pop('a')
+
+        assert lru.popitem() == ('b', 2)
+
+        with pytest.raises(KeyError):
+            lru.popitem()
+
+    def test_is_a_dict(self):
+        lru = LRUDict(max_capacity=5)
+        lru['a'] = 1
+
+        assert isinstance(lru, dict)
+        assert 'a' in lru
+        assert len(lru) == 1
+
+        lru2 = LRUDict.fromkeys(['a', 'b'], 0)
+        assert isinstance(lru2, LRUDict)
+        assert lru2 == {'a': 0, 'b': 0}
+        assert list(lru2.keys()) == ['b', 'a']

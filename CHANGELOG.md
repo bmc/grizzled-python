@@ -1,5 +1,31 @@
 # Change Log for grizzled-python
 
+Version 3.0.0 (xx August, 2023)
+
+- `grizzled.file.includer.Includer` now only accepts file-like objects
+  on the constructor. Path names are no longer supported. (Open the source
+  file yourself, first.)
+- `grizzled.collections.LRUDict` now overrides the `dict` methods it has to
+  override in a way that's type-compatible with `dict`, so type checkers
+  (e.g., pyright/Pylance) no longer flag incompatible overrides. As part of
+  that work:
+    - `keys()`, `values()` and `items()` now return dictionary views, as
+      `dict` does, instead of lists. The views are views onto a snapshot of
+      the dictionary's contents, in most recently used to least recently
+      used order.
+    - The constructor now accepts initial contents (a mapping or an iterable
+      of key/value pairs, plus keyword arguments), the way `dict` does.
+      Previously, positional arguments were silently ignored.
+    - `get()` no longer throws an `AttributeError`; it returns the value
+      associated with the key, as documented.
+    - Eviction now passes the evicted value (not `None`) to removal and
+      ejection listeners.
+    - Added `setdefault()`, `copy()`, `__reversed__()`, `__eq__()`,
+      `__repr__()`, `__or__()`, `__ror__()` and `__ior__()` overrides. The
+      inherited `dict` versions operated on `LRUDict`'s internal recency
+      wrapper objects, and `setdefault()` and `|=` bypassed (and corrupted)
+      the recency bookkeeping.
+
 Version 2.2.0 (12 March, 2019)
 
 - Added `grizzled.text.stripmargin()` function.
@@ -16,7 +42,7 @@ Version 2.0.0 (12 February, 2019)
 - Updated API docs to use [pdoc](https://github.com/mitmproxy/pdoc/), instead
   of Epydoc
 - Removed `grizzled.collections.OrderedDict`. Use the standard Python
-  `collections.OrderedDict`, instead.  
+  `collections.OrderedDict`, instead.
 - Removed `grizzled.Configuration`. Use the standard `configparser` classes,
   instead. (They lack support for include files, but you can preprocess the
   file using `grizzled.file.includer`, if you need that.)
@@ -30,15 +56,15 @@ Version 2.0.0 (12 February, 2019)
   `zipfile.ZipFile.extractall()` now provides that functionality, so
   `grizzled.io.Zip` is no longer of any use.
 - Removed `grizzled.cmdline` module (a front-end to `optparse`). There are
-  far better solutions out there now 
+  far better solutions out there now
   (such as [click](https://click.palletsprojects.com/en/7.x/)).
 - Removed `grizzled.exception` module. It's become obsolete.
 - Removed `grizzled.history`. Just use the standard `readline` module.
-- Removed `grizzled.decorators.abstract`. Use the facilities in the 
+- Removed `grizzled.decorators.abstract`. Use the facilities in the
   standard `abc` package.
 - Removed `grizzled.file.copy_recursively()`. It was just a single-line wrapper
-  around `shutil.copytree()`.  
-- Removed `grizzled.os.file_separator()`. Use standard `os.path.sep`, instead.  
+  around `shutil.copytree()`.
+- Removed `grizzled.os.file_separator()`. Use standard `os.path.sep`, instead.
 - Removed `python_version()`, `python_version_string()`, `ensure_version()`
   and `python_version_string()` from `grizzled.system`. They're pointless.
   Just use `sys.version_info` and tuple comparison.
@@ -55,8 +81,8 @@ Version 1.1.0 (24 May, 2017)
 - Removed dependency on `enum34` package.
 - Added dependency on `backports.tempfile` package, to allow using
   `with TemporaryDirectory()` on both Python 3 and Python 2.
-- `grizzled.file.eglob` is now lazy, returning a generator, rather than a list.  
-- Added tests for `grizzled.file.eglob`.  
+- `grizzled.file.eglob` is now lazy, returning a generator, rather than a list.
+- Added tests for `grizzled.file.eglob`.
 
 Version 1.0.5 through 1.0.7 (12 February, 2016)
 

@@ -6,10 +6,12 @@ Tester.
 # Imports
 # ---------------------------------------------------------------------------
 
-from grizzled.misc import ReadOnly, ReadOnlyObjectError
 import pytest
 
-class Something(object):
+from grizzled.misc import ReadOnly, ReadOnlyObjectError
+
+
+class Something:
     def __init__(self, a=1, b=2):
         self.a = a
         self.b = b

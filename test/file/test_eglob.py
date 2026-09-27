@@ -1,22 +1,23 @@
 
-from grizzled.file import eglob, touch
 import os
 from os import path
 from tempfile import TemporaryDirectory
-from contextlib import contextmanager
+from typing import Generator, Sequence
+
 import pytest
 
-from typing import Sequence, Set, Generator
+from grizzled.file import eglob, touch
 
-class Files(object):
+
+class Files:
     def __init__(self,
                  tempdir: str,
-                 files: [str],
+                 files: Sequence[str],
                  dirs: Sequence[str],
-                 py_files: Set[str],
-                 txt_files: Set[str],
-                 top_level_files: Set[str],
-                 readmes: Set[str]):
+                 py_files: set[str],
+                 txt_files: set[str],
+                 top_level_files: set[str],
+                 readmes: set[str]):
         self.tempdir = tempdir
         self.files = files
         self.dirs = dirs
@@ -26,7 +27,7 @@ class Files(object):
         self.readmes = readmes
 
 @pytest.fixture
-def tempfiles() -> Generator[Files, None, None]:
+def tempfiles() -> Generator[Files]:
     with TemporaryDirectory() as tempdir:
         foo = path.join(tempdir, "foo")
         bar = path.join(tempdir, "bar")

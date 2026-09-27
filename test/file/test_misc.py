@@ -4,11 +4,13 @@
 # Imports
 # ---------------------------------------------------------------------------
 
-from grizzled.file import *
 import os
 import tempfile
-import atexit
+from contextlib import chdir
 from tempfile import TemporaryDirectory
+
+from grizzled.file import eglob, list_recursively, touch, unlink_quietly
+
 
 def fix_path(p: str) -> str:
     return p.replace('/', os.path.sep)
@@ -20,28 +22,11 @@ def test_unlink_quietly():
 
     try:
         os.unlink(path)
-        assert False, 'Expected an exception'
+        raise AssertionError('Expected an exception')
     except OSError:
         pass
 
     unlink_quietly(path)
-
-def test_recursively_remove():
-    path = tempfile.mkdtemp()
-    print(('Created directory "{0}"'.format(path)))
-
-    # Create some files underneath
-
-    touch([os.path.join(path, 'foo'),
-           os.path.join(path, 'bar')])
-
-    try:
-        os.unlink(path)
-        assert False, 'Expected an exception'
-    except OSError:
-        pass
-
-    recursively_remove(path)
 
 def test_list_recursively():
     # Code below uses "/" as a path separator, but paths are coerced
@@ -82,8 +67,7 @@ def test_eglob():
             with open(os.path.join(path, fix_path(f)), 'w'):
                 pass
 
-        from grizzled.os import working_directory
-        with working_directory(path):
+        with chdir(path):
             expected = {
                 'one/foo.py', 'four/test.py', 'four/test2.py',
                 'four/five/x.py', 'six/seven/test.py'

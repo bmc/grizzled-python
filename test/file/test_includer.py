@@ -1,11 +1,14 @@
-import os
-from tempfile import TemporaryDirectory
 import codecs
 import logging
-from grizzled.file.includer import *
-from grizzled.os import working_directory
-from grizzled.text import strip_margin
+import os
+from pathlib import Path
+from tempfile import TemporaryDirectory
+
 import pytest
+
+from grizzled.file.includer import Includer, MaxNestingExceededError
+from grizzled.text import strip_margin
+
 
 @pytest.fixture
 def log():
@@ -30,20 +33,21 @@ def test_simple(log):
            |'''
     )
     with TemporaryDirectory() as dir:
-        outer_path = os.path.join(dir, "outer.txt")
+        outer_path = Path(dir) / "outer.txt"
         all = (
             (outer, outer_path),
-            (inner, os.path.join(dir, "inner.txt")),
+            (inner, Path(dir) / "inner.txt"),
         )
         for text, path in all:
             log.debug(f'writing "{path}"')
             with codecs.open(path, mode='w', encoding='utf-8') as f:
                 f.write(strip_margin(text))
 
-        inc = Includer(outer_path)
-        lines = [line for line in inc]
-        res = ''.join(lines)
-        assert res == expected
+        with outer_path.open(mode="r", encoding="utf-8") as f:
+            inc = Includer(f)
+            lines = [line for    line in inc]
+            res = ''.join(lines)
+            assert res == expected
 
 def test_nested(log):
     outer = '''|First non-blank line.
@@ -79,10 +83,11 @@ def test_nested(log):
             with codecs.open(path, mode='w', encoding='utf-8') as f:
                 f.write(strip_margin(text))
 
-        inc = Includer(outer_path)
-        lines = [line for line in inc]
-        res = ''.join(lines)
-        assert res == expected
+        with Path(outer_path).open(mode="r", encoding="utf-8") as f:
+            inc = Includer(f)
+            lines = [line for line in inc]
+            res = ''.join(lines)
+            assert res == expected
 
 def test_overflow(log):
     outer = '''|First non-blank line.
@@ -96,11 +101,8 @@ def test_overflow(log):
             f.write(strip_margin(outer))
 
         try:
-            Includer(outer_path, max_nest_level=10)
-            assert False, "Expected max-nesting exception"
+            with Path(outer_path).open(mode="r", encoding="utf-8") as f:
+                Includer(f, max_nest_level=10)
+            raise AssertionError("Expected max-nesting exception")
         except MaxNestingExceededError as e:
             print(e)
-
-def _log_text_file(log, prefix: str, text: str) -> None:
-    log.debug(f'{prefix}:\n---\n{text}\n---')
-
