@@ -4,7 +4,6 @@
 # Imports
 # ---------------------------------------------------------------------------
 
-from io import StringIO
 
 from grizzled.os import find_command
 
