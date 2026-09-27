@@ -6,7 +6,7 @@ subpackages that group different kinds of utility functions and classes.
 
 __docformat__ = "markdown"
 
-__version__ = "3.0.0"
+__version__ = "3.0.1"
 __author__ = "Brian M. Clapper"
 __email__ = "bmc@clapper.org"
 __url__ = "https://software.clapper.org/grizzled-python/"

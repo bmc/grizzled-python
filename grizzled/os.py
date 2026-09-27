@@ -10,12 +10,13 @@ __docformat__ = "markdown"
 # ---------------------------------------------------------------------------
 
 import errno
-import glob
 import logging
 import os as _os
 from contextlib import suppress
 from pathlib import Path
 from typing import NoReturn, Sequence
+
+from .file import _map_paths
 
 # ---------------------------------------------------------------------------
 # Exports
@@ -24,7 +25,6 @@ from typing import NoReturn, Sequence
 __all__ = [
     "daemonize",
     "DaemonError",
-    "path_separator",
     "find_command",
     "spawnd",
 ]
@@ -77,71 +77,35 @@ class DaemonError(OSError):
 # Public functions
 # ---------------------------------------------------------------------------
 
-
-def path_separator() -> str:
-    """
-    Get the path separator for the current operating system. The path
-    separator is used to separate elements of a path string, such as
-    "PATH" or "CLASSPATH". (It's a ":" on Unix-like systems and a ";"
-    on Windows.)
-
-    :return: the path separator
-    """
-    return PATH_SEPARATOR[_os.name]
-
-
-def path_elements(path: str) -> Sequence[str]:
-    """
-    Given a path string value (e.g., the value of the environment variable
-    `PATH`), this function returns each item in the path.
-
-    :param path: the path string to split into elements
-    :return: sequence of path elements
-    """
-    return path.split(path_separator())
-
-
 def find_command(
-    command_name: str, path: str | Sequence[str] | Path | Sequence[Path] | None
+    command_name: str,
+    path: str | Sequence[str] | Path | Sequence[Path] | None = None
 ) -> Path | None:
     """
     Determine whether the specified system command exists in the specified
     path.
 
     :param command_name: the name of the command to find
-    :param path: the path string or sequence of path elements to search
+    :param path: the path string or sequence of path elements to search,
+        or None to use the system's default PATH environment variable
     :return: full path to the command, or `None` if not found
     """
-    if not path:
-        path = _os.environ.get("PATH", ".")
-
-    pieces: list[str]
-    if type(path) is str:
-        pieces = path.split(path_separator())
-    elif isinstance(path, Sequence):
-        for p in path:
-            if (type(p) is not str) and (not isinstance(p, Path)):
-                raise AssertionError(
-                    "Expected string or Path in path sequence, but got "
-                    f"{type(p).__name__}"
-                )
-        pieces = [str(p) for p in path]
-    elif isinstance(path, Path):
-        pieces = [str(path)]
-
-    found: Path | None = None
-    for p in pieces:
-        full_path = _os.path.join(p, command_name)
-        for p2 in glob.glob(full_path):
-            if _os.access(p2, _os.X_OK):
-                found = Path(p2)
-                break
-
-        if found:
-            return found
+    paths: list[Path]
+    if path is not None:
+        if type(path) is str and len(path) == 0:
+            env = _os.environ
+        else:
+            paths = _map_paths(path)
+            env = {"PATH": _os.pathsep.join(str(p) for p in paths)}
     else:
-        return None
+        env = _os.environ
 
+    for directory in _os.get_exec_path(env=env):
+        p = Path(directory) / command_name
+        if p.exists() and p.is_file() and _os.access(p, _os.X_OK):
+            return p
+
+    return None
 
 def spawnd(
     path: str, args: list[str] | tuple[str, ...], pidfile: str | None = None
