@@ -13,10 +13,17 @@ from grizzled.file import eglob, list_recursively, touch, unlink_quietly
 
 
 def fix_path(p: str) -> str:
+    """
+    Fix a path to use the native path separator.
+
+    :param p: The path to fix.
+    :returns: The path with native separators.
+    """
     return p.replace('/', os.path.sep)
 
 
-def test_unlink_quietly():
+def test_unlink_quietly() -> None:
+    """Test that unlink_quietly removes a file without raising an exception."""
     fd, path = tempfile.mkstemp()
     os.unlink(path)
 
@@ -28,7 +35,8 @@ def test_unlink_quietly():
 
     unlink_quietly(path)
 
-def test_list_recursively():
+def test_list_recursively() -> None:
+    """Test that list_recursively correctly lists all files and directories."""
     # Code below uses "/" as a path separator, but paths are coerced
     # to use the native path separator.
 
@@ -50,14 +58,16 @@ def test_list_recursively():
 
         assert(res == expected)
 
-def test_touch():
+def test_touch() -> None:
+    """Test that touch creates a file if it does not exist."""
     with TemporaryDirectory() as path:
         f = os.path.join(path, 'foo')
         assert not os.path.exists(f)
         touch(f)
         assert os.path.exists(f)
 
-def test_eglob():
+def test_eglob() -> None:
+    """Test that eglob correctly finds files matching a pattern."""
     with TemporaryDirectory() as path:
         for d in ('one', 'two', 'three', 'four/five', 'six/seven/eight'):
             os.makedirs(os.path.join(path, fix_path(d)))

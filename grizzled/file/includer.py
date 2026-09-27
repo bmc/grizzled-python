@@ -86,7 +86,7 @@ import logging
 import os
 import re
 from io import TextIOBase, UnsupportedOperation
-from typing import BinaryIO, Iterable, Iterator, TextIO
+from typing import BinaryIO, Iterable, Iterator, Self, TextIO
 
 __docformat__ = "markdown"
 
@@ -110,7 +110,7 @@ class IncludeError(Exception):
     contains an error message describing the problem.
     """
 
-    def __init__(self, message: str):
+    def __init__(self: Self, message: str):
         super().__init__(message)
         self.message = message
 
@@ -142,7 +142,7 @@ class Includer(TextIOBase):
     """
 
     def __init__(
-        self,
+        self: Self,
         source: TextIO,
         include_regex: str = r'^%include\s"([^"]+)"',
         max_nest_level: int = 100,
@@ -179,7 +179,7 @@ class Includer(TextIOBase):
     # -----------------------------------------------------------------
 
     @property
-    def name(self) -> str | None:
+    def name(self: Self) -> str | None:
         """
         The name of the source being processed, or `None` if the source
         has no name (e.g., it's a `StringIO` object).
@@ -190,7 +190,7 @@ class Includer(TextIOBase):
     # but at runtime it's a read-only descriptor (it returns None), so a
     # property is the only way to override it. Hence the suppression.
     @property
-    def encoding(self) -> str:  # pyright: ignore
+    def encoding(self: Self) -> str:  # pyright: ignore
         """
         The encoding used when opening included files.
         """
@@ -200,15 +200,15 @@ class Includer(TextIOBase):
     # Capabilities
     # -----------------------------------------------------------------
 
-    def readable(self) -> bool:
+    def readable(self: Self) -> bool:
         """An `Includer` is always readable."""
         return True
 
-    def seekable(self) -> bool:
+    def seekable(self: Self) -> bool:
         """An `Includer` is always seekable."""
         return True
 
-    def writable(self) -> bool:
+    def writable(self: Self) -> bool:
         """An `Includer` is never writable."""
         return False
 
@@ -216,7 +216,7 @@ class Includer(TextIOBase):
     # Reading
     # -----------------------------------------------------------------
 
-    def read(self, size: int | None = -1) -> str:
+    def read(self: Self, size: int | None = -1) -> str:
         """
         Read characters from the expanded content.
 
@@ -236,7 +236,7 @@ class Includer(TextIOBase):
         self._pos = end
         return result
 
-    def readline(self, size: int | None = -1) -> str:
+    def readline(self: Self, size: int | None = -1) -> str:
         """
         Read the next line from the expanded content.
 
@@ -256,7 +256,7 @@ class Includer(TextIOBase):
         self._pos = end
         return line
 
-    def readlines(self, hint: int = -1) -> list[str]:
+    def readlines(self: Self, hint: int = -1) -> list[str]:
         """
         Read all remaining lines from the expanded content.
 
@@ -296,7 +296,7 @@ class Includer(TextIOBase):
 
         return line
 
-    def getvalue(self) -> str:
+    def getvalue(self: Self) -> str:
         """
         Retrieve the entire expanded content, as a single string. The
         current file offset is neither used nor changed.
@@ -311,7 +311,7 @@ class Includer(TextIOBase):
     # Positioning
     # -----------------------------------------------------------------
 
-    def seek(self, offset: int, whence: int = 0) -> int:
+    def seek(self: Self, offset: int, whence: int = 0) -> int:
         """
         Change the current offset within the expanded content.
 
@@ -339,7 +339,7 @@ class Includer(TextIOBase):
         self._pos = min(new_pos, len(self._text))
         return self._pos
 
-    def tell(self) -> int:
+    def tell(self: Self) -> int:
         """
         Get the current offset within the expanded content.
 
@@ -353,19 +353,19 @@ class Includer(TextIOBase):
     # Unsupported operations
     # -----------------------------------------------------------------
 
-    def write(self, s: str) -> int:
+    def write(self: Self, s: str) -> int:
         """Not supported: `Includer` objects are read-only."""
         raise UnsupportedOperation("Includers are read-only file objects.")
 
-    def writelines(self, lines: Iterable[str]) -> None:
+    def writelines(self: Self, lines: Iterable[str]) -> None:
         """Not supported: `Includer` objects are read-only."""
         raise UnsupportedOperation("Includers are read-only file objects.")
 
-    def truncate(self, size: int | None = None) -> int:
+    def truncate(self: Self, size: int | None = None) -> int:
         """Not supported: `Includer` objects are read-only."""
         raise UnsupportedOperation("Includers are read-only file objects.")
 
-    def detach(self) -> BinaryIO:
+    def detach(self: Self) -> BinaryIO:
         """Not supported: there's no underlying binary buffer."""
         raise UnsupportedOperation("Includers have no underlying buffer.")
 
@@ -373,12 +373,16 @@ class Includer(TextIOBase):
     # Private methods
     # -----------------------------------------------------------------
 
-    def _check_open(self) -> None:
+    def _check_open(self: Self) -> None:
         if self.closed:
             raise ValueError("I/O operation on closed file.")
 
     def _process_includes(
-        self, file_in: TextIO, filename: str | None, buf: list[str], level: int
+        self: Self,
+        file_in: TextIO,
+        filename: str | None,
+        buf: list[str],
+        level: int,
     ) -> None:
         log.debug(f'Processing includes in "{filename}"')
 
@@ -400,7 +404,7 @@ class Includer(TextIOBase):
                 self._process_includes(f, included_name, buf, level + 1)
 
     def _open(
-        self, name_to_open: str, enclosing_file: str | None
+        self: Self, name_to_open: str, enclosing_file: str | None
     ) -> tuple[TextIO, str]:
         if not os.path.isabs(name_to_open):
             # Not an absolute path. Base it on the enclosing file's

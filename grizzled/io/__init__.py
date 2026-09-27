@@ -9,7 +9,7 @@ __docformat__ = "markdown"
 # ---------------------------------------------------------------------------
 
 import os
-from typing import IO, AnyStr, NoReturn, TextIO
+from typing import IO, AnyStr, NoReturn, Self, TextIO
 
 from . import filelock
 
@@ -37,7 +37,7 @@ class AutoFlush:
     sys.stdout = AutoFlush(sys.stdout)
     ```
     """
-    def __init__(self, f: IO) -> None:
+    def __init__(self: Self, f: IO) -> None:
         """
         Create a new `AutoFlush` object to wrap a file-like object.
 
@@ -45,7 +45,7 @@ class AutoFlush:
         """
         self._file = f
 
-    def write(self, buf: bytes | bytearray | AnyStr):
+    def write(self: Self, buf: bytes | bytearray | AnyStr) -> None:
         """
         Write the specified buffer to the file.
 
@@ -56,13 +56,13 @@ class AutoFlush:
         self._file.write(buf)
         self._file.flush()
 
-    def flush(self) -> None:
+    def flush(self: Self) -> None:
         """
         Force a flush.
         """
         self._file.flush()
 
-    def truncate(self, size: int =-1) -> None:
+    def truncate(self: Self, size: int =-1) -> None:
         """
         Truncate the underlying file. Might fail.
 
@@ -74,7 +74,7 @@ class AutoFlush:
             size = self._file.tell()
         self._file.truncate(size)
 
-    def tell(self) -> int:
+    def tell(self: Self) -> int:
         """
         Return the file's current position, if applicable.
 
@@ -83,7 +83,7 @@ class AutoFlush:
         """
         return self._file.tell()
 
-    def seek(self, offset: int, whence: int = os.SEEK_SET) -> None:
+    def seek(self: Self, offset: int, whence: int = os.SEEK_SET) -> None:
         """
         Set the file's current position. The `whence` argument is optional;
         legal values are:
@@ -109,7 +109,7 @@ class AutoFlush:
         """
         self._file.seek(offset, whence)
 
-    def fileno(self) -> int:
+    def fileno(self: Self) -> int:
         """
         Return the integer file descriptor used by the underlying file.
 
@@ -132,7 +132,7 @@ class MultiWriter:
     sys.stdout = MultiWriter(sys.__stdout__, open('/tmp/log', 'w'))
     ```
     """
-    def __init__(self, *args: IO):
+    def __init__(self: Self, *args: IO) -> None:
         """
         Create a new `MultiWriter` object to wrap one or more file-like
         objects.
@@ -141,7 +141,7 @@ class MultiWriter:
         """
         self._files = list(args)
 
-    def write(self, buf: bytes | bytearray | AnyStr) -> None:
+    def write(self: Self, buf: bytes | bytearray | AnyStr) -> None:
         """
         Write the specified buffer to the wrapped files.
 
@@ -150,14 +150,14 @@ class MultiWriter:
         for f in self._files:
             f.write(buf)
 
-    def flush(self) -> None:
+    def flush(self: Self) -> None:
         """
         Force a flush.
         """
         for f in self._files:
             f.flush()
 
-    def close(self) -> None:
+    def close(self: Self) -> None:
         """
         Close all contained files.
         """
@@ -169,7 +169,7 @@ class PushbackFile:
     """
     A file-like wrapper object that permits pushback.
     """
-    def __init__(self, f: TextIO):
+    def __init__(self: Self, f: TextIO) -> None:
         """
         Create a new `PushbackFile` object to wrap a file-like object.
 
@@ -177,7 +177,7 @@ class PushbackFile:
         """
         self.__buf = [c for c in ''.join(f.readlines())]
 
-    def write(self, buf: bytes | bytearray | AnyStr):
+    def write(self: Self, buf: bytes | bytearray | AnyStr) -> None:
         """
         Write the specified buffer to the file. This method throws an
         unconditional exception, since `PushbackFile` objects are read-only.
@@ -187,7 +187,7 @@ class PushbackFile:
         """
         raise NotImplementedError('PushbackFile is read-only')
 
-    def pushback(self, s: str) -> None:
+    def pushback(self: Self, s: str) -> None:
         """
         Push a character or string back onto the input stream.
 
@@ -195,7 +195,7 @@ class PushbackFile:
         """
         self.__buf = [c for c in s] + self.__buf
 
-    def unread(self, s: str) -> None:
+    def unread(self: Self, s: str) -> None:
         """
         Alias for `pushback()`.
 
@@ -203,7 +203,7 @@ class PushbackFile:
         """
         self.pushback(s)
 
-    def read(self, n: int = -1) -> str:
+    def read(self: Self, n: int = -1) -> str:
         """
         Read *n* bytes from the open file as a string.
         :param n: Number of bytes to read. A negative number instructs
@@ -224,7 +224,7 @@ class PushbackFile:
 
         return ''.join(resultBuf)
 
-    def readline(self):
+    def readline(self: Self) -> str:
         """
         Read the next line from the file.
 
@@ -239,7 +239,7 @@ class PushbackFile:
         self.__buf = self.__buf[i+1:]
         return ''.join(result)
 
-    def readlines(self):
+    def readlines(self: Self) -> str:
         """
         Read all remaining lines in the file.
 
@@ -247,13 +247,13 @@ class PushbackFile:
         """
         return self.read(-1)
 
-    def __iter__(self):
+    def __iter__(self: Self):
         """
         Returns this object, since it is its own iterator.
         """
         return self
 
-    def __next__(self):
+    def __next__(self: Self):
         """
         Return the next line from the file, or raise StopIteration if at EOF.
         """
@@ -262,11 +262,11 @@ class PushbackFile:
             raise StopIteration
         return line
 
-    def close(self):
+    def close(self: Self) -> None:
         """Close the file. A no-op in this class."""
         pass
 
-    def flush(self):
+    def flush(self: Self) -> None:
         """
         Force a flush. This method throws an unconditional exception, since
         `PushbackFile` objects are read-only.
@@ -275,7 +275,7 @@ class PushbackFile:
         """
         raise NotImplementedError('PushbackFile is read-only')
 
-    def truncate(self, size: int =-1) -> NoReturn:
+    def truncate(self: Self, size: int =-1) -> NoReturn:
         """
         Truncate the underlying file. This method throws an unconditional
         exception, since `PushbackFile` objects are read-only.
@@ -286,7 +286,7 @@ class PushbackFile:
         """
         raise NotImplementedError()
 
-    def tell(self) -> int:
+    def tell(self: Self) -> int:
         """
         Return the file's current position, if applicable. This method throws
         an unconditional exception, since `PushbackFile` objects are
@@ -296,7 +296,7 @@ class PushbackFile:
         """
         raise NotImplementedError()
 
-    def seek(self, offset, whence=os.SEEK_SET):
+    def seek(self: Self, offset: int, whence: int = os.SEEK_SET) -> None:
         """
         Set the file's current position. This method throws an unconditional
         exception, since `PushbackFile` objects are not seekable.
@@ -305,7 +305,7 @@ class PushbackFile:
         """
         raise NotImplementedError('PushbackFile is not seekable')
 
-    def fileno(self):
+    def fileno(self: Self) -> int:
         """
         Return the integer file descriptor used by the underlying file. This
         method always returns -1.

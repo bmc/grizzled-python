@@ -9,7 +9,11 @@ import pytest
 from grizzled.text import str2bool
 
 
-def test_good_strings():
+def test_good_strings() -> None:
+    """
+    Test that str2bool correctly interprets various string representations of
+    boolean values.
+    """
     for s, expected in (('false', False,),
                         ('true',  True,),
                         ('f',     False,),
@@ -24,7 +28,10 @@ def test_good_strings():
             val = str2bool(s2)
             assert val == expected
 
-def test_bad_strings():
+def test_bad_strings() -> None:
+    """
+    Test that str2bool raises ValueError for invalid string representations.
+    """
     for s in ('foo', 'bar', 'xxx', 'yyy', ''):
         with pytest.raises(ValueError):
             str2bool(s)

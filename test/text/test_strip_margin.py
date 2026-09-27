@@ -1,7 +1,8 @@
 from grizzled.text import strip_margin
 
 
-def test_strip_margin():
+def test_strip_margin() -> None:
+    """Test the strip_margin function."""
     assert strip_margin('''|abc
                            |def
                            |ghi''') == 'abc\ndef\nghi'

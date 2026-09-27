@@ -8,6 +8,8 @@ __docformat__ = "markdown"
 # Imports
 # ---------------------------------------------------------------------------
 
+import functools
+from typing import Any, Callable, NoReturn, ParamSpec, TypeVar
 
 # ---------------------------------------------------------------------------
 # Exports
@@ -16,11 +18,20 @@ __docformat__ = "markdown"
 __all__ = ["deprecated", "unimplemented"]
 
 # ---------------------------------------------------------------------------
+# Type variables
+# ---------------------------------------------------------------------------
+
+P = ParamSpec("P")
+R = TypeVar("R")
+
+# ---------------------------------------------------------------------------
 # Decorators
 # ---------------------------------------------------------------------------
 
 
-def deprecated(since: str | None = None, message: str | None = None):
+def deprecated(
+    since: str | None = None, message: str | None = None
+) -> Callable[..., Any]:
     """
     Decorator for marking a function deprecated. Generates a warning on
     standard output if the function is called.
@@ -59,7 +70,7 @@ def deprecated(since: str | None = None, message: str | None = None):
     :param message: optional additional message to print
     """
 
-    def decorator(func):
+    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         if since is None:
             buf = f"Method {func.__name__} is deprecated."
         else:
@@ -68,21 +79,19 @@ def deprecated(since: str | None = None, message: str | None = None):
         if message:
             buf += " " + message
 
-        def wrapper(*__args, **__kw):
+        @functools.wraps(func)
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
             import warnings
 
             warnings.warn(buf, category=DeprecationWarning, stacklevel=2)
-            return func(*__args, **__kw)
+            return func(*args, **kwargs)
 
-        wrapper.__name__ = func.__name__
-        wrapper.__dict__ = func.__dict__
-        wrapper.__doc__ = func.__doc__
         return wrapper
 
     return decorator
 
 
-def unimplemented(func):
+def unimplemented(func: Callable[P, R]) -> Callable[P, R]:
     """
     Decorator for marking a function or method unimplemented. Throws a
     `NotImplementedError` if called.
@@ -100,12 +109,10 @@ def unimplemented(func):
     ```
     """
 
-    def wrapper(*__args, **__kw):
+    @functools.wraps(func)
+    def wrapper(*args: P.args, **kwargs: P.kwargs) -> NoReturn:
         raise NotImplementedError(
             f'Method or function "{func.__name__}" is not implemented'
         )
 
-    wrapper.__name__ = func.__name__
-    wrapper.__dict__ = func.__dict__
-    wrapper.__doc__ = func.__doc__
     return wrapper

@@ -1,7 +1,8 @@
 from grizzled.misc import bitcount
 
 
-def test_bitcount():
+def test_bitcount() -> None:
+    """Test the bitcount function."""
     data = [
     # value      expected
     (1000,         518),

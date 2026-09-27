@@ -1,4 +1,3 @@
-import codecs
 import logging
 import os
 from pathlib import Path
@@ -11,11 +10,16 @@ from grizzled.text import strip_margin
 
 
 @pytest.fixture
-def log():
+def log() -> logging.Logger:
+    """Fixture that provides a logger for the tests.
+
+    :returns: A logger instance named 'test'.
+    """
     return logging.getLogger('test')
 
 
-def test_simple(log):
+def test_simple(log: logging.Logger) -> None:
+    """Test that a simple include works correctly."""
     outer = '''|First non-blank line.
                |Second non-blank line.
                |%include "inner.txt"
@@ -40,7 +44,7 @@ def test_simple(log):
         )
         for text, path in all:
             log.debug(f'writing "{path}"')
-            with codecs.open(path, mode='w', encoding='utf-8') as f:
+            with open(path, mode='w', encoding='utf-8') as f:
                 f.write(strip_margin(text))
 
         with outer_path.open(mode="r", encoding="utf-8") as f:
@@ -49,7 +53,8 @@ def test_simple(log):
             res = ''.join(lines)
             assert res == expected
 
-def test_nested(log):
+def test_nested(log: logging.Logger) -> None:
+    """Test that nested includes work correctly."""
     outer = '''|First non-blank line.
                |Second non-blank line.
                |%include "nested1.txt"
@@ -80,7 +85,7 @@ def test_nested(log):
             (nested2, os.path.join(dir, "nested2.txt")),
         )
         for text, path in all:
-            with codecs.open(path, mode='w', encoding='utf-8') as f:
+            with open(path, mode='w', encoding='utf-8') as f:
                 f.write(strip_margin(text))
 
         with Path(outer_path).open(mode="r", encoding="utf-8") as f:
@@ -89,7 +94,8 @@ def test_nested(log):
             res = ''.join(lines)
             assert res == expected
 
-def test_overflow(log):
+def test_overflow(log: logging.Logger) -> None:
+    """Test that exceeding the maximum nesting level raises an exception."""
     outer = '''|First non-blank line.
                |Second non-blank line.
                |%include "outer.txt"
@@ -97,7 +103,7 @@ def test_overflow(log):
                |'''
     with TemporaryDirectory() as dir:
         outer_path = os.path.join(dir, "outer.txt")
-        with codecs.open(outer_path, mode='w', encoding='utf-8') as f:
+        with open(outer_path, mode='w', encoding='utf-8') as f:
             f.write(strip_margin(outer))
 
         try:

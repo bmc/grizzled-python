@@ -43,6 +43,7 @@ __docformat__ = "markdown"
 
 import fcntl
 from contextlib import contextmanager
+from typing import Generator, Self
 
 # ---------------------------------------------------------------------------
 # Exports
@@ -67,7 +68,7 @@ class FileLock:
     Currently, this implementation only supports POSIX-compliant systems.
     """
 
-    def __init__(self, fd: int) -> None:
+    def __init__(self: Self, fd: int) -> None:
         """
         Allocate a new file lock that operates on the specified file
         descriptor.
@@ -79,7 +80,7 @@ class FileLock:
         """
         self._fd = fd
 
-    def acquire(self, no_wait: bool = False):
+    def acquire(self: Self, no_wait: bool = False) -> None:
         """
         Lock the associated file. If someone already has the file locked, this
         method will suspend the calling process, unless `no_wait` is `True`.
@@ -95,7 +96,7 @@ class FileLock:
 
         fcntl.lockf(self._fd, flags)
 
-    def release(self):
+    def release(self: Self) -> None:
         """
         Unlock (i.e., release the lock on) the associated file.
         """
@@ -108,7 +109,7 @@ class FileLock:
 
 
 @contextmanager
-def locked_file(fd: int, no_wait: bool = False):
+def locked_file(fd: int, no_wait: bool = False) -> Generator[FileLock]:
     """
     This function is intended to be used as a `with` statement context
     manager. It wraps a `FileLock` object so that the locking and unlocking

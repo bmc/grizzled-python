@@ -6,6 +6,8 @@ Tester.
 # Imports
 # ---------------------------------------------------------------------------
 
+from typing import Any, Self
+
 import pytest
 
 from grizzled.collections import LRUDict
@@ -20,7 +22,7 @@ from grizzled.collections import LRUDict
 
 class TestLRUDict:
 
-    def test_1(self):
+    def test_1(self: Self) -> None:
         lru = LRUDict(max_capacity=5)
 
         print("Adding 'a' and 'b'")
@@ -63,7 +65,7 @@ class TestLRUDict:
         print(list(lru.keys()))
         assert list(lru.keys()) == ['f', 'b', 'e', 'd', 'a']
 
-        def on_remove(key, value, the_list):
+        def on_remove(key: Any, value: Any, the_list: list[Any]) -> None:
             print(f'on_remove("{key}")')
             the_list.append(key)
 
@@ -89,10 +91,10 @@ class TestLRUDict:
         lru.clear()
         del lru
 
-    def add_one(self, lru, key):
+    def add_one(self: Self, lru: LRUDict, key: Any) -> None:
         lru[key] = key
 
-    def test_big(self):
+    def test_big(self: Self) -> None:
         print('Putting 10000 entries in a new LRU cache')
         lru = LRUDict(max_capacity=10000)
         for i in range(0, lru.max_capacity):
@@ -103,7 +105,7 @@ class TestLRUDict:
         assert len(lru) == lru.max_capacity
         print(next(iter(lru)))
 
-    def test_views(self):
+    def test_views(self: Self) -> None:
         lru = LRUDict(max_capacity=3)
         lru['a'] = 'A'
         lru['b'] = 'B'
@@ -125,7 +127,7 @@ class TestLRUDict:
         assert str(lru) == "{'b': 'B', 'a': 'A'}"
         assert repr(lru) == str(lru)
 
-    def test_constructor_contents(self):
+    def test_constructor_contents(self: Self) -> None:
         lru = LRUDict({'a': 1, 'b': 2}, max_capacity=5)
         assert list(lru.keys()) == ['b', 'a']
         assert lru.max_capacity == 5
@@ -137,7 +139,7 @@ class TestLRUDict:
         lru = LRUDict({'a': 1, 'b': 2, 'c': 3}, max_capacity=2)
         assert list(lru.keys()) == ['c', 'b']
 
-    def test_get(self):
+    def test_get(self: Self) -> None:
         lru = LRUDict(max_capacity=3)
         lru['a'] = 'A'
         lru['b'] = 'B'
@@ -148,7 +150,7 @@ class TestLRUDict:
         assert lru.get('nonexistent') is None
         assert lru.get('nonexistent', 'default') == 'default'
 
-    def test_setdefault(self):
+    def test_setdefault(self: Self) -> None:
         lru = LRUDict(max_capacity=2)
         lru['a'] = 1
 
@@ -161,7 +163,7 @@ class TestLRUDict:
         assert list(lru.keys()) == ['c', 'a']
         assert len(lru) == 2
 
-    def test_copy_and_equality(self):
+    def test_copy_and_equality(self: Self) -> None:
         lru = LRUDict(max_capacity=3)
         lru['a'] = 1
         lru['b'] = 2
@@ -178,7 +180,7 @@ class TestLRUDict:
         copy['c'] = 3
         assert 'c' not in lru
 
-    def test_or(self):
+    def test_or(self: Self) -> None:
         lru = LRUDict({'a': 1}, max_capacity=5)
 
         merged = lru | {'b': 2}
@@ -194,7 +196,7 @@ class TestLRUDict:
         assert lru == {'a': 1, 'b': 2}
         assert list(lru.keys()) == ['b', 'a']
 
-    def test_update(self):
+    def test_update(self: Self) -> None:
         lru = LRUDict(max_capacity=2)
 
         # A mapping, an iterable of pairs, and keywords all work, and all of
@@ -211,20 +213,20 @@ class TestLRUDict:
 
         # Anything with keys() and __getitem__() is acceptable.
         class Mappingish:
-            def keys(self):
+            def keys(self: Self) -> list[str]:
                 return ['x', 'y']
 
-            def __getitem__(self, key):
+            def __getitem__(self, key: Any) -> str:
                 return key.upper()
 
         lru = LRUDict()
         lru.update(Mappingish())
         assert lru == {'x': 'X', 'y': 'Y'}
 
-    def test_listeners_get_values(self):
+    def test_listeners_get_values(self: Self) -> None:
         removed = []
 
-        def on_remove(key, value, accumulator):
+        def on_remove(key: Any, value: Any, accumulator: list[Any]) -> None:
             accumulator.append((key, value))
 
         lru = LRUDict(max_capacity=2)
@@ -243,7 +245,7 @@ class TestLRUDict:
         assert lru.remove_listener(on_remove)
         assert not lru.remove_listener(on_remove)
 
-    def test_pop(self):
+    def test_pop(self: Self) -> None:
         lru = LRUDict(max_capacity=5)
         lru.update({'a': 1, 'b': 2})
 
@@ -259,7 +261,7 @@ class TestLRUDict:
         with pytest.raises(KeyError):
             lru.popitem()
 
-    def test_is_a_dict(self):
+    def test_is_a_dict(self: Self) -> None:
         lru = LRUDict(max_capacity=5)
         lru['a'] = 1
 

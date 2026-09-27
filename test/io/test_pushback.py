@@ -9,7 +9,8 @@ from io import StringIO
 from grizzled.io import PushbackFile
 
 
-def test_pushback():
+def test_pushback() -> None:
+    """Test the PushbackFile class."""
     inputString = """abc
 def
 ghi

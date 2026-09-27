@@ -11,7 +11,7 @@ from __future__ import annotations
 
 import sys
 from collections.abc import Callable, Iterable, Iterator
-from typing import TYPE_CHECKING, Any, Protocol, runtime_checkable
+from typing import TYPE_CHECKING, Any, Protocol, Self, runtime_checkable
 
 if TYPE_CHECKING:
     # The standard library type stubs declare `dict.keys()`,
@@ -42,9 +42,9 @@ class _SupportsKeysAndGetItem(Protocol):
     versions of those methods have to accept them, too.
     """
 
-    def keys(self) -> Iterable[Any]: ...
+    def keys(self: Self) -> Iterable[Any]: ...
 
-    def __getitem__(self, key: Any, /) -> Any: ...
+    def __getitem__(self: Self, key: Any, /) -> Any: ...
 
 
 # What `update()`, `__or__()`, etc., accept.
@@ -79,19 +79,28 @@ class LRUListEntry:
     An entry in a least-recently-used (LRU) linked list.
     """
 
-    def __init__(self, key: Any, value: Any):
+    def __init__(self: Self, key: Any, value: Any):
+        """
+        Initialize an LRU list entry with the given key and value.
+
+        :param key: The key associated with this entry.
+        :param value: The value associated with this entry.
+        """
         self.key: Any = key
         self.value: Any = value
         self.next: LRUListEntry | None = None
         self.previous: LRUListEntry | None = None
 
     def __hash__(self) -> int:
+        """Return the hash of the key associated with this entry."""
         return hash(self.key)
 
     def __str__(self) -> str:
+        """Return a string representation of the LRU list entry."""
         return f"({self.key}, {self.value})"
 
     def __repr__(self) -> str:
+        """Return a detailed string representation of the LRU list entry."""
         return str(self)
 
 
@@ -100,60 +109,73 @@ class LRUList:
     A least-recently-used (LRU) linked list.
     """
 
-    def __init__(self):
+    def __init__(self: Self) -> None:
+        """Initialize an empty LRU list."""
         self.head: LRUListEntry | None = None
         self.tail: LRUListEntry | None = None
         self.size = 0
 
-    def __del__(self):
+    def __del__(self: Self) -> None:
+        """Destructor for the LRU list. Clears all entries."""
         self.clear()
 
-    def __str__(self) -> str:
+    def __str__(self: Self) -> str:
+        """Return a string representation of the LRU list."""
         return "[" + ", ".join([str(tup) for tup in self.items()]) + "]"
 
-    def __repr__(self) -> str:
+    def __repr__(self: Self) -> str:
+        """Return a detailed string representation of the LRU list."""
         return f"{self.__class__.__name__}:{self}"
 
-    def __len__(self) -> int:
+    def __len__(self: Self) -> int:
+        """Return the number of entries in the LRU list."""
         return self.size
 
-    def __iter__(self) -> Iterator[Any]:
+    def __iter__(self: Self) -> Iterator[Any]:
+        """Return an iterator over the keys of the LRU list."""
         entry = self.head
         while entry:
             yield entry.key
             entry = entry.next
 
-    def __reversed__(self) -> Iterator[Any]:
+    def __reversed__(self: Self) -> Iterator[Any]:
+        """Return an iterator over the keys of the LRU list in reverse order."""
         entry = self.tail
         while entry:
             yield entry.key
             entry = entry.previous
 
-    def keys(self) -> list[Any]:
+    def keys(self: Self) -> list[Any]:
+        """Return a list of the keys in the LRU list."""
         return list(self)
 
-    def items(self) -> list[tuple[Any, Any]]:
+    def items(self: Self) -> list[tuple[Any, Any]]:
+        """Return a list of the (key, value) pairs in the LRU list."""
         return list(self.iteritems())
 
-    def values(self) -> list[Any]:
+    def values(self: Self) -> list[Any]:
+        """Return a list of the values in the LRU list."""
         return list(self.itervalues())
 
-    def iteritems(self) -> Iterator[tuple[Any, Any]]:
+    def iteritems(self: Self) -> Iterator[tuple[Any, Any]]:
         entry = self.head
         while entry:
             yield (entry.key, entry.value)
             entry = entry.next
 
-    def iterkeys(self) -> Iterator[Any]:
+    def iterkeys(self: Self) -> Iterator[Any]:
+        """Return an iterator over the keys of the LRU list."""
         return iter(self)
 
-    def itervalues(self) -> Iterator[Any]:
+    def itervalues(self: Self) -> Iterator[Any]:
+        """Return an iterator over the values of the LRU list."""
         entry = self.head
         while entry:
             yield entry.value
             entry = entry.next
 
-    def clear(self) -> None:
+    def clear(self: Self) -> None:
+        """Remove all entries from the LRU list."""
         while self.head:
             cur = self.head
             next_entry = self.head.next
@@ -163,7 +185,8 @@ class LRUList:
         self.tail = None
         self.size = 0
 
-    def remove(self, entry: LRUListEntry) -> None:
+    def remove(self: Self, entry: LRUListEntry) -> None:
+        """Remove a specific entry from the LRU list."""
         if entry.next:
             entry.next.previous = entry.previous
 
@@ -180,7 +203,11 @@ class LRUList:
         self.size -= 1
         assert self.size >= 0
 
-    def remove_tail(self) -> LRUListEntry | None:
+    def remove_tail(self: Self) -> LRUListEntry | None:
+        """
+        Remove and return the tail entry of the LRU list, or None if the list
+        is empty.
+        """
         result = self.tail
 
         if result:
@@ -188,7 +215,8 @@ class LRUList:
 
         return result
 
-    def add_to_head(self, entry: LRUListEntry | tuple[Any, Any]) -> None:
+    def add_to_head(self: Self, entry: LRUListEntry | tuple[Any, Any]) -> None:
+        """Add an entry to the head of the LRU list."""
         if isinstance(entry, tuple):
             key, value = entry
             entry = LRUListEntry(key, value)
@@ -207,7 +235,8 @@ class LRUList:
 
         self.size += 1
 
-    def move_to_head(self, entry: LRUListEntry) -> None:
+    def move_to_head(self: Self, entry: LRUListEntry) -> None:
+        """Move a specific entry to the head of the LRU list."""
         self.remove(entry)
         self.add_to_head(entry)
 
@@ -247,7 +276,9 @@ class LRUDict(dict[Any, Any]):
       removed for *any* reason, including via `del`.
     """
 
-    def __init__(self, source: _UpdateSource | None = None, /, **kw: Any):
+    def __init__(
+        self: Self, source: _UpdateSource | None = None, /, **kw: Any
+    ):
         """
         Initialize an `LRUDict` that will hold, at most, `max_capacity` items.
         Attempts to insert more than `max_capacity` items in the dictionary
@@ -275,10 +306,14 @@ class LRUDict(dict[Any, Any]):
         if kw:
             self.update(kw)
 
-    def __del__(self):
+    def __del__(self: Self) -> None:
+        """
+        Destructor for the `LRUDict`. Clears the dictionary to ensure that
+        all removal listeners are notified and resources are released.
+        """
         self.clear()
 
-    def get_max_capacity(self) -> int:
+    def get_max_capacity(self: Self) -> int:
         """
         Get the maximum capacity of the dictionary.
 
@@ -286,7 +321,7 @@ class LRUDict(dict[Any, Any]):
         """
         return self.__max_capacity
 
-    def set_max_capacity(self, new_capacity: int) -> None:
+    def set_max_capacity(self: Self, new_capacity: int) -> None:
         """
         Set or change the maximum capacity of the dictionary. Reducing
         the size of a dictionary with items already in it might result
@@ -304,7 +339,9 @@ class LRUDict(dict[Any, Any]):
         doc="The maximum capacity. Can be reset at will.",
     )
 
-    def add_ejection_listener(self, listener: Callable, *args: Any) -> None:
+    def add_ejection_listener(
+        self: Self, listener: Callable, *args: Any
+    ) -> None:
         """
         Add an ejection listener to the dictionary. The listener function
         should take at least two parameters: the key and value being removed.
@@ -321,7 +358,9 @@ class LRUDict(dict[Any, Any]):
         """
         self.__removal_listeners[listener] = (True, args)
 
-    def add_removal_listener(self, listener: Callable, *args: Any) -> None:
+    def add_removal_listener(
+        self: Self, listener: Callable, *args: Any
+    ) -> None:
         """
         Add a removal listener to the dictionary. The listener function should
         take at least two parameters: the key and value being removed. It can
@@ -336,7 +375,7 @@ class LRUDict(dict[Any, Any]):
         """
         self.__removal_listeners[listener] = (False, args)
 
-    def remove_listener(self, listener: Callable) -> bool:
+    def remove_listener(self: Self, listener: Callable) -> bool:
         """
         Remove the specified removal or ejection listener from the list of
         listeners.
@@ -350,37 +389,64 @@ class LRUDict(dict[Any, Any]):
         except KeyError:
             return False
 
-    def clear_listeners(self) -> None:
+    def clear_listeners(self: Self) -> None:
         """
         Clear all removal and ejection listeners from the list of listeners.
         """
         for key in list(self.__removal_listeners.keys()):
             del self.__removal_listeners[key]
 
-    def __setitem__(self, key: Any, value: Any) -> None:
+    def __setitem__(self: Self, key: Any, value: Any) -> None:
+        """
+        Set the value associated with the given key in the dictionary.
+
+        :param key: The key to set
+        :param value: The value to associate with the key
+        """
         self.__put(key, value)
 
-    def __getitem__(self, key: Any) -> Any:
+    def __getitem__(self: Self, key: Any) -> Any:
+        """
+        Get the value associated with the given key in the dictionary.
+
+        :param key: The key to look up
+        :return: The value associated with the key
+        """
         lru_entry = dict.__getitem__(self, key)
         self.__lru_queue.move_to_head(lru_entry)
         return lru_entry.value
 
-    def __delitem__(self, key: Any) -> None:
+    def __delitem__(self: Self, key: Any) -> None:
+        """
+        Delete the value associated with the given key from the dictionary.
+
+        :param key: The key to delete
+        """
         lru_entry = dict.__getitem__(self, key)
         self.__lru_queue.remove(lru_entry)
         dict.__delitem__(self, key)
         self._notify_listeners(False, [(lru_entry.key, lru_entry.value)])
 
-    def __str__(self) -> str:
+    def __str__(self: Self) -> str:
+        """
+        Return a string representation of the dictionary.
+
+        :return: A string representing the dictionary
+        """
         contents = ", ".join(
             [f"{key!r}: {value!r}" for key, value in self.items()]
         )
         return "{" + contents + "}"
 
-    def __repr__(self) -> str:
+    def __repr__(self: Self) -> str:
+        """
+        Return a string representation of the dictionary suitable for debugging.
+
+        :return: A string representing the dictionary
+        """
         return str(self)
 
-    def __eq__(self, other: object) -> bool:
+    def __eq__(self: Self, other: object) -> bool:
         # The values in the underlying dict are LRUListEntry objects, so
         # dict.__eq__() would compare the wrappers, not the values. Compare
         # the actual contents, instead. Recency is not part of equality.
@@ -391,30 +457,47 @@ class LRUDict(dict[Any, Any]):
 
         return NotImplemented
 
-    def __iter__(self) -> Iterator[Any]:
+    def __iter__(self: Self) -> Iterator[Any]:
         return iter(self.__lru_queue)
 
-    def __reversed__(self) -> Iterator[Any]:
+    def __reversed__(self: Self) -> Iterator[Any]:
         return reversed(self.__lru_queue)
 
-    def __or__(self, other: _UpdateSource) -> LRUDict:
+    def __or__(self: Self, other: _UpdateSource) -> LRUDict:
         result = self.copy()
         result.update(other)
         return result
 
-    def __ror__(self, other: _UpdateSource) -> LRUDict:
+    def __ror__(self: Self, other: _UpdateSource) -> LRUDict:
+        """
+        Right-hand operand of the `|` operator when the left-hand operand is
+        not an `LRUDict`.
+
+        :param other: The mapping or iterable of key-value pairs to update from
+        :return: A new `LRUDict` containing the combined contents
+        """
         result = LRUDict(other, max_capacity=self.__max_capacity)
         result.update(self._snapshot())
         return result
 
-    def __ior__(self, other: _UpdateSource) -> LRUDict:
+    def __ior__(self: Self, other: _UpdateSource) -> LRUDict:
+        """
+        In-place update of the dictionary with another mapping or iterable of
+        key-value pairs.
+
+        :param other: The mapping or iterable of key-value pairs to update from
+        :return: The updated dictionary (self)
+        """
         self.update(other)
         return self
 
-    def clear(self) -> None:
+    def clear(self: Self) -> None:
+        """
+        Clear all items from the dictionary.
+        """
         self._clear_to(0)
 
-    def copy(self) -> LRUDict:
+    def copy(self: Self) -> LRUDict:
         """
         Make a shallow copy of this dictionary. The copy has the same maximum
         capacity and the same recency ordering as this dictionary, but it does
@@ -431,7 +514,7 @@ class LRUDict(dict[Any, Any]):
 
         return result
 
-    def get(self, key: Any, default: Any = None) -> Any:
+    def get(self: Self, key: Any, default: Any = None) -> Any:
         """
         Get the value associated with a key, refreshing the entry's recency if
         the key is present.
@@ -446,7 +529,7 @@ class LRUDict(dict[Any, Any]):
         except KeyError:
             return default
 
-    def setdefault(self, key: Any, default: Any = None) -> Any:
+    def setdefault(self: Self, key: Any, default: Any = None) -> Any:
         """
         Get the value associated with a key, inserting `default` (and
         returning it) if the key isn't already present. Either way, the
@@ -462,7 +545,7 @@ class LRUDict(dict[Any, Any]):
             self[key] = default
             return default
 
-    def keys(self) -> dict_keys[Any, Any]:
+    def keys(self: Self) -> dict_keys[Any, Any]:
         """
         Get a view of the keys in the dictionary, in most recently used to
         least recently used order. The view is a view onto a snapshot of the
@@ -473,7 +556,7 @@ class LRUDict(dict[Any, Any]):
         """
         return self._snapshot().keys()
 
-    def items(self) -> dict_items[Any, Any]:
+    def items(self: Self) -> dict_items[Any, Any]:
         """
         Get a view of the key/value pairs in the dictionary, in most recently
         used to least recently used order. The view is a view onto a snapshot
@@ -484,7 +567,7 @@ class LRUDict(dict[Any, Any]):
         """
         return self._snapshot().items()
 
-    def values(self) -> dict_values[Any, Any]:
+    def values(self: Self) -> dict_values[Any, Any]:
         """
         Get a view of the values in the dictionary, in most recently used to
         least recently used order. The view is a view onto a snapshot of the
@@ -495,7 +578,7 @@ class LRUDict(dict[Any, Any]):
         """
         return self._snapshot().values()
 
-    def iteritems(self) -> Iterator[tuple[Any, Any]]:
+    def iteritems(self: Self) -> Iterator[tuple[Any, Any]]:
         """
         Get an iterator over the key/value pairs in the dictionary, in most
         recently used to least recently used order.
@@ -505,7 +588,7 @@ class LRUDict(dict[Any, Any]):
         """
         return iter(self.__lru_queue.items())
 
-    def iterkeys(self) -> Iterator[Any]:
+    def iterkeys(self: Self) -> Iterator[Any]:
         """
         Get an iterator over the keys in the dictionary, in most recently used
         to least recently used order.
@@ -515,7 +598,7 @@ class LRUDict(dict[Any, Any]):
         """
         return iter(self.__lru_queue.keys())
 
-    def itervalues(self) -> Iterator[Any]:
+    def itervalues(self: Self) -> Iterator[Any]:
         """
         Get an iterator over the values in the dictionary, in most recently
         used to least recently used order.
@@ -525,7 +608,7 @@ class LRUDict(dict[Any, Any]):
         """
         return iter(self.__lru_queue.values())
 
-    def update(self, other: _UpdateSource = (), /, **kw: Any) -> None:
+    def update(self: Self, other: _UpdateSource = (), /, **kw: Any) -> None:
         """
         Update the dictionary with the key/value pairs from `other`,
         overwriting existing keys. Returns nothing.
@@ -559,7 +642,7 @@ class LRUDict(dict[Any, Any]):
         for key, value in kw.items():
             self[key] = value
 
-    def pop(self, key: Any, default: Any = None) -> Any:
+    def pop(self: Self, key: Any, default: Any = None) -> Any:
         """
         "Pop" (i.e., retrieve and remove) the specified key from the
         dictionary.
@@ -583,7 +666,7 @@ class LRUDict(dict[Any, Any]):
 
         return result
 
-    def popitem(self) -> tuple[Any, Any]:
+    def popitem(self: Self) -> tuple[Any, Any]:
         """
         Pops the least recently used recent key/value pair from the
         dictionary.
@@ -599,12 +682,12 @@ class LRUDict(dict[Any, Any]):
         dict.__delitem__(self, lru_entry.key)
         return lru_entry.key, lru_entry.value
 
-    def _snapshot(self) -> dict[Any, Any]:
+    def _snapshot(self: Self) -> dict[Any, Any]:
         # A plain dict copy of the contents, in most recently used to least
         # recently used order. Does not affect recency.
         return dict(self.__lru_queue.items())
 
-    def __put(self, key: Any, value: Any) -> None:
+    def __put(self: Self, key: Any, value: Any) -> None:
         try:
             lru_entry = dict.__getitem__(self, key)
 
@@ -628,7 +711,7 @@ class LRUDict(dict[Any, Any]):
 
         dict.__setitem__(self, key, lru_entry)
 
-    def _clear_to(self, size: int) -> LRUListEntry | None:
+    def _clear_to(self: Self, size: int) -> LRUListEntry | None:
         old_tail = None
         while len(self.__lru_queue) > size:
             old_tail = self.__lru_queue.remove_tail()
@@ -642,7 +725,7 @@ class LRUDict(dict[Any, Any]):
         return old_tail
 
     def _notify_listeners(
-        self, ejecting: bool, key_value_pairs: Iterable[tuple[Any, Any]]
+        self: Self, ejecting: bool, key_value_pairs: Iterable[tuple[Any, Any]]
     ) -> None:
         if self.__removal_listeners:
             for key, value in key_value_pairs:

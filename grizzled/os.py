@@ -169,7 +169,7 @@ def spawnd(
     _os.execv(path, args)
 
 
-def daemonize(no_close: bool = False, pidfile: str | None = None):
+def daemonize(no_close: bool = False, pidfile: str | None = None) -> None:
     """
     Convert the calling process into a daemon. To make the current Python
     process into a daemon process, you need two lines of code:

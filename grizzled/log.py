@@ -13,7 +13,7 @@ import logging
 import os
 import sys
 import textwrap
-from typing import Sequence, TextIO
+from typing import Self, Sequence, TextIO
 
 # ---------------------------------------------------------------------------
 # Exports
@@ -45,7 +45,7 @@ class WrappingLogFormatter(logging.Formatter):
     """
 
     def __init__(
-        self,
+        self: Self,
         format: str | None = None,
         date_format: str | None = None,
         max_width: int | None = None,
@@ -70,7 +70,7 @@ class WrappingLogFormatter(logging.Formatter):
         )
         logging.Formatter.__init__(self, format, date_format)
 
-    def format(self, record: logging.LogRecord):
+    def format(self: Self, record: logging.LogRecord) -> str:
         s = logging.Formatter.format(self, record)
         result = []
         for line in s.split("\n"):
@@ -89,7 +89,7 @@ def init_simple_stream_logging(
     streams: Sequence[TextIO] | None = None,
     format: str | None = None,
     date_format: str | None = None,
-):
+) -> None:
     """
     Useful for simple command-line tools, this method configures the Python
     logging API to:

@@ -10,6 +10,7 @@ from grizzled.file import eglob, touch
 
 
 class Files:
+    """Container for temporary test files and directories."""
     def __init__(self,
                  tempdir: str,
                  files: Sequence[str],
@@ -17,7 +18,7 @@ class Files:
                  py_files: set[str],
                  txt_files: set[str],
                  top_level_files: set[str],
-                 readmes: set[str]):
+                 readmes: set[str]) -> None:
         self.tempdir = tempdir
         self.files = files
         self.dirs = dirs
@@ -28,6 +29,13 @@ class Files:
 
 @pytest.fixture
 def tempfiles() -> Generator[Files]:
+    """
+    Fixture that sets up a temporary directory with a variety of files and
+    directories for testing.
+
+    Yields:
+        Files: An object containing paths to the created files and directories.
+    """
     with TemporaryDirectory() as tempdir:
         foo = path.join(tempdir, "foo")
         bar = path.join(tempdir, "bar")
@@ -75,19 +83,23 @@ def tempfiles() -> Generator[Files]:
                     top_level_files=top_level_files)
 
 
-def test_readme(tempfiles):
+def test_readme(tempfiles: Files) -> None:
+    """Test that eglob correctly finds readme.txt files."""
     files = set(eglob("**/readme.txt", tempfiles.tempdir))
     assert files == tempfiles.readmes
 
-def test_py_files(tempfiles):
+def test_py_files(tempfiles: Files) -> None:
+    """Test that eglob correctly finds Python files."""
     files = set(eglob("**/*.py", tempfiles.tempdir))
     assert files == tempfiles.py_files
 
-def test_text_files(tempfiles):
+def test_text_files(tempfiles: Files) -> None:
+    """Test that eglob correctly finds text files."""
     files = set(eglob("**/*.txt", tempfiles.tempdir))
     assert files == tempfiles.txt_files
 
-def test_top_level_files(tempfiles):
+def test_top_level_files(tempfiles: Files) -> None:
+    """Test that eglob correctly finds top-level files."""
     top = set(eglob("*", tempfiles.tempdir))
     files = { f for f in top if os.path.isfile(f) }
     assert files == tempfiles.top_level_files

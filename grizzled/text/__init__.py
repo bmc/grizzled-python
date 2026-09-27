@@ -108,7 +108,7 @@ def hexdump(source: str | TextIO,
         dump all lines, even if they're repeats.
     """
 
-    def ascii(b):
+    def ascii(b: int) -> str:
         """Determine how to show a byte in ascii."""
         if 32 <= b <= 126:
             return chr(b)
