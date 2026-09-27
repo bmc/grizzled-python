@@ -77,9 +77,10 @@ class DaemonError(OSError):
 # Public functions
 # ---------------------------------------------------------------------------
 
+
 def find_command(
     command_name: str,
-    path: str | Sequence[str] | Path | Sequence[Path] | None = None
+    path: str | Sequence[str] | Path | Sequence[Path] | None = None,
 ) -> Path | None:
     """
     Determine whether the specified system command exists in the specified
@@ -106,6 +107,7 @@ def find_command(
             return p
 
     return None
+
 
 def spawnd(
     path: str, args: list[str] | tuple[str, ...], pidfile: str | None = None
