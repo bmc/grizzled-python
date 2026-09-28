@@ -11,11 +11,8 @@ __docformat__ = "markdown"
 import os as _os
 from collections.abc import Generator
 from contextlib import chdir, suppress
-import glob
 from pathlib import Path
 from typing import Sequence
-
-from grizzled.decorators import deprecated
 
 # ---------------------------------------------------------------------------
 # Exports
@@ -23,7 +20,6 @@ from grizzled.decorators import deprecated
 
 __all__ = [
     "unlink_quietly",
-    "eglob",
     "universal_path",
     "native_path",
     "list_recursively",

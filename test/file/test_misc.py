@@ -6,7 +6,6 @@
 
 import os
 import tempfile
-from contextlib import chdir
 from tempfile import TemporaryDirectory
 
 from grizzled.file import list_recursively, unlink_quietly
