@@ -95,27 +95,6 @@ def list_recursively(
                     yield _os.path.normpath(_os.path.join(dirpath, f))
 
 
-@deprecated(since="3.2.0",
-            message="Use glob.glob with the recursive=True option instead.")
-def eglob(pattern: str, directory: str = ".") -> Generator[str]:
-    """
-    NOTE: This function is deprecated. Use `glob.glob` with the
-    `recursive=True` option instead.
-
-    Extended glob function that supports the all the wildcards supported by the
-    Python standard `glob` routine, as well as a special `**` wildcard that
-    recursively matches any directory.
-
-    :param pattern: The wildcard pattern.
-    :param directory: The directory in which to do the globbing. Defaults to
-        "."
-    :returns: A generator yielding the matched paths.
-    """
-    with chdir(directory):
-        for match in glob.glob(pattern, recursive=True):
-            yield match
-
-
 def universal_path(path: str) -> str:
     """
     Converts a path name from its operating system-specific format to a
