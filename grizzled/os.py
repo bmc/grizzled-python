@@ -27,6 +27,11 @@ __all__ = [
     "DaemonError",
     "find_command",
     "spawnd",
+    "get_terminal_size",
+    "ENV_COLUMNS",
+    "ENV_LINES",
+    "DEFAULT_TERMINAL_WIDTH",
+    "DEFAULT_TERMINAL_HEIGHT",
 ]
 
 
@@ -48,10 +53,10 @@ MAXFD = 1024
 
 NULL_DEVICE = _os.devnull if hasattr(_os, "devnull") else "/dev/null"
 
-# The path separator for the operating system.
-
-PATH_SEPARATOR = {"nt": ";", "posix": ":", "java": ":"}
-FILE_SEPARATOR = {"nt": "\\", "posix": "/", "java": "/"}
+DEFAULT_TERMINAL_WIDTH = 80
+DEFAULT_TERMINAL_HEIGHT = 24
+ENV_COLUMNS = "COLUMNS"
+ENV_LINES = "LINES"
 
 # ---------------------------------------------------------------------------
 # Logging
@@ -76,6 +81,69 @@ class DaemonError(OSError):
 # ---------------------------------------------------------------------------
 # Public functions
 # ---------------------------------------------------------------------------
+
+
+def get_terminal_size(fd: int | None = None) -> tuple[int, int]:
+    """
+    Get the size of the terminal.
+
+    :param fd: the file descriptor of the terminal (default is None, which uses
+        the standard output)
+
+    :return: A `(columns, rows)` tuple
+    """
+
+    def to_int(s: str, default: int, env_var: str) -> int:
+        """
+        Convert a string to an integer, falling back to a default value if the
+        conversion fails or if the value is not positive.
+
+        :param s: the string to convert
+        :param default: the default value to return if conversion fails
+        :param env_var: the name of the environment variable being converted
+        :return: the converted integer or the default value
+        """
+        try:
+            value = int(s)
+            if value <= 0:
+                raise ValueError("Value must be positive.")
+            return value
+        except (ValueError, TypeError):
+            log.warning(
+                f'Invalid value for environment variable "{env_var}": "{s}". '
+                f"Using default value of {default}."
+            )
+            return default
+
+    try:
+        ts = (
+            _os.get_terminal_size()
+            if fd is None
+            else _os.get_terminal_size(fd)
+        )
+        return (ts[0], ts[1])
+
+    except OSError as e:
+        log.warning(f"Could not determine current terminal size: {e}.")
+        log.warning("Falling back to environment and/or default values.")
+        match (_os.environ.get("COLUMNS"), _os.environ.get("LINES")):
+            case (None, None):
+                return DEFAULT_TERMINAL_WIDTH, DEFAULT_TERMINAL_HEIGHT
+            case (None, s_height):
+                return (
+                    DEFAULT_TERMINAL_WIDTH,
+                    to_int(s_height, DEFAULT_TERMINAL_HEIGHT, ENV_LINES),
+                )
+            case (s_width, None):
+                return (
+                    to_int(s_width, DEFAULT_TERMINAL_WIDTH, ENV_COLUMNS),
+                    DEFAULT_TERMINAL_HEIGHT,
+                )
+            case (s_width, s_height):
+                return (
+                    to_int(s_width, DEFAULT_TERMINAL_WIDTH, ENV_COLUMNS),
+                    to_int(s_height, DEFAULT_TERMINAL_HEIGHT, ENV_LINES),
+                )
 
 
 def find_command(
