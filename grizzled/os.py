@@ -154,9 +154,12 @@ def find_command(
     Determine whether the specified system command exists in the specified
     path.
 
+    This function is a simple wrapper around `os.get_exec_path()` and checks
+    for the existence and executability of the command in the specified path.
+
     :param command_name: the name of the command to find
-    :param path: the path string or sequence of path elements to search,
-        or None to use the system's default PATH environment variable
+    :param path: the path string or sequence of path elements to search, or
+        None to use the system's default PATH environment variable
     :return: full path to the command, or `None` if not found
     """
     paths: list[Path]
