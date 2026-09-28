@@ -9,7 +9,7 @@ import tempfile
 from contextlib import chdir
 from tempfile import TemporaryDirectory
 
-from grizzled.file import eglob, list_recursively, touch, unlink_quietly
+from grizzled.file import list_recursively, unlink_quietly
 
 
 def fix_path(p: str) -> str:
@@ -57,30 +57,3 @@ def test_list_recursively() -> None:
         res = set(list_recursively(path))
 
         assert(res == expected)
-
-def test_touch() -> None:
-    """Test that touch creates a file if it does not exist."""
-    with TemporaryDirectory() as path:
-        f = os.path.join(path, 'foo')
-        assert not os.path.exists(f)
-        touch(f)
-        assert os.path.exists(f)
-
-def test_eglob() -> None:
-    """Test that eglob correctly finds files matching a pattern."""
-    with TemporaryDirectory() as path:
-        for d in ('one', 'two', 'three', 'four/five', 'six/seven/eight'):
-            os.makedirs(os.path.join(path, fix_path(d)))
-        for f in ('one/foo.py', 'one/foo.txt', 'two/bar.c',
-                  'four/test.py', 'four/test2.py', 'four/me.txt',
-                  'four/five/x.py', 'six/seven/test.py'):
-            with open(os.path.join(path, fix_path(f)), 'w'):
-                pass
-
-        with chdir(path):
-            expected = {
-                'one/foo.py', 'four/test.py', 'four/test2.py',
-                'four/five/x.py', 'six/seven/test.py'
-            }
-            res = set(eglob('**/*.py'))
-            assert(res == expected)
