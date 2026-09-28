@@ -50,7 +50,7 @@ _READ_ONLY_MARKER = "_grizzled_read_only_decorated"
 # ---------------------------------------------------------------------------
 
 
-class ReadOnlyObjectError(Exception):
+class ReadOnlyObjectError(AttributeError):
     """
     Thrown by classes decorated with `read_only`, to indicate an attempt
     to set or delete a field of a frozen object.
