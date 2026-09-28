@@ -15,7 +15,7 @@ import grizzled.text as text
 
 __docformat__ = "markdown"
 
-__version__ = "3.2.0"
+__version__ = "3.3.0"
 __author__ = "Brian M. Clapper"
 __email__ = "bmc@clapper.org"
 __url__ = "https://software.clapper.org/grizzled-python/"
