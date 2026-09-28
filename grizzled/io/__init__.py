@@ -9,7 +9,10 @@ __docformat__ = "markdown"
 # ---------------------------------------------------------------------------
 
 import os
-from typing import IO, AnyStr, NoReturn, Self, TextIO
+import sys
+from contextlib import contextmanager
+from pathlib import Path
+from typing import IO, Any, AnyStr, Generator, NoReturn, Self, TextIO
 
 from . import filelock
 
@@ -314,3 +317,38 @@ class PushbackFile:
         """
         return -1
 
+# ---------------------------------------------------------------------------
+# Functions
+# ---------------------------------------------------------------------------
+
+@contextmanager
+def open_input_or_stdin(
+    path: str | Path | None,
+    encoding: str,
+    mode: str = 'r'
+) -> Generator[IO[Any]]:
+    """
+    Open the input file, or use standard input if no path was specified. Yields
+    the open stream, closing it on exit if we opened it.
+
+    :param path: Path to the input file, or None to use standard input.
+    :param encoding: Encoding to use when opening the file.
+    :param mode: Mode to use when opening the file. Defaults to 'r'. Only 'r'
+        and 'rb' are supported.
+    :return: A generator yielding the open input stream, or standard input if
+        no path was specified.
+    :raises ValueError: If an unsupported mode is specified.
+    """
+    if path is None:
+        # sys.stdin has type TextIO, which doesn't have reconfigure().
+        # The trailing comment tells pyright to ignore the "error".
+        sys.stdin.reconfigure(encoding=encoding)  # pyright: ignore
+        yield sys.stdin
+    elif mode == 'r':
+        with open(path, encoding=encoding, mode=mode) as f:
+            yield f
+    elif mode == 'rb':
+        with open(path, mode=mode) as f:
+            yield f
+    else:
+        raise ValueError(f"Unsupported mode: {mode}")
