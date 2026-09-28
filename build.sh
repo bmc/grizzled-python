@@ -66,8 +66,11 @@ do
       ;;
 
     build)
-      cd test && pytest || exit 1
-      cd ..
+      # Run pytest from the repo root, not from inside test/. Directories
+      # such as test/collections and test/os share names with standard
+      # library modules, so making one of them the working directory
+      # invites shadowing.
+      run "pytest test" || exit 1
       run "python -m build" || exit 1
       ;;
   esac

@@ -78,7 +78,13 @@ extend-exclude = '''
 profile = "black"
 
 [tool.pytest.ini_options]
-pythonpath = ["grizzled"]
+# The repo root, NOT "grizzled". Putting the package directory itself on
+# sys.path hoists its submodules (collections, os, io, file, text, ...) to
+# top level, where they shadow the same-named standard library modules.
+# Adding the root instead makes "grizzled" importable as a package, which
+# is how every test refers to it. Paths are relative to rootdir, so this
+# works regardless of the directory pytest is invoked from.
+pythonpath = ["."]
 # Capture at the sys.stdout/sys.stderr level, not the file-descriptor
 # level, so that fds 0, 1 and 2 remain attached to the real terminal.
 # os.get_terminal_size() needs a tty on one of those descriptors.
