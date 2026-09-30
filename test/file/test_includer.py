@@ -49,7 +49,7 @@ def test_simple(log: logging.Logger) -> None:
 
         with outer_path.open(mode="r", encoding="utf-8") as f:
             inc = Includer(f)
-            lines = [line for    line in inc]
+            lines = [line for line in inc]
             res = ''.join(lines)
             assert res == expected
 
