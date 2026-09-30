@@ -116,12 +116,13 @@ def test_overflow(log: logging.Logger) -> None:
 
 def _expand_nested(
     before_include: str | None, after_include: str | None
-) -> str:
+) -> tuple[str, str]:
     """Expand a two-level nested include with the given markers.
 
     :param before_include: Text to insert before each included file.
     :param after_include: Text to insert after each included file.
-    :returns: The fully expanded text.
+    :returns: A (text, dir) tuple, where text is the fully expanded text
+        and dir is the (now deleted) directory that held the files.
     """
     outer = '''|Outer line 1
                |%include "nested1.txt"
@@ -150,7 +151,7 @@ def _expand_nested(
                 before_include=before_include,
                 after_include=after_include,
             )
-            return inc.read()
+            return (inc.read(), dir)
 
 
 def test_before_and_after_include(log: logging.Logger) -> None:
@@ -167,7 +168,8 @@ def test_before_and_after_include(log: logging.Logger) -> None:
            |Outer line 3
            |'''
     )
-    assert _expand_nested("BEGIN\n", "END\n") == expected
+    text, _ = _expand_nested("BEGIN\n", "END\n")
+    assert text == expected
 
 
 def test_before_include_only(log: logging.Logger) -> None:
@@ -182,7 +184,8 @@ def test_before_include_only(log: logging.Logger) -> None:
            |Outer line 3
            |'''
     )
-    assert _expand_nested("BEGIN\n", None) == expected
+    text, _ = _expand_nested("BEGIN\n", None)
+    assert text == expected
 
 
 def test_after_include_only(log: logging.Logger) -> None:
@@ -197,4 +200,62 @@ def test_after_include_only(log: logging.Logger) -> None:
            |Outer line 3
            |'''
     )
-    assert _expand_nested(None, "END\n") == expected
+    text, _ = _expand_nested(None, "END\n")
+    assert text == expected
+
+
+def _expected_with_file_names(dir: str) -> str:
+    """Build the expected expansion when markers contain the file name.
+
+    :param dir: The directory that held the included files.
+    :returns: The expected expanded text.
+    """
+    nested1 = os.path.join(dir, "nested1.txt")
+    nested2 = os.path.join(dir, "nested2.txt")
+    return strip_margin(
+        f'''|Outer line 1
+            |BEGIN {nested1}
+            |Nested 1 line 1
+            |BEGIN {nested2}
+            |Nested 2 line 1
+            |END {nested2}
+            |Nested 1 line 3
+            |END {nested1}
+            |Outer line 3
+            |'''
+    )
+
+
+def test_file_token_substitution(log: logging.Logger) -> None:
+    """Test that $FILE and ${FILE} are replaced with the included file."""
+    text, dir = _expand_nested("BEGIN $FILE\n", "END ${FILE}\n")
+    assert text == _expected_with_file_names(dir)
+
+
+def test_braced_file_token_substitution(log: logging.Logger) -> None:
+    """Test the ${FILE} and $FILE forms in the opposite markers."""
+    text, dir = _expand_nested("BEGIN ${FILE}\n", "END $FILE\n")
+    assert text == _expected_with_file_names(dir)
+
+
+def test_other_tokens_left_alone(log: logging.Logger) -> None:
+    """Test that tokens other than $FILE and ${FILE} are not substituted."""
+    text, dir = _expand_nested(
+        "BEGIN $FILE $HOME ${OTHER} $5 $\n",
+        "END ${FILE} $FILENAME ${FILE_} $\n",
+    )
+    nested1 = os.path.join(dir, "nested1.txt")
+    nested2 = os.path.join(dir, "nested2.txt")
+    expected = strip_margin(
+        f'''|Outer line 1
+            |BEGIN {nested1} $HOME ${{OTHER}} $5 $
+            |Nested 1 line 1
+            |BEGIN {nested2} $HOME ${{OTHER}} $5 $
+            |Nested 2 line 1
+            |END {nested2} $FILENAME ${{FILE_}} $
+            |Nested 1 line 3
+            |END {nested1} $FILENAME ${{FILE_}} $
+            |Outer line 3
+            |'''
+    )
+    assert text == expected

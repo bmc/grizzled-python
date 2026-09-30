@@ -86,6 +86,7 @@ import logging
 import os
 import re
 from io import TextIOBase, UnsupportedOperation
+from string import Template
 from typing import BinaryIO, Iterable, Iterator, Self, TextIO
 
 __docformat__ = "markdown"
@@ -162,8 +163,12 @@ class Includer(TextIOBase):
             level will cause `Includer` to throw an `IncludeError`.
         :param encoding: The encoding to use when opening included files.
             Defaults to "utf-8".
-        :param before_include: Text to insert before each included file, if any.
+        :param before_include: Text to insert before each included file, if
+            any. If the text includes the string $FILE or ${FILE}, it will be
+            replaced with the name of the included file.
         :param after_include: Text to insert after each included file, if any.
+            If the text includes the string $FILE or ${FILE}, it will be
+            replaced with the name of the included file.
         :raises IncludeError: If an error occurs while processing includes.
         """
         super().__init__()
@@ -406,13 +411,15 @@ class Includer(TextIOBase):
             log.debug(f"Found include directive: {line.rstrip()}")
             f, included_name = self._open(match.group(1), filename)
             if self._before_include is not None:
-                buf.append(self._before_include)
+                t = Template(self._before_include)
+                buf.append(t.safe_substitute(FILE=included_name))
 
             with f:
                 self._process_includes(f, included_name, buf, level + 1)
 
             if self._after_include is not None:
-                buf.append(self._after_include)
+                t = Template(self._after_include)
+                buf.append(t.safe_substitute(FILE=included_name))
 
     def _open(
         self: Self, name_to_open: str, enclosing_file: str | None
