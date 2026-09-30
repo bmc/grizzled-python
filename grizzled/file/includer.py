@@ -147,6 +147,8 @@ class Includer(TextIOBase):
         include_regex: str = r'^%include\s"([^"]+)"',
         max_nest_level: int = 100,
         encoding: str = "utf-8",
+        before_include: str | None = None,
+        after_include: str | None = None,
     ):
         """
         Create a new `Includer` object.
@@ -160,6 +162,8 @@ class Includer(TextIOBase):
             level will cause `Includer` to throw an `IncludeError`.
         :param encoding: The encoding to use when opening included files.
             Defaults to "utf-8".
+        :param before_include: Text to insert before each included file, if any.
+        :param after_include: Text to insert after each included file, if any.
         :raises IncludeError: If an error occurs while processing includes.
         """
         super().__init__()
@@ -167,6 +171,8 @@ class Includer(TextIOBase):
         self._encoding = encoding
         self._include_pattern = re.compile(include_regex)
         self._max_nest_level = max_nest_level
+        self._before_include = before_include
+        self._after_include = after_include
         self._name = getattr(source, "name", None)
 
         buf: list[str] = []
@@ -387,8 +393,7 @@ class Includer(TextIOBase):
         log.debug(f'Processing includes in "{filename}"')
 
         for line in file_in:
-            match = self._include_pattern.search(line)
-            if not match:
+            if (match := self._include_pattern.search(line)) is None:
                 buf.append(line)
                 continue
 
@@ -400,8 +405,14 @@ class Includer(TextIOBase):
 
             log.debug(f"Found include directive: {line.rstrip()}")
             f, included_name = self._open(match.group(1), filename)
+            if self._before_include is not None:
+                buf.append(self._before_include)
+
             with f:
                 self._process_includes(f, included_name, buf, level + 1)
+
+            if self._after_include is not None:
+                buf.append(self._after_include)
 
     def _open(
         self: Self, name_to_open: str, enclosing_file: str | None
