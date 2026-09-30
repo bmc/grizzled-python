@@ -168,7 +168,7 @@ def test_before_and_after_include(log: logging.Logger) -> None:
            |Outer line 3
            |'''
     )
-    text, _ = _expand_nested("BEGIN\n", "END\n")
+    text, _ = _expand_nested("BEGIN", "END")
     assert text == expected
 
 
@@ -184,7 +184,7 @@ def test_before_include_only(log: logging.Logger) -> None:
            |Outer line 3
            |'''
     )
-    text, _ = _expand_nested("BEGIN\n", None)
+    text, _ = _expand_nested("BEGIN", None)
     assert text == expected
 
 
@@ -200,7 +200,7 @@ def test_after_include_only(log: logging.Logger) -> None:
            |Outer line 3
            |'''
     )
-    text, _ = _expand_nested(None, "END\n")
+    text, _ = _expand_nested(None, "END")
     assert text == expected
 
 
@@ -228,21 +228,21 @@ def _expected_with_file_names(dir: str) -> str:
 
 def test_file_token_substitution(log: logging.Logger) -> None:
     """Test that $FILE and ${FILE} are replaced with the included file."""
-    text, dir = _expand_nested("BEGIN $FILE\n", "END ${FILE}\n")
+    text, dir = _expand_nested("BEGIN $FILE", "END ${FILE}")
     assert text == _expected_with_file_names(dir)
 
 
 def test_braced_file_token_substitution(log: logging.Logger) -> None:
     """Test the ${FILE} and $FILE forms in the opposite markers."""
-    text, dir = _expand_nested("BEGIN ${FILE}\n", "END $FILE\n")
+    text, dir = _expand_nested("BEGIN ${FILE}", "END $FILE")
     assert text == _expected_with_file_names(dir)
 
 
 def test_other_tokens_left_alone(log: logging.Logger) -> None:
     """Test that tokens other than $FILE and ${FILE} are not substituted."""
     text, dir = _expand_nested(
-        "BEGIN $FILE $HOME ${OTHER} $5 $\n",
-        "END ${FILE} $FILENAME ${FILE_} $\n",
+        "BEGIN $FILE $HOME ${OTHER} $5 $",
+        "END ${FILE} $FILENAME ${FILE_} $",
     )
     nested1 = os.path.join(dir, "nested1.txt")
     nested2 = os.path.join(dir, "nested2.txt")
@@ -259,3 +259,67 @@ def test_other_tokens_left_alone(log: logging.Logger) -> None:
             |'''
     )
     assert text == expected
+
+
+@pytest.mark.parametrize(
+    ("before_include", "after_include", "expected"),
+    [
+        (
+            None,
+            None,
+            '''|Outer line 1
+               |Nested 1 line 1
+               |Nested 2 line 1
+               |Outer line 3
+               |''',
+        ),
+        (
+            "BEGIN",
+            "END",
+            '''|Outer line 1
+               |BEGIN
+               |Nested 1 line 1
+               |BEGIN
+               |Nested 2 line 1
+               |END
+               |END
+               |Outer line 3
+               |''',
+        ),
+    ],
+)
+def test_include_without_trailing_newline(
+    log: logging.Logger,
+    before_include: str | None,
+    after_include: str | None,
+    expected: str,
+) -> None:
+    """Test that an included file's unterminated last line gets a newline.
+
+    nested1.txt ends with an include directive that has no newline, and
+    nested2.txt's only line has no newline.
+    """
+    with TemporaryDirectory() as dir:
+        outer_path = Path(dir) / "outer.txt"
+        all = (
+            (
+                'Outer line 1\n%include "nested1.txt"\nOuter line 3\n',
+                outer_path,
+            ),
+            (
+                'Nested 1 line 1\n%include "nested2.txt"',
+                Path(dir) / "nested1.txt",
+            ),
+            ("Nested 2 line 1", Path(dir) / "nested2.txt"),
+        )
+        for text, path in all:
+            with open(path, mode='w', encoding='utf-8') as f:
+                f.write(text)
+
+        with outer_path.open(mode="r", encoding="utf-8") as f:
+            inc = Includer(
+                f,
+                before_include=before_include,
+                after_include=after_include,
+            )
+            assert inc.read() == strip_margin(expected)

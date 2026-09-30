@@ -139,6 +139,10 @@ class Includer(TextIOBase):
     However, the include directive syntax is controlled by a regular
     expression, so it can be configured.
 
+    NOTE: If an included file does not end with a newline, `Includer` will
+    automatically append one to ensure that the included content does not
+    run into the following text.
+
     See the module documentation for details.
     """
 
@@ -412,14 +416,19 @@ class Includer(TextIOBase):
             f, included_name = self._open(match.group(1), filename)
             if self._before_include is not None:
                 t = Template(self._before_include)
-                buf.append(t.safe_substitute(FILE=included_name))
+                buf.append(t.safe_substitute(FILE=included_name) + "\n")
 
             with f:
                 self._process_includes(f, included_name, buf, level + 1)
 
+            # Ensure the included file's last line is newline-terminated,
+            # so it doesn't run into whatever follows it.
+            if (len(buf) > 0) and (not buf[-1].endswith("\n")):
+                buf.append("\n")
+
             if self._after_include is not None:
                 t = Template(self._after_include)
-                buf.append(t.safe_substitute(FILE=included_name))
+                buf.append(t.safe_substitute(FILE=included_name) + "\n")
 
     def _open(
         self: Self, name_to_open: str, enclosing_file: str | None
